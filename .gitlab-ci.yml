@@ -1,0 +1,20 @@
+stages:
+  - lint
+
+linter:
+  stage: lint
+  image: $CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX/node:19-alpine
+  cache:
+    paths:
+      - node_modules/
+  script:
+    - npm ci
+    - npm run cilint
+  artifacts:
+    expire_in: 1 week
+    reports:
+      codequality: eslint.xml
+  rules:
+    - if: $CI_COMMIT_BRANCH # run on pushes
+    - if: $CI_MERGE_REQUEST_ID # run on merge requests
+  
