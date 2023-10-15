@@ -55,7 +55,12 @@ const ExperienceScene: React.FC<ExperienceSceneProps> = ({ gltfModel }) => {
       zoom={0.7}
       polar={[-0.1, Math.PI / 4]}
     >
-      <Stage environment="city" intensity={0.6} adjustCamera>
+      <Stage
+        preset="soft"
+        environment="studio"
+        intensity={0.2}
+        adjustCamera
+      >
         <primitive object={gltfModel.scene} />
         <mesh position={[1, 0, 0]} onClick={(event) => {
           console.log(event);
@@ -83,8 +88,8 @@ export default function Experience() {
   }
 
   return (
-    <Canvas>
-      <color attach="background" args={["#101010"]} />
+    <Canvas shadows>
+      <color attach="background" args={["#fefefe"]} />
       <ExperienceScene gltfModel={gltfModel} />;
     </Canvas>
   );
