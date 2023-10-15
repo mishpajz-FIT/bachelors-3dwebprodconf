@@ -25,7 +25,10 @@ module.exports = {
           { 'ignore' : ["object", "position", "args", "attach"] }
         ],
     'indent': ['warn', 2],
-    'semi': ['error', 'always'],
+    'semi': ['error', 'always', {
+      'omitLastInOneLineBlock': false,
+      'omitLastInOneLineClassBody': false,
+    }],
     'eol-last': ['warn', 'always'],
     'import/order': [
       'warn',
