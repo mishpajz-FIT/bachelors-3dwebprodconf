@@ -1,22 +1,53 @@
 import { PresentationControls, Stage } from "@react-three/drei";
-import { useLoader } from '@react-three/fiber'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { Mesh, Object3D } from 'three';
+import { Canvas } from "@react-three/fiber";
+import React, { useEffect, useState } from "react";
+import { Material, Mesh, MeshStandardMaterial, Object3D } from 'three';
+import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+
+const useGltfModel = (url: string) => {
+  const [gltfModel, setGltfModel] = useState<GLTF | undefined>(undefined);
+  const [error, setError] = useState<Error | undefined>(undefined);
+
+  useEffect(() => {
+    const loader = new GLTFLoader();
+    loader.load(
+      url,
+      (gltf) => setGltfModel(gltf),
+      undefined,
+      () => setError(new Error("Failed to load the model"))
+    );
+  }, [url]);
+
+  return { gltfModel, error };
+};
 
 const updateMaterialColor = (gltf: GLTF) => {
 
+  const isMesh = (node: Object3D): node is Mesh => {
+    return (node as Mesh).isMesh !== undefined;
+  };
+
+  const setColor = (material: Material) => {
+    if (material instanceof MeshStandardMaterial) {
+      material.color.set(0xffc0cb);
+    }
+  };
+
   gltf.scene.getObjectByName('Pillow_Material_#10_0')?.traverse((node: Object3D) => {
-    if (node instanceof Mesh) {
-      console.log(node);
-      node.material.color.set(0xffc0cb);
+    if (isMesh(node)) {
+      if (Array.isArray(node.material)) {
+        for (const material of node.material) {
+          setColor(material);
+        }
+      } else {
+        setColor(node.material);
+      }
     }
   });
-}
+};
 
-const Experience = () => {
-  const gltf = useLoader(GLTFLoader, 'https://storage.googleapis.com/www.halwa.ca/chair-model/scene.gltf')
-
+interface ExperienceSceneProps { gltfModel: GLTF }
+const ExperienceScene: React.FC<ExperienceSceneProps> = ({ gltfModel }) => {
   return (
     <PresentationControls
       speed={1.5}
@@ -25,17 +56,36 @@ const Experience = () => {
       polar={[-0.1, Math.PI / 4]}
     >
       <Stage environment="city" intensity={0.6} adjustCamera>
-        <primitive object={gltf.scene} />
+        <primitive object={gltfModel.scene} />
         <mesh position={[1, 0, 0]} onClick={(event) => {
           console.log(event);
-          updateMaterialColor(gltf);
+          updateMaterialColor(gltfModel);
         }}>
           <boxGeometry args={[0.2, 0.2, 0.2]} />
           <meshStandardMaterial attach="material" color="blue" />
         </mesh>
       </Stage>
     </PresentationControls>
-    );
-}
+  );
+};
 
-export default Experience;
+export default function Experience() {
+
+  const modelUrl = 'https://storage.googleapis.com/www.halwa.ca/chair-model/scene.gltf';
+  const { gltfModel, error } = useGltfModel(modelUrl);
+
+  if (error) {
+    return <div>Error loading model: {error.message}</div>;
+  }
+
+  if (!gltfModel) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <Canvas>
+      <color attach="background" args={["#101010"]} />
+      <ExperienceScene gltfModel={gltfModel} />;
+    </Canvas>
+  );
+}
