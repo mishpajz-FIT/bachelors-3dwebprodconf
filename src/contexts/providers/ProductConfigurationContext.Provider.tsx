@@ -1,8 +1,8 @@
 import {ReactNode, useEffect, useState} from "react";
 
-import { ProductConfigurationContext } from "./ProductConfigurationContext";
-import {ProductConfiguration} from "../interfaces/ProductConfiguration";
-import {loadProductConfiguration} from "../services/ProductConfigurationLoader";
+import { ProductConfigurationContext } from "../ProductConfigurationContext.ts";
+import {ProductConfiguration} from "../../interfaces/ProductConfiguration.ts";
+import {loadProductConfiguration} from "../../services/ProductConfigurationLoader.ts";
 
 interface ProductConfigurationProviderProps {
     configUrl: string;

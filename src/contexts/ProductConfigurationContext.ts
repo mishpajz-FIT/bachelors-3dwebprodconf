@@ -1,6 +1,6 @@
 import {createContext, useContext} from "react";
 
-import {ProductConfiguration} from "../interfaces/ProductConfiguration";
+import {ProductConfiguration} from "../interfaces/ProductConfiguration.ts";
 
 export const ProductConfigurationContext = createContext<ProductConfiguration| undefined>(undefined);
 
