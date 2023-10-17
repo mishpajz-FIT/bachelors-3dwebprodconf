@@ -1,6 +1,6 @@
 import { PresentationControls, Stage } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Material, Mesh, MeshStandardMaterial, Object3D } from 'three';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
@@ -47,7 +47,8 @@ const updateMaterialColor = (gltf: GLTF) => {
 };
 
 interface ExperienceSceneProps { gltfModel: GLTF }
-const ExperienceScene: React.FC<ExperienceSceneProps> = ({ gltfModel }) => {
+
+const ExperienceScene = ({ gltfModel }: ExperienceSceneProps) => {
   return (
     <PresentationControls
       speed={1.5}
