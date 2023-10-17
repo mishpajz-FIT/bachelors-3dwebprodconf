@@ -12,7 +12,7 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', '@react-three', 'import'],
+  plugins: ['react', 'react-refresh', '@react-three', 'import'],
   rules: {
     'react-refresh/only-export-components': [
       'warn',
@@ -48,4 +48,9 @@ module.exports = {
     project: ['./tsconfig.json', './tsconfig.node.json'],
     tsconfigRootDir: __dirname,
    },
+  settings: {
+    'react': {
+      'version': 'detect',
+    },
+  },
 }

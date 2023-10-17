@@ -12,6 +12,8 @@ interface ProductConfigurationProviderProps {
 export const ProductConfigurationProvider = ({  configUrl, children }: ProductConfigurationProviderProps) => {
   const [productConfiguration, setProductConfiguration] = useState<ProductConfiguration | undefined>(undefined);
 
+  // TODO: add loading states
+
   useEffect(() => {
     const fetchData = async () => {
       try {
