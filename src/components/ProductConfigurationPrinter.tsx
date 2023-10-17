@@ -1,6 +1,5 @@
 import { useProductConfiguration } from '../contexts/ProductConfigurationContext';
 import {useUserProduct} from "../contexts/UserProductContext";
-import {UserProduct} from "../interfaces/UserProduct";
 
 export const ProductConfigurationPrinter = () => {
   const productConfig = useProductConfiguration();
@@ -19,13 +18,6 @@ export const ProductConfigurationPrinter = () => {
         }
         return prevState;
       });
-    } else {
-      const newProduct: UserProduct = {
-        baseComponentId: "0",
-        configuredMaterials: [],
-        attachedComponents: []
-      };
-      setUserProduct(newProduct);
     }
   };
 

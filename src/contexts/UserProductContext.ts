@@ -1,6 +1,6 @@
 import {createContext, Dispatch, SetStateAction, useContext} from "react";
 
-import {UserProduct} from "../interfaces/UserProduct.ts";
+import {UserProduct} from "../interfaces/UserProduct";
 
 export const UserProductContext = createContext<
         [ UserProduct | undefined, Dispatch<SetStateAction<UserProduct | undefined>> ] | undefined

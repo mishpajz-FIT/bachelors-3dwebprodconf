@@ -1,14 +1,20 @@
 import {ReactNode, useState} from "react";
 
-import {UserProductContext} from "../UserProductContext.ts";
-import {UserProduct} from "../../interfaces/UserProduct.ts";
+import {UserProduct} from "../../interfaces/UserProduct";
+import {UserProductContext} from "../UserProductContext";
 
 interface UserProductProviderProps {
     children: ReactNode;
 }
 
 export const UserProductProvider = ({children}: UserProductProviderProps) => {
-  const [userProduct, setUserProduct] = useState<UserProduct | undefined>(undefined);
+  const newProduct: UserProduct = {
+    baseComponentId: "0",
+    configuredMaterials: [],
+    attachedComponents: []
+  };
+    
+  const [userProduct, setUserProduct] = useState<UserProduct | undefined>(newProduct);
 
   return (
     <UserProductContext.Provider value={[userProduct, setUserProduct]}>
