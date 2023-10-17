@@ -8,14 +8,38 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
+    'plugin:@react-three/recommended'
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+  plugins: ['react-refresh', '@react-three', 'import'],
   rules: {
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
+    ],
+    'react/prop-types': 'off',
+    'react/no-unknown-property':
+        [
+          'error',
+          { 'ignore' : ["object", "position", "args", "attach"] }
+        ],
+    'indent': ['warn', 2],
+    'semi': ['error', 'always', {
+      'omitLastInOneLineBlock': false,
+      'omitLastInOneLineClassBody': false,
+    }],
+    'eol-last': ['warn', 'always'],
+    'import/order': [
+      'warn',
+      {
+        groups: [['builtin', 'external'], 'internal', ['parent', 'sibling', 'index']],
+        'newlines-between': 'always',
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+      },
     ],
   },
   parserOptions: {
