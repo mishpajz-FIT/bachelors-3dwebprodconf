@@ -1,8 +1,8 @@
 import {ReactNode, useEffect, useState} from "react";
 
-import { ProductConfigurationContext } from "./ProductConfigurationContext";
-import {ProductConfiguration} from "../interfaces/ProductConfiguration";
-import {loadProductConfiguration} from "../services/ProductConfigurationLoader";
+import {ProductConfiguration} from "../../interfaces/ProductConfiguration";
+import {loadProductConfiguration} from "../../services/ProductConfigurationLoader";
+import { ProductConfigurationContext } from "../ProductConfigurationContext";
 
 interface ProductConfigurationProviderProps {
     configUrl: string;
@@ -11,6 +11,8 @@ interface ProductConfigurationProviderProps {
 
 export const ProductConfigurationProvider = ({  configUrl, children }: ProductConfigurationProviderProps) => {
   const [productConfiguration, setProductConfiguration] = useState<ProductConfiguration | undefined>(undefined);
+
+  // TODO: add loading states
 
   useEffect(() => {
     const fetchData = async () => {

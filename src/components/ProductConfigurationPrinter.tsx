@@ -1,10 +1,32 @@
-import { useProductConfiguration } from '../contexts/ProductConfigurationContext.ts';
+import { useProductConfiguration } from '../contexts/ProductConfigurationContext';
+import {useUserProduct} from "../contexts/UserProductContext";
 
 export const ProductConfigurationPrinter = () => {
   const productConfig = useProductConfiguration();
+  const [userProduct, setUserProduct] = useUserProduct();
+
+  const handleAddComponent = () => {
+    if (userProduct) {
+      setUserProduct(prevState => {
+        if (prevState) {
+          const newBaseComponentId = (parseInt(prevState.baseComponentId, 10) + 1).toString();
+
+          return {
+            ...prevState,
+            baseComponentId: newBaseComponentId
+          };
+        }
+        return prevState;
+      });
+    }
+  };
 
   if (!productConfig) {
     return <p>Loading product configuration...</p>;
+  }
+
+  if (!userProduct) {
+    return <p>Loading user product..</p>;
   }
 
   return (
@@ -15,6 +37,9 @@ export const ProductConfigurationPrinter = () => {
           <h2>{component.name}</h2>
         </div>
       ))}
+      <h1>Selected Products</h1>
+      <h2>{userProduct.baseComponentId}</h2>
+      <button onClick={handleAddComponent}>Add Component</button>
     </div>
   );
 };

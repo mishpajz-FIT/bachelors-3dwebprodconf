@@ -1,7 +1,8 @@
 import './App.css';
 // import Experience from './components/Experience';
 import { ProductConfigurationPrinter } from './components/ProductConfigurationPrinter';
-import { ProductConfigurationProvider } from './contexts/ProductConfigurationContext.Provider';
+import { ProductConfigurationProvider } from './contexts/providers/ProductConfigurationContext.Provider';
+import {UserProductProvider} from "./contexts/providers/UserProductContext.Provider";
 
 function App() {
   return (
@@ -9,7 +10,9 @@ function App() {
       <div className="App">
         {/* <Experience /> */}
         <ProductConfigurationProvider configUrl="/mockConfiguration.json">
-          <ProductConfigurationPrinter />
+          <UserProductProvider>
+            <ProductConfigurationPrinter />
+          </UserProductProvider>
         </ProductConfigurationProvider>
       </div>
     </>

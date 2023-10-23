@@ -10,7 +10,9 @@ linter:
   before_script:
     - apk add --no-cache nodejs npm
   script:
+    - echo "\033[1;35mInstalling dependencies...\033[0m"
     - npm ci
+    - echo "\033[1;35mLinting...\033[0m"
     - npm run cilint
   artifacts:
     expire_in: 1 week

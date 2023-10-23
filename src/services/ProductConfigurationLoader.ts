@@ -1,4 +1,4 @@
-import {ProductConfiguration} from "../interfaces/ProductConfiguration.ts";
+import {ProductConfiguration} from "../interfaces/ProductConfiguration";
 
 export const loadProductConfiguration = async (url: string) : Promise<ProductConfiguration> => {
   try {
