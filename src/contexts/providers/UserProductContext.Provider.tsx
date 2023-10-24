@@ -9,7 +9,7 @@ interface UserProductProviderProps {
 
 export const UserProductProvider = ({children}: UserProductProviderProps) => {
   const newProduct: UserProduct = {
-    baseComponentId: "0",
+    baseComponentId: "comp1",
     configuredMaterials: [],
     attachedComponents: []
   };

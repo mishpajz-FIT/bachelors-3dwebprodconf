@@ -1,17 +1,15 @@
 import './App.css';
-// import Experience from './components/Experience';
-import { ProductConfigurationPrinter } from './components/ProductConfigurationPrinter';
 import { ProductConfigurationProvider } from './contexts/providers/ProductConfigurationContext.Provider';
 import {UserProductProvider} from "./contexts/providers/UserProductContext.Provider";
+import {ProductEditor} from "./components/ProductEditor.tsx";
 
 function App() {
   return (
     <>
       <div className="App">
-        {/* <Experience /> */}
-        <ProductConfigurationProvider configUrl="/mockConfiguration.json">
+        <ProductConfigurationProvider configUrl="/mockConfiguration2.json">
           <UserProductProvider>
-            <ProductConfigurationPrinter />
+            <ProductEditor />
           </UserProductProvider>
         </ProductConfigurationProvider>
       </div>

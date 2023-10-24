@@ -30,7 +30,7 @@ export interface Component {
 export interface Base {
     id: string; // Unique id
     name: string; // Readable name of this base
-    component: string[]; // id of components that can be used as the base
+    component: string; // id of component that can be used as the base
     backgroundUrl: string; // URL to HDRI file for background
 }
 
