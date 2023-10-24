@@ -15,7 +15,8 @@
     "@react-three/fiber": "^8.14.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "three": "^0.157.0"
+    "three": "^0.157.0",
+    "valtio": "^1.11.3"
   },
   "devDependencies": {
     "@react-three/eslint-plugin": "^0.1.1",
@@ -30,6 +31,7 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "eslint-plugin-valtio": "^0.6.2",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   }
