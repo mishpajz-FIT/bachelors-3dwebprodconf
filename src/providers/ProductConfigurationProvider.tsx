@@ -1,7 +1,8 @@
 import {ReactNode, useEffect} from "react";
 import {useSnapshot} from "valtio";
 
-import {loadProductConfigurationIntoStore, productConfigurationStore} from "../stores/store.ts";
+import {loadProductConfigurationIntoStore, ProductConfigurationStore} from "../stores/ProductConfigurationStore.ts";
+
 
 
 interface ProductConfigurationLoaderProps {
@@ -10,7 +11,7 @@ interface ProductConfigurationLoaderProps {
 }
 
 export const ProductConfigurationProvider = ({ configUrl, children }: ProductConfigurationLoaderProps) => {
-  const snap = useSnapshot(productConfigurationStore);
+  const snap = useSnapshot(ProductConfigurationStore);
 
   useEffect(() => {
     if (snap.isLoading) {

@@ -3,6 +3,8 @@ import './App.css';
 import {ProductEditor} from "./components/ProductEditor.tsx";
 import {ProductConfigurationProvider} from "./providers/ProductConfigurationProvider.tsx";
 
+//TODO: Change naming of ProductConfiguration to remove confusion with UserProduct
+
 function App() {
   return (
     <>
