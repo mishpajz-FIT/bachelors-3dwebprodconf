@@ -2,7 +2,7 @@ import { useThree } from "@react-three/fiber";
 
 interface MountingPointButtonProps {
   id: string;
-  position: [number, number, number];
+  position: readonly [number, number, number];
   onClick: (id: string) => void;
 }
 

@@ -1,29 +1,30 @@
-import { Canvas } from "@react-three/fiber";
-
-import {GLTFRenderer} from "./GLTFRenderer.tsx";
-import {MountingPointButton} from "./MountingPointButton.tsx";
-import {useProductConfiguration} from "../contexts/ProductConfigurationContext";
-import {useUserProduct} from "../contexts/UserProductContext.ts";
-import {UserComponent} from "../interfaces/UserProduct.ts";
 import {Box, PresentationControls, Stage} from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import {useSnapshot} from "valtio";
 
+//import {GLTFRenderer} from "./GLTFRenderer.tsx";
+import {MountingPointButton} from "./MountingPointButton.tsx";
+import {UserComponent} from "../interfaces/UserProduct.ts";
+import {productConfigurationStore, userProductStore} from "../stores/store.ts";
+
+type DeepReadonly<T> = {
+  readonly [P in keyof T]: DeepReadonly<T[P]>;
+};
 interface ProductComponentProps {
-  componentId: string;
-  configuredMaterials?: [string, string][];
-  attachedComponents?: UserComponent[];
+  userComponent: DeepReadonly<UserComponent>;
 }
 
-const ProductComponent = ({ componentId, configuredMaterials, attachedComponents = [] }: ProductComponentProps) => {
-  const productConfiguration = useProductConfiguration();
+const ProductComponent = ({ userComponent }: ProductComponentProps) => {
+  const productConfigurationSnap = useSnapshot(productConfigurationStore);
 
-  if (!productConfiguration) {
+  if (!productConfigurationSnap?.productConfiguration) {
     return <div>Loading configuration</div>;
   }
 
-  const component = productConfiguration.components.find(comp => comp.id === componentId);
+  const component = productConfigurationSnap.productConfiguration.components.find(comp => comp.id === userComponent.component);
 
   if (!component) {
-    throw new Error("Component not found!");
+    throw new Error("Component configuration not found!");
   }
 
   return (
@@ -38,12 +39,10 @@ const ProductComponent = ({ componentId, configuredMaterials, attachedComponents
           onClick={() => console.log("new component!") /* Handle adding new component */}
         />
       ))}
-      {attachedComponents.map(attachedComponent => (
+      {userComponent.attachedComponents.map(attachedComponent => (
         <ProductComponent
-          key={attachedComponent.componentId}
-          componentId={attachedComponent.componentId}
-          configuredMaterials={attachedComponent.configuredMaterials}
-          attachedComponents={attachedComponent.attachedComponents}
+          key={attachedComponent.component}
+          userComponent={attachedComponent}
         />
       ))}
     </group>
@@ -51,14 +50,14 @@ const ProductComponent = ({ componentId, configuredMaterials, attachedComponents
 };
 
 export const ProductEditor = () => {
-  const productConfiguration = useProductConfiguration();
-  const [userProduct, setUserProduct] = useUserProduct();
+  const productConfigurationSnap = useSnapshot(productConfigurationStore);
+  const userProductSnap = useSnapshot(userProductStore);
 
-  if (!productConfiguration) {
+  if (!productConfigurationSnap) {
     return <div>Loading configuration</div>;
   }
 
-  if (!userProduct) {
+  if (!userProductSnap) {
     throw new Error("No user product");
   }
 
@@ -77,10 +76,12 @@ export const ProductEditor = () => {
           intensity={0.2}
           adjustCamera
         >
-          <ProductComponent
-            componentId={userProduct.baseComponentId}
-            attachedComponents={userProduct.attachedComponents}
-          />
+          {userProductSnap.userProduct.attachedComponents.map(attachedComp => (
+            <ProductComponent
+              key={attachedComp.component}
+              userComponent={attachedComp}
+            />
+          ))}
         </Stage>
       </PresentationControls>
     </Canvas>
