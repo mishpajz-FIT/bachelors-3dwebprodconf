@@ -13,6 +13,7 @@ export interface ConfigurableMaterial {
 export interface MountingPoint {
     id: string; // Unique id (in given component)
     position: [number, number, number]; // Coordinates
+    rotation: [number, number, number]; // Pitch, yaw, roll in euler angles
     isRequired: boolean; // Does component need to be mounted here?
     obstructedMountingPoints: string[]; // Ids of mounting points that are obstructed by these
     mountableComponents: string[]; // Ids of components that can be mounted

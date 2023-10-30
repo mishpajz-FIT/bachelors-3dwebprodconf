@@ -1,5 +1,6 @@
 import {Box, PresentationControls, Stage} from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import {Euler, MathUtils} from "three";
 import {useSnapshot} from "valtio";
 
 import {MountingPointButton} from "./MountingPointButton.tsx";
@@ -10,12 +11,14 @@ import {
   UserProductStore
 } from "../stores/UserProductStore.ts";
 
+
 interface ProductComponentProps {
   userComponentId: string;
   position?: [number, number, number]
+  rotation?: [number, number, number]
 }
 
-const ProductComponent = ({ userComponentId, position = [0, 0, 0] }: ProductComponentProps) => {
+const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotation = [0, 0, 0] }: ProductComponentProps) => {
   const productOptionsSnap = useSnapshot(ProductOptionsStore);
   const userProductSnap = useSnapshot(UserProductStore);
 
@@ -44,13 +47,24 @@ const ProductComponent = ({ userComponentId, position = [0, 0, 0] }: ProductComp
     attachComponentInStore(userComponentId, mountingPoint, newComponentId);
   };
 
-  const mountingPointPosition = (mountingPointId: string): [number, number, number] | undefined => {
+  const mountingPointLocation = (mountingPointId: string): { position?: [number, number, number], rotation?: [number, number, number] } => {
     const mp = componentOptions.mountingPoints.find(m => m.id === mountingPointId);
-    return mp?.position ? [mp.position[0], mp.position[1], mp.position[2]] : undefined;
+    return {
+      position: mp?.position ? [mp.position[0], mp.position[1], mp.position[2]] : undefined,
+      rotation: mp?.rotation ? [mp.rotation[0], mp.rotation[1], mp.rotation[2]] : undefined,
+    };
   };
 
+  const [rotationX, rotationY, rotationZ] = rotation;
+  const radiansRotation = new Euler(
+    MathUtils.degToRad(rotationX),
+    MathUtils.degToRad(rotationY),
+    MathUtils.degToRad(rotationZ),
+    "XYZ"
+  );
+
   return (
-    <group position={position}>
+    <group position={position} rotation={radiansRotation}>
       {/* This renders the model of the current component */}
       <Box position={[0, 0, 0]} args={[1, 1, 1]} material-color="red" />
       {componentOptions.mountingPoints.map(mp => (
@@ -65,13 +79,17 @@ const ProductComponent = ({ userComponentId, position = [0, 0, 0] }: ProductComp
           }}
         />
       ))}
-      {Object.entries(userComponent.attachedComponents).map(([mountingPointId, attachedComponentId]) => (
-        <ProductComponent
-          key={attachedComponentId}
-          userComponentId={attachedComponentId}
-          position={mountingPointPosition(mountingPointId)}
-        />
-      ))}
+      {Object.entries(userComponent.attachedComponents).map(([mountingPointId, attachedComponentId]) => {
+        const { position, rotation } = mountingPointLocation(mountingPointId);
+        return (
+          <ProductComponent
+            key={attachedComponentId}
+            userComponentId={attachedComponentId}
+            position={position}
+            rotation={rotation}
+          />
+        );
+      })}
     </group>
   );
 };
