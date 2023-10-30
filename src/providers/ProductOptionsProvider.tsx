@@ -1,21 +1,21 @@
 import {ReactNode, useEffect} from "react";
 import {useSnapshot} from "valtio";
 
-import {loadProductConfigurationIntoStore, ProductConfigurationStore} from "../stores/ProductConfigurationStore.ts";
+import {loadProductOptionsIntoStore, ProductOptionsStore} from "../stores/ProductOptionsStore.ts";
 
 
 
-interface ProductConfigurationLoaderProps {
+interface ProductOptionsProviderProps {
   configUrl: string
   children: ReactNode
 }
 
-export const ProductConfigurationProvider = ({ configUrl, children }: ProductConfigurationLoaderProps) => {
-  const snap = useSnapshot(ProductConfigurationStore);
+export const ProductOptionsProvider = ({ configUrl, children }: ProductOptionsProviderProps) => {
+  const snap = useSnapshot(ProductOptionsStore);
 
   useEffect(() => {
     if (snap.isLoading) {
-      loadProductConfigurationIntoStore(configUrl)
+      loadProductOptionsIntoStore(configUrl)
         .catch(error => {
           console.error("Error loading product configuration:", error);
         });

@@ -34,7 +34,7 @@ export interface Base {
     backgroundUrl: string; // URL to HDRI file for background
 }
 
-export interface ProductConfiguration {
+export interface ProductOptions {
     bases: Base[];
     components: Component[];
 }

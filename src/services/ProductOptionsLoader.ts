@@ -1,9 +1,9 @@
-import {ProductConfiguration} from "../interfaces/ProductConfiguration.ts";
+import {ProductOptions} from "../interfaces/ProductOptions.ts";
 
-export const loadProductConfiguration = async (url: string) : Promise<ProductConfiguration> => {
+export const loadProductOptions = async (url: string) : Promise<ProductOptions> => {
   try {
     const response = await fetch(url);
-    const data = await response.json() as ProductConfiguration;
+    const data = await response.json() as ProductOptions;
 
     // TODO: Validate data
 

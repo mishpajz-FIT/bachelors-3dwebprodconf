@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import {useSnapshot} from "valtio";
 
 import {MountingPointButton} from "./MountingPointButton.tsx";
-import {ProductConfigurationStore} from "../stores/ProductConfigurationStore.ts";
+import {ProductOptionsStore} from "../stores/ProductOptionsStore.ts";
 import {
   attachComponentInStore,
   createNewComponentInStore,
@@ -15,10 +15,10 @@ interface ProductComponentProps {
 }
 
 const ProductComponent = ({ userComponentId }: ProductComponentProps) => {
-  const productConfigurationSnap = useSnapshot(ProductConfigurationStore);
+  const productOptionsSnap = useSnapshot(ProductOptionsStore);
   const userProductSnap = useSnapshot(UserProductStore);
 
-  if (!productConfigurationSnap?.productConfiguration) {
+  if (!productOptionsSnap?.productOptions) {
     return <div>Loading configuration</div>;
   }
 
@@ -32,7 +32,7 @@ const ProductComponent = ({ userComponentId }: ProductComponentProps) => {
     throw new Error("User component not found");
   }
 
-  const componentOptions = productConfigurationSnap.productConfiguration.components.find(comp => comp.id === userComponent.component);
+  const componentOptions = productOptionsSnap.productOptions.components.find(comp => comp.id === userComponent.component);
 
   if (!componentOptions) {
     throw new Error("Component options not found!");
@@ -70,10 +70,10 @@ const ProductComponent = ({ userComponentId }: ProductComponentProps) => {
 };
 
 export const ProductEditor = () => {
-  const productConfigurationSnap = useSnapshot(ProductConfigurationStore);
+  const productOptionsSnap = useSnapshot(ProductOptionsStore);
   const userProductSnap = useSnapshot(UserProductStore);
 
-  if (!productConfigurationSnap) {
+  if (!productOptionsSnap) {
     return <div>Loading configuration</div>;
   }
 
