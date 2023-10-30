@@ -12,9 +12,10 @@ import {
 
 interface ProductComponentProps {
   userComponentId: string;
+  position?: [number, number, number]
 }
 
-const ProductComponent = ({ userComponentId }: ProductComponentProps) => {
+const ProductComponent = ({ userComponentId, position = [0, 0, 0] }: ProductComponentProps) => {
   const productOptionsSnap = useSnapshot(ProductOptionsStore);
   const userProductSnap = useSnapshot(UserProductStore);
 
@@ -43,8 +44,13 @@ const ProductComponent = ({ userComponentId }: ProductComponentProps) => {
     attachComponentInStore(userComponentId, mountingPoint, newComponentId);
   };
 
+  const mountingPointPosition = (mountingPointId: string): [number, number, number] | undefined => {
+    const mp = componentOptions.mountingPoints.find(m => m.id === mountingPointId);
+    return mp?.position ? [mp.position[0], mp.position[1], mp.position[2]] : undefined;
+  };
+
   return (
-    <group>
+    <group position={position}>
       {/* This renders the model of the current component */}
       <Box position={[0, 0, 0]} args={[1, 1, 1]} material-color="red" />
       {componentOptions.mountingPoints.map(mp => (
@@ -59,10 +65,11 @@ const ProductComponent = ({ userComponentId }: ProductComponentProps) => {
           }}
         />
       ))}
-      {Object.values(userComponent.attachedComponents).map(attachedComponentId => (
+      {Object.entries(userComponent.attachedComponents).map(([mountingPointId, attachedComponentId]) => (
         <ProductComponent
           key={attachedComponentId}
           userComponentId={attachedComponentId}
+          position={mountingPointPosition(mountingPointId)}
         />
       ))}
     </group>
