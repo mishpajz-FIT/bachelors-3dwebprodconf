@@ -1,9 +1,10 @@
-import {Box, PresentationControls, Stage} from "@react-three/drei";
+import {AdaptiveDpr, Box, Preload, PresentationControls, Stage} from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import {Euler, MathUtils} from "three";
 import {useSnapshot} from "valtio";
 
 import {MountingPointButton} from "./MountingPointButton.tsx";
+import {appConfig} from "../configurations/AppConfig.ts";
 import {ProductOptionsStore} from "../stores/ProductOptionsStore.ts";
 import {
   attachComponentInStore,
@@ -112,7 +113,8 @@ export const ProductEditor = () => {
   }
 
   return (
-    <Canvas shadows style={{ touchAction: 'none' }}>
+    <Canvas style={{ touchAction: 'none' }} orthographic={appConfig.camera.isOrthogonal}>
+      <AdaptiveDpr pixelated />
       <color attach="background" args={["#fefefe"]} />
       <PresentationControls
         speed={1.5}
@@ -132,6 +134,7 @@ export const ProductEditor = () => {
           />
         </Stage>
       </PresentationControls>
+      <Preload all />
     </Canvas>
   );
 };

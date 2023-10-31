@@ -1,6 +1,7 @@
-import {useThree} from "@react-three/fiber";
 import {useRef, useState} from "react";
 import {Mesh} from "three";
+
+import {appConfig} from "../configurations/AppConfig.ts";
 
 interface MountingPointButtonProps {
   id: string;
@@ -9,18 +10,13 @@ interface MountingPointButtonProps {
 }
 
 export const MountingPointButton = ({ id, position, onClick }: MountingPointButtonProps) => {
-  const { viewport } = useThree();
   const meshRef = useRef<Mesh>(null);
   const [hover, setHover] = useState(false);
-
-  // This scales the button size based on the viewport.
-  const scale = viewport.width / 15;
 
   return (
     <mesh
       ref={meshRef}
       position={position}
-      scale={[scale, scale, scale]}
       onClick={() => onClick(id)}
       onPointerOver={(event) => {
         setHover(true);
@@ -34,7 +30,7 @@ export const MountingPointButton = ({ id, position, onClick }: MountingPointButt
 
       <sphereGeometry args={[0.2, 32, 32]} />
       <meshStandardMaterial
-        color={hover ? "#3377ff" : "#0011ff"}
+        color={hover ? appConfig.spacialUi.buttonColors.hover : appConfig.spacialUi.buttonColors.default}
         opacity={0.5}
         transparent={true} />
     </mesh>
