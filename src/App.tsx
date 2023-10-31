@@ -1,19 +1,15 @@
 import './App.css';
-// import Experience from './components/Experience';
-import { ProductConfigurationPrinter } from './components/ProductConfigurationPrinter';
-import { ProductConfigurationProvider } from './contexts/providers/ProductConfigurationContext.Provider';
-import {UserProductProvider} from "./contexts/providers/UserProductContext.Provider";
+
+import {ProductEditor} from "./components/ProductEditor.tsx";
+import {ProductOptionsProvider} from "./providers/ProductOptionsProvider.tsx";
 
 function App() {
   return (
     <>
       <div className="App">
-        {/* <Experience /> */}
-        <ProductConfigurationProvider configUrl="/mockConfiguration.json">
-          <UserProductProvider>
-            <ProductConfigurationPrinter />
-          </UserProductProvider>
-        </ProductConfigurationProvider>
+        <ProductOptionsProvider configUrl="/mockConfiguration2.json">
+          <ProductEditor />
+        </ProductOptionsProvider>
       </div>
     </>
   );

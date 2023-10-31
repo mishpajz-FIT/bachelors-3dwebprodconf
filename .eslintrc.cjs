@@ -8,7 +8,8 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
-    'plugin:@react-three/recommended'
+    'plugin:@react-three/recommended',
+    'plugin:valtio/recommended'
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
@@ -22,7 +23,7 @@ module.exports = {
     'react/no-unknown-property':
         [
           'error',
-          { 'ignore' : ["object", "position", "args", "attach"] }
+          { 'ignore' : ["object", "position", "args", "attach", "rotation", "transparent", "makeDefault"] }
         ],
     'indent': ['warn', 2],
     'semi': ['error', 'always', {

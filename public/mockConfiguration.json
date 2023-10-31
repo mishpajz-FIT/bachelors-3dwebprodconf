@@ -3,7 +3,7 @@
     {
       "id": "base1",
       "name": "Base Model A",
-      "component": ["comp1", "comp2"],
+      "component": "comp1",
       "backgroundUrl": "path/to/hdri/file1"
     },
     {

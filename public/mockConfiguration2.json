@@ -1,0 +1,48 @@
+{
+  "bases": [
+    {
+      "id": "base1",
+      "name": "Base Model A",
+      "component": "comp1",
+      "backgroundUrl": "path/to/hdri/file1"
+    }
+  ],
+  "components": [
+    {
+      "id": "comp1",
+      "name": "Component 1",
+      "price": 50,
+      "modelUrl": "https://storage.googleapis.com/www.halwa.ca/chair-model/scene.gltf",
+      "materials": [
+        {
+          "id": "mat1",
+          "names": ["Pillow_Material_#10_0"],
+          "colorVariations": [
+            {
+              "value": "#FF0000",
+              "price": 5
+            }
+          ]
+        }
+      ],
+      "mountingPoints": [
+        {
+          "id": "mp1",
+          "position": [1, 1, 0],
+          "rotation": [90, 90, 90],
+          "isRequired": true,
+          "obstructedMountingPoints": ["mp2", "mp3"],
+          "mountableComponents": ["comp2", "comp3"]
+        },
+        {
+          "id": "mp2",
+          "position": [1, -1, 0],
+          "rotation": [90, 90, 90],
+          "isRequired": true,
+          "obstructedMountingPoints": ["mp2", "mp3"],
+          "mountableComponents": ["comp2", "comp3"]
+        }
+      ]
+    }
+  ]
+}
