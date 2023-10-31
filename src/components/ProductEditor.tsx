@@ -67,28 +67,33 @@ const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotation = [0
     <group position={position} rotation={radiansRotation}>
       {/* This renders the model of the current component */}
       <Box position={[0, 0, 0]} args={[1, 1, 1]} material-color="red" />
-      {componentOptions.mountingPoints.map(mp => (
-        <MountingPointButton
-          key={mp.id}
-          id={mp.id}
-          position={mp.position}
-          onClick={() => {
-            const newComponentType = "comp1";
-            addNewComponent(mp.id, newComponentType);
-            console.log("new component");
-          }}
-        />
-      ))}
-      {Object.entries(userComponent.attachedComponents).map(([mountingPointId, attachedComponentId]) => {
-        const { position, rotation } = mountingPointLocation(mountingPointId);
-        return (
-          <ProductComponent
-            key={attachedComponentId}
-            userComponentId={attachedComponentId}
-            position={position}
-            rotation={rotation}
-          />
-        );
+      {componentOptions.mountingPoints.map(mp => {
+        const attachedComponentId = userComponent.attachedComponents[mp.id];
+        const { position, rotation } = mountingPointLocation(mp.id);
+
+        if (attachedComponentId) {
+          return (
+            <ProductComponent
+              key={attachedComponentId}
+              userComponentId={attachedComponentId}
+              position={position}
+              rotation={rotation}
+            />
+          );
+        } else {
+          return (
+            <MountingPointButton
+              key={mp.id}
+              id={mp.id}
+              position={mp.position}
+              onClick={() => {
+                const newComponentType = "comp1";
+                addNewComponent(mp.id, newComponentType);
+                console.log("new component");
+              }}
+            />
+          );
+        }
       })}
     </group>
   );

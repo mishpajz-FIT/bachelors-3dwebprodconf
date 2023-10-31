@@ -8,4 +8,4 @@ export const GLTFRenderer = ({ modelUrl }: GLTFRendererProps) => {
   const gltf = useLoader(GLTFLoader, modelUrl) as GLTF;
   
   return <primitive object={gltf.scene}></primitive>;
-}
+};

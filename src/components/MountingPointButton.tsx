@@ -14,7 +14,7 @@ export const MountingPointButton = ({ id, position, onClick }: MountingPointButt
 
   return (
     <mesh position={position} scale={[scale, scale, scale]} onClick={() => onClick(id)}>
-      <sphereGeometry args={[0.5, 32, 32]} />
+      <sphereGeometry args={[0.3, 32, 32]} />
       <meshStandardMaterial color="blue" />
     </mesh>
   );
