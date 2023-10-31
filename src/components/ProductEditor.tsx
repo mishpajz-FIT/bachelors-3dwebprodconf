@@ -1,4 +1,4 @@
-import {AdaptiveDpr, Box, Preload, PresentationControls, Stage} from "@react-three/drei";
+import {AdaptiveDpr, Bounds, Box, Preload, PresentationControls, Stage, useBounds} from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import {Euler, MathUtils} from "three";
 import {useSnapshot} from "valtio";
@@ -20,6 +20,8 @@ interface ProductComponentProps {
 }
 
 const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotation = [0, 0, 0] }: ProductComponentProps) => {
+  const bounds = useBounds();
+
   const productOptionsSnap = useSnapshot(ProductOptionsStore);
   const userProductSnap = useSnapshot(UserProductStore);
 
@@ -46,6 +48,10 @@ const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotation = [0
   const addNewComponent = (mountingPoint: string, newComponent: string) => {
     const newComponentId = createNewComponentInStore(newComponent);
     attachComponentInStore(userComponentId, mountingPoint, newComponentId);
+
+    bounds.refresh();
+    bounds.clip();
+    bounds.fit();
   };
 
   const mountingPointLocation = (mountingPointId: string): { position?: [number, number, number], rotation?: [number, number, number] } => {
@@ -128,10 +134,12 @@ export const ProductEditor = () => {
           intensity={0.2}
           adjustCamera
         >
-          <ProductComponent
-            key={userProductSnap.baseComponentId}
-            userComponentId={userProductSnap.baseComponentId}
-          />
+          <Bounds fit clip observe>
+            <ProductComponent
+              key={userProductSnap.baseComponentId}
+              userComponentId={userProductSnap.baseComponentId}
+            />
+          </Bounds>
         </Stage>
       </PresentationControls>
       <Preload all />
