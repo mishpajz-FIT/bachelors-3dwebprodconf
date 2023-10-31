@@ -1,3 +1,4 @@
+import {Config} from "./config.ts";
 
 export const appConfig: Config = {
   camera: {

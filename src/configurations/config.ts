@@ -1,4 +1,4 @@
-interface Config {
+export interface Config {
   camera: {
     isOrthogonal: boolean;
   };
@@ -8,4 +8,4 @@ interface Config {
       hover: string;
     };
   };
-};
+}
