@@ -2,7 +2,7 @@ import {Config} from "./config.ts";
 
 export const appConfig: Config = {
   camera: {
-    isOrthogonal: true, // set this to true for orthogonal, false for perspective
+    isOrthogonal: false, // set this to true for orthogonal, false for perspective
   },
   spacialUi: {
     buttonColors: {

@@ -1,4 +1,5 @@
 import {Box, useBounds} from "@react-three/drei";
+import {ThreeEvent} from "@react-three/fiber/dist/declarations/src/core/events";
 import {Euler, MathUtils} from "three";
 import {useSnapshot} from "valtio";
 
@@ -40,8 +41,10 @@ export const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotati
     throw new Error("Component options not found!");
   }
 
-  const selectComponent = () => {
+  const selectComponent = (event: ThreeEvent<MouseEvent>) => {
     EditorValuesStore.selectedComponentId = userComponentId;
+
+    event.stopPropagation();
   };
 
   const addNewComponent = (mountingPoint: string, newComponent: string) => {
