@@ -1,3 +1,4 @@
+import {ThreeEvent} from "@react-three/fiber/dist/declarations/src/core/events";
 import {useRef, useState} from "react";
 import {Mesh} from "three";
 
@@ -17,12 +18,15 @@ export const MountingPointButton = ({ id, position, onClick }: MountingPointButt
     <mesh
       ref={meshRef}
       position={position}
-      onClick={() => onClick(id)}
-      onPointerOver={(event) => {
+      onClick={(event: ThreeEvent<MouseEvent>) => {
+        onClick(id);
+        event.stopPropagation();
+      }}
+      onPointerOver={(event: ThreeEvent<PointerEvent>) => {
         setHover(true);
         event.stopPropagation();
       }}
-      onPointerOut={(event) => {
+      onPointerOut={(event: ThreeEvent<PointerEvent>) => {
         setHover(false);
         event.stopPropagation();
       }}
