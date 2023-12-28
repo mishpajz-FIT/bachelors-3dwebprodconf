@@ -29,7 +29,7 @@ export const MountingPointButton = ({ id, position, onClick }: MountingPointButt
         onClick(id);
         event.stopPropagation();
       }}
-      onPointerOver={(event: ThreeEvent<PointerEvent>) => {
+      onPointerEnter={(event: ThreeEvent<PointerEvent>) => {
         hoverRef.current = true;
         updateColor();
         event.stopPropagation();
