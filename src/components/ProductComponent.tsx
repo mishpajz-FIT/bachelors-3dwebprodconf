@@ -1,4 +1,4 @@
-import {useBounds} from "@react-three/drei";
+import {Edges, useBounds} from "@react-three/drei";
 import {ThreeEvent} from "@react-three/fiber/dist/declarations/src/core/events";
 import {Euler, MathUtils} from "three";
 import {useSnapshot} from "valtio";
@@ -75,9 +75,16 @@ export const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotati
   return (
     <group position={position} rotation={radiansRotation}>
       {/* This renders the model of the current component */}
-      <mesh position={[0, 0, 0]} onClick={selectComponent}>
+      <mesh
+          position={[0, 0, 0]}
+            onClick={selectComponent}
+            castShadows={true}
+            recieveShadows={true}>
         <boxGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial color={editorValuesSnap.selectedComponentId === userComponentId ? "green" : "red"} />
+        <meshLambertMaterial color={"orange"} />
+        <Edges visible={userComponentId === editorValuesSnap.selectedComponentId} scale={1.05}>
+          <meshBasicMaterial transparent={true} color={"green"} depthTest={false} />
+        </Edges>
       </mesh>
       {componentOptions.mountingPoints.map(mp => {
         const attachedComponentId = userComponent.attachedComponents[mp.id];
