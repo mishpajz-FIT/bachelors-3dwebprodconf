@@ -1,4 +1,4 @@
-import {Box, useBounds} from "@react-three/drei";
+import {useBounds} from "@react-three/drei";
 import {ThreeEvent} from "@react-three/fiber/dist/declarations/src/core/events";
 import {Euler, MathUtils} from "three";
 import {useSnapshot} from "valtio";
@@ -43,7 +43,7 @@ export const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotati
 
   const selectComponent = (event: ThreeEvent<MouseEvent>) => {
     EditorValuesStore.selectedComponentId = userComponentId;
-
+    console.log("selected " + userComponentId);
     event.stopPropagation();
   };
 
@@ -75,12 +75,10 @@ export const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotati
   return (
     <group position={position} rotation={radiansRotation}>
       {/* This renders the model of the current component */}
-      <Box
-        position={[0, 0, 0]}
-        args={[1, 1, 1]}
-        material-color={editorValuesSnap.selectedComponentId === userComponentId ? "green" : "red"}
-        onClick={selectComponent}
-      />
+      <mesh position={[0, 0, 0]} onClick={selectComponent}>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshStandardMaterial color={editorValuesSnap.selectedComponentId === userComponentId ? "green" : "red"} />
+      </mesh>
       {componentOptions.mountingPoints.map(mp => {
         const attachedComponentId = userComponent.attachedComponents[mp.id];
         const { position, rotation } = mountingPointLocation(mp.id);

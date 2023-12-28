@@ -3,8 +3,6 @@ import {useSnapshot} from "valtio";
 
 import {loadProductOptionsIntoStore, ProductOptionsStore} from "../stores/ProductOptionsStore.ts";
 
-
-
 interface ProductOptionsProviderProps {
   configUrl: string
   children: ReactNode

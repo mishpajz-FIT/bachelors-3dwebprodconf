@@ -1,4 +1,4 @@
-import {AdaptiveDpr, Bounds, Preload, PresentationControls, Stage} from "@react-three/drei";
+import {AdaptiveDpr, Bounds, OrbitControls, Preload, Stage} from "@react-three/drei";
 import {Canvas} from "@react-three/fiber";
 import {useSnapshot} from "valtio";
 
@@ -22,29 +22,26 @@ export const ProductEditor = () => {
   }
 
   return (
-    <Canvas style={{ touchAction: 'none' }} orthographic={appConfig.camera.isOrthogonal}>
+    <Canvas
+      style={{ touchAction: "none", background: "#fefefe" }}
+      orthographic={appConfig.camera.isOrthogonal}
+      camera={{ position: [0, 1.7, 3]}}>
       <AdaptiveDpr pixelated />
-      <color attach="background" args={["#fefefe"]} />
-      <PresentationControls
-        speed={1.5}
-        global
-        zoom={0.7}
-        polar={[-0.1, Math.PI / 4]}
+      <OrbitControls makeDefault={true} />
+      <Stage
+        preset="rembrandt"
+        environment="studio"
+        intensity={0.2}
+        adjustCamera
       >
-        <Stage
-          preset="soft"
-          environment="studio"
-          intensity={0.2}
-          adjustCamera
-        >
-          <Bounds fit clip observe>
-            <ProductComponent
-              key={userProductSnap.baseComponentId}
-              userComponentId={userProductSnap.baseComponentId}
-            />
-          </Bounds>
-        </Stage>
-      </PresentationControls>
+        <Bounds fit clip observe>
+          <ProductComponent
+            key={userProductSnap.baseComponentId}
+            userComponentId={userProductSnap.baseComponentId}
+          />
+        </Bounds>
+      </Stage>
+
       <Preload all />
     </Canvas>
   );
