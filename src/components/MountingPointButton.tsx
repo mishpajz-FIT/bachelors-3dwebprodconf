@@ -1,6 +1,6 @@
 import {ThreeEvent} from "@react-three/fiber/dist/declarations/src/core/events";
 import {useRef} from "react";
-import {MeshStandardMaterial} from "three";
+import {MeshBasicMaterial} from "three";
 
 import {appConfig} from "../configurations/AppConfig.ts";
 
@@ -11,7 +11,7 @@ interface MountingPointButtonProps {
 }
 
 export const MountingPointButton = ({ id, position, onClick }: MountingPointButtonProps) => {
-  const materialRef = useRef<MeshStandardMaterial>(null);
+  const materialRef = useRef<MeshBasicMaterial>(null);
   const hoverRef = useRef(false);
 
   const updateColor = () => {
@@ -42,7 +42,7 @@ export const MountingPointButton = ({ id, position, onClick }: MountingPointButt
     >
 
       <sphereGeometry args={[0.2, 32, 32]} />
-      <meshStandardMaterial
+      <meshBasicMaterial
         ref={materialRef}
         color={hoverRef.current ? appConfig.spacialUi.buttonColors.hover : appConfig.spacialUi.buttonColors.default}
         opacity={0.5}
