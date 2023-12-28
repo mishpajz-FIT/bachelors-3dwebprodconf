@@ -7,6 +7,7 @@ import {MountingPointButton} from "./MountingPointButton.tsx";
 import {EditorValuesStore} from "../stores/EditorValuesStore.ts";
 import {ProductOptionsStore} from "../stores/ProductOptionsStore.ts";
 import {attachComponentInStore, createNewComponentInStore, UserProductStore} from "../stores/UserProductStore.ts";
+import {appConfig} from "../configurations/AppConfig.ts";
 
 interface ProductComponentProps {
   userComponentId: string;
@@ -83,7 +84,7 @@ export const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotati
         <boxGeometry args={[1, 1, 1]} />
         <meshLambertMaterial color={"orange"} />
         <Edges visible={userComponentId === editorValuesSnap.selectedComponentId} scale={1.05}>
-          <meshBasicMaterial transparent={true} color={"green"} depthTest={false} />
+          <meshBasicMaterial transparent={true} color={appConfig.spacialUi.selectionColors.outline} depthTest={false} />
         </Edges>
       </mesh>
       {componentOptions.mountingPoints.map(mp => {
