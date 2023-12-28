@@ -23,7 +23,20 @@ module.exports = {
     'react/no-unknown-property':
         [
           'error',
-          { 'ignore' : ["object", "position", "args", "attach", "rotation", "transparent", "makeDefault"] }
+          { 'ignore' : [
+              "object",
+              "position",
+              "args",
+              "attach",
+              "rotation",
+              "transparent",
+              "makeDefault",
+              "intensity",
+              "groundColor",
+              "castShadow",
+              "receiveShadow",
+              "depthTest"
+            ] }
         ],
     'indent': ['warn', 2],
     'semi': ['error', 'always', {

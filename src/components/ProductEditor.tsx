@@ -4,9 +4,7 @@ import {
   ContactShadows,
   Environment,
   OrbitControls,
-  Preload,
-  Stage,
-  Stats
+  Preload, Stats
 } from "@react-three/drei";
 import {Canvas} from "@react-three/fiber";
 import {useSnapshot} from "valtio";
@@ -41,20 +39,31 @@ export const ProductEditor = () => {
       <Environment preset="studio" />
       <ambientLight intensity={0.3} />
       <hemisphereLight
-        skyColor={"#ffffff"}
+        color={"#ffffff"}
         groundColor={"#bbbbbb"}
         intensity={0.5} />
       <directionalLight
-        castShadow={true}
-        position={[2, 2, 5]} // Adjust position for better shadow casting
-        intensity={0.7} // Adjust intensity
+        position={[2, 2, 5]}
+        intensity={0.7}
       />
       <Bounds fit clip observe>
         <ProductComponent
           key={userProductSnap.baseComponentId}
           userComponentId={userProductSnap.baseComponentId}
         />
+
       </Bounds>
+      {appConfig.shadows.floorShadow ?
+        <ContactShadows
+          position={[0, -0.5, 0]}
+          scale={10}
+          blur={1.5}
+          far={1}
+          opacity={0.4}/> :
+        <mesh position={[0, -0.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          <planeGeometry args={[15, 15]} />
+          <meshPhysicalMaterial color={"white"} />
+        </mesh>}
       <Preload all />
       <Stats />
     </Canvas>

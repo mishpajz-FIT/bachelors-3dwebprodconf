@@ -4,6 +4,9 @@ export const appConfig: Config = {
   camera: {
     isOrthogonal: false,
   },
+  shadows: {
+    floorShadow: false,
+  },
   spacialUi: {
     buttonColors: {
       default: "#0011ff",
