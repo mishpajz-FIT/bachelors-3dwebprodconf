@@ -100,8 +100,8 @@ export const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotati
               position={mp.position}
               onClick={() => {
                 const newComponentType = "comp1";
+                console.log("new component" + newComponentType + " " + mp.id + " " + userComponentId);
                 addNewComponent(mp.id, newComponentType);
-                console.log("new component");
               }}
             />
           );

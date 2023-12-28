@@ -1,4 +1,4 @@
-import {AdaptiveDpr, Bounds, OrbitControls, Preload, Stage} from "@react-three/drei";
+import {AdaptiveDpr, Bounds, OrbitControls, Preload, Stage, Stats} from "@react-three/drei";
 import {Canvas} from "@react-three/fiber";
 import {useSnapshot} from "valtio";
 
@@ -41,8 +41,8 @@ export const ProductEditor = () => {
           />
         </Bounds>
       </Stage>
-
       <Preload all />
+      <Stats />
     </Canvas>
   );
 };
