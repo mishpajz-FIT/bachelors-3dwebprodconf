@@ -11,7 +11,7 @@ module.exports = {
     'plugin:@react-three/recommended',
     'plugin:valtio/recommended'
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'postcss.config.js', 'tailwind.config.js'],
   parser: '@typescript-eslint/parser',
   plugins: ['react', 'react-refresh', '@react-three', 'import'],
   rules: {
