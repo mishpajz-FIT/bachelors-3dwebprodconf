@@ -9,7 +9,8 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:@react-three/recommended',
-    'plugin:valtio/recommended'
+    'plugin:valtio/recommended',
+    'plugin:tailwindcss/recommended'
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs', 'postcss.config.js', 'tailwind.config.js'],
   parser: '@typescript-eslint/parser',
