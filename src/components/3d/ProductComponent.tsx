@@ -4,10 +4,10 @@ import {Euler, MathUtils} from "three";
 import {useSnapshot} from "valtio";
 
 import {MountingPointButton} from "./MountingPointButton.tsx";
-import {appConfig} from "../configurations/AppConfig.ts";
-import {EditorValuesStore} from "../stores/EditorValuesStore.ts";
-import {ProductOptionsStore} from "../stores/ProductOptionsStore.ts";
-import {attachComponentInStore, createNewComponentInStore, UserProductStore} from "../stores/UserProductStore.ts";
+import {appConfig} from "../../configurations/AppConfig.ts";
+import {EditorValuesStore} from "../../stores/EditorValuesStore.ts";
+import {ProductOptionsStore} from "../../stores/ProductOptionsStore.ts";
+import {attachComponentInStore, createNewComponentInStore, UserProductStore} from "../../stores/UserProductStore.ts";
 
 interface ProductComponentProps {
   userComponentId: string;

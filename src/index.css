@@ -1,3 +1,6 @@
+@import "./styles/buttons.css";
+@import "./styles/panels.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

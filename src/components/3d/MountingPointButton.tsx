@@ -2,7 +2,7 @@ import {ThreeEvent} from "@react-three/fiber/dist/declarations/src/core/events";
 import {useRef} from "react";
 import {MeshBasicMaterial} from "three";
 
-import {appConfig} from "../configurations/AppConfig.ts";
+import {appConfig} from "../../configurations/AppConfig.ts";
 
 interface MountingPointButtonProps {
   id: string;

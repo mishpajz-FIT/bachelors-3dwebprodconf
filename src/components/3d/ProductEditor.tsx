@@ -10,11 +10,11 @@ import {Canvas} from "@react-three/fiber";
 import {useSnapshot} from "valtio";
 
 import {ProductComponent} from "./ProductComponent.tsx";
-import {appConfig} from "../configurations/AppConfig.ts";
-import {ProductOptionsStore} from "../stores/ProductOptionsStore.ts";
+import {appConfig} from "../../configurations/AppConfig.ts";
+import {ProductOptionsStore} from "../../stores/ProductOptionsStore.ts";
 import {
   UserProductStore
-} from "../stores/UserProductStore.ts";
+} from "../../stores/UserProductStore.ts";
 
 export const ProductEditor = () => {
   const productOptionsSnap = useSnapshot(ProductOptionsStore);
