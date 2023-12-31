@@ -1,52 +1,29 @@
-import {ThreeEvent} from "@react-three/fiber/dist/declarations/src/core/events";
-import {useRef} from "react";
-import {MeshBasicMaterial} from "three";
+import {PlusIcon} from "@heroicons/react/20/solid";
+import {Html} from "@react-three/drei";
+import {useState} from "react";
 
-import {appConfig} from "../../configurations/AppConfig.ts";
+import {ComponentMount} from "../2d/ComponentMount.tsx";
+import {Modal} from "../2d/Modal.tsx";
 
 interface MountingPointButtonProps {
   id: string;
   position: readonly [number, number, number];
-  onClick: (id: string) => void;
+  add: (id: string) => void;
 }
 
-export const MountingPointButton = ({ id, position, onClick }: MountingPointButtonProps) => {
-  const materialRef = useRef<MeshBasicMaterial>(null);
-  const hoverRef = useRef(false);
+export const MountingPointButton = ({ id, position, add }: MountingPointButtonProps) => {
 
-  const updateColor = () => {
-    if (materialRef.current) {
-      materialRef.current.color.set(
-        hoverRef.current ? appConfig.spacialUi.buttonColors.hover : appConfig.spacialUi.buttonColors.default
-      );
-    }
-  };
+  const [isModalOpen, setModalOpen] = useState(false);
 
   return (
-    <mesh
-      position={position}
-      onClick={(event: ThreeEvent<MouseEvent>) => {
-        onClick(id);
-        event.stopPropagation();
-      }}
-      onPointerEnter={(event: ThreeEvent<PointerEvent>) => {
-        hoverRef.current = true;
-        updateColor();
-        event.stopPropagation();
-      }}
-      onPointerOut={(event: ThreeEvent<PointerEvent>) => {
-        hoverRef.current = false;
-        updateColor();
-        event.stopPropagation();
-      }}
-    >
+    <Html position={position}>
+      <button className="secondary-button" onClick={() => setModalOpen(true)}>
+        <PlusIcon className="h-4 w-4" />
+      </button>
 
-      <sphereGeometry args={[0.2, 32, 32]} />
-      <meshBasicMaterial
-        ref={materialRef}
-        color={hoverRef.current ? appConfig.spacialUi.buttonColors.hover : appConfig.spacialUi.buttonColors.default}
-        opacity={0.5}
-        transparent={true} />
-    </mesh>
+      <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
+        <ComponentMount closeModal={() => setModalOpen(false)} />
+      </Modal>
+    </Html>
   );
 };
