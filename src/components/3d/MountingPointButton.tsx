@@ -17,7 +17,7 @@ export const MountingPointButton = ({ position, isRequired, mountableComponents,
   const [isModalOpen, setModalOpen] = useState(false);
 
   return (
-    <Html position={position}>
+    <Html position={position} zIndexRange={[50, 0]}>
       <button
         className={`secondary-button ${ isRequired ? "outline outline-1 outline-offset-1 outline-red-400" : "" }`}
         onClick={() => setModalOpen(true)}>

@@ -29,43 +29,46 @@ export const ProductEditor = () => {
   }
 
   return (
-    <Canvas
-      shadows={true}
-      style={{ touchAction: "none", background: "#fefefe" }}
-      orthographic={appConfig.camera.isOrthogonal}
-      camera={{ position: [0, 1.7, 3]}}>
-      <AdaptiveDpr pixelated />
-      <OrbitControls makeDefault={true} />
-      <Environment preset="studio" />
-      <ambientLight intensity={0.3} />
-      <hemisphereLight
-        color={"#ffffff"}
-        groundColor={"#bbbbbb"}
-        intensity={0.5} />
-      <directionalLight
-        position={[2, 2, 5]}
-        intensity={0.7}
-      />
-      <Bounds fit clip observe margin={2}>
-        <ProductComponent
-          key={userProductSnap.baseComponentId}
-          userComponentId={userProductSnap.baseComponentId}
+    <>
+      <div id="three-html-root" style={{ zIndex: 10 }} />
+      <Canvas
+        shadows={true}
+        style={{ touchAction: "none", background: "#fefefe" }}
+        orthographic={appConfig.camera.isOrthogonal}
+        camera={{ position: [0, 1.7, 3]}}>
+        <AdaptiveDpr pixelated />
+        <OrbitControls makeDefault={true} />
+        <Environment preset="studio" />
+        <ambientLight intensity={0.3} />
+        <hemisphereLight
+          color={"#ffffff"}
+          groundColor={"#bbbbbb"}
+          intensity={0.5} />
+        <directionalLight
+          position={[2, 2, 5]}
+          intensity={0.7}
         />
+        <Bounds fit clip observe margin={2}>
+          <ProductComponent
+            key={userProductSnap.baseComponentId}
+            userComponentId={userProductSnap.baseComponentId}
+          />
 
-      </Bounds>
-      {appConfig.shadows.floorShadow ?
-        <ContactShadows
-          position={[0, -0.5, 0]}
-          scale={10}
-          blur={1.5}
-          far={1}
-          opacity={0.4}/> :
-        <mesh position={[0, -0.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <planeGeometry args={[15, 15]} />
-          <meshPhysicalMaterial color={"white"} />
-        </mesh>}
-      <Preload all />
-      <Stats />
-    </Canvas>
+        </Bounds>
+        {appConfig.shadows.floorShadow ?
+          <ContactShadows
+            position={[0, -0.5, 0]}
+            scale={10}
+            blur={1.5}
+            far={1}
+            opacity={0.4}/> :
+          <mesh position={[0, -0.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+            <planeGeometry args={[15, 15]} />
+            <meshPhysicalMaterial color={"white"} />
+          </mesh>}
+        <Preload all />
+        <Stats />
+      </Canvas>
+    </>
   );
 };

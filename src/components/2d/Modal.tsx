@@ -16,7 +16,7 @@ export const Modal = ({ isOpen, onClose, isPopupOpen, children } : ModalProps) =
 
   return (
     <Transition show={isOpen} as={Fragment}>
-      <Dialog as="div" className="fixed inset-0 z-50 overflow-y-auto" open={isOpen} onClose={handleClose}>
+      <Dialog as="div" className="fixed inset-0 z-[100] overflow-y-auto" open={isOpen} onClose={handleClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
