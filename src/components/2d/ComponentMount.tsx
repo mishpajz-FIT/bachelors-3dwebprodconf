@@ -1,11 +1,15 @@
-import {useEffect, useRef, useState, WheelEventHandler} from "react";
 import {XMarkIcon} from "@heroicons/react/20/solid";
+import {useEffect, useRef, useState, WheelEventHandler} from "react";
+
+import {ComponentMountTile} from "./ComponentMountTile.tsx";
 
 interface ComponentMountProps {
-  closeModal: () => void
+  mountableComponents: readonly string[]
+  close: () => void
+  add: (id: string) => void
 }
 
-export const ComponentMount = ({closeModal} : ComponentMountProps) => {
+export const ComponentMount = ({mountableComponents, close, add} : ComponentMountProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
 
@@ -34,7 +38,7 @@ export const ComponentMount = ({closeModal} : ComponentMountProps) => {
   return (
     <>
       <div className="flex justify-end px-2 pt-2">
-        <button className="other-button" onClick={closeModal}>
+        <button className="other-button" onClick={close}>
           <span className="sr-only">Close</span>
           <XMarkIcon className="h-4 w-4" />
         </button>
@@ -42,7 +46,15 @@ export const ComponentMount = ({closeModal} : ComponentMountProps) => {
 
       <div ref={containerRef} onWheel={onWheel} className="flex items-center space-x-2 overflow-x-auto px-4 py-2">
 
-        {/* TODO insert content */}
+        {mountableComponents.map((componentProductId) => (
+          <ComponentMountTile
+            key={componentProductId}
+            componentProductId={componentProductId}
+            add={() => {
+              add(componentProductId);
+              close();
+            }}/>
+        ))}
 
         {isOverflowing &&
           (<div className="pointer-events-none absolute bottom-4 right-0 top-10 w-14 bg-gradient-to-r from-white/0 to-white dark:from-gray-900/0 dark:to-gray-900" />)}

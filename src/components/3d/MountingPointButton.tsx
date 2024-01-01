@@ -6,23 +6,29 @@ import {ComponentMount} from "../2d/ComponentMount.tsx";
 import {Modal} from "../2d/Modal.tsx";
 
 interface MountingPointButtonProps {
-  id: string;
-  position: readonly [number, number, number];
-  add: (id: string) => void;
+  position: readonly [number, number, number]
+  isRequired: boolean
+  mountableComponents: readonly string[]
+  add: (id: string) => void
 }
 
-export const MountingPointButton = ({ id, position, add }: MountingPointButtonProps) => {
+export const MountingPointButton = ({ position, isRequired, mountableComponents, add }: MountingPointButtonProps) => {
 
   const [isModalOpen, setModalOpen] = useState(false);
 
   return (
     <Html position={position}>
-      <button className="secondary-button" onClick={() => setModalOpen(true)}>
+      <button
+        className={`secondary-button ${ isRequired ? "outline outline-1 outline-offset-1 outline-red-400" : "" }`}
+        onClick={() => setModalOpen(true)}>
         <PlusIcon className="h-4 w-4" />
       </button>
 
       <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
-        <ComponentMount closeModal={() => setModalOpen(false)} />
+        <ComponentMount
+          mountableComponents={mountableComponents}
+          close={() => setModalOpen(false)}
+          add={add} />
       </Modal>
     </Html>
   );

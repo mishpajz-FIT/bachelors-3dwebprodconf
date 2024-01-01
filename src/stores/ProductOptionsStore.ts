@@ -1,11 +1,25 @@
 import {proxy} from "valtio";
 
-import {ProductOptions} from "../interfaces/ProductOptions.ts";
+import {Base, Component} from "../interfaces/ProductOptions.ts";
 import {loadProductOptions} from "../services/ProductOptionsLoader.ts";
 
 export const loadProductOptionsIntoStore = async (configUrl: string) => {
+  ProductOptionsStore.isLoading = true;
   try {
-    ProductOptionsStore.productOptions = await loadProductOptions(configUrl);
+    const productOptions = await loadProductOptions(configUrl);
+
+    const bases = new Map<string, Base>;
+    productOptions.bases.forEach(base => {
+      bases.set(base.baseId, base);
+    });
+    ProductOptionsStore.bases = bases;
+
+    const components = new Map<string, Component>;
+    productOptions.components.forEach(component => {
+      components.set(component.productId, component);
+    });
+    ProductOptionsStore.components = components;
+
   } catch (error) {
     if (error instanceof Error) {
       ProductOptionsStore.error = error;
@@ -15,7 +29,8 @@ export const loadProductOptionsIntoStore = async (configUrl: string) => {
 };
 
 export const ProductOptionsStore = proxy({
-  productOptions: undefined as ProductOptions | undefined,
+  components: new Map<string, Component>(),
+  bases: new Map<string, Base>(),
   isLoading: true,
   error: null as Error | null,
 });

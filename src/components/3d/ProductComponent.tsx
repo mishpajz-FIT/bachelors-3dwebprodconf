@@ -7,12 +7,12 @@ import {MountingPointButton} from "./MountingPointButton.tsx";
 import {appConfig} from "../../configurations/AppConfig.ts";
 import {EditorValuesStore} from "../../stores/EditorValuesStore.ts";
 import {ProductOptionsStore} from "../../stores/ProductOptionsStore.ts";
-import {attachComponentInStore, createNewComponentInStore, UserProductStore} from "../../stores/UserProductStore.ts";
+import {mountComponentInStore, createNewComponent, UserProductStore} from "../../stores/UserProductStore.ts";
 
 interface ProductComponentProps {
   userComponentId: string;
-  position?: [number, number, number]
-  rotation?: [number, number, number]
+  position?: readonly [number, number, number]
+  rotation?: readonly [number, number, number]
 }
 
 export const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotation = [0, 0, 0] }: ProductComponentProps) => {
@@ -22,7 +22,7 @@ export const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotati
   const userProductSnap = useSnapshot(UserProductStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 
-  if (!productOptionsSnap?.productOptions) {
+  if (productOptionsSnap?.isLoading) {
     return <div>Loading configuration</div>;
   }
 
@@ -36,7 +36,7 @@ export const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotati
     throw new Error("User component not found");
   }
 
-  const componentOptions = productOptionsSnap.productOptions.components.find(comp => comp.id === userComponent.component);
+  const componentOptions = productOptionsSnap.components.get(userComponent.componentProductId);
 
   if (!componentOptions) {
     throw new Error("Component options not found!");
@@ -48,21 +48,13 @@ export const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotati
     event.stopPropagation();
   };
 
-  const addNewComponent = (mountingPoint: string, newComponent: string) => {
-    const newComponentId = createNewComponentInStore(newComponent);
-    attachComponentInStore(userComponentId, mountingPoint, newComponentId);
+  const addNewComponent = (mountingPoint: string, newComponentProductId: string) => {
+    const newComponentId = createNewComponent(newComponentProductId);
+    mountComponentInStore(userComponentId, mountingPoint, newComponentId);
 
     bounds.refresh();
     bounds.clip();
     bounds.fit();
-  };
-
-  const mountingPointLocation = (mountingPointId: string): { position?: [number, number, number], rotation?: [number, number, number] } => {
-    const mp = componentOptions.mountingPoints.find(m => m.id === mountingPointId);
-    return {
-      position: mp?.position ? [mp.position[0], mp.position[1], mp.position[2]] : undefined,
-      rotation: mp?.rotation ? [mp.rotation[0], mp.rotation[1], mp.rotation[2]] : undefined,
-    };
   };
 
   const [rotationX, rotationY, rotationZ] = rotation;
@@ -86,28 +78,27 @@ export const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotati
         </Edges>
       </mesh>
       {componentOptions.mountingPoints.map(mp => {
-        const attachedComponentId = userComponent.attachedComponents[mp.id];
-        const { position, rotation } = mountingPointLocation(mp.id);
+        const attachedComponentId = userComponent.attachedComponents[mp.mountingPointId];
 
         if (attachedComponentId) {
           return (
             <ProductComponent
               key={attachedComponentId}
               userComponentId={attachedComponentId}
-              position={position}
-              rotation={rotation}
+              position={mp.position}
+              rotation={mp.rotation}
             />
           );
         } else {
           return (
             <MountingPointButton
-              key={mp.id}
-              id={mp.id}
+              key={mp.mountingPointId}
               position={mp.position}
-              add={() => {
-                const newComponentType = "comp1";
-                console.log("new component" + newComponentType + " " + mp.id + " " + userComponentId);
-                addNewComponent(mp.id, newComponentType);
+              isRequired={mp.isRequired}
+              mountableComponents={mp.mountableComponents}
+              add={(newComponentProductId: string) => {
+                console.log("new component" + newComponentProductId + " " + mp.mountingPointId + " " + userComponentId);
+                addNewComponent(mp.mountingPointId, newComponentProductId);
               }}
             />
           );
