@@ -32,6 +32,7 @@ export const ComponentMountTile = memo(({componentProductId, add}: ComponentMoun
 
   //TODO: create component details
 
+  //TODO: use suspense
   return (
     <div
       className={`flex h-[150px] w-[350px] shrink-0 justify-start select-none rounded-md border border-gray-200 p-4 dark:border-gray-700 ${

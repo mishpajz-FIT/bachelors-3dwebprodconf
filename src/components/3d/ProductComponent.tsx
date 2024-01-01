@@ -43,9 +43,15 @@ export const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotati
   }
 
   const selectComponent = (event: ThreeEvent<MouseEvent>) => {
-    EditorValuesStore.selectedComponentId = userComponentId;
-    console.log("selected " + userComponentId);
     event.stopPropagation();
+    console.log("selected " + userComponentId);
+
+    if (EditorValuesStore.selectedComponentId === userComponentId) {
+      EditorValuesStore.selectedComponentId = undefined;
+      return;
+    }
+
+    EditorValuesStore.selectedComponentId = userComponentId;
   };
 
   const addNewComponent = (mountingPoint: string, newComponentProductId: string) => {
