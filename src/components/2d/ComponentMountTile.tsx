@@ -35,7 +35,7 @@ export const ComponentMountTile = memo(({componentProductId, add}: ComponentMoun
   //TODO: use suspense
   return (
     <div
-      className={`flex h-[150px] w-[350px] shrink-0 justify-start select-none rounded-md border border-gray-200 p-4 dark:border-gray-700 ${
+      className={`flex h-[150px] w-[350px] shrink-0 select-none justify-start rounded-md border border-gray-200 p-4 dark:border-gray-700 ${
         !isButtonHovered ? "transition-all duration-150 ease-in-out hover:bg-gray-100 active:scale-95 active:shadow-inner dark:hover:bg-gray-800" : ""}`}
       onClick={add}>
       {!imageError && (
