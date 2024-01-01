@@ -46,7 +46,7 @@ export const ProductEditor = () => {
         position={[2, 2, 5]}
         intensity={0.7}
       />
-      <Bounds fit clip observe>
+      <Bounds fit clip observe margin={2}>
         <ProductComponent
           key={userProductSnap.baseComponentId}
           userComponentId={userProductSnap.baseComponentId}

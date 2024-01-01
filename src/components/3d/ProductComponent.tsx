@@ -53,6 +53,9 @@ export const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotati
     mountComponentInStore(userComponentId, mountingPoint, newComponentId);
 
     bounds.refresh();
+    if (appConfig.camera.isOrthogonal) {
+      bounds.reset();
+    }
     bounds.clip();
     bounds.fit();
   };
