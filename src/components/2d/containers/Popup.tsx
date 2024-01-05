@@ -1,10 +1,10 @@
 import {Dialog, Transition} from "@headlessui/react";
-import React, {Fragment} from "react";
+import {Fragment, ReactNode} from "react";
 
 interface PopupProps {
     isOpen: boolean;
     onClose: () => void;
-    children?: React.ReactNode
+    children?: ReactNode
 }
 
 export const Popup = ({isOpen, onClose, children} : PopupProps) => {

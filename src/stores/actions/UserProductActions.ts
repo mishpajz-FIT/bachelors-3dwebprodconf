@@ -3,18 +3,6 @@ import {v4 as uuid} from "uuid";
 import {ProductOptionsStore} from "../ProductOptionsStore.ts";
 import {UserProductStore} from "../UserProductStore.ts";
 
-export const createNewComponent = (componentProductId: string): string => {
-  const newComponentId = uuid();
-
-  UserProductStore.components[newComponentId] = {
-    componentProductId: componentProductId,
-    configuredMaterials: {},
-    attachedComponents: {}
-  };
-
-  return newComponentId;
-};
-
 const recursiveRemoveComponent = (componentId: string) => {
   const component = UserProductStore.components[componentId];
 
@@ -57,6 +45,18 @@ const detectRecursiveComponentCycle = (sourceComponentId: string, targetComponen
   }
 
   return false;
+};
+
+export const createNewComponent = (componentProductId: string): string => {
+  const newComponentId = uuid();
+
+  UserProductStore.components[newComponentId] = {
+    componentProductId: componentProductId,
+    configuredMaterials: {},
+    attachedComponents: {}
+  };
+
+  return newComponentId;
 };
 
 export const mountComponent = (targetComponentId: string, mountingPointId: string, mountComponentId: string) => {

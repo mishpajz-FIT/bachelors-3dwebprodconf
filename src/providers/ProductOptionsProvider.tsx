@@ -1,7 +1,9 @@
 import {ReactNode, useEffect} from "react";
 import {useSnapshot} from "valtio";
 
-import {loadProductOptionsIntoStore, ProductOptionsStore} from "../stores/ProductOptionsStore.ts";
+import {loadProductOptions} from "../services/ProductOptionsLoader.ts";
+import {storeProductOptions} from "../stores/actions/ProductOptionsActions.ts";
+import {ProductOptionsStore} from "../stores/ProductOptionsStore.ts";
 
 interface ProductOptionsProviderProps {
   configUrl: string
@@ -13,7 +15,7 @@ export const ProductOptionsProvider = ({ configUrl, children }: ProductOptionsPr
 
   useEffect(() => {
     if (snap.isLoading) {
-      loadProductOptionsIntoStore(configUrl)
+      storeProductOptions(() => loadProductOptions(configUrl))
         .catch(error => {
           console.error("Error loading product configuration:", error);
         });

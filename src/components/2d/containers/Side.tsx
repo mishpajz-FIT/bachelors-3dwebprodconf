@@ -1,9 +1,9 @@
 import {Transition} from "@headlessui/react";
-import React, {Fragment} from "react";
+import {Fragment, ReactNode} from "react";
 
 interface SideProps {
   isOpen: boolean;
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 export const Side = ({isOpen, children} : SideProps) => {

@@ -1,11 +1,11 @@
 import {Dialog, Transition} from "@headlessui/react";
-import React, {Fragment} from "react";
+import {Fragment, ReactNode} from "react";
 
 interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
     isPopupOpen?: boolean
-    children?: React.ReactNode
+    children?: ReactNode
 }
 export const Modal = ({ isOpen, onClose, isPopupOpen, children } : ModalProps) => {
   const handleClose = () => {
