@@ -39,7 +39,7 @@ export const AddComponent = ({mountableComponents, onClose, add} : AddComponentP
     <>
       <ContainerHeader title={"Add component"} onClose={onClose} />
 
-      <div ref={containerRef} onWheel={onWheel} className="flex items-center space-x-2 overflow-x-auto px-4 py-2">
+      <div ref={containerRef} onWheel={onWheel} className="flex items-center space-x-2 overflow-x-scroll px-4 py-2">
 
         {mountableComponents.map((componentProductId) => (
           <AddComponentTile
