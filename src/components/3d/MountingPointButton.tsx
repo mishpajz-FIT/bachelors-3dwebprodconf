@@ -27,7 +27,7 @@ export const MountingPointButton = ({ position, isRequired, mountableComponents,
       <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
         <ComponentMount
           mountableComponents={mountableComponents}
-          close={() => setModalOpen(false)}
+          onClose={() => setModalOpen(false)}
           add={add} />
       </Modal>
     </Html>

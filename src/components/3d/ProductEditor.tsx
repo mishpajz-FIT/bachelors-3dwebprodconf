@@ -15,10 +15,14 @@ import {ProductOptionsStore} from "../../stores/ProductOptionsStore.ts";
 import {
   UserProductStore
 } from "../../stores/UserProductStore.ts";
+import {Side} from "../2d/containers/Side.tsx";
+import {EditorValuesStore} from "../../stores/EditorValuesStore.ts";
+import {ComponentSelection} from "../2d/ComponentSelection.tsx";
 
 export const ProductEditor = () => {
   const productOptionsSnap = useSnapshot(ProductOptionsStore);
   const userProductSnap = useSnapshot(UserProductStore);
+  const editorValuesSnap = useSnapshot(EditorValuesStore);
 
   if (!productOptionsSnap) {
     return <div>Loading configuration</div>;
@@ -30,7 +34,6 @@ export const ProductEditor = () => {
 
   return (
     <>
-      <div id="three-html-root" style={{ zIndex: 10 }} />
       <Canvas
         shadows={true}
         style={{ touchAction: "none", background: "#fefefe" }}
@@ -69,6 +72,9 @@ export const ProductEditor = () => {
         <Preload all />
         <Stats />
       </Canvas>
+      <Side isOpen={editorValuesSnap.selectedComponentId !== undefined}>
+        <ComponentSelection onClose={() => EditorValuesStore.selectedComponentId = undefined} />
+      </Side>
     </>
   );
 };

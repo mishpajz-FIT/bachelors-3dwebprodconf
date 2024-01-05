@@ -19,7 +19,7 @@ export const Side = ({isOpen, children} : SideProps) => {
         leaveFrom="translate-x-0"
         leaveTo="translate-x-full">
 
-        <div className="fixed right-0 top-0 h-full w-full p-4 sm:w-72">
+        <div className="fixed right-0 top-0 z-[100] h-full w-full p-4 sm:w-72">
           <div className="simple-panel h-full w-full">
             {children}
           </div>

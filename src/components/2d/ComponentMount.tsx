@@ -1,15 +1,15 @@
-import {XMarkIcon} from "@heroicons/react/20/solid";
 import {useEffect, useRef, useState, WheelEventHandler} from "react";
 
 import {ComponentMountTile} from "./ComponentMountTile.tsx";
+import {ContainerHeader} from "./containers/ContainerHeader.tsx";
 
 interface ComponentMountProps {
   mountableComponents: readonly string[]
-  close: () => void
+  onClose: () => void
   add: (id: string) => void
 }
 
-export const ComponentMount = ({mountableComponents, close, add} : ComponentMountProps) => {
+export const ComponentMount = ({mountableComponents, onClose, add} : ComponentMountProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
 
@@ -37,12 +37,7 @@ export const ComponentMount = ({mountableComponents, close, add} : ComponentMoun
 
   return (
     <>
-      <div className="flex justify-end px-2 pt-2">
-        <button className="other-button" onClick={close}>
-          <span className="sr-only">Close</span>
-          <XMarkIcon className="h-4 w-4" />
-        </button>
-      </div>
+      <ContainerHeader title={"Add component"} onClose={onClose} />
 
       <div ref={containerRef} onWheel={onWheel} className="flex items-center space-x-2 overflow-x-auto px-4 py-2">
 
@@ -52,7 +47,7 @@ export const ComponentMount = ({mountableComponents, close, add} : ComponentMoun
             componentProductId={componentProductId}
             add={() => {
               add(componentProductId);
-              close();
+              onClose();
             }}/>
         ))}
 
