@@ -16,8 +16,8 @@ import {ProductOptionsStore} from "../../stores/ProductOptionsStore.ts";
 import {
   UserProductStore
 } from "../../stores/UserProductStore.ts";
-import {EditComponent} from "../2d/EditComponent.tsx";
 import {Side} from "../2d/containers/Side.tsx";
+import {EditComponent} from "../2d/EditComponent.tsx";
 
 export const ProductEditor = () => {
   const productOptionsSnap = useSnapshot(ProductOptionsStore);
