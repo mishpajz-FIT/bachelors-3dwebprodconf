@@ -1,5 +1,9 @@
 import {proxy} from "valtio";
 
-export const EditorValuesStore = proxy({
-  selectedComponentId: undefined as string | undefined,
+interface EditorValuesStore {
+  selectedComponentId?: string
+}
+
+export const EditorValuesStore = proxy<EditorValuesStore>({
+  selectedComponentId: undefined
 });

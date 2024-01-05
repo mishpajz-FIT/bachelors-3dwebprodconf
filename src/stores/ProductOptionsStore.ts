@@ -28,9 +28,16 @@ export const loadProductOptionsIntoStore = async (configUrl: string) => {
   ProductOptionsStore.isLoading = false;
 };
 
-export const ProductOptionsStore = proxy({
+interface ProductOptionsStore {
+  components: Map<string, Component>;
+  bases: Map<string, Base>;
+  isLoading: boolean;
+  error?: Error;
+}
+
+export const ProductOptionsStore = proxy<ProductOptionsStore>({
   components: new Map<string, Component>(),
   bases: new Map<string, Base>(),
   isLoading: true,
-  error: null as Error | null,
+  error: undefined,
 });

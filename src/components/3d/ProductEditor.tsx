@@ -11,13 +11,13 @@ import {useSnapshot} from "valtio";
 
 import {ProductComponent} from "./ProductComponent.tsx";
 import {appConfig} from "../../configurations/AppConfig.ts";
+import {EditorValuesStore} from "../../stores/EditorValuesStore.ts";
 import {ProductOptionsStore} from "../../stores/ProductOptionsStore.ts";
 import {
   UserProductStore
 } from "../../stores/UserProductStore.ts";
-import {Side} from "../2d/containers/Side.tsx";
-import {EditorValuesStore} from "../../stores/EditorValuesStore.ts";
 import {ComponentSelection} from "../2d/ComponentSelection.tsx";
+import {Side} from "../2d/containers/Side.tsx";
 
 export const ProductEditor = () => {
   const productOptionsSnap = useSnapshot(ProductOptionsStore);

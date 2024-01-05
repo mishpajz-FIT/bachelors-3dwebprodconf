@@ -5,9 +5,10 @@ import {useSnapshot} from "valtio";
 
 import {MountingPointButton} from "./MountingPointButton.tsx";
 import {appConfig} from "../../configurations/AppConfig.ts";
+import {mountComponent, createNewComponent} from "../../stores/actions/UserProductActions.ts";
 import {EditorValuesStore} from "../../stores/EditorValuesStore.ts";
 import {ProductOptionsStore} from "../../stores/ProductOptionsStore.ts";
-import {mountComponentInStore, createNewComponent, UserProductStore} from "../../stores/UserProductStore.ts";
+import {UserProductStore} from "../../stores/UserProductStore.ts";
 
 interface ProductComponentProps {
   userComponentId: string;
@@ -44,7 +45,7 @@ export const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotati
 
   const selectComponent = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();
-    console.log("selected " + userComponentId);
+    console.log("select " + userComponentId);
 
     if (EditorValuesStore.selectedComponentId === userComponentId) {
       EditorValuesStore.selectedComponentId = undefined;
@@ -56,7 +57,7 @@ export const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotati
 
   const addNewComponent = (mountingPoint: string, newComponentProductId: string) => {
     const newComponentId = createNewComponent(newComponentProductId);
-    mountComponentInStore(userComponentId, mountingPoint, newComponentId);
+    mountComponent(userComponentId, mountingPoint, newComponentId);
 
     bounds.refresh();
     if (appConfig.camera.isOrthogonal) {
