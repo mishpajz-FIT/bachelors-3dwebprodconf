@@ -6,11 +6,11 @@ import {removeComponent} from "../../stores/actions/UserProductActions.ts";
 import {EditorValuesStore} from "../../stores/EditorValuesStore.ts";
 import {UserProductStore} from "../../stores/UserProductStore.ts";
 
-interface ComponentSelectionProps {
+interface EditComponentProps {
   onClose: () => void;
 }
 
-export const ComponentSelection = ({ onClose }: ComponentSelectionProps) => {
+export const EditComponent = ({ onClose }: EditComponentProps) => {
   const userProductSnap = useSnapshot(UserProductStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 

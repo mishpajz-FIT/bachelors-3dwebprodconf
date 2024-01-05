@@ -16,7 +16,7 @@ import {ProductOptionsStore} from "../../stores/ProductOptionsStore.ts";
 import {
   UserProductStore
 } from "../../stores/UserProductStore.ts";
-import {ComponentSelection} from "../2d/ComponentSelection.tsx";
+import {EditComponent} from "../2d/EditComponent.tsx";
 import {Side} from "../2d/containers/Side.tsx";
 
 export const ProductEditor = () => {
@@ -73,7 +73,7 @@ export const ProductEditor = () => {
         <Stats />
       </Canvas>
       <Side isOpen={editorValuesSnap.selectedComponentId !== undefined}>
-        <ComponentSelection onClose={() => EditorValuesStore.selectedComponentId = undefined} />
+        <EditComponent onClose={() => EditorValuesStore.selectedComponentId = undefined} />
       </Side>
     </>
   );

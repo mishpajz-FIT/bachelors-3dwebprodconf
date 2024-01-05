@@ -1,15 +1,15 @@
 import {useEffect, useRef, useState, WheelEventHandler} from "react";
 
-import {ComponentMountTile} from "./ComponentMountTile.tsx";
+import {AddComponentTile} from "./AddComponentTile.tsx";
 import {ContainerHeader} from "./containers/ContainerHeader.tsx";
 
-interface ComponentMountProps {
+interface AddComponentProps {
   mountableComponents: readonly string[]
   onClose: () => void
   add: (id: string) => void
 }
 
-export const ComponentMount = ({mountableComponents, onClose, add} : ComponentMountProps) => {
+export const AddComponent = ({mountableComponents, onClose, add} : AddComponentProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
 
@@ -42,7 +42,7 @@ export const ComponentMount = ({mountableComponents, onClose, add} : ComponentMo
       <div ref={containerRef} onWheel={onWheel} className="flex items-center space-x-2 overflow-x-auto px-4 py-2">
 
         {mountableComponents.map((componentProductId) => (
-          <ComponentMountTile
+          <AddComponentTile
             key={componentProductId}
             componentProductId={componentProductId}
             add={() => {

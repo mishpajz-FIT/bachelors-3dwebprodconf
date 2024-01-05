@@ -4,12 +4,12 @@ import {useSnapshot} from "valtio";
 
 import {ProductOptionsStore} from "../../stores/ProductOptionsStore.ts";
 
-interface ComponentMountTileProps {
+interface AddComponentTileProps {
   componentProductId: string
   add: () => void
 }
 
-export const ComponentMountTile = memo(({componentProductId, add}: ComponentMountTileProps) => {
+export const AddComponentTile = memo(({componentProductId, add}: AddComponentTileProps) => {
   const productOptionsSnap = useSnapshot(ProductOptionsStore);
 
   const component = productOptionsSnap.components.get(componentProductId);
@@ -70,4 +70,4 @@ export const ComponentMountTile = memo(({componentProductId, add}: ComponentMoun
   );
 });
 
-ComponentMountTile.displayName = "ComponentMountTile";
+AddComponentTile.displayName = "ComponentMountTile";
