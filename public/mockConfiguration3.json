@@ -1,41 +1,41 @@
 {
-  "bases": [
+  "baseSpecs": [
     {
-      "baseId": "base1",
+      "baseSpecId": "base1",
       "name": "Box",
-      "component": "box1",
+      "componentSpec": "box1",
       "backgroundUrl": "path/to/hdri/file1"
     }
   ],
-  "components": [
+  "componentSpecs": [
     {
-      "productId": "box1",
+      "componentSpecId": "box1",
       "name": "Box",
       "description": "A cardboard box",
       "price": 50,
       "imageUrl": "https://smithpackaging.co.uk/wp-content/uploads/2021/05/Double-Wall-Cardboard-Boxes-254x254x254-5-600x600.jpg",
       "modelUrl": "/BoxBase.glb",
-      "materials": [],
-      "mountingPoints": [
+      "materialSpecs": [],
+      "mountingPointsSpecs": [
         {
-          "mountingPointId": "top",
+          "mountingPointSpecId": "top",
           "position": [0, 0.75, 0],
           "rotation": [0, 0, 0],
           "isRequired": false,
-          "obstructedMountingPoints": [],
-          "mountableComponents": ["lid1"]
+          "obstructedMountingPointSpecs": [],
+          "mountableComponentSpecs": ["lid1"]
         }
       ]
     },
     {
-      "productId": "lid1",
+      "componentSpecId": "lid1",
       "name": "Lid",
       "description": "A lid for cardboard box",
       "price": 50,
       "imageUrl": "https://smithpackaging.co.uk/wp-content/uploads/2021/05/Double-Wall-Cardboard-Boxes-254x254x254-5-600x600.jpg",
       "modelUrl": "/BoxTop.glb",
-      "materials": [],
-      "mountingPoints": []
+      "materialSpecs": [],
+      "mountingPointsSpecs": []
     }
   ]
 }

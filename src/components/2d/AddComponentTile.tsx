@@ -2,17 +2,15 @@ import {InformationCircleIcon} from "@heroicons/react/20/solid";
 import {memo, useCallback, useState} from "react";
 import {useSnapshot} from "valtio";
 
-import {ProductOptionsStore} from "../../stores/ProductOptionsStore.ts";
+import {ProductSpecificationStore} from "../../stores/ProductSpecificationStore.ts";
 
 interface AddComponentTileProps {
-  componentProductId: string
+  componentSpecId: string
   add: () => void
 }
 
-export const AddComponentTile = memo(({componentProductId, add}: AddComponentTileProps) => {
-  const productOptionsSnap = useSnapshot(ProductOptionsStore);
-
-  const component = productOptionsSnap.components.get(componentProductId);
+export const AddComponentTile = memo(({componentSpecId, add}: AddComponentTileProps) => {
+  const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -21,13 +19,13 @@ export const AddComponentTile = memo(({componentProductId, add}: AddComponentTil
   const handleImageLoad = useCallback(() => setImageLoaded(true), []);
   const handleImageError = useCallback(() => setImageError(true), []);
 
-  if(productOptionsSnap.isLoading) {
+  if(productSpecsSnap.isLoading) {
     return null;
   }
 
-  if (!component) {
-    //TODO: handle missing component
-    throw new Error("User component not found");
+  const componentSpec = productSpecsSnap.componentSpecs.get(componentSpecId);
+  if (!componentSpec) {
+    throw new Error(`Component specification ${componentSpecId} not found`);
   }
 
   //TODO: create component details
@@ -41,8 +39,8 @@ export const AddComponentTile = memo(({componentProductId, add}: AddComponentTil
       {!imageError && (
         <div className="pointer-events-none mr-4 h-24 w-24 shrink-0">
           <img
-            src={component.imageUrl}
-            alt={component.name}
+            src={componentSpec.imageUrl}
+            alt={componentSpec.name}
             className={`rounded transition-all duration-300 ease-in-out ${imageLoaded ? "opacity-100" : "opacity-0"} h-full w-full object-cover`}
             onLoad={handleImageLoad}
             onError={handleImageError}
@@ -52,11 +50,11 @@ export const AddComponentTile = memo(({componentProductId, add}: AddComponentTil
       {(!imageLoaded || imageError) && <div className={`mr-4 h-24 w-24 shrink-0 ${!imageError ? "animate-pulse" : ""} rounded bg-gray-300`} />}
       <div className="flex w-full flex-col justify-between overflow-hidden">
         <div className="mb-1">
-          <h2 className="truncate text-lg font-semibold">{component.name}</h2>
-          <p className="line-clamp-3 text-pretty text-sm leading-tight text-gray-600 dark:text-gray-400">{component.description}</p>
+          <h2 className="truncate text-lg font-semibold">{componentSpec.name}</h2>
+          <p className="line-clamp-3 text-pretty text-sm leading-tight text-gray-600 dark:text-gray-400">{componentSpec.description}</p>
         </div>
         <div className="mt-1 flex flex-row items-center justify-between">
-          <span className="text-sm font-light">{component.price}</span>
+          <span className="text-sm font-light">{componentSpec.price}</span>
           <button
             className="other-button"
             onClick={(e) => e.stopPropagation()}

@@ -28,7 +28,7 @@ export const EditComponent = ({ onClose }: EditComponentProps) => {
     <>
       <ContainerHeader title={"Edit component"} onClose={onClose} />
       <div className="overflow-y-auto">
-        {(editorValuesSnap.selectedComponentId != userProductSnap.baseComponentId) &&
+        {(editorValuesSnap.selectedComponentId != userProductSnap.base) &&
         <button className="destructive-button flex items-center" onClick={remove}>
           <TrashIcon className="h-4 w-4" />
           <span className="ml-2">Remove</span>

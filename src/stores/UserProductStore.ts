@@ -7,12 +7,11 @@ interface UserProductParentMap {
 }
 
 export const UserProductStore = proxy<UserProduct & UserProductParentMap>({
-  baseComponentId: "1",
+  base: "1",
   components: {
     "1": {
-      componentProductId: "box1",
-      configuredMaterials: {},
-      attachedComponents: {}
+      componentSpec: "box1",
+      mounted: {}
     }
   },
   childToParentMap: new Map<string, [string, string]>()

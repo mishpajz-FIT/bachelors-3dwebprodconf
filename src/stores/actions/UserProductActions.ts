@@ -1,6 +1,6 @@
 import {v4 as uuid} from "uuid";
 
-import {ProductOptionsStore} from "../ProductOptionsStore.ts";
+import {ProductSpecificationStore} from "../ProductSpecificationStore.ts";
 import {UserProductStore} from "../UserProductStore.ts";
 
 const recursiveRemoveComponent = (componentId: string) => {
@@ -10,7 +10,7 @@ const recursiveRemoveComponent = (componentId: string) => {
     throw new Error(`Attempted to delete component with ID: ${componentId}, which does not exist.`);
   }
 
-  Object.values(component.attachedComponents).forEach(recursiveRemoveComponent);
+  Object.values(component.mounted).forEach(recursiveRemoveComponent);
 
   UserProductStore.childToParentMap.delete(componentId);
   delete UserProductStore.components[componentId];
@@ -36,7 +36,7 @@ const detectRecursiveComponentCycle = (sourceComponentId: string, targetComponen
     }
 
     const currentComponent = UserProductStore.components[top];
-    for (const neighbor of Object.values(currentComponent.attachedComponents)) {
+    for (const neighbor of Object.values(currentComponent.mounted)) {
       if (!visited.has(neighbor)) {
         visited.add(neighbor);
         queue.push(neighbor);
@@ -47,19 +47,18 @@ const detectRecursiveComponentCycle = (sourceComponentId: string, targetComponen
   return false;
 };
 
-export const createNewComponent = (componentProductId: string): string => {
+export const createNewComponent = (componentSpec: string): string => {
   const newComponentId = uuid();
 
   UserProductStore.components[newComponentId] = {
-    componentProductId: componentProductId,
-    configuredMaterials: {},
-    attachedComponents: {}
+    componentSpec: componentSpec,
+    mounted: {}
   };
 
   return newComponentId;
 };
 
-export const mountComponent = (targetComponentId: string, mountingPointId: string, mountComponentId: string) => {
+export const mountComponent = (targetComponentId: string, mountingPointSpecId: string, mountComponentId: string) => {
   // TODO: add checks for: non exising target, non exising new component, creation of recursive cycle
   const targetComponent = UserProductStore.components[targetComponentId];
   if (!targetComponent) {
@@ -75,37 +74,38 @@ export const mountComponent = (targetComponentId: string, mountingPointId: strin
     throw new Error(`Component tree failure, component mounting cycle detected.`);
   }
 
-  if (ProductOptionsStore.isLoading) {
+  if (ProductSpecificationStore.isLoading) {
     throw new Error(`Loading Product Options.`);
   }
 
-  const targetComponentOptions = ProductOptionsStore.components.get(targetComponent.componentProductId);
-  if (!targetComponentOptions) {
-    throw new Error(`Options for component ${targetComponent.componentProductId} do not exist.`);
+  const targetComponentSpecs = ProductSpecificationStore.componentSpecs.get(targetComponent.componentSpec);
+  if (!targetComponentSpecs) {
+    throw new Error(`Specification ${targetComponent.componentSpec} component do not exist.`);
   }
 
-  const mountingPointExists = targetComponentOptions.mountingPoints.some(mp => mp.mountingPointId === mountingPointId);
+  const mountingPointExists = targetComponentSpecs.mountingPointsSpecs
+    .some(mp => mp.mountingPointSpecId === mountingPointSpecId);
   if (!mountingPointExists) {
-    throw new Error(`Mounting point ${mountingPointId} on ${targetComponent.componentProductId} do not exist.`);
+    throw new Error(`Mounting point ${mountingPointSpecId} on ${targetComponent.componentSpec} does not exist.`);
   }
 
-  const alreadyExistingComponentId = targetComponent.attachedComponents[mountingPointId];
+  const alreadyExistingComponentId = targetComponent.mounted[mountingPointSpecId];
   if (alreadyExistingComponentId) {
     recursiveRemoveComponent(alreadyExistingComponentId);
   }
 
-  targetComponent.attachedComponents[mountingPointId] = mountComponentId;
-  UserProductStore.childToParentMap.set(mountComponentId, [targetComponentId, mountingPointId]);
+  targetComponent.mounted[mountingPointSpecId] = mountComponentId;
+  UserProductStore.childToParentMap.set(mountComponentId, [targetComponentId, mountingPointSpecId]);
 };
 
 export const removeComponent = (componentId: string) => {
 
   const parentInfo = UserProductStore.childToParentMap.get(componentId);
   if (parentInfo) {
-    const [parentId, mountingPointId] = parentInfo;
+    const [parentId, mountingPointSpecId] = parentInfo;
 
     const parent = UserProductStore.components[parentId];
-    delete parent.attachedComponents[mountingPointId];
+    delete parent.mounted[mountingPointSpecId];
   }
 
   recursiveRemoveComponent(componentId);

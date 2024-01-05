@@ -8,11 +8,11 @@ import {Modal} from "../2d/containers/Modal.tsx";
 interface MountingPointButtonProps {
   position: readonly [number, number, number]
   isRequired: boolean
-  mountableComponents: readonly string[]
+  mountableComponentsSpecs: readonly string[]
   add: (id: string) => void
 }
 
-export const MountingPointButton = ({ position, isRequired, mountableComponents, add }: MountingPointButtonProps) => {
+export const MountingPointButton = ({ position, isRequired, mountableComponentsSpecs, add }: MountingPointButtonProps) => {
 
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -26,7 +26,7 @@ export const MountingPointButton = ({ position, isRequired, mountableComponents,
 
       <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
         <AddComponent
-          mountableComponents={mountableComponents}
+          mountableComponentsSpecs={mountableComponentsSpecs}
           onClose={() => setModalOpen(false)}
           add={add} />
       </Modal>

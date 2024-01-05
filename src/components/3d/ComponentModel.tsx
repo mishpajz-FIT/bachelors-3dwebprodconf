@@ -1,36 +1,47 @@
 import {Edges, useGLTF} from "@react-three/drei";
-import { ThreeEvent } from "@react-three/fiber";
+import {ThreeEvent} from "@react-three/fiber";
 import {Mesh} from "three";
 import {useSnapshot} from "valtio";
 
 import {appConfig} from "../../configurations/AppConfig.ts";
 import {EditorValuesStore} from "../../stores/EditorValuesStore.ts";
-import {ProductOptionsStore} from "../../stores/ProductOptionsStore.ts";
+import {ProductSpecificationStore} from "../../stores/ProductSpecificationStore.ts";
 import {UserProductStore} from "../../stores/UserProductStore.ts";
 
-interface GLTFRendererProps {
+interface ComponentModelProps {
   componentId: string;
   position: [number, number, number];
-  onClick: (event: ThreeEvent<MouseEvent>) => void;
 }
-export const GLTFRenderer = ({ componentId, position, onClick }: GLTFRendererProps) => {
+export const ComponentModel = ({ componentId, position }: ComponentModelProps) => {
   const userProductSnap = useSnapshot(UserProductStore);
-  const productOptionsSnap = useSnapshot(ProductOptionsStore);
+  const productSpecsSnap = useSnapshot(ProductSpecificationStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 
-  const componentProductId = userProductSnap.components[componentId].componentProductId;
-  const component = productOptionsSnap.components.get(componentProductId);
+  const componentSpecId = userProductSnap.components[componentId].componentSpec;
+  const componentSpec = productSpecsSnap.componentSpecs.get(componentSpecId);
 
-  if (!component) {
-    throw `Component ${componentProductId} could not be found.`;
+  if (!componentSpec) {
+    throw `Component spec ${componentSpecId} could not be found.`;
   }
 
-  const { nodes, materials } = useGLTF(component.modelUrl);
+  const { nodes, materials } = useGLTF(componentSpec.modelUrl);
+
+  const select = (event: ThreeEvent<MouseEvent>) => {
+    event.stopPropagation();
+    console.log("select " + componentId);
+
+    if (EditorValuesStore.selectedComponentId === componentId) {
+      EditorValuesStore.selectedComponentId = undefined;
+      return;
+    }
+
+    EditorValuesStore.selectedComponentId = componentId;
+  };
 
   return (
-    <group position={position} onClick={onClick}>
+    <group position={position} onClick={select}>
       {Object.entries(nodes).map(([name, node]) => {
-        if (node instanceof Mesh) {
+        if (node.type === "Mesh") {
           const mesh = node as Mesh;
           return (
             <mesh

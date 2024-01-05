@@ -9,10 +9,10 @@ import {
 import {Canvas} from "@react-three/fiber";
 import {useSnapshot} from "valtio";
 
-import {ProductComponent} from "./ProductComponent.tsx";
+import {Component} from "./Component.tsx";
 import {appConfig} from "../../configurations/AppConfig.ts";
 import {EditorValuesStore} from "../../stores/EditorValuesStore.ts";
-import {ProductOptionsStore} from "../../stores/ProductOptionsStore.ts";
+import {ProductSpecificationStore} from "../../stores/ProductSpecificationStore.ts";
 import {
   UserProductStore
 } from "../../stores/UserProductStore.ts";
@@ -20,16 +20,16 @@ import {Side} from "../2d/containers/Side.tsx";
 import {EditComponent} from "../2d/EditComponent.tsx";
 
 export const ProductEditor = () => {
-  const productOptionsSnap = useSnapshot(ProductOptionsStore);
+  const productSpecsSnap = useSnapshot(ProductSpecificationStore);
   const userProductSnap = useSnapshot(UserProductStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 
-  if (!productOptionsSnap) {
+  if (!productSpecsSnap) {
     return <div>Loading configuration</div>;
   }
 
   if (!userProductSnap) {
-    throw new Error("No user product");
+    throw new Error("No user product!");
   }
 
   return (
@@ -52,9 +52,9 @@ export const ProductEditor = () => {
           intensity={0.7}
         />
         <Bounds fit clip observe margin={2}>
-          <ProductComponent
-            key={userProductSnap.baseComponentId}
-            componentId={userProductSnap.baseComponentId}
+          <Component
+            key={userProductSnap.base}
+            componentId={userProductSnap.base}
           />
 
         </Bounds>

@@ -4,12 +4,12 @@ import {AddComponentTile} from "./AddComponentTile.tsx";
 import {ContainerHeader} from "./containers/ContainerHeader.tsx";
 
 interface AddComponentProps {
-  mountableComponents: readonly string[]
+  mountableComponentsSpecs: readonly string[]
   onClose: () => void
   add: (id: string) => void
 }
 
-export const AddComponent = ({mountableComponents, onClose, add} : AddComponentProps) => {
+export const AddComponent = ({mountableComponentsSpecs, onClose, add} : AddComponentProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
 
@@ -41,12 +41,12 @@ export const AddComponent = ({mountableComponents, onClose, add} : AddComponentP
 
       <div ref={containerRef} onWheel={onWheel} className="flex items-center space-x-2 overflow-x-scroll px-4 py-2">
 
-        {mountableComponents.map((componentProductId) => (
+        {mountableComponentsSpecs.map((componentSpecId) => (
           <AddComponentTile
-            key={componentProductId}
-            componentProductId={componentProductId}
+            key={componentSpecId}
+            componentSpecId={componentSpecId}
             add={() => {
-              add(componentProductId);
+              add(componentSpecId);
               onClose();
             }}/>
         ))}
