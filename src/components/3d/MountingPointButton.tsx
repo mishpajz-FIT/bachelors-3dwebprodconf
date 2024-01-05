@@ -3,7 +3,7 @@ import {Html} from "@react-three/drei";
 import {useState} from "react";
 
 import {ComponentMount} from "../2d/ComponentMount.tsx";
-import {Modal} from "../2d/Modal.tsx";
+import {Modal} from "../2d/containers/Modal.tsx";
 
 interface MountingPointButtonProps {
   position: readonly [number, number, number]

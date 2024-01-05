@@ -8,5 +8,6 @@
         @apply shadow-lg rounded-lg;
 
         @apply dark:bg-gray-900;
+        @apply dark:outline dark:outline-1 dark:outline-gray-700;
     }
 }
