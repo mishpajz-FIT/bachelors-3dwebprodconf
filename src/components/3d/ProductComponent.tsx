@@ -1,8 +1,9 @@
-import {Edges, useBounds} from "@react-three/drei";
+import {useBounds} from "@react-three/drei";
 import {ThreeEvent} from "@react-three/fiber/dist/declarations/src/core/events";
 import {Euler, MathUtils} from "three";
 import {useSnapshot} from "valtio";
 
+import {GLTFRenderer} from "./GLTFRenderer.tsx";
 import {MountingPointButton} from "./MountingPointButton.tsx";
 import {appConfig} from "../../configurations/AppConfig.ts";
 import {mountComponent, createNewComponent} from "../../stores/actions/UserProductActions.ts";
@@ -11,17 +12,16 @@ import {ProductOptionsStore} from "../../stores/ProductOptionsStore.ts";
 import {UserProductStore} from "../../stores/UserProductStore.ts";
 
 interface ProductComponentProps {
-  userComponentId: string;
+  componentId: string;
   position?: readonly [number, number, number]
   rotation?: readonly [number, number, number]
 }
 
-export const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotation = [0, 0, 0] }: ProductComponentProps) => {
+export const ProductComponent = ({ componentId, position = [0, 0, 0], rotation = [0, 0, 0] }: ProductComponentProps) => {
   const bounds = useBounds();
 
   const productOptionsSnap = useSnapshot(ProductOptionsStore);
   const userProductSnap = useSnapshot(UserProductStore);
-  const editorValuesSnap = useSnapshot(EditorValuesStore);
 
   if (productOptionsSnap?.isLoading) {
     return <div>Loading configuration</div>;
@@ -31,33 +31,33 @@ export const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotati
     throw new Error("No user product");
   }
 
-  const userComponent = userProductSnap.components[userComponentId];
+  const userComponent = userProductSnap.components[componentId];
 
   if (!userComponent) {
-    throw new Error("User component not found");
+    throw new Error(`Component ${componentId} not found`);
   }
 
   const componentOptions = productOptionsSnap.components.get(userComponent.componentProductId);
 
   if (!componentOptions) {
-    throw new Error("Component options not found!");
+    throw new Error("Product ${userComponent.componentProductId} not found!");
   }
 
   const selectComponent = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();
-    console.log("select " + userComponentId);
+    console.log("select " + componentId);
 
-    if (EditorValuesStore.selectedComponentId === userComponentId) {
+    if (EditorValuesStore.selectedComponentId === componentId) {
       EditorValuesStore.selectedComponentId = undefined;
       return;
     }
 
-    EditorValuesStore.selectedComponentId = userComponentId;
+    EditorValuesStore.selectedComponentId = componentId;
   };
 
   const addNewComponent = (mountingPoint: string, newComponentProductId: string) => {
     const newComponentId = createNewComponent(newComponentProductId);
-    mountComponent(userComponentId, mountingPoint, newComponentId);
+    mountComponent(componentId, mountingPoint, newComponentId);
 
     bounds.refresh();
     if (appConfig.camera.isOrthogonal) {
@@ -77,16 +77,11 @@ export const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotati
 
   return (
     <group position={position} rotation={radiansRotation}>
-      {/* This renders the model of the current component */}
-      <mesh
-        position={[0, 0, 0]}
-        onClick={selectComponent}>
-        <boxGeometry args={[1, 1, 1]} />
-        <meshLambertMaterial color={"orange"} />
-        <Edges visible={userComponentId === editorValuesSnap.selectedComponentId} scale={1.05}>
-          <meshBasicMaterial transparent={true} color={appConfig.spacialUi.selectionColors.outline} depthTest={false} />
-        </Edges>
-      </mesh>
+      <GLTFRenderer
+        componentId={componentId}
+        position={[0,0,0]}
+        onClick={selectComponent} />
+
       {componentOptions.mountingPoints.map(mp => {
         const attachedComponentId = userComponent.attachedComponents[mp.mountingPointId];
 
@@ -94,7 +89,7 @@ export const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotati
           return (
             <ProductComponent
               key={attachedComponentId}
-              userComponentId={attachedComponentId}
+              componentId={attachedComponentId}
               position={mp.position}
               rotation={mp.rotation}
             />
@@ -107,7 +102,7 @@ export const ProductComponent = ({ userComponentId, position = [0, 0, 0], rotati
               isRequired={mp.isRequired}
               mountableComponents={mp.mountableComponents}
               add={(newComponentProductId: string) => {
-                console.log("new component" + newComponentProductId + " " + mp.mountingPointId + " " + userComponentId);
+                console.log("new component" + newComponentProductId + " " + mp.mountingPointId + " " + componentId);
                 addNewComponent(mp.mountingPointId, newComponentProductId);
               }}
             />

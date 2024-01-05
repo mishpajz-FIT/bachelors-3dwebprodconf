@@ -10,7 +10,7 @@ export const UserProductStore = proxy<UserProduct & UserProductParentMap>({
   baseComponentId: "1",
   components: {
     "1": {
-      componentProductId: "comp1",
+      componentProductId: "box1",
       configuredMaterials: {},
       attachedComponents: {}
     }

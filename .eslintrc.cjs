@@ -36,7 +36,9 @@ module.exports = {
               "groundColor",
               "castShadow",
               "receiveShadow",
-              "depthTest"
+              "depthTest",
+              "geometry",
+              "material"
             ] }
         ],
     'indent': ['warn', 2],

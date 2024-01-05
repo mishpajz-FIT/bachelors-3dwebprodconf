@@ -54,7 +54,7 @@ export const ProductEditor = () => {
         <Bounds fit clip observe margin={2}>
           <ProductComponent
             key={userProductSnap.baseComponentId}
-            userComponentId={userProductSnap.baseComponentId}
+            componentId={userProductSnap.baseComponentId}
           />
 
         </Bounds>
@@ -67,7 +67,7 @@ export const ProductEditor = () => {
             opacity={0.4}/> :
           <mesh position={[0, -0.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
             <planeGeometry args={[15, 15]} />
-            <meshPhysicalMaterial color={"white"} />
+            <meshPhysicalMaterial color={0xfefefe} />
           </mesh>}
         <Preload all />
         <Stats />
