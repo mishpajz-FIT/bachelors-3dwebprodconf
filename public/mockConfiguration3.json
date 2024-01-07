@@ -34,7 +34,40 @@
       "price": 50,
       "imageUrl": "https://smithpackaging.co.uk/wp-content/uploads/2021/05/Double-Wall-Cardboard-Boxes-254x254x254-5-600x600.jpg",
       "modelUrl": "/BoxTop.glb",
-      "materialSpecs": [],
+      "materialSpecs": [
+        {
+          "materialSpecId": "cardboard",
+          "name": "Cardboard",
+          "modelMaterials": [""],
+          "colorVariationsSpecs": [
+            {
+              "colorSpecId": "craft",
+              "name": "Craft",
+              "value": "#946D46"
+            },
+            {
+              "colorSpecId": "red",
+              "name": "Red",
+              "value": "#FF5733"
+            },
+            {
+              "colorSpecId": "green",
+              "name": "Green",
+              "value": "#58D68D"
+            },
+            {
+              "colorSpecId": "blue",
+              "name": "Blue",
+              "value": "#3498DB"
+            },
+            {
+              "colorSpecId": "black",
+              "name": "Black",
+              "value": "#000000"
+            }
+          ]
+        }
+      ],
       "mountingPointsSpecs": []
     }
   ]

@@ -11,6 +11,7 @@ export const UserProductStore = proxy<UserProduct & UserProductParentMap>({
   components: {
     "1": {
       componentSpec: "box1",
+      materials: {},
       mounted: {}
     }
   },

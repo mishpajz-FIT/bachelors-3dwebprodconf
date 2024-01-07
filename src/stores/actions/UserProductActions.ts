@@ -52,6 +52,7 @@ export const createNewComponent = (componentSpec: string): string => {
 
   UserProductStore.components[newComponentId] = {
     componentSpec: componentSpec,
+    materials: {},
     mounted: {}
   };
 

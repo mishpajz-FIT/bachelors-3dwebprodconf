@@ -1,11 +1,14 @@
 
 export interface ColorSpecification {
+    name: string;
+    colorSpecId: string;
     value: string;
     price?: number;
 }
 
 export interface MaterialSpecification {
     materialSpecId: string;
+    name: string;
     modelMaterials: string[];
     colorVariationsSpecs: ColorSpecification[];
 }
