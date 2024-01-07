@@ -1,6 +1,6 @@
 import {Edges, useGLTF} from "@react-three/drei";
 import {ThreeEvent} from "@react-three/fiber";
-import {Mesh} from "three";
+import {Color, Mesh, MeshStandardMaterial} from "three";
 import {useSnapshot} from "valtio";
 
 import {appConfig} from "../../configurations/AppConfig.ts";
@@ -26,6 +26,25 @@ export const ComponentModel = ({ componentId, position }: ComponentModelProps) =
 
   const { nodes, materials } = useGLTF(componentSpec.modelUrl);
 
+  const customMaterials = Object.entries(userProductSnap.components[componentId].materials)
+    .reduce<Record<string, MeshStandardMaterial>>((acc, [materialId, colorId]) => {
+      const materialSpec = componentSpec.materialSpecs.find(spec => spec.materialSpecId === materialId);
+      if (!materialSpec) return acc;
+
+      const colorSpec = materialSpec.colorVariationsSpecs.find(spec => spec.colorSpecId === colorId);
+      if (!colorSpec) return acc;
+
+      materialSpec.modelMaterials.forEach(modelMaterialName => {
+        const originalMaterial = materials[modelMaterialName];
+        if (originalMaterial instanceof MeshStandardMaterial) {
+          acc[modelMaterialName] = originalMaterial.clone();
+          acc[modelMaterialName].color = new Color(colorSpec.value);
+        }
+      });
+
+      return acc;
+    }, {});
+
   const select = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();
     console.log("select " + componentId);
@@ -43,11 +62,15 @@ export const ComponentModel = ({ componentId, position }: ComponentModelProps) =
       {Object.entries(nodes).map(([name, node]) => {
         if (node.type === "Mesh") {
           const mesh = node as Mesh;
+
+          const materialName = Array.isArray(mesh.material) ? mesh.material[0].name : mesh.material.name;
+          const material = customMaterials[materialName] || materials[materialName];
+
           return (
             <mesh
               key={name}
               geometry={mesh.geometry}
-              material={materials[Array.isArray(mesh.material) ? mesh.material[0].name : mesh.material.name]}
+              material={material}
             >
               <Edges visible={componentId === editorValuesSnap.selectedComponentId} scale={1.05}>
                 <meshBasicMaterial transparent={true} color={appConfig.spacialUi.selectionColors.outline} depthTest={false} />
