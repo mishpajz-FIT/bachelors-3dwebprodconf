@@ -79,14 +79,13 @@ export const mountComponent = (targetComponentId: string, mountingPointSpecId: s
     throw new Error(`Loading Product Options.`);
   }
 
-  const targetComponentSpecs = ProductSpecificationStore.componentSpecs.get(targetComponent.componentSpec);
+  const targetComponentSpecs = ProductSpecificationStore.componentSpecs[targetComponent.componentSpec];
   if (!targetComponentSpecs) {
     throw new Error(`Specification ${targetComponent.componentSpec} component do not exist.`);
   }
 
-  const mountingPointExists = targetComponentSpecs.mountingPointsSpecs
-    .some(mp => mp.mountingPointSpecId === mountingPointSpecId);
-  if (!mountingPointExists) {
+  const mountingPoint = targetComponentSpecs.mountingPointsSpecs[mountingPointSpecId];
+  if (!mountingPoint) {
     throw new Error(`Mounting point ${mountingPointSpecId} on ${targetComponent.componentSpec} does not exist.`);
   }
 

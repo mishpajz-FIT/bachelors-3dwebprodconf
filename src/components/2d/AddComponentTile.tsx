@@ -23,7 +23,7 @@ export const AddComponentTile = memo(({componentSpecId, add}: AddComponentTilePr
     return null;
   }
 
-  const componentSpec = productSpecsSnap.componentSpecs.get(componentSpecId);
+  const componentSpec = productSpecsSnap.componentSpecs[componentSpecId];
   if (!componentSpec) {
     throw new Error(`Component specification ${componentSpecId} not found`);
   }

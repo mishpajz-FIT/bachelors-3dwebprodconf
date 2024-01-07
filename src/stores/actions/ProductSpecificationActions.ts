@@ -1,8 +1,4 @@
-import {
-  BaseSpecification,
-  ComponentSpecification,
-  ProductSpecification
-} from "../../interfaces/ProductSpecification.ts";
+import {ProductSpecification} from "../../interfaces/ProductSpecification.ts";
 import {ProductSpecificationStore} from "../ProductSpecificationStore.ts";
 
 export const storeProductSpecification = async (
@@ -12,17 +8,9 @@ export const storeProductSpecification = async (
     const productSpecification = await load();
 
     console.log(productSpecification);
-    const bases = new Map<string, BaseSpecification>;
-    productSpecification.baseSpecs.forEach(base => {
-      bases.set(base.baseSpecId, base);
-    });
-    ProductSpecificationStore.baseSpecs = bases;
 
-    const components = new Map<string, ComponentSpecification>;
-    productSpecification.componentSpecs.forEach(component => {
-      components.set(component.componentSpecId, component);
-    });
-    ProductSpecificationStore.componentSpecs = components;
+    ProductSpecificationStore.baseSpecs = productSpecification.baseSpecs;
+    ProductSpecificationStore.componentSpecs = productSpecification.componentSpecs;
 
   } catch (error) {
     if (error instanceof Error) {

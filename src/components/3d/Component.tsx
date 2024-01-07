@@ -34,7 +34,7 @@ export const Component = ({ componentId, position = [0, 0, 0], rotation = [0, 0,
     throw new Error(`Component ${componentId} not found!`);
   }
 
-  const componentSpec = productSpecsSnap.componentSpecs.get(component.componentSpec);
+  const componentSpec = productSpecsSnap.componentSpecs[component.componentSpec];
   if (!componentSpec) {
     throw new Error(`Component specs ${component.componentSpec} not found!`);
   }
@@ -65,8 +65,8 @@ export const Component = ({ componentId, position = [0, 0, 0], rotation = [0, 0,
         componentId={componentId}
         position={[0,0,0]} />
 
-      {componentSpec.mountingPointsSpecs.map(mp => {
-        const mountedComponentId = component.mounted[mp.mountingPointSpecId];
+      {Object.entries(componentSpec.mountingPointsSpecs).map(([mountingPointSpecId, mp]) => {
+        const mountedComponentId = component.mounted[mountingPointSpecId];
 
         if (mountedComponentId) {
           return (
@@ -80,13 +80,13 @@ export const Component = ({ componentId, position = [0, 0, 0], rotation = [0, 0,
         } else {
           return (
             <MountingPointButton
-              key={mp.mountingPointSpecId}
+              key={mountingPointSpecId}
               position={mp.position}
               isRequired={mp.isRequired}
-              mountableComponentsSpecs={mp.mountableComponentSpecs}
+              mountableComponentsSpecs={mp.mountableComponents}
               add={(newComponentSpecId: string) => {
-                console.log("new component" + newComponentSpecId + ": " + mp.mountingPointSpecId + " - " + componentId);
-                addNewComponent(mp.mountingPointSpecId, newComponentSpecId);
+                console.log("new component" + newComponentSpecId + ": " + mountingPointSpecId + " - " + componentId);
+                addNewComponent(mountingPointSpecId, newComponentSpecId);
               }}
             />
           );

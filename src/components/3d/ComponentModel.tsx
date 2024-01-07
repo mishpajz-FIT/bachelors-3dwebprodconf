@@ -18,7 +18,7 @@ export const ComponentModel = ({ componentId, position }: ComponentModelProps) =
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 
   const componentSpecId = userProductSnap.components[componentId].componentSpec;
-  const componentSpec = productSpecsSnap.componentSpecs.get(componentSpecId);
+  const componentSpec = productSpecsSnap.componentSpecs[componentSpecId];
 
   if (!componentSpec) {
     throw `Component spec ${componentSpecId} could not be found.`;
@@ -27,11 +27,11 @@ export const ComponentModel = ({ componentId, position }: ComponentModelProps) =
   const { nodes, materials } = useGLTF(componentSpec.modelUrl);
 
   const customMaterials = Object.entries(userProductSnap.components[componentId].materials)
-    .reduce<Record<string, MeshStandardMaterial>>((acc, [materialId, colorId]) => {
-      const materialSpec = componentSpec.materialSpecs.find(spec => spec.materialSpecId === materialId);
+    .reduce<Record<string, MeshStandardMaterial>>((acc, [materialSpecId, colorSpecId]) => {
+      const materialSpec = componentSpec.materialSpecs[materialSpecId];
       if (!materialSpec) return acc;
 
-      const colorSpec = materialSpec.colorVariationsSpecs.find(spec => spec.colorSpecId === colorId);
+      const colorSpec = materialSpec.colorVariationsSpecs[colorSpecId];
       if (!colorSpec) return acc;
 
       materialSpec.modelMaterials.forEach(modelMaterialName => {

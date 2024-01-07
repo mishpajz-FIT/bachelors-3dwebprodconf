@@ -29,7 +29,7 @@ export const EditComponent = ({ onClose }: EditComponentProps) => {
   }
 
   const componentSpecId = component.componentSpec;
-  const componentSpec = productSpecsSnap.componentSpecs.get(componentSpecId);
+  const componentSpec = productSpecsSnap.componentSpecs[componentSpecId];
   if (!componentSpec) {
     return null;
   }
@@ -53,9 +53,9 @@ export const EditComponent = ({ onClose }: EditComponentProps) => {
             <InformationCircleIcon className="h-4 w-4" />
           </button>
 
-          {componentSpec.materialSpecs.length !== 0 && (<div className="pt-8">
+          {Object.keys(componentSpec.materialSpecs).length !== 0 && (<div className="pt-8">
             <h4 className="text-base font-medium">Materials</h4>
-            <EditComponentColors componentId={componentId} componentSpec={componentSpec} />
+            <EditComponentColors componentId={componentId} />
           </div>)}
         </div>
       </div>

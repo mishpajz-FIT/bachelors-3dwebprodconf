@@ -1,28 +1,37 @@
 import {useSnapshot} from "valtio";
 
-import {ColorSpecification, ComponentSpecification} from "../../interfaces/ProductSpecification.ts";
+import {ColorSpecification} from "../../interfaces/ProductSpecification.ts";
+import {ProductSpecificationStore} from "../../stores/ProductSpecificationStore.ts";
 import {UserProductStore} from "../../stores/UserProductStore.ts";
 
 interface EditComponentColorsProps {
   componentId: string;
-  componentSpec: ComponentSpecification;
 }
 
-export const EditComponentColors = ({componentId, componentSpec} : EditComponentColorsProps) => {
+export const EditComponentColors = ({componentId} : EditComponentColorsProps) => {
   const userProductSnap = useSnapshot(UserProductStore);
+  const productSpecsSnap = useSnapshot(ProductSpecificationStore);
+
+  const component = userProductSnap.components[componentId];
+  if (!component) {
+    return null;
+  }
+
+  const componentSpecId = component.componentSpec;
+  const componentSpec = productSpecsSnap.componentSpecs[componentSpecId];
+  if (!componentSpec) {
+    return null;
+  }
 
   const defaultColorSpec: ColorSpecification = {
-    colorSpecId: "default",
     name: "Default",
     value: "#ffffff"
   };
 
   const materials = userProductSnap.components[componentId].materials;
 
-  const colorTile = (materialSpecId: string, colorSpec: ColorSpecification, key?: string | number, isDefault = false) => {
-    const isSelected = isDefault
-      ? materials[materialSpecId] === undefined
-      : materials[materialSpecId] === colorSpec.colorSpecId;
+  const colorTile = (materialSpecId: string, colorSpec: ColorSpecification, colorSpecId?: string, key?: string | number) => {
+    const isSelected = materials[materialSpecId] === colorSpecId;
 
     if (isSelected) {
       return (
@@ -45,11 +54,11 @@ export const EditComponentColors = ({componentId, componentSpec} : EditComponent
           className="m-1 h-10 w-10 rounded-full shadow-sm ring-1 ring-gray-300 transition duration-150 ease-in-out active:scale-95 dark:ring-gray-600"
           style={{backgroundColor: colorSpec.value}}
           onClick={() => {
-            if (isDefault) {
+            if (colorSpecId === undefined) {
               delete UserProductStore.components[componentId].materials[materialSpecId];
               return;
             }
-            UserProductStore.components[componentId].materials[materialSpecId] = colorSpec.colorSpecId;
+            UserProductStore.components[componentId].materials[materialSpecId] = colorSpecId;
           }}
           aria-label={`select color ${colorSpec.name}`}
         />
@@ -59,13 +68,13 @@ export const EditComponentColors = ({componentId, componentSpec} : EditComponent
 
   return (
     <>
-      {componentSpec.materialSpecs.map((materialSpec, materialIndex) => (
+      {Object.entries(componentSpec.materialSpecs).map(([materialSpecId, materialSpec], materialIndex) => (
         <div key={materialIndex} className="p-1">
           <h2 className="mt-1 text-sm font-normal">{materialSpec.name}</h2>
           <div className="mt-1 flex flex-wrap justify-center rounded-md p-1 outline outline-1 outline-slate-100 dark:outline-slate-800">
-            {colorTile(materialSpec.materialSpecId, defaultColorSpec, "default", true)}
-            {materialSpec.colorVariationsSpecs.map((colorSpec, colorIndex) =>
-              colorTile(materialSpec.materialSpecId, colorSpec, colorIndex)
+            {colorTile(materialSpecId, defaultColorSpec, undefined, "default")}
+            {Object.entries(materialSpec.colorVariationsSpecs).map(([colorSpecId, colorSpec], colorIndex) =>
+              colorTile(materialSpecId, colorSpec, colorSpecId, colorIndex)
             )}
           </div>
         </div>
