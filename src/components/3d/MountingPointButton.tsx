@@ -18,12 +18,13 @@ export const MountingPointButton = ({ position, isRequired, mountableComponentsS
 
   return (
     <Html position={position} zIndexRange={[50, 0]}>
-      <button
-        className={`secondary-button ${ isRequired ? "outline outline-1 outline-offset-1 outline-red-400" : "" }`}
-        onClick={() => setModalOpen(true)}>
-        <PlusIcon className="h-4 w-4" />
-      </button>
-
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <button
+          className={`secondary-button ${ isRequired ? "outline outline-1 outline-offset-1 outline-red-400" : "" }`}
+          onClick={() => setModalOpen(true)}>
+          <PlusIcon className="h-4 w-4" />
+        </button>
+      </div>
       <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
         <AddComponent
           mountableComponentsSpecs={mountableComponentsSpecs}
