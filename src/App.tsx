@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <div className="App">
-        <ProductSpecificationProvider configUrl="/mockConfiguration.json">
+        <ProductSpecificationProvider configUrl="/mockConfiguration2.json">
           <ProductEditor />
         </ProductSpecificationProvider>
       </div>
