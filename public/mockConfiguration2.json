@@ -1,48 +1,84 @@
 {
-  "bases": [
-    {
-      "id": "base1",
-      "name": "Base Model A",
-      "component": "comp1",
+  "baseSpecs": {
+    "base1": {
+      "name": "Box",
+      "componentSpec": "box1",
       "backgroundUrl": "path/to/hdri/file1"
     }
-  ],
-  "components": [
-    {
-      "id": "comp1",
-      "name": "Component 1",
+  },
+  "componentSpecs": {
+    "box1": {
+      "name": "Box",
+      "description": "A box",
       "price": 50,
-      "modelUrl": "https://storage.googleapis.com/www.halwa.ca/chair-model/scene.gltf",
-      "materials": [
-        {
-          "id": "mat1",
-          "names": ["Pillow_Material_#10_0"],
-          "colorVariations": [
-            {
-              "value": "#FF0000",
-              "price": 5
+      "imageUrl": "https://smithpackaging.co.uk/wp-content/uploads/2021/05/Double-Wall-Cardboard-Boxes-254x254x254-5-600x600.jpg",
+      "modelUrl": "/Premade/Box.gltf",
+      "materialSpecs": {
+        "cardboard": {
+          "name": "Wall",
+          "modelMaterials": [
+            "Red"
+          ],
+          "colorVariationsSpecs": {
+            "craft": {
+              "name": "Craft",
+              "value": "#946D46"
+            },
+            "red": {
+              "name": "Red",
+              "value": "#FF5733"
+            },
+            "green": {
+              "name": "Green",
+              "value": "#58D68D"
+            },
+            "blue": {
+              "name": "Blue",
+              "value": "#3498DB"
+            },
+            "black": {
+              "name": "Black",
+              "value": "#000000"
             }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "top": {
+          "position": [
+            0,
+            1,
+            0
+          ],
+          "rotation": [
+            0,
+            90,
+            0
+          ],
+          "isRequired": false,
+          "obstructedMountingPoints": [],
+          "mountableComponents": [
+            "box1"
+          ]
+        },
+        "left": {
+          "position": [
+            1,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "obstructedMountingPoints": [],
+          "mountableComponents": [
+            "box1"
           ]
         }
-      ],
-      "mountingPoints": [
-        {
-          "id": "mp1",
-          "position": [1, 1, 0],
-          "rotation": [90, 90, 90],
-          "isRequired": true,
-          "obstructedMountingPoints": ["mp2", "mp3"],
-          "mountableComponents": ["comp2", "comp3"]
-        },
-        {
-          "id": "mp2",
-          "position": [1, -1, 0],
-          "rotation": [90, 90, 90],
-          "isRequired": true,
-          "obstructedMountingPoints": ["mp2", "mp3"],
-          "mountableComponents": ["comp2", "comp3"]
-        }
-      ]
+      }
     }
-  ]
+  }
 }

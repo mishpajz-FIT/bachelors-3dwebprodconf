@@ -1,15 +1,15 @@
 import './App.css';
 
-import {ProductEditor} from "./components/ProductEditor.tsx";
-import {ProductOptionsProvider} from "./providers/ProductOptionsProvider.tsx";
+import {ProductEditor} from "./components/3d/ProductEditor.tsx";
+import {ProductSpecificationProvider} from "./providers/ProductSpecificationProvider.tsx";
 
 function App() {
   return (
     <>
       <div className="App">
-        <ProductOptionsProvider configUrl="/mockConfiguration2.json">
+        <ProductSpecificationProvider configUrl="/mockConfiguration2.json">
           <ProductEditor />
-        </ProductOptionsProvider>
+        </ProductSpecificationProvider>
       </div>
     </>
   );

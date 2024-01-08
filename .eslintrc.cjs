@@ -9,9 +9,10 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:@react-three/recommended',
-    'plugin:valtio/recommended'
+    'plugin:valtio/recommended',
+    'plugin:tailwindcss/recommended'
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'postcss.config.js', 'tailwind.config.js'],
   parser: '@typescript-eslint/parser',
   plugins: ['react', 'react-refresh', '@react-three', 'import'],
   rules: {
@@ -23,7 +24,22 @@ module.exports = {
     'react/no-unknown-property':
         [
           'error',
-          { 'ignore' : ["object", "position", "args", "attach", "rotation", "transparent", "makeDefault"] }
+          { 'ignore' : [
+              "object",
+              "position",
+              "args",
+              "attach",
+              "rotation",
+              "transparent",
+              "makeDefault",
+              "intensity",
+              "groundColor",
+              "castShadow",
+              "receiveShadow",
+              "depthTest",
+              "geometry",
+              "material"
+            ] }
         ],
     'indent': ['warn', 2],
     'semi': ['error', 'always', {

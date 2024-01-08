@@ -1,65 +1,105 @@
 {
-  "bases": [
-    {
-      "id": "base1",
-      "name": "Base Model A",
-      "component": "comp1",
+  "baseSpecs": {
+    "base1": {
+      "name": "Box",
+      "componentSpec": "box1",
       "backgroundUrl": "path/to/hdri/file1"
-    },
-    {
-      "id": "base2",
-      "name": "Base Model B",
-      "component": ["comp3", "comp4"],
-      "backgroundUrl": "path/to/hdri/file2"
     }
-  ],
-  "components": [
-    {
-      "id": "comp1",
-      "name": "Component 1",
+  },
+  "componentSpecs": {
+    "box1": {
+      "name": "Box",
+      "description": "A cardboard box",
       "price": 50,
-      "modelUrl": "path/to/model1.gltf",
-      "materials": [
-        {
-          "id": "mat1",
-          "names": ["Material A", "Material B"],
-          "colorVariations": [
-            {
-              "value": "#FF0000",
-              "price": 5
+      "imageUrl": "https://smithpackaging.co.uk/wp-content/uploads/2021/05/Double-Wall-Cardboard-Boxes-254x254x254-5-600x600.jpg",
+      "modelUrl": "/BoxBase.glb",
+      "materialSpecs": {
+        "cardboard": {
+          "name": "Cardboard",
+          "modelMaterials": [
+            ""
+          ],
+          "colorVariationsSpecs": {
+            "craft": {
+              "name": "Craft",
+              "value": "#946D46"
             },
-            {
-              "value": "#00FF00"
+            "red": {
+              "name": "Red",
+              "value": "#FF5733"
+            },
+            "green": {
+              "name": "Green",
+              "value": "#58D68D"
+            },
+            "blue": {
+              "name": "Blue",
+              "value": "#3498DB"
+            },
+            "black": {
+              "name": "Black",
+              "value": "#000000"
             }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "top": {
+          "position": [
+            0,
+            0.75,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "obstructedMountingPoints": [],
+          "mountableComponents": [
+            "lid1"
           ]
         }
-      ],
-      "mountingPoints": [
-        {
-          "id": "mp1",
-          "position": [1, 2, 3],
-          "isRequired": true,
-          "obstructedMountingPoints": ["mp2", "mp3"],
-          "mountableComponents": ["comp2", "comp3"]
-        }
-      ]
+      }
     },
-    {
-      "id": "comp2",
-      "name": "Component 2",
-      "modelUrl": "path/to/model2.gltf",
-      "materials": [
-        {
-          "id": "mat2",
-          "names": ["Material C", "Material D"],
-          "colorVariations": [
-            {
-              "value": "#0000FF"
+    "lid1": {
+      "name": "Lid",
+      "description": "A lid for cardboard box",
+      "price": 50,
+      "imageUrl": "https://smithpackaging.co.uk/wp-content/uploads/2021/05/Double-Wall-Cardboard-Boxes-254x254x254-5-600x600.jpg",
+      "modelUrl": "/BoxTop.glb",
+      "materialSpecs": {
+        "cardboard": {
+          "name": "Cardboard",
+          "modelMaterials": [
+            ""
+          ],
+          "colorVariationsSpecs": {
+            "craft": {
+              "name": "Craft",
+              "value": "#946D46"
+            },
+            "red": {
+              "name": "Red",
+              "value": "#FF5733"
+            },
+            "green": {
+              "name": "Green",
+              "value": "#58D68D"
+            },
+            "blue": {
+              "name": "Blue",
+              "value": "#3498DB"
+            },
+            "black": {
+              "name": "Black",
+              "value": "#000000"
             }
-          ]
+          }
         }
-      ],
-      "mountingPoints": []
+      },
+      "mountingPointsSpecs": {}
     }
-  ]
+  }
 }
