@@ -13,15 +13,11 @@ export const EditComponentColors = ({componentId} : EditComponentColorsProps) =>
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
   const component = userProductSnap.components[componentId];
-  if (!component) {
-    return null;
-  }
+  if (!component) return null;
 
   const componentSpecId = component.componentSpec;
   const componentSpec = productSpecsSnap.componentSpecs[componentSpecId];
-  if (!componentSpec) {
-    return null;
-  }
+  if (!componentSpec) return null;
 
   const defaultColorSpec: ColorSpecification = {
     name: "Default",

@@ -41,7 +41,7 @@ export const ProductEditor = () => {
         camera={{ position: [0, 1.7, 3]}}>
         <AdaptiveDpr pixelated />
         <OrbitControls makeDefault={true} />
-        <Environment preset="studio" />
+        <Environment preset="city" />
         <ambientLight intensity={0.3} />
         <hemisphereLight
           color={"#ffffff"}

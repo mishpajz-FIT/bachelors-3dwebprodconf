@@ -39,9 +39,9 @@ export const Component = ({ componentId, position = [0, 0, 0], rotation = [0, 0,
     throw new Error(`Component specs ${component.componentSpec} not found!`);
   }
 
-  const addNewComponent = (mountingPoint: string, newComponentProductId: string) => {
-    const newComponentId = createNewComponent(newComponentProductId);
-    mountComponent(componentId, mountingPoint, newComponentId);
+  const addNewComponent = (mountingPointSpecId: string, newComponentSpecId: string) => {
+    const newComponentId = createNewComponent(newComponentSpecId);
+    mountComponent(componentId, mountingPointSpecId, newComponentId);
 
     bounds.refresh();
     if (appConfig.camera.isOrthogonal) {

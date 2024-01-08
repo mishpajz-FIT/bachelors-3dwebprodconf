@@ -1,10 +1,9 @@
 import {InformationCircleIcon} from "@heroicons/react/20/solid";
-import {PencilIcon, TrashIcon} from "@heroicons/react/24/outline";
 import {useSnapshot} from "valtio";
 
 import {ContainerHeader} from "./containers/ContainerHeader.tsx";
+import {EditComponentChange} from "./EditComponentChange.tsx";
 import {EditComponentColors} from "./EditComponentColors.tsx";
-import {removeComponent} from "../../stores/actions/UserProductActions.ts";
 import {EditorValuesStore} from "../../stores/EditorValuesStore.ts";
 import {ProductSpecificationStore} from "../../stores/ProductSpecificationStore.ts";
 import {UserProductStore} from "../../stores/UserProductStore.ts";
@@ -19,28 +18,14 @@ export const EditComponent = ({ onClose }: EditComponentProps) => {
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 
   const componentId = editorValuesSnap.selectedComponentId;
-  if (!componentId) {
-    return null;
-  }
+  if (!componentId) return null;
 
   const component = userProductSnap.components[componentId];
-  if (!component) {
-    return null;
-  }
+  if (!component) return null;
 
   const componentSpecId = component.componentSpec;
   const componentSpec = productSpecsSnap.componentSpecs[componentSpecId];
-  if (!componentSpec) {
-    return null;
-  }
-
-  const remove = () => {
-    if (componentId) {
-      removeComponent(componentId);
-    }
-
-    onClose();
-  };
+  if (!componentSpec) return null;
 
   return (
     <div className="flex w-full flex-col">
@@ -59,18 +44,11 @@ export const EditComponent = ({ onClose }: EditComponentProps) => {
           </div>)}
         </div>
       </div>
+      {(editorValuesSnap.selectedComponentId != userProductSnap.base) &&
       <div className="mt-auto flex items-center justify-center gap-2 p-2">
-        <button className="other-button flex w-full items-center justify-center" onClick={remove}>
-          <PencilIcon className="h-4 w-4" />
-          <span className="ml-2">Change</span>
-        </button>
-        {(editorValuesSnap.selectedComponentId != userProductSnap.base) &&
-          <button className="destructive-button flex w-full items-center justify-center" onClick={remove}>
-            <TrashIcon className="h-4 w-4" />
-            <span className="ml-2">Remove</span>
-          </button>
-        }
+        <EditComponentChange componentId={componentId} onClose={onClose} />
       </div>
+      }
     </div>
   );
 };
