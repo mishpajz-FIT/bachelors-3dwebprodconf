@@ -2,6 +2,7 @@ import {v4 as uuid} from "uuid";
 
 import {ProductSpecificationStore} from "../ProductSpecificationStore.ts";
 import {UserProductStore} from "../UserProductStore.ts";
+import {UserComponent} from "../../interfaces/UserProduct.ts";
 
 const recursiveRemoveComponent = (componentId: string) => {
   const component = UserProductStore.components[componentId];
@@ -113,4 +114,22 @@ export const removeComponent = (componentId: string) => {
   UserProductStore.childToParentMap.delete(componentId);
 
   console.log(`remove ${componentId}`);
+};
+
+export const removeAllComponents = () => {
+  const base = UserProductStore.base;
+
+  const newComponents: Record<string, UserComponent> = {}
+  if (UserProductStore.components[base]) {
+    newComponents[base] = UserProductStore.components[base];
+    newComponents[base].mounted = {};
+  }
+
+  UserProductStore.childToParentMap.clear();
+  UserProductStore.components = newComponents;
+};
+
+export const mountBase = (componentId: string) => {
+  UserProductStore.base = componentId;
+  removeAllComponents();
 };
