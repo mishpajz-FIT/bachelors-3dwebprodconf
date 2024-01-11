@@ -7,6 +7,7 @@ import {
   Preload, Stats
 } from "@react-three/drei";
 import {Canvas} from "@react-three/fiber";
+import {useState} from "react";
 import {useSnapshot} from "valtio";
 
 import {Component} from "./Component.tsx";
@@ -18,11 +19,14 @@ import {
 } from "../../stores/UserProductStore.ts";
 import {Side} from "../2d/containers/Side.tsx";
 import {EditComponent} from "../2d/EditComponent.tsx";
+import { SelectBase } from "../2d/SelectBase.tsx";
 
 export const ProductEditor = () => {
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
   const userProductSnap = useSnapshot(UserProductStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
+
+  const [isBaseSelectionOpen, setBaseSelectionOpen] = useState(false);
 
   if (!productSpecsSnap) {
     return <div>Loading configuration</div>;
@@ -33,8 +37,9 @@ export const ProductEditor = () => {
   }
 
   return (
-    <>
+    <div className="relative flex grow flex-col">
       <Canvas
+        className="grow"
         shadows={true}
         style={{ touchAction: "none", background: "#fefefe" }}
         orthographic={appConfig.camera.isOrthogonal}
@@ -75,6 +80,20 @@ export const ProductEditor = () => {
       <Side isOpen={editorValuesSnap.selectedComponentId !== undefined}>
         <EditComponent onClose={() => EditorValuesStore.selectedComponentId = undefined} />
       </Side>
-    </>
+
+      <div className="bg-white p-2 shadow-md dark:bg-gray-900">
+        <button
+          className="other-button"
+          onClick={() => setBaseSelectionOpen(true)}>
+          Back
+        </button>
+      </div>
+
+      {isBaseSelectionOpen && (
+        <div className="absolute inset-0 z-[75] bg-white dark:bg-gray-900">
+          <SelectBase onClose={() => setBaseSelectionOpen(false)}/>
+        </div>
+      )}
+    </div>
   );
 };

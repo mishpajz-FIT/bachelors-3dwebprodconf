@@ -2,7 +2,7 @@
   "baseSpecs": {
     "base1": {
       "name": "Box",
-      "componentSpec": "box1",
+      "component": "box1",
       "backgroundUrl": "path/to/hdri/file1"
     }
   },
