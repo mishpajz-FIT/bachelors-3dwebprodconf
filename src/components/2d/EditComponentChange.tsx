@@ -12,6 +12,7 @@ import {
 import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
 import { UserProductStore } from "../../stores/UserProductStore.ts";
+import { HoldButton } from "./HoldButton.tsx";
 
 interface EditComponentChangeProps {
   componentId: string;
@@ -38,9 +39,7 @@ export const EditComponentChange = ({
   if (!parentComponentSpec) return null;
 
   const remove = () => {
-    if (componentId) {
-      removeComponent(componentId);
-    }
+    removeComponent(componentId);
 
     if (onClose) {
       onClose();
@@ -63,13 +62,14 @@ export const EditComponentChange = ({
         <PencilIcon className="h-4 w-4" />
         <span className="ml-2">Change</span>
       </button>
-      <button
-        className="destructive-button flex w-full items-center justify-center"
-        onClick={remove}
+      <HoldButton
+        className="other-button destructive-button-on-hold flex w-full items-center justify-center"
+        onSubmit={remove}
+        duration={650}
       >
         <TrashIcon className="h-4 w-4" />
         <span className="ml-2">Remove</span>
-      </button>
+      </HoldButton>
       <Modal
         isOpen={isChangeModalOpen}
         onClose={() => setChangeModalOpen(false)}

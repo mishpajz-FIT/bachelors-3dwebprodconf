@@ -36,16 +36,25 @@
     @apply dark:hover:bg-slate-800;
   }
 
+  .destructive-button-on-hold {
+    @apply bg-no-repeat bg-gradient-to-tr;
+    @apply active:ring-rose-400 active:text-rose-400;
+    @apply from-rose-200 to-rose-200;
+
+    @apply active:dark:ring-rose-500 active:dark:text-rose-500;
+    @apply dark:from-rose-800 dark:to-rose-800;
+  }
+
   .destructive-button {
     @apply base-button;
 
     @apply bg-white;
-    @apply hover:bg-red-100;
-    @apply ring-red-400 text-red-400;
+    @apply hover:bg-rose-200;
+    @apply ring-rose-400 text-rose-400;
 
     @apply dark:bg-slate-900;
-    @apply dark:hover:bg-red-950;
-    @apply dark:ring-red-800 dark:text-red-800;
+    @apply dark:hover:bg-rose-950;
+    @apply dark:ring-rose-700 dark:text-rose-700;
   }
 
   .secondary-button {
