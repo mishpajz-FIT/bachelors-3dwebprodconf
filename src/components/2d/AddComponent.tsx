@@ -1,4 +1,10 @@
-import { useEffect, useRef, useState, WheelEventHandler } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  WheelEventHandler,
+} from "react";
 
 import { AddComponentTile } from "./AddComponentTile.tsx";
 import { ContainerHeader } from "./containers/ContainerHeader.tsx";
@@ -17,7 +23,7 @@ export const AddComponent = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
 
-  const checkOverflow = () => {
+  const checkOverflow = useCallback(() => {
     if (containerRef.current) {
       const currentOverflow =
         containerRef.current.scrollWidth > containerRef.current.clientWidth;
@@ -26,20 +32,30 @@ export const AddComponent = ({
       containerRef.current.classList.toggle("justify-center", !currentOverflow);
       containerRef.current.classList.toggle("justify-start", currentOverflow);
     }
-  };
-
-  const onWheel: WheelEventHandler<HTMLDivElement> = (e) => {
-    if (containerRef.current) {
-      const scrollAmount = e.deltaY * 0.9;
-      containerRef.current.scrollLeft += scrollAmount;
-    }
-  };
+  }, []);
 
   useEffect(() => {
     checkOverflow();
     window.addEventListener("resize", checkOverflow);
     return () => window.removeEventListener("resize", checkOverflow);
+  }, [checkOverflow]);
+
+  const onWheel = useCallback<WheelEventHandler<HTMLDivElement>>((e) => {
+    if (containerRef.current) {
+      const scrollAmount = e.deltaY * 0.9;
+      containerRef.current.scrollLeft += scrollAmount;
+    }
   }, []);
+
+  const handleAdd = useCallback(
+    (componentSpecId: string) => {
+      return () => {
+        add(componentSpecId);
+        onClose();
+      };
+    },
+    [add, onClose]
+  );
 
   return (
     <>
@@ -54,10 +70,7 @@ export const AddComponent = ({
           <AddComponentTile
             key={componentSpecId}
             componentSpecId={componentSpecId}
-            add={() => {
-              add(componentSpecId);
-              onClose();
-            }}
+            add={handleAdd(componentSpecId)}
           />
         ))}
 

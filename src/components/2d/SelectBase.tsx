@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useSnapshot } from "valtio";
 
 import { AddComponentTile } from "./AddComponentTile.tsx";
@@ -15,12 +16,15 @@ interface SelectBaseProps {
 export const SelectBase = ({ onClose }: SelectBaseProps) => {
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
-  const selectBase = (newComponentSpecId: string) => {
-    const newComponentId = createNewComponent(newComponentSpecId);
+  const selectBase = useCallback(
+    (newComponentSpecId: string) => {
+      const newComponentId = createNewComponent(newComponentSpecId);
 
-    mountBase(newComponentId);
-    onClose();
-  };
+      mountBase(newComponentId);
+      onClose();
+    },
+    [onClose]
+  );
 
   return (
     <div className="flex flex-col items-center justify-center bg-white p-4 dark:bg-gray-900">

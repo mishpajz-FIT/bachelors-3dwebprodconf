@@ -8,6 +8,11 @@ interface EditComponentColorsProps {
   componentId: string;
 }
 
+const defaultColorSpec: ColorSpecification = {
+  name: "Default",
+  value: "#ffffff",
+};
+
 export const EditComponentColors = ({
   componentId,
 }: EditComponentColorsProps) => {
@@ -20,11 +25,6 @@ export const EditComponentColors = ({
   const componentSpecId = component.componentSpec;
   const componentSpec = productSpecsSnap.componentSpecs[componentSpecId];
   if (!componentSpec) return null;
-
-  const defaultColorSpec: ColorSpecification = {
-    name: "Default",
-    value: "#ffffff",
-  };
 
   const materials = userProductSnap.components[componentId].materials;
 
