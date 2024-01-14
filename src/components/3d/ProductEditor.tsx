@@ -1,9 +1,9 @@
 import {
-  AdaptiveDpr,
+  AdaptiveDpr, AdaptiveEvents,
   Bounds,
   ContactShadows,
   Environment,
-  OrbitControls,
+  OrbitControls, PerformanceMonitor,
   Preload, Stats
 } from "@react-three/drei";
 import {Canvas} from "@react-three/fiber";
@@ -40,13 +40,15 @@ export const ProductEditor = () => {
     <div className="relative flex grow flex-col">
       <Canvas
         className="grow"
+        frameloop="demand"
+        performance={{ min: 0.85 }}
         shadows={true}
         style={{ touchAction: "none", background: "#fefefe" }}
         orthographic={appConfig.camera.isOrthogonal}
         camera={{ position: [0, 1.7, 3]}}>
-        <AdaptiveDpr pixelated />
-        <OrbitControls makeDefault={true} />
+        <OrbitControls makeDefault={true} regress={true} />
         <Environment preset="city" />
+        <AdaptiveDpr />
         <ambientLight intensity={0.3} />
         <hemisphereLight
           color={"#ffffff"}
