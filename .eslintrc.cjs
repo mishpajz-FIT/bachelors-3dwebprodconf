@@ -12,6 +12,7 @@ module.exports = {
     "plugin:valtio/recommended",
     "plugin:tailwindcss/recommended",
     "plugin:prettier/recommended",
+    "plugin:jsx-a11y/recommended"
   ],
   ignorePatterns: [
     "dist",
@@ -20,7 +21,7 @@ module.exports = {
     "tailwind.config.js",
   ],
   parser: "@typescript-eslint/parser",
-  plugins: ["react", "react-refresh", "@react-three", "import"],
+  plugins: ["react", "react-refresh", "@react-three", "import", "jsx-a11y"],
   rules: {
     "react-refresh/only-export-components": [
       "warn",
