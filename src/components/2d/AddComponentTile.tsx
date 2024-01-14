@@ -33,13 +33,21 @@ export const AddComponentTile = memo(
 
     //TODO: use suspense
     return (
-      <button
-        className={`flex h-[150px] w-[350px] shrink-0 select-none justify-start rounded-md border border-gray-200 p-4 dark:border-gray-700 ${
+      <div
+        role={"button"}
+        tabIndex={0}
+        className={`flex h-[150px] w-[350px] shrink-0 select-none justify-start rounded-md border border-gray-200 p-4 text-left dark:border-gray-700 ${
           !isButtonHovered
             ? "transition-all duration-150 ease-in-out hover:bg-gray-100 active:scale-95 active:shadow-inner dark:hover:bg-gray-800"
             : ""
         }`}
         onClick={add}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            add();
+          }
+        }}
       >
         {!imageError && (
           <div className="pointer-events-none mr-4 h-24 w-24 shrink-0">
@@ -58,7 +66,7 @@ export const AddComponentTile = memo(
           />
         )}
         <div className="flex w-full flex-col justify-between overflow-hidden">
-          <div className="mb-1">
+          <div className="mb-1 grow">
             <h2 className="truncate text-lg font-semibold">
               {componentSpec.name}
             </h2>
@@ -78,7 +86,7 @@ export const AddComponentTile = memo(
             </button>
           </div>
         </div>
-      </button>
+      </div>
     );
   }
 );
