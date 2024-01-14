@@ -1,4 +1,4 @@
-import {Config} from "./config.ts";
+import { Config } from "./config.ts";
 
 export const appConfig: Config = {
   camera: {
@@ -13,7 +13,7 @@ export const appConfig: Config = {
       hover: "#3377ff",
     },
     selectionColors: {
-      outline: "#000000"
-    }
+      outline: "#000000",
+    },
   },
 };

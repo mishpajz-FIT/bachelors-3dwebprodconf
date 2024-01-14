@@ -4,7 +4,7 @@ export interface Config {
   };
   shadows: {
     floorShadow: boolean;
-  }
+  };
   spacialUi: {
     buttonColors: {
       default: string;
@@ -12,6 +12,6 @@ export interface Config {
     };
     selectionColors: {
       outline: string;
-    }
+    };
   };
 }

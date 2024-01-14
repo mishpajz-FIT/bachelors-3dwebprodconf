@@ -1,9 +1,12 @@
-import {useSnapshot} from "valtio";
+import { useSnapshot } from "valtio";
 
-import {AddComponentTile} from "./AddComponentTile.tsx";
-import {ContainerHeader} from "./containers/ContainerHeader.tsx";
-import {createNewComponent, mountBase} from "../../stores/actions/UserProductActions.ts";
-import {ProductSpecificationStore} from "../../stores/ProductSpecificationStore.ts";
+import { AddComponentTile } from "./AddComponentTile.tsx";
+import { ContainerHeader } from "./containers/ContainerHeader.tsx";
+import {
+  createNewComponent,
+  mountBase,
+} from "../../stores/actions/UserProductActions.ts";
+import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
 
 interface SelectBaseProps {
   onClose: () => void;
@@ -25,12 +28,15 @@ export const SelectBase = ({ onClose }: SelectBaseProps) => {
         <ContainerHeader title={"Select base"} onClose={onClose} />
       </div>
       <div className="flex w-full flex-wrap justify-center gap-4 md:w-4/5 lg:w-2/3">
-        {Object.entries(productSpecsSnap.baseSpecs).map(([baseKey, baseSpecs]) => (
-          <AddComponentTile
-            key={baseKey}
-            componentSpecId={baseSpecs.component}
-            add={() => selectBase(baseSpecs.component)}/>
-        ))}
+        {Object.entries(productSpecsSnap.baseSpecs).map(
+          ([baseKey, baseSpecs]) => (
+            <AddComponentTile
+              key={baseKey}
+              componentSpecId={baseSpecs.component}
+              add={() => selectBase(baseSpecs.component)}
+            />
+          )
+        )}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
-import './App.css';
+import "./App.css";
 
-import {ProductEditor} from "./components/3d/ProductEditor.tsx";
-import {ProductSpecificationProvider} from "./providers/ProductSpecificationProvider.tsx";
+import { ProductEditor } from "./components/3d/ProductEditor.tsx";
+import { ProductSpecificationProvider } from "./providers/ProductSpecificationProvider.tsx";
 
 function App() {
   return (

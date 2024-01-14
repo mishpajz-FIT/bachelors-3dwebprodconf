@@ -1,16 +1,21 @@
-import {Dialog, Transition} from "@headlessui/react";
-import {Fragment, ReactNode} from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, ReactNode } from "react";
 
 interface PopupProps {
-    isOpen: boolean;
-    onClose: () => void;
-    children?: ReactNode
+  isOpen: boolean;
+  onClose: () => void;
+  children?: ReactNode;
 }
 
-export const Popup = ({isOpen, onClose, children} : PopupProps) => {
+export const Popup = ({ isOpen, onClose, children }: PopupProps) => {
   return (
     <Transition show={isOpen} as={Fragment}>
-      <Dialog as="div" className="fixed inset-0 z-[100] overflow-y-auto" open={isOpen} onClose={onClose}>
+      <Dialog
+        as="div"
+        className="fixed inset-0 z-[100] overflow-y-auto"
+        open={isOpen}
+        onClose={onClose}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -20,7 +25,10 @@ export const Popup = ({isOpen, onClose, children} : PopupProps) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black/30 backdrop-blur-[1px]" aria-hidden="true" />
+          <div
+            className="fixed inset-0 bg-black/30 backdrop-blur-[1px]"
+            aria-hidden="true"
+          />
         </Transition.Child>
 
         <Transition.Child

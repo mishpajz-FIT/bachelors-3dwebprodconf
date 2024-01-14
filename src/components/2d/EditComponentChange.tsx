@@ -1,19 +1,26 @@
-import {PencilIcon, TrashIcon} from "@heroicons/react/24/outline";
-import {useState} from "react";
-import {useSnapshot} from "valtio";
+import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
+import { useSnapshot } from "valtio";
 
-import {AddComponent} from "./AddComponent.tsx";
-import {Modal} from "./containers/Modal.tsx";
-import {createNewComponent, mountComponent, removeComponent} from "../../stores/actions/UserProductActions.ts";
-import {EditorValuesStore} from "../../stores/EditorValuesStore.ts";
-import {ProductSpecificationStore} from "../../stores/ProductSpecificationStore.ts";
-import {UserProductStore} from "../../stores/UserProductStore.ts";
+import { AddComponent } from "./AddComponent.tsx";
+import { Modal } from "./containers/Modal.tsx";
+import {
+  createNewComponent,
+  mountComponent,
+  removeComponent,
+} from "../../stores/actions/UserProductActions.ts";
+import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
+import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
+import { UserProductStore } from "../../stores/UserProductStore.ts";
 
 interface EditComponentChangeProps {
   componentId: string;
   onClose?: () => void;
 }
-export const EditComponentChange = ({componentId, onClose}: EditComponentChangeProps) => {
+export const EditComponentChange = ({
+  componentId,
+  onClose,
+}: EditComponentChangeProps) => {
   const userProductSnap = useSnapshot(UserProductStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
@@ -26,7 +33,8 @@ export const EditComponentChange = ({componentId, onClose}: EditComponentChangeP
   const parentComponent = userProductSnap.components[parentComponentId];
   if (!parentComponent) return null;
 
-  const parentComponentSpec = productSpecsSnap.componentSpecs[parentComponent.componentSpec];
+  const parentComponentSpec =
+    productSpecsSnap.componentSpecs[parentComponent.componentSpec];
   if (!parentComponentSpec) return null;
 
   const remove = () => {
@@ -46,22 +54,34 @@ export const EditComponentChange = ({componentId, onClose}: EditComponentChangeP
     EditorValuesStore.selectedComponentId = newComponentId;
   };
 
-
   return (
     <>
-      <button className="other-button flex w-full items-center justify-center" onClick={() => setChangeModalOpen(true)}>
+      <button
+        className="other-button flex w-full items-center justify-center"
+        onClick={() => setChangeModalOpen(true)}
+      >
         <PencilIcon className="h-4 w-4" />
         <span className="ml-2">Change</span>
       </button>
-      <button className="destructive-button flex w-full items-center justify-center" onClick={remove}>
+      <button
+        className="destructive-button flex w-full items-center justify-center"
+        onClick={remove}
+      >
         <TrashIcon className="h-4 w-4" />
         <span className="ml-2">Remove</span>
       </button>
-      <Modal isOpen={isChangeModalOpen} onClose={() => setChangeModalOpen(false)}>
+      <Modal
+        isOpen={isChangeModalOpen}
+        onClose={() => setChangeModalOpen(false)}
+      >
         <AddComponent
-          mountableComponentsSpecs={parentComponentSpec.mountingPointsSpecs[parentMountingPointId].mountableComponents}
+          mountableComponentsSpecs={
+            parentComponentSpec.mountingPointsSpecs[parentMountingPointId]
+              .mountableComponents
+          }
           onClose={() => setChangeModalOpen(false)}
-          add={change} />
+          add={change}
+        />
       </Modal>
     </>
   );

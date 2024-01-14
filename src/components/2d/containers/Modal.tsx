@@ -1,13 +1,18 @@
-import {Dialog, Transition} from "@headlessui/react";
-import {Fragment, ReactNode} from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, ReactNode } from "react";
 
 interface ModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    isPopupOpen?: boolean
-    children?: ReactNode
+  isOpen: boolean;
+  onClose: () => void;
+  isPopupOpen?: boolean;
+  children?: ReactNode;
 }
-export const Modal = ({ isOpen, onClose, isPopupOpen, children } : ModalProps) => {
+export const Modal = ({
+  isOpen,
+  onClose,
+  isPopupOpen,
+  children,
+}: ModalProps) => {
   const handleClose = () => {
     if (!isPopupOpen) {
       onClose();
@@ -16,7 +21,12 @@ export const Modal = ({ isOpen, onClose, isPopupOpen, children } : ModalProps) =
 
   return (
     <Transition show={isOpen} as={Fragment}>
-      <Dialog as="div" className="fixed inset-0 z-[100] overflow-y-auto" open={isOpen} onClose={handleClose}>
+      <Dialog
+        as="div"
+        className="fixed inset-0 z-[100] overflow-y-auto"
+        open={isOpen}
+        onClose={handleClose}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -26,7 +36,10 @@ export const Modal = ({ isOpen, onClose, isPopupOpen, children } : ModalProps) =
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black/30 backdrop-blur-[1px]" aria-hidden="true" />
+          <div
+            className="fixed inset-0 bg-black/30 backdrop-blur-[1px]"
+            aria-hidden="true"
+          />
         </Transition.Child>
 
         <Transition.Child
@@ -40,7 +53,10 @@ export const Modal = ({ isOpen, onClose, isPopupOpen, children } : ModalProps) =
         >
           <div className="fixed inset-0 w-screen overflow-x-auto">
             <div className="flex min-h-full items-end justify-center">
-              <Dialog.Panel id="modal-container" className="simple-panel relative w-full rounded-b-none md:w-4/6 md:max-w-5xl">
+              <Dialog.Panel
+                id="modal-container"
+                className="simple-panel relative w-full rounded-b-none md:w-4/6 md:max-w-5xl"
+              >
                 {children}
               </Dialog.Panel>
             </div>

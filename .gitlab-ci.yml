@@ -21,4 +21,3 @@ linter:
   rules:
     - if: $CI_COMMIT_BRANCH # run on pushes
     - if: $CI_MERGE_REQUEST_ID # run on merge requests
-  
