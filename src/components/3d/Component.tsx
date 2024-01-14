@@ -6,8 +6,8 @@ import { ComponentModel } from "./ComponentModel.tsx";
 import { MountingPointButton } from "./MountingPointButton.tsx";
 import { appConfig } from "../../configurations/AppConfig.ts";
 import {
-  mountComponent,
   createNewComponent,
+  mountComponent,
 } from "../../stores/actions/UserProductActions.ts";
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
 import { UserProductStore } from "../../stores/UserProductStore.ts";
@@ -18,10 +18,12 @@ interface ComponentProps {
   rotation?: readonly [number, number, number];
 }
 
+const nullCoordinates: [number, number, number] = [0, 0, 0];
+
 export const Component = ({
   componentId,
-  position = [0, 0, 0],
-  rotation = [0, 0, 0],
+  position = nullCoordinates,
+  rotation = nullCoordinates,
 }: ComponentProps) => {
   const bounds = useBounds();
 
@@ -72,7 +74,7 @@ export const Component = ({
 
   return (
     <group position={position} rotation={radiansRotation}>
-      <ComponentModel componentId={componentId} position={[0, 0, 0]} />
+      <ComponentModel componentId={componentId} position={nullCoordinates} />
 
       {Object.entries(componentSpec.mountingPointsSpecs).map(
         ([mountingPointSpecId, mp]) => {

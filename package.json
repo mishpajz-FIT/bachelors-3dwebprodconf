@@ -13,7 +13,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,md,html,css}": "prettier --ignore-unknown --write",
-    "*.{js,jsx,ts,tsx}": "eslint --cache || true"
+    "*.{js,jsx,ts,tsx}": "eslint --cache"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
