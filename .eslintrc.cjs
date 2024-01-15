@@ -8,6 +8,8 @@ module.exports = {
     "plugin:react-hooks/recommended",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
     "plugin:@react-three/recommended",
     "plugin:valtio/recommended",
     "plugin:tailwindcss/recommended",
