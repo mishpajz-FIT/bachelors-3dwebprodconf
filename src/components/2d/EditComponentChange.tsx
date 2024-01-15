@@ -66,6 +66,8 @@ export const EditComponentChange = ({
         className="other-button destructive-button-on-hold flex w-full items-center justify-center"
         onSubmit={remove}
         duration={650}
+        popoverPosition={"top-end"}
+        popoverOffset={6}
       >
         <TrashIcon className="h-4 w-4" />
         <span className="ml-2">Remove</span>
