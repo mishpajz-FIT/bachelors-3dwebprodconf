@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { ProductEditor } from "./components/3d/ProductEditor.tsx";
+import { ProductEditor } from "./components/2d/concrete/ProductEditor/ProductEditor.tsx";
 import { ProductSpecificationProvider } from "./providers/ProductSpecificationProvider.tsx";
 
 function App() {
