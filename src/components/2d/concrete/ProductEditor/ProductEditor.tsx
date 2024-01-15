@@ -28,7 +28,7 @@ export const ProductEditor = () => {
   return (
     <div className="relative flex grow flex-col">
       <Suspense fallback={<ProductEditorLoading />}>
-        <div className="relative flex grow">
+        <div className="relative flex grow overflow-x-hidden">
           <ProductEditorCanvas />
 
           <Side isOpen={editorValuesSnap.selectedComponentId !== undefined}>
