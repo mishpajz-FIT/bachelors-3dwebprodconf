@@ -1,18 +1,21 @@
-import {Edges, useGLTF} from "@react-three/drei";
-import {ThreeEvent} from "@react-three/fiber";
-import {Color, Mesh, MeshStandardMaterial} from "three";
-import {useSnapshot} from "valtio";
+import { Edges, useGLTF } from "@react-three/drei";
+import { ThreeEvent } from "@react-three/fiber";
+import { Color, Mesh, MeshStandardMaterial } from "three";
+import { useSnapshot } from "valtio";
 
-import {appConfig} from "../../configurations/AppConfig.ts";
-import {EditorValuesStore} from "../../stores/EditorValuesStore.ts";
-import {ProductSpecificationStore} from "../../stores/ProductSpecificationStore.ts";
-import {UserProductStore} from "../../stores/UserProductStore.ts";
+import { appConfig } from "../../configurations/AppConfig.ts";
+import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
+import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
+import { UserProductStore } from "../../stores/UserProductStore.ts";
 
 interface ComponentModelProps {
   componentId: string;
   position: [number, number, number];
 }
-export const ComponentModel = ({ componentId, position }: ComponentModelProps) => {
+export const ComponentModel = ({
+  componentId,
+  position,
+}: ComponentModelProps) => {
   const userProductSnap = useSnapshot(UserProductStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
@@ -26,15 +29,17 @@ export const ComponentModel = ({ componentId, position }: ComponentModelProps) =
 
   const { nodes, materials } = useGLTF(componentSpec.modelUrl);
 
-  const customMaterials = Object.entries(userProductSnap.components[componentId].materials)
-    .reduce<Record<string, MeshStandardMaterial>>((acc, [materialSpecId, colorSpecId]) => {
+  const customMaterials = Object.entries(
+    userProductSnap.components[componentId].materials
+  ).reduce<Record<string, MeshStandardMaterial>>(
+    (acc, [materialSpecId, colorSpecId]) => {
       const materialSpec = componentSpec.materialSpecs[materialSpecId];
       if (!materialSpec) return acc;
 
       const colorSpec = materialSpec.colorVariationsSpecs[colorSpecId];
       if (!colorSpec) return acc;
 
-      materialSpec.modelMaterials.forEach(modelMaterialName => {
+      materialSpec.modelMaterials.forEach((modelMaterialName) => {
         const originalMaterial = materials[modelMaterialName];
         if (originalMaterial instanceof MeshStandardMaterial) {
           acc[modelMaterialName] = originalMaterial.clone();
@@ -43,7 +48,9 @@ export const ComponentModel = ({ componentId, position }: ComponentModelProps) =
       });
 
       return acc;
-    }, {});
+    },
+    {}
+  );
 
   const select = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();
@@ -63,17 +70,23 @@ export const ComponentModel = ({ componentId, position }: ComponentModelProps) =
         if (node.type === "Mesh") {
           const mesh = node as Mesh;
 
-          const materialName = Array.isArray(mesh.material) ? mesh.material[0].name : mesh.material.name;
-          const material = customMaterials[materialName] || materials[materialName];
+          const materialName = Array.isArray(mesh.material)
+            ? mesh.material[0].name
+            : mesh.material.name;
+          const material =
+            customMaterials[materialName] || materials[materialName];
 
           return (
-            <mesh
-              key={name}
-              geometry={mesh.geometry}
-              material={material}
-            >
-              <Edges visible={componentId === editorValuesSnap.selectedComponentId} scale={1.05}>
-                <meshBasicMaterial transparent={true} color={appConfig.spacialUi.selectionColors.outline} depthTest={false} />
+            <mesh key={name} geometry={mesh.geometry} material={material}>
+              <Edges
+                visible={componentId === editorValuesSnap.selectedComponentId}
+                scale={1.05}
+              >
+                <meshBasicMaterial
+                  transparent={true}
+                  color={appConfig.spatialUi.selectionColors.outline}
+                  depthTest={false}
+                />
               </Edges>
             </mesh>
           );

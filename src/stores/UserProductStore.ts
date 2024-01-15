@@ -1,6 +1,6 @@
-import {proxy} from "valtio";
+import { proxy } from "valtio";
 
-import {UserProduct} from "../interfaces/UserProduct.ts";
+import { UserProduct } from "../interfaces/UserProduct.ts";
 
 interface UserProductParentMap {
   childToParentMap: Map<string, [string, string]>; // reverse lookup from component to its parent and the mounting point id
@@ -12,8 +12,8 @@ export const UserProductStore = proxy<UserProduct & UserProductParentMap>({
     "1": {
       componentSpec: "box1",
       materials: {},
-      mounted: {}
-    }
+      mounted: {},
+    },
   },
-  childToParentMap: new Map<string, [string, string]>()
+  childToParentMap: new Map<string, [string, string]>(),
 });

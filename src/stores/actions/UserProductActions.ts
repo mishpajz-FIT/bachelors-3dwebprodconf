@@ -1,13 +1,16 @@
-import {v4 as uuid} from "uuid";
+import { v4 as uuid } from "uuid";
 
-import {ProductSpecificationStore} from "../ProductSpecificationStore.ts";
-import {UserProductStore} from "../UserProductStore.ts";
+import { UserComponent } from "../../interfaces/UserProduct.ts";
+import { ProductSpecificationStore } from "../ProductSpecificationStore.ts";
+import { UserProductStore } from "../UserProductStore.ts";
 
 const recursiveRemoveComponent = (componentId: string) => {
   const component = UserProductStore.components[componentId];
 
   if (!component) {
-    throw new Error(`Attempted to delete component with ID: ${componentId}, which does not exist.`);
+    throw new Error(
+      `Attempted to delete component with ID: ${componentId}, which does not exist.`
+    );
   }
 
   Object.values(component.mounted).forEach(recursiveRemoveComponent);
@@ -16,7 +19,10 @@ const recursiveRemoveComponent = (componentId: string) => {
   delete UserProductStore.components[componentId];
 };
 
-const detectRecursiveComponentCycle = (sourceComponentId: string, targetComponentId: string): boolean => {
+const detectRecursiveComponentCycle = (
+  sourceComponentId: string,
+  targetComponentId: string
+): boolean => {
   if (sourceComponentId == targetComponentId) {
     return true;
   }
@@ -28,7 +34,9 @@ const detectRecursiveComponentCycle = (sourceComponentId: string, targetComponen
     const top = queue.shift();
 
     if (!top) {
-      throw new Error(`Component tree failure, component with ID: ${top} does not exist.`);
+      throw new Error(
+        `Component tree failure, component with ID: ${top} does not exist.`
+      );
     }
 
     if (top == sourceComponentId) {
@@ -53,53 +61,72 @@ export const createNewComponent = (componentSpec: string): string => {
   UserProductStore.components[newComponentId] = {
     componentSpec: componentSpec,
     materials: {},
-    mounted: {}
+    mounted: {},
   };
 
   return newComponentId;
 };
 
-export const mountComponent = (targetComponentId: string, mountingPointSpecId: string, mountComponentId: string) => {
+export const mountComponent = (
+  targetComponentId: string,
+  mountingPointSpecId: string,
+  mountComponentId: string
+) => {
   // TODO: add checks for: non exising target, non exising new component, creation of recursive cycle
   const targetComponent = UserProductStore.components[targetComponentId];
   if (!targetComponent) {
-    throw new Error(`Target component with ID ${targetComponentId} does not exist.`);
+    throw new Error(
+      `Target component with ID ${targetComponentId} does not exist.`
+    );
   }
 
   const mountComponent = UserProductStore.components[mountComponentId];
   if (!mountComponent) {
-    throw new Error(`Mount component with ID ${targetComponentId} does not exist.`);
+    throw new Error(
+      `Mount component with ID ${targetComponentId} does not exist.`
+    );
   }
 
   if (detectRecursiveComponentCycle(targetComponentId, mountComponentId)) {
-    throw new Error(`Component tree failure, component mounting cycle detected.`);
+    throw new Error(
+      `Component tree failure, component mounting cycle detected.`
+    );
   }
 
   if (ProductSpecificationStore.isLoading) {
     throw new Error(`Loading Product Options.`);
   }
 
-  const targetComponentSpecs = ProductSpecificationStore.componentSpecs[targetComponent.componentSpec];
+  const targetComponentSpecs =
+    ProductSpecificationStore.componentSpecs[targetComponent.componentSpec];
   if (!targetComponentSpecs) {
-    throw new Error(`Specification ${targetComponent.componentSpec} component do not exist.`);
+    throw new Error(
+      `Specification ${targetComponent.componentSpec} component do not exist.`
+    );
   }
 
-  const mountingPoint = targetComponentSpecs.mountingPointsSpecs[mountingPointSpecId];
+  const mountingPoint =
+    targetComponentSpecs.mountingPointsSpecs[mountingPointSpecId];
   if (!mountingPoint) {
-    throw new Error(`Mounting point ${mountingPointSpecId} on ${targetComponent.componentSpec} does not exist.`);
+    throw new Error(
+      `Mounting point ${mountingPointSpecId} on ${targetComponent.componentSpec} does not exist.`
+    );
   }
 
-  const alreadyExistingComponentId = targetComponent.mounted[mountingPointSpecId];
+  const alreadyExistingComponentId =
+    targetComponent.mounted[mountingPointSpecId];
   if (alreadyExistingComponentId) {
     recursiveRemoveComponent(alreadyExistingComponentId);
   }
 
   targetComponent.mounted[mountingPointSpecId] = mountComponentId;
-  UserProductStore.childToParentMap.set(mountComponentId, [targetComponentId, mountingPointSpecId]);
+  UserProductStore.childToParentMap.set(mountComponentId, [
+    targetComponentId,
+    mountingPointSpecId,
+  ]);
 };
 
 export const removeComponent = (componentId: string) => {
-
   const parentInfo = UserProductStore.childToParentMap.get(componentId);
   if (parentInfo) {
     const [parentId, mountingPointSpecId] = parentInfo;
@@ -113,4 +140,22 @@ export const removeComponent = (componentId: string) => {
   UserProductStore.childToParentMap.delete(componentId);
 
   console.log(`remove ${componentId}`);
+};
+
+export const removeAllComponents = () => {
+  const base = UserProductStore.base;
+
+  const newComponents: Record<string, UserComponent> = {};
+  if (UserProductStore.components[base]) {
+    newComponents[base] = UserProductStore.components[base];
+    newComponents[base].mounted = {};
+  }
+
+  UserProductStore.childToParentMap.clear();
+  UserProductStore.components = newComponents;
+};
+
+export const mountBase = (componentId: string) => {
+  UserProductStore.base = componentId;
+  removeAllComponents();
 };

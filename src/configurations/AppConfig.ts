@@ -1,4 +1,4 @@
-import {Config} from "./config.ts";
+import { Config } from "./config.ts";
 
 export const appConfig: Config = {
   camera: {
@@ -7,13 +7,19 @@ export const appConfig: Config = {
   shadows: {
     floorShadow: false,
   },
-  spacialUi: {
-    buttonColors: {
-      default: "#0011ff",
-      hover: "#3377ff",
+  ui: {
+    colors: {
+      primary: {
+        light: "#3377ff",
+        dark: "#0011ff",
+        overlayTextWhiteLight: true,
+        overlayTextWhiteDark: true,
+      },
     },
+  },
+  spatialUi: {
     selectionColors: {
-      outline: "#000000"
-    }
+      outline: "#000000",
+    },
   },
 };

@@ -2,8 +2,13 @@
   "baseSpecs": {
     "base1": {
       "name": "Box",
-      "componentSpec": "box1",
+      "component": "box1",
       "backgroundUrl": "path/to/hdri/file1"
+    },
+    "base2": {
+      "name": "Cube",
+      "component": "cube",
+      "backgroundUrl": "path/to/hdri/file2"
     }
   },
   "componentSpecs": {
@@ -11,7 +16,7 @@
       "name": "Box",
       "description": "A cardboard box",
       "price": 50,
-      "imageUrl": "https://smithpackaging.co.uk/wp-content/uploads/2021/05/Double-Wall-Cardboard-Boxes-254x254x254-5-600x600.jpg",
+      "imageUrl": "https://www.paketo.cz/darkova-krabicka-s-pruhlednym-vikem-200x200x100-35-mm-seda-img-14494-fd-3.jpg",
       "modelUrl": "/BoxBase.glb",
       "materialSpecs": {
         "cardboard": {
@@ -67,7 +72,7 @@
       "name": "Lid",
       "description": "A lid for cardboard box",
       "price": 50,
-      "imageUrl": "https://smithpackaging.co.uk/wp-content/uploads/2021/05/Double-Wall-Cardboard-Boxes-254x254x254-5-600x600.jpg",
+      "imageUrl": "https://www.paketo.cz/darkova-krabicka-dno-a-viko-130x130x20-mm-bilo-bila-img-11775-fd-3.jpg",
       "modelUrl": "/BoxTop.glb",
       "materialSpecs": {
         "cardboard": {
@@ -100,6 +105,79 @@
         }
       },
       "mountingPointsSpecs": {}
+    },
+    "cube": {
+      "name": "Cube",
+      "description": "A cube",
+      "price": 50,
+      "imageUrl": "https://www.drawingforall.net/wp-content/uploads/2020/07/how-to-draw-a-cube-1.jpg",
+      "modelUrl": "/Premade/Box.gltf",
+      "materialSpecs": {
+        "cardboard": {
+          "name": "Wall",
+          "modelMaterials": [
+            "Red"
+          ],
+          "colorVariationsSpecs": {
+            "craft": {
+              "name": "Craft",
+              "value": "#946D46"
+            },
+            "red": {
+              "name": "Red",
+              "value": "#FF5733"
+            },
+            "green": {
+              "name": "Green",
+              "value": "#58D68D"
+            },
+            "blue": {
+              "name": "Blue",
+              "value": "#3498DB"
+            },
+            "black": {
+              "name": "Black",
+              "value": "#000000"
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "top": {
+          "position": [
+            0,
+            1,
+            0
+          ],
+          "rotation": [
+            0,
+            90,
+            0
+          ],
+          "isRequired": false,
+          "obstructedMountingPoints": [],
+          "mountableComponents": [
+            "cube"
+          ]
+        },
+        "left": {
+          "position": [
+            1,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "obstructedMountingPoints": [],
+          "mountableComponents": [
+            "cube"
+          ]
+        }
+      }
     }
   }
 }
