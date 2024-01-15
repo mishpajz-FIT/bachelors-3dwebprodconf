@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <div className="App flex h-screen flex-col">
-        <div className="border-b z-10 border-gray-200 bg-white shadow-sm p-4 dark:border-gray-600 dark:bg-gray-900">
+        <div className="z-10 border-b border-gray-200 bg-white p-4 shadow-sm dark:border-gray-600 dark:bg-gray-900">
           <span className="font-bold">logo!</span>
         </div>
 

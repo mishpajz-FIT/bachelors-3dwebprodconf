@@ -8,14 +8,12 @@ interface EditComponentColorsColorTileProps {
   materialSpecId: string;
   colorSpec: ColorSpecification;
   colorSpecId?: string;
-  key?: string | number;
 }
 export const EditComponentColorsColorTile = ({
   componentId,
   materialSpecId,
   colorSpec,
   colorSpecId,
-  key,
 }: EditComponentColorsColorTileProps) => {
   const userProductSnap = useSnapshot(UserProductStore);
 
@@ -33,7 +31,6 @@ export const EditComponentColorsColorTile = ({
 
   return (
     <div
-      key={key}
       className={`flex items-center ${isSelected ? "m-1 w-full" : "w-12"}`}
       aria-label={`${isSelected ? "selected" : "select"}`}
     >

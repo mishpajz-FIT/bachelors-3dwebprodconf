@@ -86,7 +86,7 @@ export const HoldButton = ({
         ],
       });
     }
-  }, [isPopoverOpen]);
+  }, [isPopoverOpen, popoverOffset, popoverPosition]);
 
   return (
     <>

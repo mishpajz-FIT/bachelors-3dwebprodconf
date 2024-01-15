@@ -2,9 +2,6 @@ import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
-import { AddComponent } from "../AddComponent/AddComponent.tsx";
-import { Modal } from "../../universal/containers/Modal.tsx";
-import { HoldButton } from "../../universal/HoldButton.tsx";
 import {
   createNewComponent,
   mountComponent,
@@ -13,6 +10,9 @@ import {
 import { EditorValuesStore } from "../../../../stores/EditorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
 import { UserProductStore } from "../../../../stores/UserProductStore.ts";
+import { Modal } from "../../universal/containers/Modal.tsx";
+import { HoldButton } from "../../universal/HoldButton.tsx";
+import { AddComponent } from "../AddComponent/AddComponent.tsx";
 
 interface EditComponentChangeProps {
   componentId: string;

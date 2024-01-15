@@ -1,13 +1,13 @@
 import { useCallback } from "react";
 import { useSnapshot } from "valtio";
 
-import { AddComponentTile } from "../AddComponent/AddComponentTile.tsx";
-import { ContainerHeader } from "../../universal/ContainerHeader.tsx";
 import {
   createNewComponent,
   mountBase,
 } from "../../../../stores/actions/UserProductActions.ts";
 import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
+import { ContainerHeader } from "../../universal/ContainerHeader.tsx";
+import { AddComponentTile } from "../AddComponent/AddComponentTile.tsx";
 
 interface SelectBaseProps {
   onClose: () => void;
