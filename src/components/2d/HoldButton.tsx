@@ -1,4 +1,4 @@
-import { KeyboardEvent, ReactNode, useRef, useState } from "react";
+import { KeyboardEvent, ReactNode, useEffect, useRef, useState } from "react";
 
 interface HoldButtonProps {
   onSubmit: () => void;
@@ -18,19 +18,21 @@ export const HoldButton = ({
 
   const timeIncrease = (duration * 5) / 100;
 
+  useEffect(() => {
+    return () => {
+      if (interval.current) {
+        clearInterval(interval.current);
+      }
+    };
+  }, []);
+
   const startCounter = () => {
+    if (interval.current) {
+      clearInterval(interval.current);
+    }
     setProgress(0);
     interval.current = setInterval(() => {
-      setProgress((prevProgress) => {
-        if (prevProgress >= 100) {
-          if (interval.current) {
-            clearInterval(interval.current);
-          }
-          onSubmit();
-          return 100;
-        }
-        return prevProgress + 5;
-      });
+      setProgress((prevProgress) => prevProgress + 5);
     }, timeIncrease);
   };
 
@@ -40,6 +42,16 @@ export const HoldButton = ({
     }
     setProgress(0);
   };
+
+  useEffect(() => {
+    if (progress >= 100) {
+      setProgress(0);
+      if (interval.current) {
+        clearInterval(interval.current);
+      }
+      onSubmit();
+    }
+  }, [progress, onSubmit]);
 
   const handleKey = (e: KeyboardEvent<HTMLButtonElement>, confirm: boolean) => {
     if (e.key === "Enter" || e.key === " ") {

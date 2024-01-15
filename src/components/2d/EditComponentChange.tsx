@@ -4,6 +4,7 @@ import { useSnapshot } from "valtio";
 
 import { AddComponent } from "./AddComponent.tsx";
 import { Modal } from "./containers/Modal.tsx";
+import { HoldButton } from "./HoldButton.tsx";
 import {
   createNewComponent,
   mountComponent,
@@ -12,7 +13,6 @@ import {
 import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
 import { UserProductStore } from "../../stores/UserProductStore.ts";
-import { HoldButton } from "./HoldButton.tsx";
 
 interface EditComponentChangeProps {
   componentId: string;
