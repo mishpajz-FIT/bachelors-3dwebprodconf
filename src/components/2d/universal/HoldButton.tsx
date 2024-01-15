@@ -104,15 +104,19 @@ export const HoldButton = ({
         onTouchCancel={stopCounter}
         onKeyDown={(e) => handleKey(e, true)}
         onKeyUp={(e) => handleKey(e, false)}
-        onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+        onClick={() => setIsPopoverOpen(true)}
       >
         {children}
       </button>
 
       {isPopoverOpen && (
-        <div ref={popoverRef} className="simple-panel p-2 px-4 text-xs">
+        <button
+          ref={popoverRef}
+          className="simple-panel cursor-default select-none p-2 px-4 text-xs outline outline-1 outline-gray-100 dark:outline-gray-700"
+          onClick={() => setIsPopoverOpen(false)}
+        >
           Hold to confirm
-        </div>
+        </button>
       )}
     </>
   );

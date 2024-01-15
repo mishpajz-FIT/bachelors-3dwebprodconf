@@ -2,7 +2,7 @@ import { InformationCircleIcon } from "@heroicons/react/20/solid";
 import { memo, useCallback, useState } from "react";
 import { useSnapshot } from "valtio";
 
-import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
+import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
 
 interface AddComponentTileProps {
   componentSpecId: string;

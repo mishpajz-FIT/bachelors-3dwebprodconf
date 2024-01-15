@@ -7,7 +7,7 @@ import {
 } from "react";
 
 import { AddComponentTile } from "./AddComponentTile.tsx";
-import { ContainerHeader } from "./containers/ContainerHeader.tsx";
+import { ContainerHeader } from "../../universal/ContainerHeader.tsx";
 
 interface AddComponentProps {
   mountableComponentsSpecs: readonly string[];

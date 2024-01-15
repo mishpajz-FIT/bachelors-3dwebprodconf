@@ -1,13 +1,13 @@
 import { useCallback } from "react";
 import { useSnapshot } from "valtio";
 
-import { AddComponentTile } from "./AddComponentTile.tsx";
-import { ContainerHeader } from "./containers/ContainerHeader.tsx";
+import { AddComponentTile } from "../AddComponent/AddComponentTile.tsx";
+import { ContainerHeader } from "../../universal/ContainerHeader.tsx";
 import {
   createNewComponent,
   mountBase,
-} from "../../stores/actions/UserProductActions.ts";
-import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
+} from "../../../../stores/actions/UserProductActions.ts";
+import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
 
 interface SelectBaseProps {
   onClose: () => void;
@@ -27,7 +27,7 @@ export const SelectBase = ({ onClose }: SelectBaseProps) => {
   );
 
   return (
-    <div className="flex flex-col items-center justify-center bg-white p-4 dark:bg-gray-900">
+    <div className="flex select-none flex-col items-center justify-center bg-white p-4 dark:bg-gray-900">
       <div className="w-full md:w-4/5 lg:w-2/3">
         <ContainerHeader title={"Select base"} onClose={onClose} />
       </div>

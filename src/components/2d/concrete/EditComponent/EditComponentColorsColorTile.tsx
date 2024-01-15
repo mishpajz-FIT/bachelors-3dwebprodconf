@@ -1,7 +1,7 @@
 import { useSnapshot } from "valtio";
 
-import { ColorSpecification } from "../../interfaces/ProductSpecification.ts";
-import { UserProductStore } from "../../stores/UserProductStore.ts";
+import { ColorSpecification } from "../../../../interfaces/ProductSpecification.ts";
+import { UserProductStore } from "../../../../stores/UserProductStore.ts";
 
 interface EditComponentColorsColorTileProps {
   componentId: string;

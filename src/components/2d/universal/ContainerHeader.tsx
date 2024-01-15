@@ -8,7 +8,7 @@ interface ContainerHeaderProps {
 
 export const ContainerHeader = memo(
   ({ title, onClose }: ContainerHeaderProps) => (
-    <div className="flex items-center justify-between px-2 pt-2">
+    <div className="flex select-none items-center justify-between px-2 pt-2">
       <h3 className="text-lg font-extrabold">{title}</h3>
       <button className="other-button" onClick={onClose}>
         <span className="sr-only">Close</span>

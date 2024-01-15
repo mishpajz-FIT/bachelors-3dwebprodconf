@@ -1,12 +1,12 @@
 import { InformationCircleIcon } from "@heroicons/react/20/solid";
 import { useSnapshot } from "valtio";
 
-import { ContainerHeader } from "./containers/ContainerHeader.tsx";
+import { ContainerHeader } from "../../universal/ContainerHeader.tsx";
 import { EditComponentChange } from "./EditComponentChange.tsx";
 import { EditComponentColors } from "./EditComponentColors.tsx";
-import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
-import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
-import { UserProductStore } from "../../stores/UserProductStore.ts";
+import { EditorValuesStore } from "../../../../stores/EditorValuesStore.ts";
+import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
+import { UserProductStore } from "../../../../stores/UserProductStore.ts";
 
 interface EditComponentProps {
   onClose: () => void;
