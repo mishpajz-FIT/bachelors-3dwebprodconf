@@ -1,9 +1,45 @@
 import "./App.css";
 
+import { useContext, useEffect } from "react";
+
 import { ProductEditor } from "./components/2d/concrete/ProductEditor/ProductEditor.tsx";
+import { ConfigContext } from "./configurations/contexts/ConfigContext.ts";
 import { ProductSpecificationProvider } from "./providers/ProductSpecificationProvider.tsx";
 
 function App() {
+  const appConfig = useContext(ConfigContext);
+
+  useEffect(() => {
+    const setCSSVariables = () => {
+      const root = document.documentElement;
+
+      root.style.setProperty(
+        "--primary-light",
+        appConfig.ui.colors.primary.light
+      );
+      root.style.setProperty(
+        "--primary-dark",
+        appConfig.ui.colors.primary.light
+      );
+
+      root.style.setProperty(
+        "--primary-overlay-light",
+        appConfig.ui.colors.primary.overlayTextWhiteLight
+          ? "rgb(255 255 255)"
+          : "rgb(2 6 23)"
+      );
+
+      root.style.setProperty(
+        "--primary-overlay-dark",
+        appConfig.ui.colors.primary.overlayTextWhiteDark
+          ? "rgb(255 255 255)"
+          : "rgb(2 6 23)"
+      );
+    };
+
+    setCSSVariables();
+  }, [appConfig]);
+
   return (
     <>
       <div className="App flex h-screen flex-col">
@@ -11,7 +47,7 @@ function App() {
           <img src={"vite.svg"} alt={"logo"} className="ml-2 max-h-12" />
         </div>
 
-        <ProductSpecificationProvider configUrl="/mockConfiguration.json">
+        <ProductSpecificationProvider configUrl={"/mockConfiguration.json"}>
           <ProductEditor />
         </ProductSpecificationProvider>
       </div>

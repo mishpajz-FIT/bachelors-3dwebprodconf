@@ -1,10 +1,11 @@
 import { useBounds } from "@react-three/drei";
+import { useContext } from "react";
 import { Euler, MathUtils } from "three";
 import { useSnapshot } from "valtio";
 
 import { ComponentModel } from "./ComponentModel.tsx";
 import { MountingPointButton } from "./MountingPointButton.tsx";
-import { appConfig } from "../../configurations/AppConfig.ts";
+import { ConfigContext } from "../../configurations/contexts/ConfigContext.ts";
 import {
   createNewComponent,
   mountComponent,
@@ -26,6 +27,8 @@ export const Component = ({
   rotation = nullCoordinates,
 }: ComponentProps) => {
   const bounds = useBounds();
+
+  const appConfig = useContext(ConfigContext);
 
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
   const userProductSnap = useSnapshot(UserProductStore);

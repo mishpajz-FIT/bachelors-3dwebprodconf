@@ -1,11 +1,18 @@
-import { Config } from "./config.ts";
+import { createContext } from "react";
 
-export const appConfig: Config = {
+import { Config } from "../Config.ts";
+
+export const DefaultConfig: Config = {
   camera: {
     isOrthogonal: false,
   },
   shadows: {
     floorShadow: false,
+  },
+  spatialUi: {
+    selectionColors: {
+      outline: "#000000",
+    },
   },
   ui: {
     colors: {
@@ -17,9 +24,6 @@ export const appConfig: Config = {
       },
     },
   },
-  spatialUi: {
-    selectionColors: {
-      outline: "#000000",
-    },
-  },
 };
+
+export const ConfigContext = createContext(DefaultConfig);

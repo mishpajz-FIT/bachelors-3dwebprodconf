@@ -8,14 +8,17 @@ import {
   Stats,
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import { useContext } from "react";
 import { useSnapshot } from "valtio";
 
 import { Component } from "./Component.tsx";
-import { appConfig } from "../../configurations/AppConfig.ts";
+import { ConfigContext } from "../../configurations/contexts/ConfigContext.ts";
 import { UserProductStore } from "../../stores/UserProductStore.ts";
 
 export const ProductEditorCanvas = () => {
   const userProductSnap = useSnapshot(UserProductStore);
+
+  const appConfig = useContext(ConfigContext);
 
   return (
     <Canvas
