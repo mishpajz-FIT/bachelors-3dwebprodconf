@@ -2,7 +2,7 @@ import "./App.css";
 
 import { useContext, useEffect } from "react";
 
-import { ProductEditor } from "./components/2d/concrete/ProductEditor/ProductEditor.tsx";
+import { AppContent } from "./AppContent.tsx";
 import { ConfigContext } from "./configurations/contexts/ConfigContext.ts";
 import { ProductSpecificationProvider } from "./providers/ProductSpecificationProvider.tsx";
 
@@ -41,17 +41,9 @@ function App() {
   }, [appConfig]);
 
   return (
-    <>
-      <div className="App flex h-screen flex-col">
-        <div className="z-10 border-b border-gray-200 bg-white p-2 shadow-sm dark:border-gray-600 dark:bg-gray-900">
-          <img src={"vite.svg"} alt={"logo"} className="ml-2 max-h-12" />
-        </div>
-
-        <ProductSpecificationProvider configUrl={"/mockConfiguration.json"}>
-          <ProductEditor />
-        </ProductSpecificationProvider>
-      </div>
-    </>
+    <ProductSpecificationProvider configUrl={"/mockConfiguration.json"}>
+      <AppContent />
+    </ProductSpecificationProvider>
   );
 }
 
