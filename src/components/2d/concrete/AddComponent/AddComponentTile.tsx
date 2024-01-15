@@ -48,7 +48,9 @@ export const AddComponentTile = memo(
           }
         }}
       >
-        {!imageError && (
+        {imageError ? (
+          <div className="mr-4 h-24 w-24 shrink-0 rounded bg-gray-300" />
+        ) : (
           <div className="pointer-events-none mr-4 h-24 w-24 shrink-0">
             <img
               src={componentSpec.imageUrl}
@@ -56,13 +58,12 @@ export const AddComponentTile = memo(
               className={`rounded transition-all duration-300 ease-in-out ${imageLoaded ? "opacity-100" : "opacity-0"} h-full w-full object-cover`}
               onLoad={handleImageLoad}
               onError={handleImageError}
+              style={{ display: imageLoaded || !imageError ? "block" : "none" }}
             />
+            {!imageLoaded && !imageError && (
+              <div className="absolute inset-0 animate-pulse rounded bg-gray-300" />
+            )}
           </div>
-        )}
-        {(!imageLoaded || imageError) && (
-          <div
-            className={`mr-4 h-24 w-24 shrink-0 ${!imageError ? "animate-pulse" : ""} rounded bg-gray-300`}
-          />
         )}
         <div className="flex w-full flex-col justify-between overflow-hidden">
           <div className="mb-1 grow">
