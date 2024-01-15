@@ -84,7 +84,7 @@ export const ComponentModel = ({
               >
                 <meshBasicMaterial
                   transparent={true}
-                  color={appConfig.spacialUi.selectionColors.outline}
+                  color={appConfig.spatialUi.selectionColors.outline}
                   depthTest={false}
                 />
               </Edges>

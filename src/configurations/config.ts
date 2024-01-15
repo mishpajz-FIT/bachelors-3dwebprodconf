@@ -5,11 +5,17 @@ export interface Config {
   shadows: {
     floorShadow: boolean;
   };
-  spacialUi: {
-    buttonColors: {
-      default: string;
-      hover: string;
+  ui: {
+    colors: {
+      primary: {
+        light: string;
+        dark: string;
+        overlayTextWhiteLight: boolean;
+        overlayTextWhiteDark: boolean;
+      };
     };
+  };
+  spatialUi: {
     selectionColors: {
       outline: string;
     };

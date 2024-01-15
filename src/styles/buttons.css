@@ -4,12 +4,12 @@
 
 @layer components {
   .base-button {
-    @apply text-gray-900 text-sm font-semibold;
+    @apply text-sm font-semibold text-gray-900;
     @apply px-2.5 py-1.5;
     @apply ring-1 ring-inset ring-gray-300;
     @apply rounded-md shadow-sm;
-    @apply focus:ring-2 focus:ring-opacity-50 focus:outline-none focus:ring-gray-300;
-    @apply active:shadow-inner active:scale-95;
+    @apply focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50;
+    @apply active:scale-95 active:shadow-inner;
     @apply transition duration-150 ease-in-out;
 
     @apply dark:text-white dark:ring-gray-600;
@@ -37,11 +37,11 @@
   }
 
   .destructive-button-on-hold {
-    @apply bg-no-repeat bg-gradient-to-tr;
-    @apply active:ring-rose-400 active:text-rose-400;
+    @apply bg-gradient-to-tr bg-no-repeat;
+    @apply active:text-rose-400 active:ring-rose-400;
     @apply from-rose-200 to-rose-200;
 
-    @apply active:dark:ring-rose-500 active:dark:text-rose-500;
+    @apply active:dark:text-rose-500 active:dark:ring-rose-500;
     @apply dark:from-rose-800 dark:to-rose-800;
   }
 
@@ -50,11 +50,11 @@
 
     @apply bg-white;
     @apply hover:bg-rose-200;
-    @apply ring-rose-400 text-rose-400;
+    @apply text-rose-400 ring-rose-400;
 
     @apply dark:bg-slate-900;
     @apply dark:hover:bg-rose-950;
-    @apply dark:ring-rose-700 dark:text-rose-700;
+    @apply dark:text-rose-700 dark:ring-rose-700;
   }
 
   .secondary-button {
@@ -67,5 +67,6 @@
     @apply styled-button;
     @apply bg-primary;
     @apply dark:bg-primary-dark;
+    @apply text-[color:var(--primary-overlay-light)] dark:text-[color:var(--primary-overlay-dark)];
   }
 }

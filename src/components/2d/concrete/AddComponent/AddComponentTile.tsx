@@ -31,7 +31,6 @@ export const AddComponentTile = memo(
 
     //TODO: create component details
 
-    //TODO: use suspense
     return (
       <div
         role={"button"}

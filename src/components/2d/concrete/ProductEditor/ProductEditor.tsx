@@ -40,7 +40,7 @@ export const ProductEditor = () => {
           </Side>
         </div>
 
-        <div className="bg-white p-2 shadow-md dark:bg-gray-900">
+        <div className="flex flex-row justify-between bg-white p-2 shadow-md dark:bg-gray-900">
           <button
             className="other-button"
             onClick={() => {
@@ -50,6 +50,8 @@ export const ProductEditor = () => {
           >
             Back
           </button>
+
+          <button className="primary-button">Done</button>
         </div>
 
         {isBaseSelectionOpen && (
