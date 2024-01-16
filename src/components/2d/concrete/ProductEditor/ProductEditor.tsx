@@ -10,7 +10,11 @@ import { Side } from "../../universal/containers/Side.tsx";
 import { EditComponent } from "../EditComponent/EditComponent.tsx";
 import { SelectBase } from "../SelectBase/SelectBase.tsx";
 
-export const ProductEditor = () => {
+interface ProductEditorProps {
+  onDone: () => void;
+}
+
+export const ProductEditor = ({ onDone }: ProductEditorProps) => {
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
   const userProductSnap = useSnapshot(UserProductStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
@@ -51,7 +55,9 @@ export const ProductEditor = () => {
             Back
           </button>
 
-          <button className="primary-button">Done</button>
+          <button className="primary-button" onClick={onDone}>
+            Done
+          </button>
         </div>
 
         {isBaseSelectionOpen && (
