@@ -32,8 +32,10 @@ export const ProductConfirmationTile = ({
   }
 
   return (
-    <div className="flex flex-col p-4">
-      <div className="mb-2 flex flex-row items-center">
+    <div
+      className={`flex flex-col p-4 ${Object.entries(component.materials).length > 0 && "gap-4"}`}
+    >
+      <div className="flex flex-row items-center">
         <SkeletonImage
           src={componentSpec.imageUrl}
           alt={componentSpec.name}
@@ -47,35 +49,42 @@ export const ProductConfirmationTile = ({
         </div>
       </div>
 
-      {Object.entries(component.materials).map(([materialId, colorSpecId]) => {
-        const material = componentSpec.materialSpecs[materialId];
-        if (!material) {
-          throw new Error(`Material ${materialId} not found`);
-        }
+      <div className="flex flex-col gap-0">
+        {Object.entries(component.materials).map(
+          ([materialId, colorSpecId]) => {
+            const material = componentSpec.materialSpecs[materialId];
+            if (!material) {
+              throw new Error(`Material ${materialId} not found`);
+            }
 
-        const colorSpec = material.colorVariationsSpecs[colorSpecId];
-        if (!colorSpec) {
-          throw new Error(`Color ${colorSpecId} not found`);
-        }
+            const colorSpec = material.colorVariationsSpecs[colorSpecId];
+            if (!colorSpec) {
+              throw new Error(`Color ${colorSpecId} not found`);
+            }
 
-        return (
-          <div className="flex flex-col p-1" key={materialId}>
-            <h2 className="text-sm font-normal">{material.name}</h2>
-            <div className="flex flex-row items-center p-1">
+            return (
               <div
-                className="h-10 w-10 rounded shadow-sm ring-1 ring-gray-300 dark:ring-gray-600"
-                style={{
-                  backgroundColor: colorSpec.value,
-                }}
-              />
+                className="flex flex-col rounded-md px-2 pb-2 pt-1 outline outline-1 outline-slate-200 dark:outline-slate-700"
+                key={materialId}
+              >
+                <h2 className="pb-1 text-sm font-normal">{material.name}</h2>
+                <div className="flex flex-row items-center">
+                  <div
+                    className="h-10 w-10 rounded shadow-sm ring-1 ring-gray-300 dark:ring-gray-600"
+                    style={{
+                      backgroundColor: colorSpec.value,
+                    }}
+                  />
 
-              <span className="ml-2 select-none truncate text-sm font-light leading-tight text-gray-600 dark:text-gray-400">
-                {colorSpec.name}
-              </span>
-            </div>
-          </div>
-        );
-      })}
+                  <span className="ml-2 select-none truncate text-sm font-light leading-tight text-gray-600 dark:text-gray-400">
+                    {colorSpec.name}
+                  </span>
+                </div>
+              </div>
+            );
+          }
+        )}
+      </div>
     </div>
   );
 };

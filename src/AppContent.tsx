@@ -22,7 +22,9 @@ export const AppContent = () => {
         <ProductEditor onDone={() => setPhase(AppPhase.Confirmation)} />
       )}
 
-      {phase === AppPhase.Confirmation && <ProductConfirmation />}
+      {phase === AppPhase.Confirmation && (
+        <ProductConfirmation onClose={() => setPhase(AppPhase.Editor)} />
+      )}
     </div>
   );
 };
