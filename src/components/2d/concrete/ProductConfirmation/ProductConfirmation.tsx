@@ -25,7 +25,7 @@ export const ProductConfirmation = ({ onClose }: ProductConfirmationProps) => {
               (componentId, index) => (
                 <li
                   key={componentId}
-                  className={`${index !== Object.keys(userProductSnap.components).length - 1 ? "border-1 border-b dark:border-b-gray-700" : ""}`}
+                  className={`${index !== Object.keys(userProductSnap.components).length - 1 ? "border-b dark:border-b-gray-700" : ""}`}
                 >
                   <ProductConfirmationTile componentId={componentId} />
                 </li>

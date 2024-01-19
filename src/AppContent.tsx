@@ -1,8 +1,7 @@
-import { ProductEditor } from "./components/2d/concrete/ProductEditor/ProductEditor.tsx";
-
 import { useState } from "react";
 
 import { ProductConfirmation } from "./components/2d/concrete/ProductConfirmation/ProductConfirmation.tsx";
+import { ProductEditor } from "./components/2d/concrete/ProductEditor/ProductEditor.tsx";
 
 enum AppPhase {
   Editor,
