@@ -10,4 +10,8 @@
     @apply dark:bg-gray-900;
     @apply dark:outline dark:outline-1 dark:outline-gray-700;
   }
+
+  .content-width {
+    @apply w-full md:w-4/5 lg:w-[92%] xl:w-3/4 2xl:w-[70%];
+  }
 }

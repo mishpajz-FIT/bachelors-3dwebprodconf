@@ -13,14 +13,13 @@ export const ProductConfirmation = ({ onClose }: ProductConfirmationProps) => {
 
   return (
     <div className="flex h-full w-full select-none flex-col items-center justify-start overflow-y-scroll bg-white px-4 dark:bg-gray-900">
-      <div className="mt-4 w-full md:w-4/5 lg:w-[92%] xl:w-3/4 2xl:w-[70%]">
+      <div className="content-width mt-4">
         <ContainerHeader title={"Confirm configuration"} onClose={undefined} />
       </div>
 
       <div className="flex w-full grow flex-row justify-center">
         <div className="w-full md:w-4/5 lg:w-2/3 xl:w-1/2">
-          <ol className="mb-20 mt-2 flex w-full flex-col justify-start rounded-xl bg-slate-100 outline outline-1 outline-gray-300 dark:bg-slate-800 dark:outline-gray-700">
-            {/* this bugger */}
+          <ol className="mb-20 mt-2 flex w-full flex-col justify-start rounded-xl bg-slate-50 outline outline-1 outline-gray-300 dark:bg-slate-800 dark:outline-gray-700">
             {Object.keys(userProductSnap.components).map(
               (componentId, index) => (
                 <li
