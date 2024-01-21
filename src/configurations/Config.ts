@@ -5,6 +5,11 @@ export interface Config {
   shadows: {
     floorShadow: boolean;
   };
+  spatialUi: {
+    selectionColors: {
+      outline: string;
+    };
+  };
   ui: {
     colors: {
       primary: {
@@ -13,11 +18,6 @@ export interface Config {
         overlayTextWhiteLight: boolean;
         overlayTextWhiteDark: boolean;
       };
-    };
-  };
-  spatialUi: {
-    selectionColors: {
-      outline: string;
     };
   };
 }

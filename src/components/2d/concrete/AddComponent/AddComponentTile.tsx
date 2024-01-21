@@ -1,8 +1,9 @@
 import { InformationCircleIcon } from "@heroicons/react/20/solid";
-import { memo, useCallback, useState } from "react";
+import { memo, useState } from "react";
 import { useSnapshot } from "valtio";
 
 import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
+import { SkeletonImage } from "../../universal/SkeletonImage.tsx";
 
 interface AddComponentTileProps {
   componentSpecId: string;
@@ -13,12 +14,7 @@ export const AddComponentTile = memo(
   ({ componentSpecId, add }: AddComponentTileProps) => {
     const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
-    const [imageLoaded, setImageLoaded] = useState(false);
-    const [imageError, setImageError] = useState(false);
     const [isButtonHovered, setIsButtonHovered] = useState(false);
-
-    const handleImageLoad = useCallback(() => setImageLoaded(true), []);
-    const handleImageError = useCallback(() => setImageError(true), []);
 
     if (productSpecsSnap.isLoading) {
       return null;
@@ -48,23 +44,11 @@ export const AddComponentTile = memo(
           }
         }}
       >
-        {imageError ? (
-          <div className="mr-4 h-24 w-24 shrink-0 rounded bg-gray-300" />
-        ) : (
-          <div className="pointer-events-none mr-4 h-24 w-24 shrink-0">
-            <img
-              src={componentSpec.imageUrl}
-              alt={componentSpec.name}
-              className={`rounded transition-all duration-300 ease-in-out ${imageLoaded ? "opacity-100" : "opacity-0"} h-full w-full object-cover`}
-              onLoad={handleImageLoad}
-              onError={handleImageError}
-              style={{ display: imageLoaded || !imageError ? "block" : "none" }}
-            />
-            {!imageLoaded && !imageError && (
-              <div className="absolute inset-0 animate-pulse rounded bg-gray-300" />
-            )}
-          </div>
-        )}
+        <SkeletonImage
+          src={componentSpec.imageUrl}
+          alt={componentSpec.name}
+          className="pointer-events-none inset-1 mr-4 h-24 w-24 rounded"
+        />
         <div className="flex w-full flex-col justify-between overflow-hidden">
           <div className="mb-1 grow">
             <h2 className="truncate text-lg font-semibold">
