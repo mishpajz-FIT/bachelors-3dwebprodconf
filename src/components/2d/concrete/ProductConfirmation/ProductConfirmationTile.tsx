@@ -43,9 +43,7 @@ export const ProductConfirmationTile = ({
         />
 
         <div className="ml-2 grow">
-          <h2 className="truncate text-lg font-semibold">
-            {componentSpec.name}
-          </h2>
+          <p className="truncate text-lg font-semibold">{componentSpec.name}</p>
         </div>
       </div>
 

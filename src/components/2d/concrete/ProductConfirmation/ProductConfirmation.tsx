@@ -12,8 +12,8 @@ export const ProductConfirmation = ({ onClose }: ProductConfirmationProps) => {
   const userProductSnap = useSnapshot(UserProductStore);
 
   return (
-    <div className="flex h-full w-full select-none flex-col items-center justify-start overflow-y-scroll bg-white px-4 dark:bg-gray-900">
-      <div className="content-width mt-4">
+    <div className="flex h-full w-full select-none flex-col items-center justify-start overflow-y-scroll bg-white p-4 dark:bg-gray-900">
+      <div className="content-width">
         <ContainerHeader title={"Confirm configuration"} onClose={undefined} />
       </div>
 
@@ -32,7 +32,7 @@ export const ProductConfirmation = ({ onClose }: ProductConfirmationProps) => {
             )}
           </ol>
         </div>
-        <div className="sticky top-12 hidden h-min p-6 lg:flex lg:w-1/4 xl:w-3/12 2xl:w-1/5">
+        <div className="sticky top-12 hidden h-min pl-6 pt-6 lg:flex lg:w-1/4 xl:w-3/12 2xl:w-1/5">
           <div className="simple-panel flex w-full flex-col p-4">
             <div className="flex flex-row items-center justify-start gap-1">
               <button className="other-button" onClick={onClose}>

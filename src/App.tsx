@@ -41,7 +41,7 @@ function App() {
   }, [appConfig]);
 
   return (
-    <ProductSpecificationProvider configUrl={"/mockConfiguration.json"}>
+    <ProductSpecificationProvider configUrl={"/ProductSpecs/box.json"}>
       <AppContent />
     </ProductSpecificationProvider>
   );

@@ -27,7 +27,7 @@ export const SelectBase = ({ onClose }: SelectBaseProps) => {
   );
 
   return (
-    <div className="flex select-none flex-col items-center justify-center bg-white p-4 dark:bg-gray-900">
+    <div className="flex select-none flex-col items-center justify-start bg-white p-4 dark:bg-gray-900">
       <div className="content-width">
         <ContainerHeader title={"Select base"} onClose={onClose} />
       </div>

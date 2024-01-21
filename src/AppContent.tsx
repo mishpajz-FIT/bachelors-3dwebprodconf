@@ -11,7 +11,7 @@ enum AppPhase {
 }
 
 export const AppContent = () => {
-  const [phase, setPhase] = useState(AppPhase.Editor);
+  const [phase, setPhase] = useState(AppPhase.Selection);
 
   return (
     <div className="App flex h-screen flex-col">
@@ -19,7 +19,9 @@ export const AppContent = () => {
         <img src={"vite.svg"} alt={"logo"} className="ml-2 max-h-12" />
       </div>
 
-      {phase === AppPhase.Selection && <ProductSelection />}
+      {phase === AppPhase.Selection && (
+        <ProductSelection onSelect={() => setPhase(AppPhase.Editor)} />
+      )}
 
       {phase === AppPhase.Editor && (
         <ProductEditor onDone={() => setPhase(AppPhase.Confirmation)} />
