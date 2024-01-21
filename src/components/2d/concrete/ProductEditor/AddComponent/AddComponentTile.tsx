@@ -16,10 +16,6 @@ export const AddComponentTile = memo(
 
     const [isButtonHovered, setIsButtonHovered] = useState(false);
 
-    if (productSpecsSnap.isLoading) {
-      return null;
-    }
-
     const componentSpec = productSpecsSnap.componentSpecs[componentSpecId];
     if (!componentSpec) {
       throw new Error(`Component specification ${componentSpecId} not found`);

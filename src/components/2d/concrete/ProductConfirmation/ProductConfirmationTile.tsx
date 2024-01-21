@@ -14,10 +14,6 @@ export const ProductConfirmationTile = ({
   const userProductSnap = useSnapshot(UserProductStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
-  if (productSpecsSnap.isLoading) {
-    return null;
-  }
-
   const component = userProductSnap.components[componentId];
   if (!component) {
     throw new Error(`Component ${componentId} not found`);

@@ -6,6 +6,7 @@ import {
   mountBase,
 } from "../../../../../stores/actions/UserProductActions.ts";
 import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
+import { UserProductStore } from "../../../../../stores/UserProductStore.ts";
 import { ContainerHeader } from "../../../universal/ContainerHeader.tsx";
 import { AddComponentTile } from "../AddComponent/AddComponentTile.tsx";
 
@@ -14,6 +15,7 @@ interface SelectBaseProps {
 }
 
 export const SelectBase = ({ onClose }: SelectBaseProps) => {
+  const userProductSnap = useSnapshot(UserProductStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
   const selectBase = useCallback(
@@ -29,7 +31,10 @@ export const SelectBase = ({ onClose }: SelectBaseProps) => {
   return (
     <div className="flex select-none flex-col items-center justify-start bg-white p-4 dark:bg-gray-900">
       <div className="content-width">
-        <ContainerHeader title={"Select base"} onClose={onClose} />
+        <ContainerHeader
+          title={"Select base"}
+          onClose={userProductSnap.isBaseSet ? onClose : undefined}
+        />
       </div>
       <div className="content-width flex flex-wrap justify-start">
         {Object.values(productSpecsSnap.baseSpecs).map((baseSpecs, index) => (

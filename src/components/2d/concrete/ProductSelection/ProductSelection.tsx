@@ -1,15 +1,14 @@
 import { Suspense } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 
 import { ProductSelectionTile } from "./ProductSelectionTile.tsx";
 import { ProductsStore } from "../../../../stores/ProductsStore.ts";
 import { ContainerHeader } from "../../universal/ContainerHeader.tsx";
 
-interface ProductSelectionProps {
-  onSelect: (productId: string) => void;
-}
+export const ProductSelection = () => {
+  const navigate = useNavigate();
 
-export const ProductSelection = ({ onSelect }: ProductSelectionProps) => {
   const productsSnap = useSnapshot(ProductsStore);
 
   const Skeleton = () => {
@@ -40,7 +39,9 @@ export const ProductSelection = ({ onSelect }: ProductSelectionProps) => {
               >
                 <button
                   className="w-full rounded-xl outline outline-1 outline-gray-200 transition-all duration-150 ease-in-out hover:bg-gray-100 active:scale-95 active:shadow-inner dark:outline-gray-700 dark:hover:bg-gray-800"
-                  onClick={() => onSelect(productId)}
+                  onClick={() => {
+                    navigate("/" + productId + "/editor");
+                  }}
                 >
                   <ProductSelectionTile productId={productId} />
                 </button>

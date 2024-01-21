@@ -1,15 +1,20 @@
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 
 import { ProductConfirmationTile } from "./ProductConfirmationTile.tsx";
+import { EditorValuesStore } from "../../../../stores/EditorValuesStore.ts";
 import { UserProductStore } from "../../../../stores/UserProductStore.ts";
 import { ContainerHeader } from "../../universal/ContainerHeader.tsx";
 
-interface ProductConfirmationProps {
-  onClose: () => void;
-}
+export const ProductConfirmation = () => {
+  const navigate = useNavigate();
 
-export const ProductConfirmation = ({ onClose }: ProductConfirmationProps) => {
   const userProductSnap = useSnapshot(UserProductStore);
+
+  const onClose = useCallback(() => {
+    navigate("/" + EditorValuesStore.currentProductId + "/editor");
+  }, [navigate]);
 
   return (
     <div className="flex h-full w-full select-none flex-col items-center justify-start overflow-y-scroll bg-white p-4 dark:bg-gray-900">

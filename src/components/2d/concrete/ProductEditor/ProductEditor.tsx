@@ -1,33 +1,30 @@
 import { Suspense, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 
 import { EditComponent } from "./EditComponent/EditComponent.tsx";
 import { ProductEditorLoading } from "./ProductEditorLoading.tsx";
 import { SelectBase } from "./SelectBase/SelectBase.tsx";
 import { EditorValuesStore } from "../../../../stores/EditorValuesStore.ts";
-import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
+import { UserProductStore } from "../../../../stores/UserProductStore.ts";
 import { ProductEditorCanvas } from "../../../3d/ProductEditorCanvas.tsx";
 import { Side } from "../../universal/containers/Side.tsx";
 
-interface ProductEditorProps {
-  onDone: () => void;
-}
+export const ProductEditor = () => {
+  const navigate = useNavigate();
 
-export const ProductEditor = ({ onDone }: ProductEditorProps) => {
-  const productSpecsSnap = useSnapshot(ProductSpecificationStore);
+  const userProductSnap = useSnapshot(UserProductStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 
-  const [isBaseSelectionOpen, setBaseSelectionOpen] = useState(false);
-
-  if (!productSpecsSnap.productSpecification) {
-    throw new Error(`Product specification not found`);
-  }
+  const [isBaseSelectionOpen, setBaseSelectionOpen] = useState(
+    !userProductSnap.isBaseSet
+  );
 
   return (
     <div className="relative flex grow flex-col">
       <Suspense fallback={<ProductEditorLoading />}>
         <div className="relative flex grow overflow-x-hidden">
-          <ProductEditorCanvas />
+          {userProductSnap.isBaseSet && <ProductEditorCanvas />}
 
           <Side isOpen={editorValuesSnap.selectedComponentId !== undefined}>
             <EditComponent
@@ -49,7 +46,12 @@ export const ProductEditor = ({ onDone }: ProductEditorProps) => {
             Back
           </button>
 
-          <button className="primary-button" onClick={onDone}>
+          <button
+            className="primary-button"
+            onClick={() =>
+              navigate("/" + EditorValuesStore.currentProductId + "/confirm")
+            }
+          >
             Done
           </button>
         </div>
