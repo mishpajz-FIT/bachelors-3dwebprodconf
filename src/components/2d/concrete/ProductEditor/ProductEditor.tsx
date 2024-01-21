@@ -6,7 +6,6 @@ import { ProductEditorLoading } from "./ProductEditorLoading.tsx";
 import { SelectBase } from "./SelectBase/SelectBase.tsx";
 import { EditorValuesStore } from "../../../../stores/EditorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
-import { UserProductStore } from "../../../../stores/UserProductStore.ts";
 import { ProductEditorCanvas } from "../../../3d/ProductEditorCanvas.tsx";
 import { Side } from "../../universal/containers/Side.tsx";
 
@@ -16,17 +15,12 @@ interface ProductEditorProps {
 
 export const ProductEditor = ({ onDone }: ProductEditorProps) => {
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
-  const userProductSnap = useSnapshot(UserProductStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 
   const [isBaseSelectionOpen, setBaseSelectionOpen] = useState(false);
 
-  if (!productSpecsSnap) {
-    return <div>Loading configuration</div>;
-  }
-
-  if (!userProductSnap) {
-    throw new Error("No user product!");
+  if (!productSpecsSnap.productSpecification) {
+    throw new Error(`Product specification not found`);
   }
 
   return (
