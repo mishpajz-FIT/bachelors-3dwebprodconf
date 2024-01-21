@@ -2,7 +2,7 @@ import { PlusIcon } from "@heroicons/react/20/solid";
 import { Html } from "@react-three/drei";
 import { useState } from "react";
 
-import { AddComponent } from "../2d/concrete/AddComponent/AddComponent.tsx";
+import { AddComponent } from "../2d/concrete/ProductEditor/AddComponent/AddComponent.tsx";
 import { Modal } from "../2d/universal/containers/Modal.tsx";
 
 interface MountingPointButtonProps {

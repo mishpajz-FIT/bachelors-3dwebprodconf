@@ -4,9 +4,9 @@ import { useSnapshot } from "valtio";
 import {
   createNewComponent,
   mountBase,
-} from "../../../../stores/actions/UserProductActions.ts";
-import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
-import { ContainerHeader } from "../../universal/ContainerHeader.tsx";
+} from "../../../../../stores/actions/UserProductActions.ts";
+import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
+import { ContainerHeader } from "../../../universal/ContainerHeader.tsx";
 import { AddComponentTile } from "../AddComponent/AddComponentTile.tsx";
 
 interface SelectBaseProps {

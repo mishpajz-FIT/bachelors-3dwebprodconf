@@ -1,14 +1,14 @@
 import { Suspense, useState } from "react";
 import { useSnapshot } from "valtio";
 
+import { EditComponent } from "./EditComponent/EditComponent.tsx";
 import { ProductEditorLoading } from "./ProductEditorLoading.tsx";
+import { SelectBase } from "./SelectBase/SelectBase.tsx";
 import { EditorValuesStore } from "../../../../stores/EditorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
 import { UserProductStore } from "../../../../stores/UserProductStore.ts";
 import { ProductEditorCanvas } from "../../../3d/ProductEditorCanvas.tsx";
 import { Side } from "../../universal/containers/Side.tsx";
-import { EditComponent } from "../EditComponent/EditComponent.tsx";
-import { SelectBase } from "../SelectBase/SelectBase.tsx";
 
 interface ProductEditorProps {
   onDone: () => void;
