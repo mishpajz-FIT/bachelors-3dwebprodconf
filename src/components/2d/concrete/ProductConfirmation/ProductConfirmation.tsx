@@ -19,13 +19,13 @@ export const ProductConfirmation = ({ onClose }: ProductConfirmationProps) => {
 
       <div className="flex w-full grow flex-row justify-center">
         <div className="w-full md:w-4/5 lg:w-2/3 xl:w-1/2">
-          <ol className="mb-20 mt-2 flex w-full flex-col justify-start rounded-xl bg-slate-100 outline outline-1 outline-gray-700 dark:bg-slate-800">
+          <ol className="mb-20 mt-2 flex w-full flex-col justify-start rounded-xl bg-slate-100 outline outline-1 outline-gray-300 dark:bg-slate-800 dark:outline-gray-700">
             {/* this bugger */}
             {Object.keys(userProductSnap.components).map(
               (componentId, index) => (
                 <li
                   key={componentId}
-                  className={`${index !== Object.keys(userProductSnap.components).length - 1 ? "border-b dark:border-b-gray-700" : ""}`}
+                  className={`${index !== Object.keys(userProductSnap.components).length - 1 ? "border-b border-b-gray-300 dark:border-b-gray-700" : ""}`}
                 >
                   <ProductConfirmationTile componentId={componentId} />
                 </li>
