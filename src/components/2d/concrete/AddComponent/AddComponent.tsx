@@ -66,12 +66,13 @@ export const AddComponent = ({
         onWheel={onWheel}
         className="flex items-center space-x-2 overflow-x-scroll px-4 py-2"
       >
-        {mountableComponentsSpecs.map((componentSpecId) => (
-          <AddComponentTile
-            key={componentSpecId}
-            componentSpecId={componentSpecId}
-            add={handleAdd(componentSpecId)}
-          />
+        {mountableComponentsSpecs.map((componentSpecId, index) => (
+          <div className="m-2 h-[150px] w-[360px] shrink-0" key={index}>
+            <AddComponentTile
+              componentSpecId={componentSpecId}
+              add={handleAdd(componentSpecId)}
+            />
+          </div>
         ))}
 
         {isOverflowing && (

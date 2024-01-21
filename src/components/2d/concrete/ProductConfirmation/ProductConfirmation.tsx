@@ -23,7 +23,7 @@ export const ProductConfirmation = ({ onClose }: ProductConfirmationProps) => {
             {Object.keys(userProductSnap.components).map(
               (componentId, index) => (
                 <li
-                  key={componentId}
+                  key={index}
                   className={`${index !== Object.keys(userProductSnap.components).length - 1 ? "border-b border-b-gray-300 dark:border-b-gray-700" : ""}`}
                 >
                   <ProductConfirmationTile componentId={componentId} />
@@ -32,6 +32,7 @@ export const ProductConfirmation = ({ onClose }: ProductConfirmationProps) => {
             )}
           </ol>
         </div>
+
         <div className="sticky top-12 hidden h-min pl-6 pt-6 lg:flex lg:w-1/4 xl:w-3/12 2xl:w-1/5">
           <div className="simple-panel flex w-full flex-col p-4">
             <div className="flex flex-row items-center justify-start gap-1">

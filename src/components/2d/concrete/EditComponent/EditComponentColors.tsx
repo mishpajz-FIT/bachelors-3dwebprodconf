@@ -42,13 +42,13 @@ export const EditComponentColors = ({
                 key={"default"}
               />
               {Object.entries(materialSpec.colorVariationsSpecs).map(
-                ([colorSpecId, colorSpec], colorIndex) => (
+                ([colorSpecId, colorSpec], index) => (
                   <EditComponentColorsColorTile
                     componentId={componentId}
                     materialSpecId={materialSpecId}
                     colorSpec={colorSpec}
                     colorSpecId={colorSpecId}
-                    key={colorIndex}
+                    key={index}
                   />
                 )
               )}

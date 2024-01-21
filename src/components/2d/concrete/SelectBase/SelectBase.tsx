@@ -31,16 +31,15 @@ export const SelectBase = ({ onClose }: SelectBaseProps) => {
       <div className="content-width">
         <ContainerHeader title={"Select base"} onClose={onClose} />
       </div>
-      <div className="content-width flex flex-wrap justify-center gap-4">
-        {Object.entries(productSpecsSnap.baseSpecs).map(
-          ([baseKey, baseSpecs]) => (
+      <div className="content-width flex flex-wrap justify-start">
+        {Object.values(productSpecsSnap.baseSpecs).map((baseSpecs, index) => (
+          <div className="h-[165px] w-full p-2 md:w-1/2 lg:w-1/3" key={index}>
             <AddComponentTile
-              key={baseKey}
               componentSpecId={baseSpecs.component}
               add={() => selectBase(baseSpecs.component)}
             />
-          )
-        )}
+          </div>
+        ))}
       </div>
     </div>
   );
