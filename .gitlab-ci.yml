@@ -1,6 +1,7 @@
 include:
   - local: .gitlab/linting.yml
   - local: .gitlab/code_quality.yml
+  - local: .gitlab/secret_detection.yml
   - local: .gitlab/deployment.yml
     rules:
       - if: $PIPELINE_TYPE == "scheduled_test"
