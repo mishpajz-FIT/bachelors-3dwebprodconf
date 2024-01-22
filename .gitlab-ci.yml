@@ -1,8 +1,15 @@
 include:
   - local: .gitlab/linting.yml
   - local: .gitlab/deployment.yml
+    rules:
+      - if: $PIPELINE_TYPE == "scheduled_test"
+        when: never
   - local: .gitlab/dependency_scanning.yml
+    rules:
+      - if: $PIPELINE_TYPE == "scheduled_test"
   - local: .gitlab/sast.yml
+    rules:
+      - if: $PIPELINE_TYPE == "scheduled_test"
 
 stages:
   - lint

@@ -1,8 +1,2 @@
 include:
   - template: Security/Dependency-Scanning.gitlab-ci.yml
-
-dependency_scanning:
-  rules:
-    - if: $PIPELINE_TYPE == "scheduled_test"
-      variables:
-        DEPENDENCY_SCANNING_DISABLED: "true"
