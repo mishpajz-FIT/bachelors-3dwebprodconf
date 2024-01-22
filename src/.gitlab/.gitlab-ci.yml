@@ -1,0 +1,9 @@
+include:
+  - local: .giltab/linting.yml
+  - local: .gitlab/deployment.yml
+  - local: .gitlab/dependency_scanning.yml
+
+stages:
+  - lint
+  - test
+  - deploy
