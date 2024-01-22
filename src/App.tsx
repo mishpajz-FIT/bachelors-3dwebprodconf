@@ -1,5 +1,3 @@
-import "./App.css";
-
 import { useContext, useEffect } from "react";
 
 import { AppContent } from "./AppContent.tsx";

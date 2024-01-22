@@ -50,7 +50,7 @@ export const ProductConfirmation = () => {
         </div>
       </div>
 
-      <div className="simple-panel absolute inset-x-0 bottom-0 w-full shadow-2xl lg:hidden">
+      <div className="simple-panel absolute inset-x-0 bottom-0 w-full rounded-b-none shadow-2xl lg:hidden">
         <div className="flex flex-row items-center justify-between px-2 py-4">
           <button className="other-button" onClick={onClose}>
             Back
