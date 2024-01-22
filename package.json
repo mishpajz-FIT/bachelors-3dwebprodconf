@@ -16,6 +16,11 @@
     "*.{js,jsx,ts,tsx,md,html,css}": "prettier --ignore-unknown --write",
     "*.{js,jsx,ts,tsx}": "eslint --cache"
   },
+  "browserslist": [
+    "> 1%",
+    "not dead",
+    "last 2 versions"
+  ],
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.1.1",
@@ -40,6 +45,7 @@
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react-swc": "^3.3.2",
     "autoprefixer": "^10.4.16",
+    "browserslist": "^4.22.2",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.28.1",
