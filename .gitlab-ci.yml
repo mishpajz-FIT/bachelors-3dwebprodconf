@@ -1,5 +1,6 @@
 stages:
   - lint
+  - deploy
 
 linter:
   stage: lint
@@ -10,9 +11,9 @@ linter:
   before_script:
     - apk add --no-cache nodejs npm
   script:
-    - echo "\033[1;35mInstalling dependencies...\033[0m"
+    - echo "\e[33mInstalling dependencies...\e[0m"
     - npm ci
-    - echo "\033[1;35mLinting...\033[0m"
+    - echo "\e[33m\e[4mLinting...\e[24m\e[0m"
     - npm run cilint
   artifacts:
     expire_in: 1 week
@@ -21,3 +22,22 @@ linter:
   rules:
     - if: $CI_COMMIT_BRANCH # run on pushes
     - if: $CI_MERGE_REQUEST_ID # run on merge requests
+
+deployment:
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  image: ${CI_REGISTRY}/ict/images/alpine/ci:3.18
+  cache:
+    paths:
+      - node_modules/
+  before_script:
+    - apk add --no-cache nodejs npm
+  script:
+    - echo "\e[33mInstalling dependencies...\e[0m"
+    - npm ci
+    - npm install --global vercel
+    - echo "\e[34m\e[4mDeploying...\e[24m\e[0m"
+    - vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
+    - vercel build --token=$VERCEL_TOKEN
+    - vercel deploy --prebuilt  --token=$VERCEL_TOKEN
