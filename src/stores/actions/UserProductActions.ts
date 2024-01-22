@@ -93,10 +93,6 @@ export const mountComponent = (
     );
   }
 
-  if (ProductSpecificationStore.isLoading) {
-    throw new Error(`Loading Product Options.`);
-  }
-
   const targetComponentSpecs =
     ProductSpecificationStore.componentSpecs[targetComponent.componentSpec];
   if (!targetComponentSpecs) {
@@ -157,5 +153,6 @@ export const removeAllComponents = () => {
 
 export const mountBase = (componentId: string) => {
   UserProductStore.base = componentId;
+  UserProductStore.isBaseSet = true;
   removeAllComponents();
 };

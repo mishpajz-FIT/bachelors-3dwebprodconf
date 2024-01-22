@@ -14,10 +14,6 @@ export const ProductConfirmationTile = ({
   const userProductSnap = useSnapshot(UserProductStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
-  if (productSpecsSnap.isLoading) {
-    return null;
-  }
-
   const component = userProductSnap.components[componentId];
   if (!component) {
     throw new Error(`Component ${componentId} not found`);
@@ -43,9 +39,7 @@ export const ProductConfirmationTile = ({
         />
 
         <div className="ml-2 grow">
-          <h2 className="truncate text-lg font-semibold">
-            {componentSpec.name}
-          </h2>
+          <p className="truncate text-lg font-semibold">{componentSpec.name}</p>
         </div>
       </div>
 

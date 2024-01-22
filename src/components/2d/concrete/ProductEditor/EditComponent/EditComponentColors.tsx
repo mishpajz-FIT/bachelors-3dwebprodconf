@@ -1,9 +1,9 @@
 import { useSnapshot } from "valtio";
 
 import { EditComponentColorsColorTile } from "./EditComponentColorsColorTile.tsx";
-import { ColorSpecification } from "../../../../interfaces/ProductSpecification.ts";
-import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
-import { UserProductStore } from "../../../../stores/UserProductStore.ts";
+import { ColorSpecification } from "../../../../../interfaces/ProductSpecification.ts";
+import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
+import { UserProductStore } from "../../../../../stores/UserProductStore.ts";
 
 interface EditComponentColorsProps {
   componentId: string;
@@ -42,13 +42,13 @@ export const EditComponentColors = ({
                 key={"default"}
               />
               {Object.entries(materialSpec.colorVariationsSpecs).map(
-                ([colorSpecId, colorSpec], colorIndex) => (
+                ([colorSpecId, colorSpec], index) => (
                   <EditComponentColorsColorTile
                     componentId={componentId}
                     materialSpecId={materialSpecId}
                     colorSpec={colorSpec}
                     colorSpecId={colorSpecId}
-                    key={colorIndex}
+                    key={index}
                   />
                 )
               )}

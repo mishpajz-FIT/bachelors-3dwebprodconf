@@ -4,7 +4,6 @@ import { useContext, useEffect } from "react";
 
 import { AppContent } from "./AppContent.tsx";
 import { ConfigContext } from "./configurations/contexts/ConfigContext.ts";
-import { ProductSpecificationProvider } from "./providers/ProductSpecificationProvider.tsx";
 
 function App() {
   const appConfig = useContext(ConfigContext);
@@ -40,11 +39,7 @@ function App() {
     setCSSVariables();
   }, [appConfig]);
 
-  return (
-    <ProductSpecificationProvider configUrl={"/mockConfiguration.json"}>
-      <AppContent />
-    </ProductSpecificationProvider>
-  );
+  return <AppContent />;
 }
 
 export default App;

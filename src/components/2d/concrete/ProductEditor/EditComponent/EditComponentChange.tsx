@@ -6,12 +6,12 @@ import {
   createNewComponent,
   mountComponent,
   removeComponent,
-} from "../../../../stores/actions/UserProductActions.ts";
-import { EditorValuesStore } from "../../../../stores/EditorValuesStore.ts";
-import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
-import { UserProductStore } from "../../../../stores/UserProductStore.ts";
-import { Modal } from "../../universal/containers/Modal.tsx";
-import { HoldButton } from "../../universal/HoldButton.tsx";
+} from "../../../../../stores/actions/UserProductActions.ts";
+import { EditorValuesStore } from "../../../../../stores/EditorValuesStore.ts";
+import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
+import { UserProductStore } from "../../../../../stores/UserProductStore.ts";
+import { Modal } from "../../../universal/containers/Modal.tsx";
+import { HoldButton } from "../../../universal/HoldButton.tsx";
 import { AddComponent } from "../AddComponent/AddComponent.tsx";
 
 interface EditComponentChangeProps {

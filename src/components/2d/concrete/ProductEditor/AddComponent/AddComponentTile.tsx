@@ -2,8 +2,8 @@ import { InformationCircleIcon } from "@heroicons/react/20/solid";
 import { memo, useState } from "react";
 import { useSnapshot } from "valtio";
 
-import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
-import { SkeletonImage } from "../../universal/SkeletonImage.tsx";
+import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
+import { SkeletonImage } from "../../../universal/SkeletonImage.tsx";
 
 interface AddComponentTileProps {
   componentSpecId: string;
@@ -16,10 +16,6 @@ export const AddComponentTile = memo(
 
     const [isButtonHovered, setIsButtonHovered] = useState(false);
 
-    if (productSpecsSnap.isLoading) {
-      return null;
-    }
-
     const componentSpec = productSpecsSnap.componentSpecs[componentSpecId];
     if (!componentSpec) {
       throw new Error(`Component specification ${componentSpecId} not found`);
@@ -31,7 +27,7 @@ export const AddComponentTile = memo(
       <div
         role={"button"}
         tabIndex={0}
-        className={`flex h-[150px] w-[350px] shrink-0 select-none justify-start rounded-md border border-gray-200 p-4 text-left dark:border-gray-700 ${
+        className={`flex h-full w-full shrink-0 select-none flex-row justify-start overflow-hidden rounded-md p-4 text-left outline outline-1 outline-gray-200 dark:outline-gray-700 ${
           !isButtonHovered
             ? "transition-all duration-150 ease-in-out hover:bg-gray-100 active:scale-95 active:shadow-inner dark:hover:bg-gray-800"
             : ""
@@ -50,15 +46,15 @@ export const AddComponentTile = memo(
           className="pointer-events-none inset-1 mr-4 h-24 w-24 rounded"
         />
         <div className="flex w-full flex-col justify-between overflow-hidden">
-          <div className="mb-1 grow">
+          <div className="mb-1">
             <h2 className="truncate text-lg font-semibold">
               {componentSpec.name}
             </h2>
-            <p className="line-clamp-3 text-pretty text-sm leading-tight text-gray-600 dark:text-gray-400">
+            <p className="line-clamp-3 overflow-y-hidden text-pretty text-sm leading-tight text-gray-600 dark:text-gray-400">
               {componentSpec.description}
             </p>
           </div>
-          <div className="mt-1 flex flex-row items-center justify-between">
+          <div className="mt-1 flex shrink-0 flex-row items-center justify-between">
             <span className="text-sm font-light">{componentSpec.price}</span>
             <button
               className="other-button"

@@ -33,14 +33,6 @@ export const Component = ({
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
   const userProductSnap = useSnapshot(UserProductStore);
 
-  if (productSpecsSnap?.isLoading) {
-    return <div>Loading configuration</div>;
-  }
-
-  if (!userProductSnap) {
-    throw new Error("No user product!");
-  }
-
   const component = userProductSnap.components[componentId];
   if (!component) {
     throw new Error(`Component ${componentId} not found!`);

@@ -3,10 +3,10 @@ import { useSnapshot } from "valtio";
 
 import { EditComponentChange } from "./EditComponentChange.tsx";
 import { EditComponentColors } from "./EditComponentColors.tsx";
-import { EditorValuesStore } from "../../../../stores/EditorValuesStore.ts";
-import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
-import { UserProductStore } from "../../../../stores/UserProductStore.ts";
-import { ContainerHeader } from "../../universal/ContainerHeader.tsx";
+import { EditorValuesStore } from "../../../../../stores/EditorValuesStore.ts";
+import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
+import { UserProductStore } from "../../../../../stores/UserProductStore.ts";
+import { ContainerHeader } from "../../../universal/ContainerHeader.tsx";
 
 interface EditComponentProps {
   onClose: () => void;
