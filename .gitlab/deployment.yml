@@ -29,5 +29,5 @@ deployment:
     - vercel build --token=$VERCEL_TOKEN
     - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
   environment:
-    - name: staging
-    - url: $VERCEL_DEPLOY_URL
+    name: staging
+    url: $VERCEL_DEPLOY_URL
