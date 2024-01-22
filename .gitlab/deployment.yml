@@ -26,7 +26,7 @@ deployment:
     - npm install --global vercel
     - echo "\e[34m\e[4mDeploying...\e[24m\e[0m"
     - vercel pull --yes --environment=production --token=$VERCEL_TOKEN
-    - vercel build --token=$VERCEL_TOKEN
+    - vercel build --prod --token=$VERCEL_TOKEN
     - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
   environment:
     name: staging
