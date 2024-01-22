@@ -1,7 +1,9 @@
-import { useCallback } from "react";
+import { useCallback, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 
+import { ConfigContext } from "../../../../../configurations/contexts/ConfigContext.ts";
+import { manipulateCanvas } from "../../../../../providers/CanvasManipulation.ts";
 import {
   createNewComponent,
   mountBase,
@@ -17,18 +19,23 @@ interface SelectBaseProps {
 
 export const SelectBase = ({ onClose }: SelectBaseProps) => {
   const navigate = useNavigate();
+  const appConfig = useContext(ConfigContext);
 
   const userProductSnap = useSnapshot(UserProductStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
   const selectBase = useCallback(
     (newComponentSpecId: string) => {
-      const newComponentId = createNewComponent(newComponentSpecId);
+      const action = () => {
+        const newComponentId = createNewComponent(newComponentSpecId);
 
-      mountBase(newComponentId);
+        mountBase(newComponentId);
+      };
+
+      manipulateCanvas(action, appConfig);
       onClose();
     },
-    [onClose]
+    [appConfig, onClose]
   );
 
   return (

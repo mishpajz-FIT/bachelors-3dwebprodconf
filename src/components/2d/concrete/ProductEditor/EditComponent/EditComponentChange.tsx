@@ -1,7 +1,9 @@
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { useSnapshot } from "valtio";
 
+import { ConfigContext } from "../../../../../configurations/contexts/ConfigContext.ts";
+import { manipulateCanvas } from "../../../../../providers/CanvasManipulation.ts";
 import {
   createNewComponent,
   mountComponent,
@@ -22,36 +24,63 @@ export const EditComponentChange = ({
   componentId,
   onClose,
 }: EditComponentChangeProps) => {
+  const appConfig = useContext(ConfigContext);
+
   const userProductSnap = useSnapshot(UserProductStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
   const [isChangeModalOpen, setChangeModalOpen] = useState(false);
 
   const parentInfo = userProductSnap.childToParentMap.get(componentId);
-  if (!parentInfo) return null;
+  if (!parentInfo) {
+    throw Error(
+      `Component hierarchy is damaged, components is without parent component!`
+    );
+  }
   const [parentComponentId, parentMountingPointId] = parentInfo;
 
   const parentComponent = userProductSnap.components[parentComponentId];
-  if (!parentComponent) return null;
+  if (!parentComponent) {
+    throw Error(`Could not find component ${parentComponentId}!`);
+  }
 
   const parentComponentSpec =
     productSpecsSnap.componentSpecs[parentComponent.componentSpec];
-  if (!parentComponentSpec) return null;
+  if (!parentComponentSpec) {
+    throw Error(
+      `Could not find component spec ${parentComponent.componentSpec}!`
+    );
+  }
 
-  const remove = () => {
-    removeComponent(componentId);
+  const remove = useCallback(() => {
+    const action = () => {
+      removeComponent(componentId);
+    };
+
+    manipulateCanvas(action, appConfig);
 
     if (onClose) {
       onClose();
     }
-  };
+  }, [appConfig, onClose, componentId]);
 
-  const change = (newComponentSpecId: string) => {
-    const newComponentId = createNewComponent(newComponentSpecId);
-    mountComponent(parentComponentId, parentMountingPointId, newComponentId);
+  const change = useCallback(
+    (newComponentSpecId: string) => {
+      const action = () => {
+        const newComponentId = createNewComponent(newComponentSpecId);
+        mountComponent(
+          parentComponentId,
+          parentMountingPointId,
+          newComponentId
+        );
 
-    EditorValuesStore.selectedComponentId = newComponentId;
-  };
+        EditorValuesStore.selectedComponentId = newComponentId;
+      };
+
+      manipulateCanvas(action, appConfig);
+    },
+    [appConfig, parentComponentId, parentMountingPointId]
+  );
 
   return (
     <>

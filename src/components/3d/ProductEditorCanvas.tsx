@@ -11,6 +11,7 @@ import { Canvas } from "@react-three/fiber";
 import { useContext } from "react";
 import { useSnapshot } from "valtio";
 
+import { BoundsStorer } from "./BoundsStorer.tsx";
 import { Component } from "./Component.tsx";
 import { ConfigContext } from "../../configurations/contexts/ConfigContext.ts";
 import { UserProductStore } from "../../stores/UserProductStore.ts";
@@ -41,10 +42,12 @@ export const ProductEditorCanvas = () => {
       />
       <directionalLight position={[2, 2, 5]} intensity={0.7} />
       <Bounds fit clip observe margin={2}>
-        <Component
-          key={userProductSnap.base}
-          componentId={userProductSnap.base}
-        />
+        <BoundsStorer>
+          <Component
+            key={userProductSnap.base}
+            componentId={userProductSnap.base}
+          />
+        </BoundsStorer>
       </Bounds>
       {appConfig.shadows.floorShadow ? (
         <ContactShadows
