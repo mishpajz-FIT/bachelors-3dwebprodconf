@@ -4,5 +4,5 @@ include:
 sast:
   rules:
     - if: $PIPELINE_TYPE == "scheduled_test"
-    - if: $PIPELINE_TYPE != "scheduled_test"
-      when: never
+      variables:
+        SAST_DISABLED: "true"
