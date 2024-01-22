@@ -1,0 +1,8 @@
+include:
+  - template: Jobs/Code-Quality.gitlab-ci.yml
+
+code_quality:
+  rules:
+    - if: $CODE_QUALITY_DISABLED
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" # Run code quality job in merge request pipelines
