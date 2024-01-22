@@ -27,8 +27,18 @@ linter:
     - if: $CI_COMMIT_BRANCH # run on pushes
     - if: $CI_MERGE_REQUEST_ID # run on merge requests
 
-deployment:
+.freezedeployment:
   stage: deploy
+  before_script:
+    - '[[ ! -z "$CI_DEPLOY_FREEZE" ]] && echo "INFRASTRUCTURE OUTAGE WINDOW" && exit 1; '
+  rules:
+    - if: '$CI_DEPLOY_FREEZE'
+      when: manual
+      allow_failure: true
+    - when: on_success
+
+deployment:
+  extends: .freezedeployment
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   image: ${CI_REGISTRY}/ict/images/alpine/ci:3.18
@@ -45,3 +55,7 @@ deployment:
     - vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
     - vercel build --token=$VERCEL_TOKEN
     - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+
+dependency_scanning:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
