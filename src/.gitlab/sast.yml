@@ -1,0 +1,6 @@
+include:
+  - template: Jobs/SAST.gitlab-ci.yml
+
+sast:
+  rules:
+    - if: $PIPELINE_TYPE == "scheduled_test"
