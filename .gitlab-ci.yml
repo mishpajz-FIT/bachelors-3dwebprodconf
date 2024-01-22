@@ -1,5 +1,5 @@
 include:
-  - local: .giltab/linting.yml
+  - local: .gitlab/linting.yml
   - local: .gitlab/deployment.yml
   - local: .gitlab/dependency_scanning.yml
   - local: .gitlab/sast.yml
