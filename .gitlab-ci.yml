@@ -1,5 +1,9 @@
+include:
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+
 stages:
   - lint
+  - test
   - deploy
 
 linter:
@@ -40,4 +44,4 @@ deployment:
     - echo "\e[34m\e[4mDeploying...\e[24m\e[0m"
     - vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
     - vercel build --token=$VERCEL_TOKEN
-    - vercel deploy --prebuilt  --token=$VERCEL_TOKEN
+    - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
