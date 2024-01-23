@@ -88,7 +88,7 @@ export const AppContent = () => {
   return (
     <div className="app flex h-dvh flex-col">
       <div className="content-background z-10 border-b border-gray-200 p-2 shadow-sm dark:border-gray-600">
-        <img src={"/vite.svg"} alt={"logo"} className="ml-2 max-h-12" />
+        <img src={"/logo.svg"} alt={"logo"} className="ml-2 max-h-12" />
       </div>
 
       <RouterProvider router={router} />
