@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import { EditComponentColorsColorTile } from "./EditComponentColorsColorTile.tsx";
 import { ColorSpecification } from "../../../../../interfaces/ProductSpecification.ts";
 import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
-import { UserProductStore } from "../../../../../stores/UserProductStore.ts";
+import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
 
 interface EditComponentColorsProps {
   componentId: string;
@@ -17,10 +17,10 @@ const defaultColorSpec: ColorSpecification = {
 export const EditComponentColors = ({
   componentId,
 }: EditComponentColorsProps) => {
-  const userProductSnap = useSnapshot(UserProductStore);
+  const userCreationSnap = useSnapshot(UserCreationStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
-  const component = userProductSnap.components[componentId];
+  const component = userCreationSnap.components[componentId];
   if (!component) return null;
 
   const componentSpecId = component.componentSpec;

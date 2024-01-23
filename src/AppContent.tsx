@@ -12,7 +12,7 @@ import { fetchProductSpecification } from "./stores/actions/ProductSpecification
 import { EditorValuesStore } from "./stores/EditorValuesStore.ts";
 import { ProductSpecificationStore } from "./stores/ProductSpecificationStore.ts";
 import { ProductsStore } from "./stores/ProductsStore.ts";
-import { UserProductStore } from "./stores/UserProductStore.ts";
+import { UserCreationStore } from "./stores/UserCreationStore.ts";
 
 const router = createBrowserRouter([
   {
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
         throw Error("Product not found.");
       }
 
-      if (!UserProductStore.isBaseSet) {
+      if (!UserCreationStore.isBaseSet) {
         return redirect("/" + params.productId + "/editor");
       }
 

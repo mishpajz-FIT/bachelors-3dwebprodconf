@@ -4,7 +4,7 @@ import { useSnapshot } from "valtio";
 import { ComponentModel } from "./ComponentModel.tsx";
 import { MountingPointButton } from "./MountingPointButton.tsx";
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
-import { UserProductStore } from "../../stores/UserProductStore.ts";
+import { UserCreationStore } from "../../stores/UserCreationStore.ts";
 
 interface ComponentProps {
   componentId: string;
@@ -20,7 +20,7 @@ export const Component = ({
   rotation = nullCoordinates,
 }: ComponentProps) => {
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
-  const userProductSnap = useSnapshot(UserProductStore);
+  const userProductSnap = useSnapshot(UserCreationStore);
 
   const component = userProductSnap.components[componentId];
   if (!component) {

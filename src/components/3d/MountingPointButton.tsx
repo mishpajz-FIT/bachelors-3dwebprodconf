@@ -5,11 +5,11 @@ import { useSnapshot } from "valtio";
 
 import { manipulateCanvas } from "../../providers/CanvasManipulation.ts";
 import {
-  createNewComponent,
+  createComponent,
   mountComponent,
-} from "../../stores/actions/UserProductActions.ts";
+} from "../../stores/actions/UserCreationActions.ts";
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
-import { UserProductStore } from "../../stores/UserProductStore.ts";
+import { UserCreationStore } from "../../stores/UserCreationStore.ts";
 import { AddComponent } from "../2d/concrete/ProductEditor/AddComponent/AddComponent.tsx";
 import { Modal } from "../2d/universal/containers/Modal.tsx";
 
@@ -24,7 +24,7 @@ export const MountingPointButton = ({
 }: MountingPointButtonProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const userProductSnap = useSnapshot(UserProductStore);
+  const userProductSnap = useSnapshot(UserCreationStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
   const component = userProductSnap.components[componentId];
@@ -49,8 +49,18 @@ export const MountingPointButton = ({
   const add = useCallback(
     (newComponentSpecId: string) => {
       const action = () => {
-        const newComponentId = createNewComponent(newComponentSpecId);
-        mountComponent(componentId, mountingPointSpecId, newComponentId);
+        const newComponentId = createComponent(
+          newComponentSpecId,
+          UserCreationStore,
+          ProductSpecificationStore
+        );
+        mountComponent(
+          componentId,
+          mountingPointSpecId,
+          newComponentId,
+          UserCreationStore,
+          ProductSpecificationStore
+        );
       };
 
       manipulateCanvas(action);

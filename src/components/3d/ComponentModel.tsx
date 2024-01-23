@@ -6,7 +6,7 @@ import { useSnapshot } from "valtio";
 import { globalConfig } from "../../configurations/Config.ts";
 import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
-import { UserProductStore } from "../../stores/UserProductStore.ts";
+import { UserCreationStore } from "../../stores/UserCreationStore.ts";
 
 interface ComponentModelProps {
   componentId: string;
@@ -16,7 +16,7 @@ export const ComponentModel = ({
   componentId,
   position,
 }: ComponentModelProps) => {
-  const userProductSnap = useSnapshot(UserProductStore);
+  const userProductSnap = useSnapshot(UserCreationStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 

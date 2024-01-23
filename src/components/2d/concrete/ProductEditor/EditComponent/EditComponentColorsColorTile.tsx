@@ -1,7 +1,10 @@
+import { useCallback } from "react";
 import { useSnapshot } from "valtio";
 
 import { ColorSpecification } from "../../../../../interfaces/ProductSpecification.ts";
-import { UserProductStore } from "../../../../../stores/UserProductStore.ts";
+import { changeMaterial } from "../../../../../stores/actions/UserCreationActions.ts";
+import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
+import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
 
 interface EditComponentColorsColorTileProps {
   componentId: string;
@@ -15,19 +18,20 @@ export const EditComponentColorsColorTile = ({
   colorSpec,
   colorSpecId,
 }: EditComponentColorsColorTileProps) => {
-  const userProductSnap = useSnapshot(UserProductStore);
+  const userCreationSnap = useSnapshot(UserCreationStore);
 
-  const materials = userProductSnap.components[componentId].materials;
+  const materials = userCreationSnap.components[componentId].materials;
   const isSelected = materials[materialSpecId] === colorSpecId;
 
-  const select = () => {
-    if (colorSpecId === undefined) {
-      delete UserProductStore.components[componentId].materials[materialSpecId];
-      return;
-    }
-    UserProductStore.components[componentId].materials[materialSpecId] =
-      colorSpecId;
-  };
+  const choose = useCallback(() => {
+    changeMaterial(
+      componentId,
+      materialSpecId,
+      colorSpecId,
+      UserCreationStore,
+      ProductSpecificationStore
+    );
+  }, [colorSpecId, componentId, materialSpecId]);
 
   return (
     <div
@@ -47,7 +51,7 @@ export const EditComponentColorsColorTile = ({
             backgroundColor: colorSpec.value,
             outlineColor: colorSpec.value,
           }}
-          onClick={isSelected ? undefined : select}
+          onClick={isSelected ? undefined : choose}
           disabled={isSelected}
         />
         <span

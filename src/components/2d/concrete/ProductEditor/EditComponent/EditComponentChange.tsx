@@ -4,13 +4,13 @@ import { useSnapshot } from "valtio";
 
 import { manipulateCanvas } from "../../../../../providers/CanvasManipulation.ts";
 import {
-  createNewComponent,
+  createComponent,
   mountComponent,
   removeComponent,
-} from "../../../../../stores/actions/UserProductActions.ts";
+} from "../../../../../stores/actions/UserCreationActions.ts";
 import { EditorValuesStore } from "../../../../../stores/EditorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
-import { UserProductStore } from "../../../../../stores/UserProductStore.ts";
+import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
 import { Modal } from "../../../universal/containers/Modal.tsx";
 import { HoldButton } from "../../../universal/HoldButton.tsx";
 import { AddComponent } from "../AddComponent/AddComponent.tsx";
@@ -23,12 +23,12 @@ export const EditComponentChange = ({
   componentId,
   onClose,
 }: EditComponentChangeProps) => {
-  const userProductSnap = useSnapshot(UserProductStore);
+  const userCreationSnap = useSnapshot(UserCreationStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
   const [isChangeModalOpen, setChangeModalOpen] = useState(false);
 
-  const parentInfo = userProductSnap.childToParentMap.get(componentId);
+  const parentInfo = userCreationSnap.childToParentMap.get(componentId);
   if (!parentInfo) {
     throw Error(
       `Component hierarchy is damaged, components is without parent component!`
@@ -36,7 +36,7 @@ export const EditComponentChange = ({
   }
   const [parentComponentId, parentMountingPointId] = parentInfo;
 
-  const parentComponent = userProductSnap.components[parentComponentId];
+  const parentComponent = userCreationSnap.components[parentComponentId];
   if (!parentComponent) {
     throw Error(`Could not find component ${parentComponentId}!`);
   }
@@ -51,7 +51,7 @@ export const EditComponentChange = ({
 
   const remove = useCallback(() => {
     const action = () => {
-      removeComponent(componentId);
+      removeComponent(componentId, UserCreationStore);
     };
 
     manipulateCanvas(action);
@@ -64,11 +64,17 @@ export const EditComponentChange = ({
   const change = useCallback(
     (newComponentSpecId: string) => {
       const action = () => {
-        const newComponentId = createNewComponent(newComponentSpecId);
+        const newComponentId = createComponent(
+          newComponentSpecId,
+          UserCreationStore,
+          ProductSpecificationStore
+        );
         mountComponent(
           parentComponentId,
           parentMountingPointId,
-          newComponentId
+          newComponentId,
+          UserCreationStore,
+          ProductSpecificationStore
         );
 
         EditorValuesStore.selectedComponentId = newComponentId;

@@ -4,7 +4,7 @@ export interface UserComponent {
   mounted: Record<string, string>;
 }
 
-export interface UserProduct {
+export interface UserCreation {
   base: string;
   components: Record<string, UserComponent>;
 }

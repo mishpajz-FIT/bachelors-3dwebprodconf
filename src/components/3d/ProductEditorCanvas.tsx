@@ -13,10 +13,10 @@ import { useSnapshot } from "valtio";
 import { BoundsStorer } from "./BoundsStorer.tsx";
 import { Component } from "./Component.tsx";
 import { globalConfig } from "../../configurations/Config.ts";
-import { UserProductStore } from "../../stores/UserProductStore.ts";
+import { UserCreationStore } from "../../stores/UserCreationStore.ts";
 
 export const ProductEditorCanvas = () => {
-  const userProductSnap = useSnapshot(UserProductStore);
+  const userProductSnap = useSnapshot(UserCreationStore);
 
   return (
     <Canvas

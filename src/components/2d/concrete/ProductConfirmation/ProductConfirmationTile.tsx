@@ -1,7 +1,7 @@
 import { useSnapshot } from "valtio";
 
 import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
-import { UserProductStore } from "../../../../stores/UserProductStore.ts";
+import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
 import { SkeletonImage } from "../../universal/SkeletonImage.tsx";
 
 interface ProductConfirmationTileProps {
@@ -11,10 +11,10 @@ interface ProductConfirmationTileProps {
 export const ProductConfirmationTile = ({
   componentId,
 }: ProductConfirmationTileProps) => {
-  const userProductSnap = useSnapshot(UserProductStore);
+  const userCreationSnap = useSnapshot(UserCreationStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
-  const component = userProductSnap.components[componentId];
+  const component = userCreationSnap.components[componentId];
   if (!component) {
     throw new Error(`Component ${componentId} not found`);
   }

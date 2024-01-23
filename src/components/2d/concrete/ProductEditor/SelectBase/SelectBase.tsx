@@ -4,11 +4,11 @@ import { useSnapshot } from "valtio";
 
 import { manipulateCanvas } from "../../../../../providers/CanvasManipulation.ts";
 import {
-  createNewComponent,
+  createComponent,
   mountBase,
-} from "../../../../../stores/actions/UserProductActions.ts";
+} from "../../../../../stores/actions/UserCreationActions.ts";
 import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
-import { UserProductStore } from "../../../../../stores/UserProductStore.ts";
+import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
 import { ContainerHeader } from "../../../universal/ContainerHeader.tsx";
 import { AddComponentTile } from "../AddComponent/AddComponentTile.tsx";
 
@@ -19,15 +19,19 @@ interface SelectBaseProps {
 export const SelectBase = ({ onClose }: SelectBaseProps) => {
   const navigate = useNavigate();
 
-  const userProductSnap = useSnapshot(UserProductStore);
+  const userCreationSnap = useSnapshot(UserCreationStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
   const selectBase = useCallback(
     (newComponentSpecId: string) => {
       const action = () => {
-        const newComponentId = createNewComponent(newComponentSpecId);
+        const newComponentId = createComponent(
+          newComponentSpecId,
+          UserCreationStore,
+          ProductSpecificationStore
+        );
 
-        mountBase(newComponentId);
+        mountBase(newComponentId, UserCreationStore);
       };
 
       manipulateCanvas(action);
@@ -41,7 +45,7 @@ export const SelectBase = ({ onClose }: SelectBaseProps) => {
       <div className="content-width px-4">
         <ContainerHeader
           title={"Select base"}
-          onClose={userProductSnap.isBaseSet ? onClose : undefined}
+          onClose={userCreationSnap.isBaseSet ? onClose : undefined}
         />
       </div>
       <div className="content-width flex flex-wrap justify-start px-4">

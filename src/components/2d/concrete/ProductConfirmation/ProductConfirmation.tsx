@@ -4,13 +4,13 @@ import { useSnapshot } from "valtio";
 
 import { ProductConfirmationTile } from "./ProductConfirmationTile.tsx";
 import { EditorValuesStore } from "../../../../stores/EditorValuesStore.ts";
-import { UserProductStore } from "../../../../stores/UserProductStore.ts";
+import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
 import { ContainerHeader } from "../../universal/ContainerHeader.tsx";
 
 export const ProductConfirmation = () => {
   const navigate = useNavigate();
 
-  const userProductSnap = useSnapshot(UserProductStore);
+  const userCreationSnap = useSnapshot(UserCreationStore);
 
   const onClose = useCallback(() => {
     navigate("/" + EditorValuesStore.currentProductId + "/editor");
@@ -25,11 +25,11 @@ export const ProductConfirmation = () => {
       <div className="flex w-full grow flex-row justify-center">
         <div className="w-full md:w-4/5 lg:w-2/3 xl:w-1/2">
           <ol className="mb-20 mt-2 flex w-full flex-col justify-start rounded-xl bg-slate-50 outline outline-1 outline-gray-300 dark:bg-slate-800 dark:outline-gray-700">
-            {Object.keys(userProductSnap.components).map(
+            {Object.keys(userCreationSnap.components).map(
               (componentId, index) => (
                 <li
                   key={index}
-                  className={`${index !== Object.keys(userProductSnap.components).length - 1 ? "border-b border-b-gray-300 dark:border-b-gray-700" : ""}`}
+                  className={`${index !== Object.keys(userCreationSnap.components).length - 1 ? "border-b border-b-gray-300 dark:border-b-gray-700" : ""}`}
                 >
                   <ProductConfirmationTile componentId={componentId} />
                 </li>
