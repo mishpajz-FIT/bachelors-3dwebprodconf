@@ -22,4 +22,11 @@
   .app {
     @apply h-screen w-screen;
   }
+
+  .content-background-fade-right {
+    @apply bg-gradient-to-r;
+    @apply from-background/0 to-background;
+
+    @apply dark:from-background-dark/0 dark:to-background-dark;
+  }
 }

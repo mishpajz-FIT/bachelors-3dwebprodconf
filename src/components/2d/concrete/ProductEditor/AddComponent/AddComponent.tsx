@@ -76,7 +76,7 @@ export const AddComponent = ({
         ))}
 
         {isOverflowing && (
-          <div className="pointer-events-none absolute bottom-4 right-0 top-10 w-14 bg-gradient-to-r from-white/0 to-white dark:from-gray-900/0 dark:to-gray-900" />
+          <div className="content-background-fade-right pointer-events-none absolute bottom-4 right-0 top-12 w-14" />
         )}
       </div>
     </>
