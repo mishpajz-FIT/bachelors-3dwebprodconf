@@ -19,5 +19,8 @@
         "overlayTextWhiteDark": true
       }
     }
+  },
+  "sources": {
+    "products": "/products/products.json"
   }
 }

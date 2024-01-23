@@ -20,6 +20,9 @@ export interface AppConfig {
       };
     };
   };
+  sources: {
+    products: string;
+  };
 }
 
 const defaultConfig: AppConfig = {
@@ -43,6 +46,9 @@ const defaultConfig: AppConfig = {
         overlayTextWhiteDark: true,
       },
     },
+  },
+  sources: {
+    products: "/products/products.json",
   },
 };
 
