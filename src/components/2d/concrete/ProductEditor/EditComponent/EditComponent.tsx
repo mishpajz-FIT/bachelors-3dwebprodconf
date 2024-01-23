@@ -28,7 +28,7 @@ export const EditComponent = ({ onClose }: EditComponentProps) => {
   if (!componentSpec) return null;
 
   return (
-    <div className="flex w-full select-none flex-col">
+    <div className="flex w-full flex-col">
       <ContainerHeader title={"Edit component"} onClose={onClose} />
       <div className="flex flex-col overflow-y-auto p-2">
         <div className="pt-6">

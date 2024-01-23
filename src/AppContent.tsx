@@ -79,7 +79,7 @@ const router = createBrowserRouter([
 export const AppContent = () => {
   return (
     <div className="app flex h-dvh flex-col">
-      <div className="z-10 border-b border-gray-200 bg-white p-2 shadow-sm dark:border-gray-600 dark:bg-gray-900">
+      <div className="content-background z-10 border-b border-gray-200 p-2 shadow-sm dark:border-gray-600">
         <img src={"/vite.svg"} alt={"logo"} className="ml-2 max-h-12" />
       </div>
 

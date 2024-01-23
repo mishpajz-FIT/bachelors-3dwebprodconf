@@ -35,7 +35,7 @@ export const ProductEditor = () => {
           </Side>
         </div>
 
-        <div className="flex flex-row justify-between bg-white p-2 shadow-md dark:bg-gray-900">
+        <div className="content-background flex flex-row justify-between p-2 shadow-md">
           <button
             className="other-button"
             onClick={() => {

@@ -17,14 +17,14 @@ export const ProductConfirmation = () => {
   }, [navigate]);
 
   return (
-    <div className="flex h-full w-full select-none flex-col items-center justify-start overflow-y-scroll bg-white p-4 dark:bg-gray-900">
+    <div className="content-background flex h-full w-full select-none flex-col items-center justify-start overflow-y-scroll p-4">
       <div className="content-width">
         <ContainerHeader title={"Confirm configuration"} onClose={undefined} />
       </div>
 
       <div className="flex w-full grow flex-row justify-center">
         <div className="w-full md:w-4/5 lg:w-2/3 xl:w-1/2">
-          <ol className="mb-20 mt-2 flex w-full flex-col justify-start rounded-xl bg-slate-50 outline outline-1 outline-gray-300 dark:bg-slate-800 dark:outline-gray-700">
+          <ol className="mb-20 mt-2 flex w-full flex-col justify-start rounded-xl bg-slate-50 outline outline-1 outline-gray-300 dark:bg-gray-900 dark:outline-gray-700">
             {Object.keys(userCreationSnap.components).map(
               (componentId, index) => (
                 <li

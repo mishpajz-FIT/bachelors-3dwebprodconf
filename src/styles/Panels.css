@@ -3,11 +3,15 @@
 @tailwind utilities;
 
 @layer components {
+  .content-background {
+    @apply bg-background;
+    @apply dark:bg-background-dark;
+  }
+
   .simple-panel {
-    @apply bg-white;
+    @apply content-background;
     @apply rounded-lg shadow-lg;
 
-    @apply dark:bg-gray-900;
     @apply dark:outline dark:outline-1 dark:outline-gray-700;
   }
 

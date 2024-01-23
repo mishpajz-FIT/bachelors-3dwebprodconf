@@ -20,11 +20,10 @@ export const ProductEditorCanvas = () => {
 
   return (
     <Canvas
-      className="grow"
+      className="grow touch-none bg-[#fefefe] dark:bg-[#141414]"
       frameloop="demand"
       performance={{ min: 0.85 }}
       shadows={true}
-      style={{ touchAction: "none", background: "#fefefe" }}
       orthographic={globalConfig.config.camera.isOrthogonal}
       camera={{ position: [0, 1.7, 3] }}
     >
@@ -46,7 +45,7 @@ export const ProductEditorCanvas = () => {
           />
         </BoundsStorer>
       </Bounds>
-      {globalConfig.config.shadows.floorShadow ? (
+      {globalConfig.config.shadows.floorShadow && (
         <ContactShadows
           position={[0, -0.5, 0]}
           scale={10}
@@ -54,11 +53,6 @@ export const ProductEditorCanvas = () => {
           far={1}
           opacity={0.4}
         />
-      ) : (
-        <mesh position={[0, -0.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <planeGeometry args={[15, 15]} />
-          <meshPhysicalMaterial color={0xfefefe} />
-        </mesh>
       )}
       <Preload all />
       <Stats />
