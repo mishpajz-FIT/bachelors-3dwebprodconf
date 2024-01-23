@@ -2,13 +2,13 @@ import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 
-import { manipulateCanvas } from "../../../../../providers/CanvasManipulation.ts";
 import {
   createComponent,
   mountBase,
 } from "../../../../../stores/actions/UserCreationActions.ts";
 import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
+import { refreshBounds } from "../../../../../utilities/BoundsManimpuation.ts";
 import { ContainerHeader } from "../../../universal/ContainerHeader.tsx";
 import { AddComponentTile } from "../AddComponent/AddComponentTile.tsx";
 
@@ -34,7 +34,7 @@ export const SelectBase = ({ onClose }: SelectBaseProps) => {
         mountBase(newComponentId, UserCreationStore);
       };
 
-      manipulateCanvas(action);
+      refreshBounds(action);
       onClose();
     },
     [onClose]

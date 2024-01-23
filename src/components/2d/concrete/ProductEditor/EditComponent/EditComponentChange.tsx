@@ -2,7 +2,6 @@ import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useCallback, useState } from "react";
 import { useSnapshot } from "valtio";
 
-import { manipulateCanvas } from "../../../../../providers/CanvasManipulation.ts";
 import {
   createComponent,
   mountComponent,
@@ -11,6 +10,7 @@ import {
 import { EditorValuesStore } from "../../../../../stores/EditorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
+import { refreshBounds } from "../../../../../utilities/BoundsManimpuation.ts";
 import { Modal } from "../../../universal/containers/Modal.tsx";
 import { HoldButton } from "../../../universal/HoldButton.tsx";
 import { AddComponent } from "../AddComponent/AddComponent.tsx";
@@ -54,7 +54,7 @@ export const EditComponentChange = ({
       removeComponent(componentId, UserCreationStore);
     };
 
-    manipulateCanvas(action);
+    refreshBounds(action);
 
     if (onClose) {
       onClose();
@@ -80,7 +80,7 @@ export const EditComponentChange = ({
         EditorValuesStore.selectedComponentId = newComponentId;
       };
 
-      manipulateCanvas(action);
+      refreshBounds(action);
     },
     [parentComponentId, parentMountingPointId]
   );

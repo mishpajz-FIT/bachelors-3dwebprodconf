@@ -3,13 +3,13 @@ import { Html } from "@react-three/drei";
 import { useCallback, useState } from "react";
 import { useSnapshot } from "valtio";
 
-import { manipulateCanvas } from "../../providers/CanvasManipulation.ts";
 import {
   createComponent,
   mountComponent,
 } from "../../stores/actions/UserCreationActions.ts";
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../stores/UserCreationStore.ts";
+import { refreshBounds } from "../../utilities/BoundsManimpuation.ts";
 import { AddComponent } from "../2d/concrete/ProductEditor/AddComponent/AddComponent.tsx";
 import { Modal } from "../2d/universal/containers/Modal.tsx";
 
@@ -63,7 +63,7 @@ export const MountingPointButton = ({
         );
       };
 
-      manipulateCanvas(action);
+      refreshBounds(action);
     },
     [componentId, mountingPointSpecId]
   );

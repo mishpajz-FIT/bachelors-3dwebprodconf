@@ -1,7 +1,7 @@
 import { globalConfig } from "../configurations/Config.ts";
 import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
 
-export const manipulateCanvas = (action: () => void) => {
+export const refreshBounds = (action: () => void) => {
   action();
 
   const bounds = EditorValuesStore.bounds;
