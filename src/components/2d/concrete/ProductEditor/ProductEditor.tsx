@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 
@@ -6,25 +6,28 @@ import { EditComponent } from "./EditComponent/EditComponent.tsx";
 import { ProductEditorLoading } from "./ProductEditorLoading.tsx";
 import { SelectBase } from "./SelectBase/SelectBase.tsx";
 import { EditorValuesStore } from "../../../../stores/EditorValuesStore.ts";
-import { UserProductStore } from "../../../../stores/UserProductStore.ts";
-import { ProductEditorCanvas } from "../../../3d/ProductEditorCanvas.tsx";
+import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
 import { Side } from "../../universal/containers/Side.tsx";
 
-export const ProductEditor = () => {
+const ProductEditorCanvas = lazy(
+  () => import("../../../3d/ProductEditorCanvas.tsx")
+);
+
+const ProductEditor = () => {
   const navigate = useNavigate();
 
-  const userProductSnap = useSnapshot(UserProductStore);
+  const userCreationSnap = useSnapshot(UserCreationStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 
   const [isBaseSelectionOpen, setBaseSelectionOpen] = useState(
-    !userProductSnap.isBaseSet
+    !userCreationSnap.isBaseSet
   );
 
   return (
     <div className="relative flex grow flex-col">
       <Suspense fallback={<ProductEditorLoading />}>
         <div className="relative flex grow overflow-x-hidden">
-          {userProductSnap.isBaseSet && <ProductEditorCanvas />}
+          {userCreationSnap.isBaseSet && <ProductEditorCanvas />}
 
           <Side isOpen={editorValuesSnap.selectedComponentId !== undefined}>
             <EditComponent
@@ -35,7 +38,7 @@ export const ProductEditor = () => {
           </Side>
         </div>
 
-        <div className="flex flex-row justify-between bg-white p-2 shadow-md dark:bg-gray-900">
+        <div className="content-background flex flex-row justify-between p-2 shadow-md">
           <button
             className="other-button"
             onClick={() => {
@@ -65,3 +68,5 @@ export const ProductEditor = () => {
     </div>
   );
 };
+
+export default ProductEditor;

@@ -1,17 +1,12 @@
-import { useBounds } from "@react-three/drei";
-import { useContext } from "react";
+import { lazy } from "react";
 import { Euler, MathUtils } from "three";
 import { useSnapshot } from "valtio";
 
-import { ComponentModel } from "./ComponentModel.tsx";
 import { MountingPointButton } from "./MountingPointButton.tsx";
-import { ConfigContext } from "../../configurations/contexts/ConfigContext.ts";
-import {
-  createNewComponent,
-  mountComponent,
-} from "../../stores/actions/UserProductActions.ts";
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
-import { UserProductStore } from "../../stores/UserProductStore.ts";
+import { UserCreationStore } from "../../stores/UserCreationStore.ts";
+
+const ComponentModel = lazy(() => import("./ComponentModel.tsx"));
 
 interface ComponentProps {
   componentId: string;
@@ -26,12 +21,8 @@ export const Component = ({
   position = nullCoordinates,
   rotation = nullCoordinates,
 }: ComponentProps) => {
-  const bounds = useBounds();
-
-  const appConfig = useContext(ConfigContext);
-
-  const productSpecsSnap = useSnapshot(ProductSpecificationStore);
-  const userProductSnap = useSnapshot(UserProductStore);
+  const userCreationSnap = useSnapshot(ProductSpecificationStore);
+  const userProductSnap = useSnapshot(UserCreationStore);
 
   const component = userProductSnap.components[componentId];
   if (!component) {
@@ -39,25 +30,10 @@ export const Component = ({
   }
 
   const componentSpec =
-    productSpecsSnap.componentSpecs[component.componentSpec];
+    userCreationSnap.componentSpecs[component.componentSpec];
   if (!componentSpec) {
     throw new Error(`Component specs ${component.componentSpec} not found!`);
   }
-
-  const addNewComponent = (
-    mountingPointSpecId: string,
-    newComponentSpecId: string
-  ) => {
-    const newComponentId = createNewComponent(newComponentSpecId);
-    mountComponent(componentId, mountingPointSpecId, newComponentId);
-
-    bounds.refresh();
-    if (appConfig.camera.isOrthogonal) {
-      bounds.reset();
-    }
-    bounds.clip();
-    bounds.fit();
-  };
 
   const [rotationX, rotationY, rotationZ] = rotation;
   const radiansRotation = new Euler(
@@ -88,20 +64,8 @@ export const Component = ({
             return (
               <MountingPointButton
                 key={mountingPointSpecId}
-                position={mp.position}
-                isRequired={mp.isRequired}
-                mountableComponentsSpecs={mp.mountableComponents}
-                add={(newComponentSpecId: string) => {
-                  console.log(
-                    "new component" +
-                      newComponentSpecId +
-                      ": " +
-                      mountingPointSpecId +
-                      " - " +
-                      componentId
-                  );
-                  addNewComponent(mountingPointSpecId, newComponentSpecId);
-                }}
+                componentId={componentId}
+                mountingPointSpecId={mountingPointSpecId}
               />
             );
           }

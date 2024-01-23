@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 
 import {
-  createNewComponent,
+  createComponent,
   mountBase,
-} from "../../../../../stores/actions/UserProductActions.ts";
+} from "../../../../../stores/actions/UserCreationActions.ts";
 import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
-import { UserProductStore } from "../../../../../stores/UserProductStore.ts";
+import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
+import { refreshBounds } from "../../../../../utilities/BoundsManimpuation.ts";
 import { ContainerHeader } from "../../../universal/ContainerHeader.tsx";
 import { AddComponentTile } from "../AddComponent/AddComponentTile.tsx";
 
@@ -18,25 +19,33 @@ interface SelectBaseProps {
 export const SelectBase = ({ onClose }: SelectBaseProps) => {
   const navigate = useNavigate();
 
-  const userProductSnap = useSnapshot(UserProductStore);
+  const userCreationSnap = useSnapshot(UserCreationStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
   const selectBase = useCallback(
     (newComponentSpecId: string) => {
-      const newComponentId = createNewComponent(newComponentSpecId);
+      const action = () => {
+        const newComponentId = createComponent(
+          newComponentSpecId,
+          UserCreationStore,
+          ProductSpecificationStore
+        );
 
-      mountBase(newComponentId);
+        mountBase(newComponentId, UserCreationStore);
+      };
+
+      refreshBounds(action);
       onClose();
     },
     [onClose]
   );
 
   return (
-    <div className="flex h-full w-full select-none flex-col items-center justify-start bg-white pt-4 dark:bg-gray-900">
+    <div className="content-background flex h-full w-full select-none flex-col items-center justify-start pt-4">
       <div className="content-width px-4">
         <ContainerHeader
           title={"Select base"}
-          onClose={userProductSnap.isBaseSet ? onClose : undefined}
+          onClose={userCreationSnap.isBaseSet ? onClose : undefined}
         />
       </div>
       <div className="content-width flex flex-wrap justify-start px-4">

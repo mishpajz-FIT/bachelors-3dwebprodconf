@@ -17,7 +17,7 @@
       "description": "A cardboard box",
       "price": 50,
       "imageUrl": "https://www.paketo.cz/darkova-krabicka-s-pruhlednym-vikem-200x200x100-35-mm-seda-img-14494-fd-3.jpg",
-      "modelUrl": "/BoxBase.glb",
+      "modelUrl": "/products/models/BoxBase.glb",
       "materialSpecs": {
         "cardboard": {
           "name": "Cardboard",
@@ -73,7 +73,7 @@
       "description": "A lid for cardboard box",
       "price": 50,
       "imageUrl": "https://www.paketo.cz/darkova-krabicka-dno-a-viko-130x130x20-mm-bilo-bila-img-11775-fd-3.jpg",
-      "modelUrl": "/BoxTop.glb",
+      "modelUrl": "/products/models/BoxTop.glb",
       "materialSpecs": {
         "cardboard": {
           "name": "Cardboard",
@@ -111,7 +111,7 @@
       "description": "A cube",
       "price": 50,
       "imageUrl": "https://www.drawingforall.net/wp-content/uploads/2020/07/how-to-draw-a-cube-1.jpg",
-      "modelUrl": "/Premade/Box.gltf",
+      "modelUrl": "/products/models/premade/Box.gltf",
       "materialSpecs": {
         "cardboard": {
           "name": "Wall",

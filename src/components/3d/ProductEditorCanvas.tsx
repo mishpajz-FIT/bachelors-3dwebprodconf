@@ -6,28 +6,36 @@ import {
   OrbitControls,
   Preload,
   Stats,
+  useGLTF,
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { useContext } from "react";
+import { useEffect } from "react";
 import { useSnapshot } from "valtio";
 
+import { BoundsStorer } from "./BoundsStorer.tsx";
 import { Component } from "./Component.tsx";
-import { ConfigContext } from "../../configurations/contexts/ConfigContext.ts";
-import { UserProductStore } from "../../stores/UserProductStore.ts";
+import { globalConfig } from "../../configurations/Config.ts";
+import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
+import { UserCreationStore } from "../../stores/UserCreationStore.ts";
 
-export const ProductEditorCanvas = () => {
-  const userProductSnap = useSnapshot(UserProductStore);
+const ProductEditorCanvas = () => {
+  const userCreationSnap = useSnapshot(UserCreationStore);
 
-  const appConfig = useContext(ConfigContext);
+  useEffect(() => {
+    Object.values(ProductSpecificationStore.componentSpecs).forEach(
+      (componentSpec) => {
+        useGLTF.preload(componentSpec.modelUrl);
+      }
+    );
+  }, []);
 
   return (
     <Canvas
-      className="grow"
+      className="grow touch-none bg-[#fefefe] dark:bg-[#141414]"
       frameloop="demand"
       performance={{ min: 0.85 }}
       shadows={true}
-      style={{ touchAction: "none", background: "#fefefe" }}
-      orthographic={appConfig.camera.isOrthogonal}
+      orthographic={globalConfig.config.camera.isOrthogonal}
       camera={{ position: [0, 1.7, 3] }}
     >
       <OrbitControls makeDefault={true} regress={true} />
@@ -41,12 +49,11 @@ export const ProductEditorCanvas = () => {
       />
       <directionalLight position={[2, 2, 5]} intensity={0.7} />
       <Bounds fit clip observe margin={2}>
-        <Component
-          key={userProductSnap.base}
-          componentId={userProductSnap.base}
-        />
+        <BoundsStorer key={userCreationSnap.base}>
+          <Component componentId={userCreationSnap.base} />
+        </BoundsStorer>
       </Bounds>
-      {appConfig.shadows.floorShadow ? (
+      {globalConfig.config.shadows.floorShadow && (
         <ContactShadows
           position={[0, -0.5, 0]}
           scale={10}
@@ -54,14 +61,11 @@ export const ProductEditorCanvas = () => {
           far={1}
           opacity={0.4}
         />
-      ) : (
-        <mesh position={[0, -0.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <planeGeometry args={[15, 15]} />
-          <meshPhysicalMaterial color={0xfefefe} />
-        </mesh>
       )}
       <Preload all />
       <Stats />
     </Canvas>
   );
 };
+
+export default ProductEditorCanvas;

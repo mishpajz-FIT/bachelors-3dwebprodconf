@@ -5,7 +5,7 @@ import { EditComponentChange } from "./EditComponentChange.tsx";
 import { EditComponentColors } from "./EditComponentColors.tsx";
 import { EditorValuesStore } from "../../../../../stores/EditorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
-import { UserProductStore } from "../../../../../stores/UserProductStore.ts";
+import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
 import { ContainerHeader } from "../../../universal/ContainerHeader.tsx";
 
 interface EditComponentProps {
@@ -13,14 +13,14 @@ interface EditComponentProps {
 }
 
 export const EditComponent = ({ onClose }: EditComponentProps) => {
-  const userProductSnap = useSnapshot(UserProductStore);
+  const userCreationSnap = useSnapshot(UserCreationStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 
   const componentId = editorValuesSnap.selectedComponentId;
   if (!componentId) return null;
 
-  const component = userProductSnap.components[componentId];
+  const component = userCreationSnap.components[componentId];
   if (!component) return null;
 
   const componentSpecId = component.componentSpec;
@@ -28,7 +28,7 @@ export const EditComponent = ({ onClose }: EditComponentProps) => {
   if (!componentSpec) return null;
 
   return (
-    <div className="flex w-full select-none flex-col">
+    <div className="flex w-full flex-col">
       <ContainerHeader title={"Edit component"} onClose={onClose} />
       <div className="flex flex-col overflow-y-auto p-2">
         <div className="pt-6">
@@ -48,7 +48,7 @@ export const EditComponent = ({ onClose }: EditComponentProps) => {
           )}
         </div>
       </div>
-      {editorValuesSnap.selectedComponentId != userProductSnap.base && (
+      {editorValuesSnap.selectedComponentId != userCreationSnap.base && (
         <div className="mt-auto flex items-center justify-center gap-2 p-2">
           <EditComponentChange componentId={componentId} onClose={onClose} />
         </div>

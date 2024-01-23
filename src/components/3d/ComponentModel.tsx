@@ -1,31 +1,25 @@
 import { Edges, useGLTF } from "@react-three/drei";
 import { ThreeEvent } from "@react-three/fiber";
-import { useContext } from "react";
 import { Color, Mesh, MeshStandardMaterial } from "three";
 import { useSnapshot } from "valtio";
 
-import { ConfigContext } from "../../configurations/contexts/ConfigContext.ts";
+import { globalConfig } from "../../configurations/Config.ts";
 import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
-import { UserProductStore } from "../../stores/UserProductStore.ts";
+import { UserCreationStore } from "../../stores/UserCreationStore.ts";
 
 interface ComponentModelProps {
   componentId: string;
   position: [number, number, number];
 }
-export const ComponentModel = ({
-  componentId,
-  position,
-}: ComponentModelProps) => {
-  const userProductSnap = useSnapshot(UserProductStore);
+const ComponentModel = ({ componentId, position }: ComponentModelProps) => {
+  const userCreationSnap = useSnapshot(UserCreationStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 
-  const appConfig = useContext(ConfigContext);
-
-  const componentSpecId = userProductSnap.components[componentId].componentSpec;
+  const componentSpecId =
+    userCreationSnap.components[componentId].componentSpec;
   const componentSpec = productSpecsSnap.componentSpecs[componentSpecId];
-
   if (!componentSpec) {
     throw `Component spec ${componentSpecId} could not be found.`;
   }
@@ -33,7 +27,7 @@ export const ComponentModel = ({
   const { nodes, materials } = useGLTF(componentSpec.modelUrl);
 
   const customMaterials = Object.entries(
-    userProductSnap.components[componentId].materials
+    userCreationSnap.components[componentId].materials
   ).reduce<Record<string, MeshStandardMaterial>>(
     (acc, [materialSpecId, colorSpecId]) => {
       const materialSpec = componentSpec.materialSpecs[materialSpecId];
@@ -87,7 +81,7 @@ export const ComponentModel = ({
               >
                 <meshBasicMaterial
                   transparent={true}
-                  color={appConfig.spatialUi.selectionColors.outline}
+                  color={globalConfig.config.spatialUi.selectionColors.outline}
                   depthTest={false}
                 />
               </Edges>
@@ -99,3 +93,5 @@ export const ComponentModel = ({
     </group>
   );
 };
+
+export default ComponentModel;

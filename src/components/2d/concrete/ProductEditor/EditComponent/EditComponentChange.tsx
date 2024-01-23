@@ -1,15 +1,16 @@
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useSnapshot } from "valtio";
 
 import {
-  createNewComponent,
+  createComponent,
   mountComponent,
   removeComponent,
-} from "../../../../../stores/actions/UserProductActions.ts";
+} from "../../../../../stores/actions/UserCreationActions.ts";
 import { EditorValuesStore } from "../../../../../stores/EditorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
-import { UserProductStore } from "../../../../../stores/UserProductStore.ts";
+import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
+import { refreshBounds } from "../../../../../utilities/BoundsManimpuation.ts";
 import { Modal } from "../../../universal/containers/Modal.tsx";
 import { HoldButton } from "../../../universal/HoldButton.tsx";
 import { AddComponent } from "../AddComponent/AddComponent.tsx";
@@ -22,36 +23,67 @@ export const EditComponentChange = ({
   componentId,
   onClose,
 }: EditComponentChangeProps) => {
-  const userProductSnap = useSnapshot(UserProductStore);
+  const userCreationSnap = useSnapshot(UserCreationStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
   const [isChangeModalOpen, setChangeModalOpen] = useState(false);
 
-  const parentInfo = userProductSnap.childToParentMap.get(componentId);
-  if (!parentInfo) return null;
+  const parentInfo = userCreationSnap.childToParentMap.get(componentId);
+  if (!parentInfo) {
+    throw Error(
+      `Component hierarchy is damaged, components is without parent component!`
+    );
+  }
   const [parentComponentId, parentMountingPointId] = parentInfo;
 
-  const parentComponent = userProductSnap.components[parentComponentId];
-  if (!parentComponent) return null;
+  const parentComponent = userCreationSnap.components[parentComponentId];
+  if (!parentComponent) {
+    throw Error(`Could not find component ${parentComponentId}!`);
+  }
 
   const parentComponentSpec =
     productSpecsSnap.componentSpecs[parentComponent.componentSpec];
-  if (!parentComponentSpec) return null;
+  if (!parentComponentSpec) {
+    throw Error(
+      `Could not find component spec ${parentComponent.componentSpec}!`
+    );
+  }
 
-  const remove = () => {
-    removeComponent(componentId);
+  const remove = useCallback(() => {
+    const action = () => {
+      removeComponent(componentId, UserCreationStore);
+    };
+
+    refreshBounds(action);
 
     if (onClose) {
       onClose();
     }
-  };
+  }, [onClose, componentId]);
 
-  const change = (newComponentSpecId: string) => {
-    const newComponentId = createNewComponent(newComponentSpecId);
-    mountComponent(parentComponentId, parentMountingPointId, newComponentId);
+  const change = useCallback(
+    (newComponentSpecId: string) => {
+      const action = () => {
+        const newComponentId = createComponent(
+          newComponentSpecId,
+          UserCreationStore,
+          ProductSpecificationStore
+        );
+        mountComponent(
+          parentComponentId,
+          parentMountingPointId,
+          newComponentId,
+          UserCreationStore,
+          ProductSpecificationStore
+        );
 
-    EditorValuesStore.selectedComponentId = newComponentId;
-  };
+        EditorValuesStore.selectedComponentId = newComponentId;
+      };
+
+      refreshBounds(action);
+    },
+    [parentComponentId, parentMountingPointId]
+  );
 
   return (
     <>

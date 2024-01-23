@@ -27,7 +27,7 @@ export const ProductSelection = () => {
   };
 
   return (
-    <div className="flex h-full w-full select-none flex-col items-center justify-start overflow-y-scroll bg-white p-4 dark:bg-gray-900">
+    <div className="content-background flex h-full w-full select-none flex-col items-center justify-start overflow-y-scroll p-4">
       <div className="content-width">
         <ContainerHeader title={"Select product"} onClose={undefined} />
         <Suspense fallback={<Skeleton />}>

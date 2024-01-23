@@ -1,18 +1,22 @@
+import { lazy, Suspense } from "react";
 import {
   createBrowserRouter,
-  RouterProvider,
   redirect,
+  RouterProvider,
 } from "react-router-dom";
 
 import { ProductConfirmation } from "./components/2d/concrete/ProductConfirmation/ProductConfirmation.tsx";
-import { ProductEditor } from "./components/2d/concrete/ProductEditor/ProductEditor.tsx";
 import { ProductSelection } from "./components/2d/concrete/ProductSelection/ProductSelection.tsx";
 import { ErrorPage } from "./components/2d/ErrorPage.tsx";
 import { fetchProductSpecification } from "./stores/actions/ProductSpecificationActions.ts";
 import { EditorValuesStore } from "./stores/EditorValuesStore.ts";
 import { ProductSpecificationStore } from "./stores/ProductSpecificationStore.ts";
 import { ProductsStore } from "./stores/ProductsStore.ts";
-import { UserProductStore } from "./stores/UserProductStore.ts";
+import { UserCreationStore } from "./stores/UserCreationStore.ts";
+
+const ProductEditor = lazy(
+  () => import("./components/2d/concrete/ProductEditor/ProductEditor.tsx")
+);
 
 const router = createBrowserRouter([
   {
@@ -22,7 +26,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/:productId/editor",
-    element: <ProductEditor />,
+    element: (
+      <Suspense fallback={<div className="content-background h-full w-full" />}>
+        <ProductEditor />
+      </Suspense>
+    ),
     errorElement: <ErrorPage />,
     loader: async ({ params }) => {
       if (!params.productId) {
@@ -67,7 +75,7 @@ const router = createBrowserRouter([
         throw Error("Product not found.");
       }
 
-      if (!UserProductStore.isBaseSet) {
+      if (!UserCreationStore.isBaseSet) {
         return redirect("/" + params.productId + "/editor");
       }
 
@@ -78,9 +86,9 @@ const router = createBrowserRouter([
 
 export const AppContent = () => {
   return (
-    <div className="App flex h-screen flex-col">
-      <div className="z-10 border-b border-gray-200 bg-white p-2 shadow-sm dark:border-gray-600 dark:bg-gray-900">
-        <img src={"/vite.svg"} alt={"logo"} className="ml-2 max-h-12" />
+    <div className="app flex h-dvh flex-col">
+      <div className="content-background z-10 border-b border-gray-200 p-2 shadow-sm dark:border-gray-600">
+        <img src={"/logo.svg"} alt={"logo"} className="ml-2 max-h-12" />
       </div>
 
       <RouterProvider router={router} />
