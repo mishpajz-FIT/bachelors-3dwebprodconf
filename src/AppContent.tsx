@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import {
   createBrowserRouter,
   redirect,
@@ -5,7 +6,6 @@ import {
 } from "react-router-dom";
 
 import { ProductConfirmation } from "./components/2d/concrete/ProductConfirmation/ProductConfirmation.tsx";
-import { ProductEditor } from "./components/2d/concrete/ProductEditor/ProductEditor.tsx";
 import { ProductSelection } from "./components/2d/concrete/ProductSelection/ProductSelection.tsx";
 import { ErrorPage } from "./components/2d/ErrorPage.tsx";
 import { fetchProductSpecification } from "./stores/actions/ProductSpecificationActions.ts";
@@ -13,6 +13,10 @@ import { EditorValuesStore } from "./stores/EditorValuesStore.ts";
 import { ProductSpecificationStore } from "./stores/ProductSpecificationStore.ts";
 import { ProductsStore } from "./stores/ProductsStore.ts";
 import { UserCreationStore } from "./stores/UserCreationStore.ts";
+
+const ProductEditor = lazy(
+  () => import("./components/2d/concrete/ProductEditor/ProductEditor.tsx")
+);
 
 const router = createBrowserRouter([
   {
@@ -22,7 +26,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/:productId/editor",
-    element: <ProductEditor />,
+    element: (
+      <Suspense fallback={<div className="content-background h-full w-full" />}>
+        <ProductEditor />
+      </Suspense>
+    ),
     errorElement: <ErrorPage />,
     loader: async ({ params }) => {
       if (!params.productId) {

@@ -12,15 +12,13 @@ interface ComponentModelProps {
   componentId: string;
   position: [number, number, number];
 }
-export const ComponentModel = ({
-  componentId,
-  position,
-}: ComponentModelProps) => {
-  const userProductSnap = useSnapshot(UserCreationStore);
+const ComponentModel = ({ componentId, position }: ComponentModelProps) => {
+  const userCreationSnap = useSnapshot(UserCreationStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 
-  const componentSpecId = userProductSnap.components[componentId].componentSpec;
+  const componentSpecId =
+    userCreationSnap.components[componentId].componentSpec;
   const componentSpec = productSpecsSnap.componentSpecs[componentSpecId];
   if (!componentSpec) {
     throw `Component spec ${componentSpecId} could not be found.`;
@@ -29,7 +27,7 @@ export const ComponentModel = ({
   const { nodes, materials } = useGLTF(componentSpec.modelUrl);
 
   const customMaterials = Object.entries(
-    userProductSnap.components[componentId].materials
+    userCreationSnap.components[componentId].materials
   ).reduce<Record<string, MeshStandardMaterial>>(
     (acc, [materialSpecId, colorSpecId]) => {
       const materialSpec = componentSpec.materialSpecs[materialSpecId];
@@ -95,3 +93,5 @@ export const ComponentModel = ({
     </group>
   );
 };
+
+export default ComponentModel;

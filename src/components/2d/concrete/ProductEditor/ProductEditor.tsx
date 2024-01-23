@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 
@@ -7,10 +7,13 @@ import { ProductEditorLoading } from "./ProductEditorLoading.tsx";
 import { SelectBase } from "./SelectBase/SelectBase.tsx";
 import { EditorValuesStore } from "../../../../stores/EditorValuesStore.ts";
 import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
-import { ProductEditorCanvas } from "../../../3d/ProductEditorCanvas.tsx";
 import { Side } from "../../universal/containers/Side.tsx";
 
-export const ProductEditor = () => {
+const ProductEditorCanvas = lazy(
+  () => import("../../../3d/ProductEditorCanvas.tsx")
+);
+
+const ProductEditor = () => {
   const navigate = useNavigate();
 
   const userCreationSnap = useSnapshot(UserCreationStore);
@@ -65,3 +68,5 @@ export const ProductEditor = () => {
     </div>
   );
 };
+
+export default ProductEditor;

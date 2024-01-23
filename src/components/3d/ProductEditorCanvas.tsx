@@ -18,7 +18,7 @@ import { globalConfig } from "../../configurations/Config.ts";
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../stores/UserCreationStore.ts";
 
-export const ProductEditorCanvas = () => {
+const ProductEditorCanvas = () => {
   const userCreationSnap = useSnapshot(UserCreationStore);
 
   useEffect(() => {
@@ -67,3 +67,5 @@ export const ProductEditorCanvas = () => {
     </Canvas>
   );
 };
+
+export default ProductEditorCanvas;

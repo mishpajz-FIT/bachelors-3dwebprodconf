@@ -1,10 +1,12 @@
+import { lazy } from "react";
 import { Euler, MathUtils } from "three";
 import { useSnapshot } from "valtio";
 
-import { ComponentModel } from "./ComponentModel.tsx";
 import { MountingPointButton } from "./MountingPointButton.tsx";
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../stores/UserCreationStore.ts";
+
+const ComponentModel = lazy(() => import("./ComponentModel.tsx"));
 
 interface ComponentProps {
   componentId: string;
