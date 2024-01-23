@@ -6,17 +6,28 @@ import {
   OrbitControls,
   Preload,
   Stats,
+  useGLTF,
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import { useEffect } from "react";
 import { useSnapshot } from "valtio";
 
 import { BoundsStorer } from "./BoundsStorer.tsx";
 import { Component } from "./Component.tsx";
 import { globalConfig } from "../../configurations/Config.ts";
+import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../stores/UserCreationStore.ts";
 
 export const ProductEditorCanvas = () => {
-  const userProductSnap = useSnapshot(UserCreationStore);
+  const userCreationSnap = useSnapshot(UserCreationStore);
+
+  useEffect(() => {
+    Object.values(ProductSpecificationStore.componentSpecs).forEach(
+      (componentSpec) => {
+        useGLTF.preload(componentSpec.modelUrl);
+      }
+    );
+  }, []);
 
   return (
     <Canvas
@@ -38,11 +49,8 @@ export const ProductEditorCanvas = () => {
       />
       <directionalLight position={[2, 2, 5]} intensity={0.7} />
       <Bounds fit clip observe margin={2}>
-        <BoundsStorer>
-          <Component
-            key={userProductSnap.base}
-            componentId={userProductSnap.base}
-          />
+        <BoundsStorer key={userCreationSnap.base}>
+          <Component componentId={userCreationSnap.base} />
         </BoundsStorer>
       </Bounds>
       {globalConfig.config.shadows.floorShadow && (

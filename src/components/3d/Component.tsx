@@ -19,7 +19,7 @@ export const Component = ({
   position = nullCoordinates,
   rotation = nullCoordinates,
 }: ComponentProps) => {
-  const productSpecsSnap = useSnapshot(ProductSpecificationStore);
+  const userCreationSnap = useSnapshot(ProductSpecificationStore);
   const userProductSnap = useSnapshot(UserCreationStore);
 
   const component = userProductSnap.components[componentId];
@@ -28,7 +28,7 @@ export const Component = ({
   }
 
   const componentSpec =
-    productSpecsSnap.componentSpecs[component.componentSpec];
+    userCreationSnap.componentSpecs[component.componentSpec];
   if (!componentSpec) {
     throw new Error(`Component specs ${component.componentSpec} not found!`);
   }

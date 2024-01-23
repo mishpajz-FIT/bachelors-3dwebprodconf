@@ -5,6 +5,7 @@ export const refreshBounds = (action: () => void) => {
   action();
 
   const bounds = EditorValuesStore.bounds;
+  console.log(bounds);
   if (!bounds) {
     return;
   }

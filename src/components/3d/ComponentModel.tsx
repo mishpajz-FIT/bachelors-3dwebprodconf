@@ -22,7 +22,6 @@ export const ComponentModel = ({
 
   const componentSpecId = userProductSnap.components[componentId].componentSpec;
   const componentSpec = productSpecsSnap.componentSpecs[componentSpecId];
-
   if (!componentSpec) {
     throw `Component spec ${componentSpecId} could not be found.`;
   }
