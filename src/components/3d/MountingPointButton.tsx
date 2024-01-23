@@ -1,9 +1,8 @@
 import { PlusIcon } from "@heroicons/react/20/solid";
 import { Html } from "@react-three/drei";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useState } from "react";
 import { useSnapshot } from "valtio";
 
-import { ConfigContext } from "../../configurations/contexts/ConfigContext.ts";
 import { manipulateCanvas } from "../../providers/CanvasManipulation.ts";
 import {
   createNewComponent,
@@ -23,8 +22,6 @@ export const MountingPointButton = ({
   componentId,
   mountingPointSpecId,
 }: MountingPointButtonProps) => {
-  const appConfig = useContext(ConfigContext);
-
   const [isModalOpen, setModalOpen] = useState(false);
 
   const userProductSnap = useSnapshot(UserProductStore);
@@ -56,9 +53,9 @@ export const MountingPointButton = ({
         mountComponent(componentId, mountingPointSpecId, newComponentId);
       };
 
-      manipulateCanvas(action, appConfig);
+      manipulateCanvas(action);
     },
-    [appConfig, componentId, mountingPointSpecId]
+    [componentId, mountingPointSpecId]
   );
 
   return (

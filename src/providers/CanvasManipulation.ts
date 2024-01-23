@@ -1,7 +1,7 @@
-import { Config } from "../configurations/Config.ts";
+import { globalConfig } from "../configurations/Config.ts";
 import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
 
-export const manipulateCanvas = (action: () => void, appConfig: Config) => {
+export const manipulateCanvas = (action: () => void) => {
   action();
 
   const bounds = EditorValuesStore.bounds;
@@ -10,7 +10,7 @@ export const manipulateCanvas = (action: () => void, appConfig: Config) => {
   }
 
   bounds.refresh();
-  if (appConfig.camera.isOrthogonal) {
+  if (globalConfig.config.camera.isOrthogonal) {
     bounds.reset();
   }
   bounds.clip();

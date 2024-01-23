@@ -1,10 +1,9 @@
 import { Edges, useGLTF } from "@react-three/drei";
 import { ThreeEvent } from "@react-three/fiber";
-import { useContext } from "react";
 import { Color, Mesh, MeshStandardMaterial } from "three";
 import { useSnapshot } from "valtio";
 
-import { ConfigContext } from "../../configurations/contexts/ConfigContext.ts";
+import { globalConfig } from "../../configurations/Config.ts";
 import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
 import { UserProductStore } from "../../stores/UserProductStore.ts";
@@ -20,8 +19,6 @@ export const ComponentModel = ({
   const userProductSnap = useSnapshot(UserProductStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
-
-  const appConfig = useContext(ConfigContext);
 
   const componentSpecId = userProductSnap.components[componentId].componentSpec;
   const componentSpec = productSpecsSnap.componentSpecs[componentSpecId];
@@ -87,7 +84,7 @@ export const ComponentModel = ({
               >
                 <meshBasicMaterial
                   transparent={true}
-                  color={appConfig.spatialUi.selectionColors.outline}
+                  color={globalConfig.config.spatialUi.selectionColors.outline}
                   depthTest={false}
                 />
               </Edges>

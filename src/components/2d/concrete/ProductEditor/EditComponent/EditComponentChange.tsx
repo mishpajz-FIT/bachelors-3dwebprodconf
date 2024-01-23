@@ -1,8 +1,7 @@
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useState } from "react";
 import { useSnapshot } from "valtio";
 
-import { ConfigContext } from "../../../../../configurations/contexts/ConfigContext.ts";
 import { manipulateCanvas } from "../../../../../providers/CanvasManipulation.ts";
 import {
   createNewComponent,
@@ -24,8 +23,6 @@ export const EditComponentChange = ({
   componentId,
   onClose,
 }: EditComponentChangeProps) => {
-  const appConfig = useContext(ConfigContext);
-
   const userProductSnap = useSnapshot(UserProductStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
@@ -57,12 +54,12 @@ export const EditComponentChange = ({
       removeComponent(componentId);
     };
 
-    manipulateCanvas(action, appConfig);
+    manipulateCanvas(action);
 
     if (onClose) {
       onClose();
     }
-  }, [appConfig, onClose, componentId]);
+  }, [onClose, componentId]);
 
   const change = useCallback(
     (newComponentSpecId: string) => {
@@ -77,9 +74,9 @@ export const EditComponentChange = ({
         EditorValuesStore.selectedComponentId = newComponentId;
       };
 
-      manipulateCanvas(action, appConfig);
+      manipulateCanvas(action);
     },
-    [appConfig, parentComponentId, parentMountingPointId]
+    [parentComponentId, parentMountingPointId]
   );
 
   return (

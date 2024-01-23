@@ -8,18 +8,15 @@ import {
   Stats,
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { useContext } from "react";
 import { useSnapshot } from "valtio";
 
 import { BoundsStorer } from "./BoundsStorer.tsx";
 import { Component } from "./Component.tsx";
-import { ConfigContext } from "../../configurations/contexts/ConfigContext.ts";
+import { globalConfig } from "../../configurations/Config.ts";
 import { UserProductStore } from "../../stores/UserProductStore.ts";
 
 export const ProductEditorCanvas = () => {
   const userProductSnap = useSnapshot(UserProductStore);
-
-  const appConfig = useContext(ConfigContext);
 
   return (
     <Canvas
@@ -28,7 +25,7 @@ export const ProductEditorCanvas = () => {
       performance={{ min: 0.85 }}
       shadows={true}
       style={{ touchAction: "none", background: "#fefefe" }}
-      orthographic={appConfig.camera.isOrthogonal}
+      orthographic={globalConfig.config.camera.isOrthogonal}
       camera={{ position: [0, 1.7, 3] }}
     >
       <OrbitControls makeDefault={true} regress={true} />
@@ -49,7 +46,7 @@ export const ProductEditorCanvas = () => {
           />
         </BoundsStorer>
       </Bounds>
-      {appConfig.shadows.floorShadow ? (
+      {globalConfig.config.shadows.floorShadow ? (
         <ContactShadows
           position={[0, -0.5, 0]}
           scale={10}
