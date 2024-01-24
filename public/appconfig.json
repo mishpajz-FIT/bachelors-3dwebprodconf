@@ -7,7 +7,10 @@
   },
   "spatialUi": {
     "selectionColors": {
-      "outline": "#000000"
+      "outline": {
+        "light": "#000000",
+        "dark": "#FFFFFF"
+      }
     }
   },
   "ui": {

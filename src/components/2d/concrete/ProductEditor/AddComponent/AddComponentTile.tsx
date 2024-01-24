@@ -27,10 +27,8 @@ export const AddComponentTile = memo(
       <div
         role={"button"}
         tabIndex={0}
-        className={`flex h-full w-full shrink-0 select-none flex-row justify-start overflow-hidden rounded-md p-4 text-left outline outline-1 outline-gray-200 dark:outline-gray-700 ${
-          !isButtonHovered
-            ? "transition-all duration-150 ease-in-out hover:bg-gray-100 active:scale-95 active:shadow-inner dark:hover:bg-gray-800"
-            : ""
+        className={`tile-background flex h-full w-full shrink-0 select-none flex-row justify-start overflow-hidden rounded-md p-4 text-left ${
+          !isButtonHovered ? "tile-pressable" : ""
         }`}
         onClick={add}
         onKeyDown={(e) => {

@@ -29,11 +29,17 @@ export const EditComponent = ({ onClose }: EditComponentProps) => {
 
   return (
     <div className="flex w-full select-none flex-col">
-      <ContainerHeader title={"Edit component"} onClose={onClose} />
+      <ContainerHeader
+        title={"Edit component"}
+        onClose={onClose}
+        subheader={true}
+      />
       <div className="flex flex-col overflow-y-auto p-2">
-        <div className="select-text pt-6">
-          <h2 className="truncate text-lg font-bold">{componentSpec.name}</h2>
-          <p className="line-clamp-3 text-pretty text-sm leading-tight text-gray-600 dark:text-gray-400">
+        <div className="pt-6">
+          <h2 className="select-text truncate text-lg font-semibold">
+            {componentSpec.name}
+          </h2>
+          <p className="line-clamp-3 select-text text-pretty text-sm leading-tight text-slate-600 dark:text-slate-400">
             {componentSpec.description}
           </p>
           <button className="other-button mt-3">

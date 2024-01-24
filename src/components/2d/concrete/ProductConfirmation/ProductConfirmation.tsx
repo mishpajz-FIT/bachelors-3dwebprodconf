@@ -24,7 +24,7 @@ export const ProductConfirmation = () => {
 
       <div className="flex w-full grow flex-row justify-center">
         <div className="w-full md:w-4/5 lg:w-2/3 xl:w-1/2">
-          <ol className="mb-20 mt-2 flex w-full flex-col justify-start rounded-xl bg-slate-50 outline outline-1 outline-gray-300 dark:bg-gray-900 dark:outline-gray-700">
+          <ol className="simple-panel mb-20 mt-2 flex w-full flex-col justify-start rounded-xl shadow-none">
             {Object.keys(userCreationSnap.components).map(
               (componentId, index) => (
                 <li

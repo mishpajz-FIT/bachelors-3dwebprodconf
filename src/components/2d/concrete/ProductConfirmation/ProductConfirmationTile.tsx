@@ -58,7 +58,7 @@ export const ProductConfirmationTile = ({
 
             return (
               <div
-                className="flex flex-col rounded-md px-2 pb-2 pt-1 outline outline-1 outline-slate-200 dark:outline-slate-700"
+                className="flex flex-col rounded-md bg-gray-50 px-2 pb-2 pt-1 dark:bg-zinc-800"
                 key={materialId}
               >
                 <h2 className="pb-1 text-sm font-normal">{material.name}</h2>

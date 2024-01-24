@@ -39,7 +39,7 @@ export const EditComponentColorsColorTile = ({
       aria-label={`${isSelected ? "selected" : "select"}`}
     >
       <div
-        className={`flex items-center transition-[width] duration-500 ease-in-out ${isSelected ? "w-full rounded bg-slate-50 outline outline-1 outline-slate-100 dark:bg-slate-800 dark:outline-slate-800" : "w-12"}`}
+        className={`flex items-center transition-[width] duration-500 ease-in-out ${isSelected ? "w-full rounded bg-slate-50 outline outline-1 outline-slate-100 dark:bg-zinc-800 dark:outline-zinc-800" : "w-12"}`}
       >
         <button
           className={`min-w-8 transition-[outline] duration-150 ${

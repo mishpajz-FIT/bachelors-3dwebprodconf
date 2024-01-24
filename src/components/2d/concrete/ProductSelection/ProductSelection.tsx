@@ -38,7 +38,7 @@ export const ProductSelection = () => {
                 className="w-full p-2 md:w-1/2 lg:w-1/3 xl:w-1/4 2xl:w-1/4"
               >
                 <button
-                  className="w-full rounded-xl outline outline-1 outline-gray-200 transition-all duration-150 ease-in-out hover:bg-gray-100 active:scale-95 active:shadow-inner dark:outline-gray-700 dark:hover:bg-gray-800"
+                  className="tile w-full"
                   onClick={() => {
                     navigate("/" + productId + "/editor");
                   }}

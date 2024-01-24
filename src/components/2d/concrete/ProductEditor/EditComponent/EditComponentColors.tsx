@@ -33,7 +33,7 @@ export const EditComponentColors = ({
         ([materialSpecId, materialSpec], materialIndex) => (
           <div key={materialIndex} className="p-1">
             <h2 className="mt-1 text-sm font-normal">{materialSpec.name}</h2>
-            <div className="mt-1 flex flex-wrap justify-center rounded-md p-1 outline outline-1 outline-slate-100 dark:outline-slate-800">
+            <div className="mt-1 flex flex-wrap justify-center rounded-md p-1 outline outline-1 outline-slate-100 dark:outline-zinc-800">
               <EditComponentColorsColorTile
                 componentId={componentId}
                 materialSpecId={materialSpecId}

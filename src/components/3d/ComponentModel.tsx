@@ -1,5 +1,6 @@
 import { Edges, useGLTF } from "@react-three/drei";
 import { ThreeEvent } from "@react-three/fiber";
+import { useEffect, useState } from "react";
 import { Color, Mesh, MeshStandardMaterial } from "three";
 import { useSnapshot } from "valtio";
 
@@ -23,6 +24,32 @@ const ComponentModel = ({ componentId, position }: ComponentModelProps) => {
   if (!componentSpec) {
     throw `Component spec ${componentSpecId} could not be found.`;
   }
+
+  const [outlineColor, setOutlineColor] = useState(
+    globalConfig.config.spatialUi.selectionColors.outline.light
+  );
+  useEffect(() => {
+    const darkThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const themeSwitcher = (dark: boolean) => {
+      if (dark) {
+        setOutlineColor(
+          globalConfig.config.spatialUi.selectionColors.outline.dark
+        );
+      } else {
+        setOutlineColor(
+          globalConfig.config.spatialUi.selectionColors.outline.light
+        );
+      }
+    };
+
+    const themeListener = (e: MediaQueryListEvent) => {
+      themeSwitcher(e.matches);
+    };
+    themeSwitcher(darkThemeQuery.matches);
+    darkThemeQuery.addEventListener("change", themeListener);
+    return () => darkThemeQuery.removeEventListener("change", themeListener);
+  }, []);
 
   const { nodes, materials } = useGLTF(componentSpec.modelUrl);
 
@@ -81,7 +108,7 @@ const ComponentModel = ({ componentId, position }: ComponentModelProps) => {
               >
                 <meshBasicMaterial
                   transparent={true}
-                  color={globalConfig.config.spatialUi.selectionColors.outline}
+                  color={outlineColor}
                   depthTest={false}
                 />
               </Edges>

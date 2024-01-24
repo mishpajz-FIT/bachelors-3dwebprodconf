@@ -59,7 +59,11 @@ export const AddComponent = ({
 
   return (
     <>
-      <ContainerHeader title={"Add component"} onClose={onClose} />
+      <ContainerHeader
+        title={"Add component"}
+        onClose={onClose}
+        subheader={true}
+      />
 
       <div
         ref={containerRef}
@@ -76,7 +80,7 @@ export const AddComponent = ({
         ))}
 
         {isOverflowing && (
-          <div className="content-background-fade-right pointer-events-none absolute bottom-4 right-0 top-12 w-14" />
+          <div className="other-background-fade-right pointer-events-none absolute bottom-4 right-0 top-12 w-14" />
         )}
       </div>
     </>

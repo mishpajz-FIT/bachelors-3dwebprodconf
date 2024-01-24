@@ -7,7 +7,10 @@ export interface AppConfig {
   };
   spatialUi: {
     selectionColors: {
-      outline: string;
+      outline: {
+        light: string;
+        dark: string;
+      };
     };
   };
   ui: {
@@ -34,7 +37,10 @@ const defaultConfig: AppConfig = {
   },
   spatialUi: {
     selectionColors: {
-      outline: "#000000",
+      outline: {
+        light: "#000000",
+        dark: "#FFFFFF",
+      },
     },
   },
   ui: {

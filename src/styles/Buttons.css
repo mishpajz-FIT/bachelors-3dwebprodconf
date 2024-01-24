@@ -12,8 +12,8 @@
     @apply active:scale-95 active:shadow-inner;
     @apply transition duration-150 ease-in-out;
 
-    @apply dark:text-white dark:ring-gray-600;
-    @apply dark:focus:ring-gray-500;
+    @apply dark:text-white dark:ring-zinc-600;
+    @apply dark:focus:ring-zinc-500;
   }
 
   .styled-button {
@@ -32,8 +32,8 @@
     @apply bg-white;
     @apply hover:bg-gray-50;
 
-    @apply dark:bg-slate-900;
-    @apply dark:hover:bg-slate-800;
+    @apply dark:bg-zinc-900;
+    @apply dark:hover:bg-zinc-800;
   }
 
   .destructive-button-on-hold {
@@ -52,7 +52,7 @@
     @apply hover:bg-rose-200;
     @apply text-rose-400 ring-rose-400;
 
-    @apply dark:bg-slate-900;
+    @apply dark:bg-zinc-900;
     @apply dark:hover:bg-rose-950;
     @apply dark:text-rose-700 dark:ring-rose-700;
   }
@@ -60,7 +60,7 @@
   .secondary-button {
     @apply styled-button;
     @apply bg-white;
-    @apply dark:bg-slate-900;
+    @apply dark:bg-zinc-900;
   }
 
   .primary-button {

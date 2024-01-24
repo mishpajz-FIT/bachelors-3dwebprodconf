@@ -3,16 +3,22 @@
 @tailwind utilities;
 
 @layer components {
+  .other-background {
+    @apply bg-white;
+    @apply dark:bg-zinc-900;
+  }
+
   .content-background {
-    @apply bg-background;
-    @apply dark:bg-background-dark;
+    @apply bg-slate-50;
+    @apply dark:bg-zinc-950;
   }
 
   .simple-panel {
-    @apply content-background;
+    @apply other-background;
     @apply rounded-lg shadow-lg;
+    @apply outline outline-1 outline-gray-200;
 
-    @apply dark:outline dark:outline-1 dark:outline-gray-700;
+    @apply dark:outline dark:outline-1 dark:outline-zinc-700;
   }
 
   .content-width {
@@ -23,10 +29,30 @@
     @apply h-screen w-screen;
   }
 
-  .content-background-fade-right {
+  .other-background-fade-right {
     @apply bg-gradient-to-r;
-    @apply from-background/0 to-background;
+    @apply from-white/0 to-white;
 
-    @apply dark:from-background-dark/0 dark:to-background-dark;
+    @apply to-zinc-900 dark:from-zinc-900/0;
+  }
+
+  .tile-background {
+    @apply other-background;
+    @apply rounded-xl shadow-sm;
+    @apply outline outline-1 outline-gray-200;
+
+    @apply dark:outline-zinc-700;
+  }
+
+  .tile-pressable {
+    @apply transition-all duration-150 ease-in-out;
+    @apply hover:outline-gray-400 active:scale-95 active:shadow-inner;
+
+    @apply dark:hover:outline-zinc-500;
+  }
+
+  .tile {
+    @apply tile-background;
+    @apply tile-pressable;
   }
 }
