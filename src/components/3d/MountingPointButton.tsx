@@ -75,7 +75,7 @@ export const MountingPointButton = ({
           className={`secondary-button ${mountingPointSpec.isRequired ? "outline outline-1 outline-offset-1 outline-red-400" : ""}`}
           onClick={() => setModalOpen(true)}
         >
-          <PlusIcon className="h-4 w-4" />
+          <PlusIcon className="size-4" />
         </button>
       </div>
       <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>

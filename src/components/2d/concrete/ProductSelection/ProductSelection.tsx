@@ -19,7 +19,7 @@ export const ProductSelection = () => {
             key={index}
             className="h-[160px] w-full p-2 md:w-1/2 lg:w-1/3 xl:w-1/4 2xl:w-1/4"
           >
-            <div className="h-full w-full animate-pulse rounded-xl bg-gray-100 dark:bg-gray-800" />
+            <div className="size-full animate-pulse rounded-xl bg-gray-100 dark:bg-gray-800" />
           </div>
         ))}
       </div>
@@ -27,7 +27,7 @@ export const ProductSelection = () => {
   };
 
   return (
-    <div className="content-background flex h-full w-full select-none flex-col items-center justify-start overflow-y-scroll p-4">
+    <div className="content-background flex size-full select-none flex-col items-center justify-start overflow-y-scroll p-4">
       <div className="content-width">
         <ContainerHeader title={"Select product"} onClose={undefined} />
         <Suspense fallback={<Skeleton />}>

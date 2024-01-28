@@ -22,7 +22,7 @@ export const ProductSelectionTile = ({
       <SkeletonImage
         src={product.imageUrl}
         alt={product.name}
-        className="pointer-events-none inset-1 h-24 w-24 rounded"
+        className="pointer-events-none inset-1 size-24 rounded"
       />
 
       <div className="ml-4 grow">

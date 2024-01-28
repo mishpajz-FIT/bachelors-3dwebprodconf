@@ -27,7 +27,7 @@ const router = createBrowserRouter([
   {
     path: "/:productId/editor",
     element: (
-      <Suspense fallback={<div className="content-background h-full w-full" />}>
+      <Suspense fallback={<div className="content-background size-full" />}>
         <ProductEditor />
       </Suspense>
     ),

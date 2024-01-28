@@ -43,7 +43,7 @@ export const EditComponent = ({ onClose }: EditComponentProps) => {
             {componentSpec.description}
           </p>
           <button className="other-button mt-3">
-            <InformationCircleIcon className="h-4 w-4" />
+            <InformationCircleIcon className="size-4" />
           </button>
 
           {Object.keys(componentSpec.materialSpecs).length !== 0 && (
