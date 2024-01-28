@@ -35,7 +35,7 @@ export const ProductConfirmationTile = ({
         <SkeletonImage
           src={componentSpec.imageUrl}
           alt={componentSpec.name}
-          className="pointer-events-none inset-1 h-16 w-16 rounded"
+          className="pointer-events-none inset-1 size-16 rounded"
         />
 
         <div className="ml-2 grow">
@@ -64,7 +64,7 @@ export const ProductConfirmationTile = ({
                 <h2 className="pb-1 text-sm font-normal">{material.name}</h2>
                 <div className="flex flex-row items-center">
                   <div
-                    className="h-10 w-10 rounded shadow-sm ring-1 ring-gray-300 dark:ring-gray-600"
+                    className="size-10 rounded shadow-sm ring-1 ring-gray-300 dark:ring-gray-600"
                     style={{
                       backgroundColor: colorSpec.value,
                     }}

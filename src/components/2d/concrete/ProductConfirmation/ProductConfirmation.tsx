@@ -17,7 +17,7 @@ export const ProductConfirmation = () => {
   }, [navigate]);
 
   return (
-    <div className="content-background flex h-full w-full select-none flex-col items-center justify-start overflow-y-scroll p-4">
+    <div className="content-background flex size-full select-none flex-col items-center justify-start overflow-y-scroll p-4">
       <div className="content-width">
         <ContainerHeader title={"Confirm configuration"} onClose={undefined} />
       </div>

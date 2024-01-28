@@ -44,8 +44,8 @@ export const EditComponentColorsColorTile = ({
         <button
           className={`min-w-8 transition-[outline] duration-150 ${
             isSelected
-              ? "m-2 h-8 w-8 rounded-sm outline outline-2 outline-offset-2"
-              : "m-1 h-10 w-10 rounded-full shadow-sm ring-1 ring-gray-300 transition duration-150 ease-in-out hover:rounded-md active:scale-95 dark:ring-gray-600"
+              ? "m-2 size-8 rounded-sm outline outline-2 outline-offset-2"
+              : "m-1 size-10 rounded-full shadow-sm ring-1 ring-gray-300 transition duration-150 ease-in-out hover:rounded-md active:scale-95 dark:ring-gray-600"
           }`}
           style={{
             backgroundColor: colorSpec.value,

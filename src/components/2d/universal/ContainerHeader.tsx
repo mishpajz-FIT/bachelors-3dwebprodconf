@@ -16,7 +16,7 @@ export const ContainerHeader = memo(
       {onClose !== undefined && (
         <button className="other-button" onClick={onClose}>
           <span className="sr-only">Close</span>
-          <XMarkIcon className="h-4 w-4" />
+          <XMarkIcon className="size-4" />
         </button>
       )}
     </div>

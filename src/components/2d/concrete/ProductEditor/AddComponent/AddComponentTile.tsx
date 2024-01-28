@@ -27,7 +27,7 @@ export const AddComponentTile = memo(
       <div
         role={"button"}
         tabIndex={0}
-        className={`tile-background flex h-full w-full shrink-0 select-none flex-row justify-start overflow-hidden rounded-md p-4 text-left ${
+        className={`tile-background flex size-full shrink-0 select-none flex-row justify-start overflow-hidden rounded-md p-4 text-left ${
           !isButtonHovered ? "tile-pressable" : ""
         }`}
         onClick={add}
@@ -41,7 +41,7 @@ export const AddComponentTile = memo(
         <SkeletonImage
           src={componentSpec.imageUrl}
           alt={componentSpec.name}
-          className="pointer-events-none inset-1 mr-4 h-24 w-24 rounded"
+          className="pointer-events-none inset-1 mr-4 size-24 rounded"
         />
         <div className="flex w-full flex-col justify-between overflow-hidden">
           <div className="mb-1">
@@ -60,7 +60,7 @@ export const AddComponentTile = memo(
               onMouseEnter={() => setIsButtonHovered(true)}
               onMouseLeave={() => setIsButtonHovered(false)}
             >
-              <InformationCircleIcon className="h-4 w-4" />
+              <InformationCircleIcon className="size-4" />
             </button>
           </div>
         </div>

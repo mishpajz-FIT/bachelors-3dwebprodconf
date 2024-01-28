@@ -91,7 +91,7 @@ export const EditComponentChange = ({
         className="other-button flex w-full items-center justify-center"
         onClick={() => setChangeModalOpen(true)}
       >
-        <PencilIcon className="h-4 w-4" />
+        <PencilIcon className="size-4" />
         <span className="ml-2">Change</span>
       </button>
       <HoldButton
@@ -101,7 +101,7 @@ export const EditComponentChange = ({
         popoverPosition={"top-end"}
         popoverOffset={6}
       >
-        <TrashIcon className="h-4 w-4" />
+        <TrashIcon className="size-4" />
         <span className="ml-2">Remove</span>
       </HoldButton>
       <Modal
