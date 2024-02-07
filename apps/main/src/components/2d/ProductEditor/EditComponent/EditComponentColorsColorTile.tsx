@@ -1,10 +1,10 @@
+import { ColorSpecification } from "@3dwebprodconf/shared/src/interfaces/ProductSpecification.ts";
 import { useCallback } from "react";
 import { useSnapshot } from "valtio";
 
-import { ColorSpecification } from "../../../../../interfaces/ProductSpecification.ts";
-import { changeMaterial } from "../../../../../stores/actions/UserCreationActions.ts";
-import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
-import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
+import { changeMaterial } from "../../../../stores/actions/UserCreationActions.ts";
+import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
+import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
 
 interface EditComponentColorsColorTileProps {
   componentId: string;

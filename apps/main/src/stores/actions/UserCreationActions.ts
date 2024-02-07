@@ -1,3 +1,4 @@
+import { UserComponent } from "@3dwebprodconf/shared/src/interfaces/UserCreation.ts";
 import { v4 as uuid } from "uuid";
 
 import {
@@ -5,7 +6,6 @@ import {
   validateMaterialSpec,
   validateMountingPointSpec,
 } from "./ProductSpecificationActions.ts";
-import { UserComponent } from "../../interfaces/UserCreation.ts";
 import { ProductSpecificationStore } from "../ProductSpecificationStore.ts";
 import { UserCreationStore } from "../UserCreationStore.ts";
 

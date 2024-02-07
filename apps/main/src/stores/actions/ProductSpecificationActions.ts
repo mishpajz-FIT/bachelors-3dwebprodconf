@@ -1,4 +1,5 @@
-import { ProductSpecification } from "../../interfaces/ProductSpecification.ts";
+import { ProductSpecification } from "@3dwebprodconf/shared/src/interfaces/ProductSpecification.ts";
+
 import { ProductSpecificationStore } from "../ProductSpecificationStore.ts";
 
 export const fetchProductSpecification = async (

@@ -1,11 +1,11 @@
+import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 
 import { ProductConfirmationTile } from "./ProductConfirmationTile.tsx";
-import { EditorValuesStore } from "../../../../stores/EditorValuesStore.ts";
-import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
-import { ContainerHeader } from "../../universal/ContainerHeader.tsx";
+import { EditorValuesStore } from "../../../stores/EditorValuesStore.ts";
+import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 
 export const ProductConfirmation = () => {
   const navigate = useNavigate();

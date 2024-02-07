@@ -1,3 +1,4 @@
+import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
 import {
   useCallback,
   useEffect,
@@ -7,7 +8,6 @@ import {
 } from "react";
 
 import { AddComponentTile } from "./AddComponentTile.tsx";
-import { ContainerHeader } from "../../../universal/ContainerHeader.tsx";
 
 interface AddComponentProps {
   mountableComponentsSpecs: readonly string[];

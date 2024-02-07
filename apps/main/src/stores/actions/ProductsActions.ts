@@ -1,4 +1,4 @@
-import { Products } from "../../interfaces/Products.ts";
+import { Products } from "@3dwebprodconf/shared/src/interfaces/Products.ts";
 
 export const fetchProducts = async (url: string): Promise<Products> => {
   const response = await fetch(url);

@@ -1,10 +1,10 @@
+import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
 import { Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 
 import { ProductSelectionTile } from "./ProductSelectionTile.tsx";
-import { ProductsStore } from "../../../../stores/ProductsStore.ts";
-import { ContainerHeader } from "../../universal/ContainerHeader.tsx";
+import { ProductsStore } from "../../../stores/ProductsStore.ts";
 
 export const ProductSelection = () => {
   const navigate = useNavigate();

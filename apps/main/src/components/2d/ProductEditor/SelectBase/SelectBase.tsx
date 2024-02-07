@@ -1,3 +1,4 @@
+import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
@@ -5,11 +6,10 @@ import { useSnapshot } from "valtio";
 import {
   createComponent,
   mountBase,
-} from "../../../../../stores/actions/UserCreationActions.ts";
-import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
-import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
-import { refreshBounds } from "../../../../../utilities/BoundsManimpuation.ts";
-import { ContainerHeader } from "../../../universal/ContainerHeader.tsx";
+} from "../../../../stores/actions/UserCreationActions.ts";
+import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
+import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
+import { refreshBounds } from "../../../../utilities/BoundsManimpuation.ts";
 import { AddComponentTile } from "../AddComponent/AddComponentTile.tsx";
 
 interface SelectBaseProps {

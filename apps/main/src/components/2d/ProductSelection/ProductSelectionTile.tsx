@@ -1,7 +1,7 @@
+import { SkeletonImage } from "@3dwebprodconf/shared/src/components/SkeletonImage.tsx";
 import { useSnapshot } from "valtio";
 
-import { ProductsStore } from "../../../../stores/ProductsStore";
-import { SkeletonImage } from "../../universal/SkeletonImage";
+import { ProductsStore } from "../../../stores/ProductsStore.ts";
 
 interface ProductSelectionTileProps {
   productId: string;

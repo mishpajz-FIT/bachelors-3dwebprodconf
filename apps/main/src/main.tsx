@@ -1,13 +1,10 @@
+import { AppConfig } from "@3dwebprodconf/shared/src/interfaces/configs/AppConfig.ts";
 import React from "react";
 import "./index.css";
 import ReactDOM from "react-dom/client";
 
 import App from "./App.tsx";
-import {
-  AppConfig,
-  globalConfig,
-  globalConfigUrl,
-} from "./configurations/Config.ts";
+import { globalConfig, globalConfigUrl } from "./configurations/Config.ts";
 
 fetch(globalConfigUrl)
   .then((response) => {

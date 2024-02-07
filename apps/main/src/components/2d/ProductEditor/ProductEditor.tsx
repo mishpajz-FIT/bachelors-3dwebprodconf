@@ -1,3 +1,4 @@
+import { Side } from "@3dwebprodconf/shared/src/components/containers/Side.tsx";
 import { lazy, Suspense, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
@@ -5,12 +6,11 @@ import { useSnapshot } from "valtio";
 import { EditComponent } from "./EditComponent/EditComponent.tsx";
 import { ProductEditorLoading } from "./ProductEditorLoading.tsx";
 import { SelectBase } from "./SelectBase/SelectBase.tsx";
-import { EditorValuesStore } from "../../../../stores/EditorValuesStore.ts";
-import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
-import { Side } from "../../universal/containers/Side.tsx";
+import { EditorValuesStore } from "../../../stores/EditorValuesStore.ts";
+import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 
 const ProductEditorCanvas = lazy(
-  () => import("../../../3d/ProductEditorCanvas.tsx")
+  () => import("../../3d/ProductEditorCanvas.tsx")
 );
 
 const ProductEditor = () => {

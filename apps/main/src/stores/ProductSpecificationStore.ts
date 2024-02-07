@@ -1,6 +1,5 @@
+import { ProductSpecification } from "@3dwebprodconf/shared/src/interfaces/ProductSpecification.ts";
 import { proxy } from "valtio";
-
-import { ProductSpecification } from "../interfaces/ProductSpecification.ts";
 
 export const ProductSpecificationStore = proxy<ProductSpecification>({
   baseSpecs: {},

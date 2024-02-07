@@ -1,8 +1,8 @@
+import { SkeletonImage } from "@3dwebprodconf/shared/src/components/SkeletonImage.tsx";
 import { useSnapshot } from "valtio";
 
-import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
-import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
-import { SkeletonImage } from "../../universal/SkeletonImage.tsx";
+import { ProductSpecificationStore } from "../../../stores/ProductSpecificationStore.ts";
+import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 
 interface ProductConfirmationTileProps {
   componentId: string;

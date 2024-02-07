@@ -1,3 +1,4 @@
+import { Modal } from "@3dwebprodconf/shared/src/components/containers/Modal.tsx";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import { Html } from "@react-three/drei";
 import { useCallback, useState } from "react";
@@ -10,8 +11,7 @@ import {
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../utilities/BoundsManimpuation.ts";
-import { AddComponent } from "../2d/concrete/ProductEditor/AddComponent/AddComponent.tsx";
-import { Modal } from "../2d/universal/containers/Modal.tsx";
+import { AddComponent } from "../2d/ProductEditor/AddComponent/AddComponent.tsx";
 
 interface MountingPointButtonProps {
   componentId: string;

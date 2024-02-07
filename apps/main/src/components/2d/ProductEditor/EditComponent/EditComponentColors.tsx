@@ -1,9 +1,9 @@
+import { ColorSpecification } from "@3dwebprodconf/shared/src/interfaces/ProductSpecification.ts";
 import { useSnapshot } from "valtio";
 
 import { EditComponentColorsColorTile } from "./EditComponentColorsColorTile.tsx";
-import { ColorSpecification } from "../../../../../interfaces/ProductSpecification.ts";
-import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
-import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
+import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
+import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
 
 interface EditComponentColorsProps {
   componentId: string;

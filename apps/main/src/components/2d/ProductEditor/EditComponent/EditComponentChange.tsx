@@ -1,3 +1,5 @@
+import { Modal } from "@3dwebprodconf/shared/src/components/containers/Modal.tsx";
+import { HoldButton } from "@3dwebprodconf/shared/src/components/HoldButton.tsx";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useCallback, useState } from "react";
 import { useSnapshot } from "valtio";
@@ -6,13 +8,11 @@ import {
   createComponent,
   mountComponent,
   removeComponent,
-} from "../../../../../stores/actions/UserCreationActions.ts";
-import { EditorValuesStore } from "../../../../../stores/EditorValuesStore.ts";
-import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
-import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
-import { refreshBounds } from "../../../../../utilities/BoundsManimpuation.ts";
-import { Modal } from "../../../universal/containers/Modal.tsx";
-import { HoldButton } from "../../../universal/HoldButton.tsx";
+} from "../../../../stores/actions/UserCreationActions.ts";
+import { EditorValuesStore } from "../../../../stores/EditorValuesStore.ts";
+import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
+import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
+import { refreshBounds } from "../../../../utilities/BoundsManimpuation.ts";
 import { AddComponent } from "../AddComponent/AddComponent.tsx";
 
 interface EditComponentChangeProps {

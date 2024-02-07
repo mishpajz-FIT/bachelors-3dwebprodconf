@@ -1,6 +1,5 @@
+import { UserCreation } from "@3dwebprodconf/shared/src/interfaces/UserCreation.ts";
 import { proxy } from "valtio";
-
-import { UserCreation } from "../interfaces/UserCreation.ts";
 
 interface UserProductAdditionalInfo {
   childToParentMap: Map<string, [string, string]>; // reverse lookup from component to its parent and the mounting point id
