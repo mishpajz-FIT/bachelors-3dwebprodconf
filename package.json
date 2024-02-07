@@ -1,20 +1,15 @@
 {
-  "name": "webprodconf-fe",
+  "name": "3dwebprodconf",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "fixlint": "eslint . --ext ts,tsx --fix",
-    "cilint": "eslint . --ext ts,tsx --format stylish ; eslint . --ext ts,tsx --format junit -o eslint.xml --max-warnings 0",
-    "preview": "vite preview",
-    "prepare": "husky install"
-  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,md,html,css}": "prettier --ignore-unknown --write",
-    "*.{js,jsx,ts,tsx}": "eslint --cache"
+    "packages/*/src/**/*.{js,jsx,ts,tsx,md,html,css}": "prettier --ignore-unknown --write",
+    "packages/*/src/**/*.{js,jsx,ts,tsx}": "eslint --cache",
+    "apps/*/src/**/*.{js,jsx,ts,tsx,md,html,css}": "prettier --ignore-unknown --write",
+    "apps/*/src/**/*.{js,jsx,ts,tsx}": "eslint --cache"
   },
   "browserslist": [
     "> 1%",

@@ -80,7 +80,9 @@ module.exports = {
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
-    project: ["./tsconfig.json", "./tsconfig.node.json"],
+    project: [
+      "./apps/main/tsconfig.json",
+    ],
     tsconfigRootDir: __dirname,
   },
   settings: {
