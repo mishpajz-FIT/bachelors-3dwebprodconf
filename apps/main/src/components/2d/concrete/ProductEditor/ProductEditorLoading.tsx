@@ -7,7 +7,7 @@ export const ProductEditorLoading = () => {
     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
       <div className="flex w-full flex-col items-center gap-1">
         <div
-          className="bg-primary dark:bg-primary-dark size-10"
+          className="size-10 bg-[var(--primary-light)] dark:bg-[var(--primary-dark)]"
           style={{
             animation: "flips 2.5s infinite cubic-bezier(.23,.59,.28,.72)",
           }}
