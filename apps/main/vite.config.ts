@@ -7,4 +7,17 @@ export default defineConfig({
   server: {
     port: 5173,
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          // Check if the module ID contains "three/build/three.module.js"
+          if (id.includes("three/build/three.module.js")) {
+            // Return a custom chunk name for the Three.js module
+            return "three";
+          }
+        },
+      },
+    },
+  },
 });
