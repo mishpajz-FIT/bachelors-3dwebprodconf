@@ -6,7 +6,7 @@
     "apps/*"
   ],
   "scripts": {
-    "dev": "npm run dev --workspace main",
+    "dev": "npm run dev --workspaces --if-present",
     "build": "npm run build --workspace main",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "fixlint": "eslint . --ext ts,tsx --fix",

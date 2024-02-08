@@ -1,0 +1,6 @@
+{
+  "extends": "@3dwebprodconf/shared/tsconfig.json",
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
+

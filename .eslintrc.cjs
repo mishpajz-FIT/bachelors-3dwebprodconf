@@ -83,7 +83,9 @@ module.exports = {
     project: [
       "./apps/main/tsconfig.json",
       "./apps/main/tsconfig.node.json",
-      "./packages/shared/tsconfig.json"
+      "./packages/shared/tsconfig.json",
+      "./apps/admin/tsconfig.json",
+      "./apps/admin/tsconfig.node.json"
     ],
     tsconfigRootDir: __dirname,
   },
