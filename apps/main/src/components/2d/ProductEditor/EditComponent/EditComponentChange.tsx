@@ -12,7 +12,7 @@ import {
 import { EditorValuesStore } from "../../../../stores/EditorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
-import { refreshBounds } from "../../../../utilities/BoundsManimpuation.ts";
+import { refreshBounds } from "../../../../utilities/BoundsManipulation.ts";
 import { AddComponent } from "../AddComponent/AddComponent.tsx";
 
 interface EditComponentChangeProps {

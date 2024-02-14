@@ -10,7 +10,7 @@ import {
 } from "../../stores/actions/UserCreationActions.ts";
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../stores/UserCreationStore.ts";
-import { refreshBounds } from "../../utilities/BoundsManimpuation.ts";
+import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
 import { AddComponent } from "../2d/ProductEditor/AddComponent/AddComponent.tsx";
 
 interface MountingPointButtonProps {

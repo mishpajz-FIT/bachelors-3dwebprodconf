@@ -1,4 +1,4 @@
-import { AppConfig } from "@3dwebprodconf/shared/src/interfaces/configs/AppConfig.ts";
+import { AppConfig } from "../interfaces/AppConfig.ts";
 
 const defaultConfig: AppConfig = {
   camera: {

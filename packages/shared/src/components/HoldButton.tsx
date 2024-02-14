@@ -1,4 +1,4 @@
-import { createPopper, Placement } from "@popperjs/core";
+import { autoUpdate, offset, Placement, useFloating } from "@floating-ui/react";
 import { KeyboardEvent, ReactNode, useEffect, useRef, useState } from "react";
 
 interface HoldButtonProps {
@@ -22,8 +22,14 @@ export const HoldButton = ({
   const interval = useRef<NodeJS.Timeout | null>(null);
 
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const popoverRef = useRef(null);
+
+  const { refs, floatingStyles } = useFloating({
+    open: isPopoverOpen,
+    onOpenChange: setIsPopoverOpen,
+    placement: popoverPosition,
+    middleware: [offset(popoverOffset)],
+    whileElementsMounted: autoUpdate,
+  });
 
   const timeIncrease = (duration * 5) / 100;
 
@@ -72,26 +78,10 @@ export const HoldButton = ({
     }
   };
 
-  useEffect(() => {
-    if (buttonRef.current && popoverRef.current) {
-      createPopper(buttonRef.current, popoverRef.current, {
-        placement: popoverPosition,
-        modifiers: [
-          {
-            name: "offset",
-            options: {
-              offset: [0, popoverOffset],
-            },
-          },
-        ],
-      });
-    }
-  }, [isPopoverOpen, popoverOffset, popoverPosition]);
-
   return (
     <>
       <button
-        ref={buttonRef}
+        ref={refs.setReference}
         className={className}
         style={{
           backgroundSize: `${progress}%`,
@@ -109,14 +99,15 @@ export const HoldButton = ({
         {children}
       </button>
 
-      {isPopoverOpen && (
-        <button
-          ref={popoverRef}
-          className="simple-panel cursor-default select-none p-2 px-4 text-xs outline outline-1 outline-gray-100 dark:outline-gray-700"
-          onClick={() => setIsPopoverOpen(false)}
-        >
-          Hold to confirm
-        </button>
+      {!isPopoverOpen && (
+        <div ref={refs.setFloating} style={floatingStyles}>
+          <button
+            className="simple-panel cursor-default select-none p-2 px-4 text-xs outline outline-1 outline-gray-100 dark:outline-gray-700"
+            onClick={() => setIsPopoverOpen(false)}
+          >
+            Hold to confirm
+          </button>
+        </div>
       )}
     </>
   );

@@ -12,11 +12,13 @@ import { Canvas } from "@react-three/fiber";
 import { useEffect } from "react";
 import { useSnapshot } from "valtio";
 
-import { BoundsStorer } from "./BoundsStorer.tsx";
 import { Component } from "./Component.tsx";
+import { BoundsStorer } from "../../../../../packages/shared/src/components/BoundsStorer.tsx";
 import { globalConfig } from "../../configurations/Config.ts";
+import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../stores/UserCreationStore.ts";
+import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
 
 const ProductEditorCanvas = () => {
   const userCreationSnap = useSnapshot(UserCreationStore);
@@ -49,7 +51,11 @@ const ProductEditorCanvas = () => {
       />
       <directionalLight position={[2, 2, 5]} intensity={0.7} />
       <Bounds fit clip observe margin={2}>
-        <BoundsStorer key={userCreationSnap.base}>
+        <BoundsStorer
+          key={userCreationSnap.base}
+          boundsStorage={EditorValuesStore}
+          refresh={() => refreshBounds(() => undefined)}
+        >
           <Component componentId={userCreationSnap.base} />
         </BoundsStorer>
       </Bounds>

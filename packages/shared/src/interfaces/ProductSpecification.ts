@@ -26,6 +26,9 @@ export interface ComponentSpecification {
   modelUrl: string;
   materialSpecs: Record<string, MaterialSpecification>;
   mountingPointsSpecs: Record<string, MountingPointSpecification>;
+  positionOffset?: [number, number, number];
+  rotationOffset?: [number, number, number];
+  scaleOffset?: [number, number, number];
 }
 
 export interface BaseSpecification {
