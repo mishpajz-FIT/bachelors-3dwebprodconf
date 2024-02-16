@@ -6,5 +6,14 @@ interface ComponentsStore {
 }
 
 export const ComponentsStore = proxy<ComponentsStore>({
-  components: {},
+  components: {
+    kokos: {
+      name: "Kokos",
+      description: "Kokosí description.",
+      imageUrl: "https://kokos",
+      modelUrl: "https://kokos",
+      materialSpecs: {},
+      mountingPointsSpecs: {},
+    },
+  },
 });

@@ -15,7 +15,7 @@ import { Canvas } from "@react-three/fiber";
 import { useSnapshot } from "valtio";
 
 import { Controls } from "./components/Controls.tsx";
-import { EditComponentSpecification } from "./components/EditComponentSpecification.tsx";
+import { EditComponentSpecification } from "./components/EditComponentSpecification/EditComponentSpecification.tsx";
 import { PreviewModel } from "./components/PreviewModel.tsx";
 import { EditorValuesStore } from "./stores/EditorValuesStore.ts";
 import { refreshBounds } from "./utilities/BoundsManipulation.ts";
@@ -72,7 +72,7 @@ function App() {
             {editorValuesSnap.selectedComponentSpec && <PreviewModel />}
           </BoundsStorer>
         </Bounds>
-        <GizmoHelper alignment="bottom-right" margin={[80, 80]}>
+        <GizmoHelper alignment="bottom-left" margin={[80, 80]}>
           <GizmoViewport
             axisColors={["#DC143C", "#00FF7F", "#1E90FF"]}
             labelColor="white"
@@ -81,10 +81,14 @@ function App() {
         <Preload all />
       </Canvas>
 
-      <Side isOpen={editorValuesSnap.selectedComponentSpec !== undefined}>
+      <Side
+        isOpen={editorValuesSnap.selectedComponentSpec !== undefined}
+        larger={true}
+      >
         <EditComponentSpecification
           onClose={() => {
             EditorValuesStore.selectedComponentSpec = undefined;
+            EditorValuesStore.selectedMountingPoint = undefined;
           }}
         />
       </Side>

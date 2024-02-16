@@ -1,36 +1,19 @@
 import { TextInput } from "@3dwebprodconf/shared/src/components/inputs/TextInput.tsx";
 import { ChangeEvent } from "react";
-import { useSnapshot } from "valtio";
 
-import { ComponentsStore } from "../stores/ComponentsStore.ts";
-import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
+import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
+import { ComponentsStore } from "../../stores/ComponentsStore.ts";
 
 export const EditComponentSpecificationDetails = () => {
-  const componentsSnap = useSnapshot(ComponentsStore);
-  const editorValuesSnap = useSnapshot(EditorValuesStore);
-
-  const componentSpecId = editorValuesSnap.selectedComponentSpec;
-  if (!componentSpecId) {
-    throw new Error(`No component selected`);
-  }
-
-  const component =
-    componentsSnap.components[editorValuesSnap.selectedComponentSpec];
-  if (!component) {
-    throw new Error(`No component specification with ${componentSpecId}`);
-  }
+  const { componentSpecId, component } = useSelectedComponentSpec();
 
   return (
-    <>
-      <h3 className="p-2 text-sm font-bold text-gray-800 dark:text-gray-200">
-        Details
-      </h3>
+    <div>
+      <h3 className="section-heading">Details</h3>
       <form>
         <div className="mx-4 grid grid-cols-1 gap-4">
           <label htmlFor={"name"}>
-            <span className="mb-1 block text-sm font-medium text-gray-900 dark:text-white">
-              Name
-            </span>
+            <span className="label">Name</span>
             <TextInput
               key={"name"}
               inputId={"name"}
@@ -51,17 +34,13 @@ export const EditComponentSpecificationDetails = () => {
             />
           </label>
           <label>
-            <span className="mb-1 block text-sm font-medium text-gray-900 dark:text-white">
-              Description
-            </span>
+            <span className="label">Description</span>
             <textarea
               name="description"
               className="field"
               placeholder="Description"
               value={component.description}
               onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
-                const { value } = e.target;
-
                 const editableComponent =
                   ComponentsStore.components[componentSpecId];
                 if (!editableComponent) {
@@ -70,14 +49,12 @@ export const EditComponentSpecificationDetails = () => {
                   );
                 }
 
-                editableComponent.description = value;
+                editableComponent.description = e.target.value;
               }}
             />
           </label>
           <label htmlFor={"model"}>
-            <span className="mb-1 block text-sm font-medium text-gray-900 dark:text-white">
-              Model file
-            </span>
+            <span className="label">Model file</span>
             <TextInput
               inputId={"model"}
               key={"model"}
@@ -98,9 +75,7 @@ export const EditComponentSpecificationDetails = () => {
             />
           </label>
           <label htmlFor={"modelImage"}>
-            <span className="mb-1 block text-sm font-medium text-gray-900 dark:text-white">
-              Preview image
-            </span>
+            <span className="label">Preview image</span>
             <TextInput
               key={"modelImage"}
               inputId={"modelImage"}
@@ -122,6 +97,6 @@ export const EditComponentSpecificationDetails = () => {
           </label>
         </div>
       </form>
-    </>
+    </div>
   );
 };

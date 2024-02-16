@@ -3,10 +3,11 @@ import { Fragment, ReactNode } from "react";
 
 interface SideProps {
   isOpen: boolean;
+  larger?: boolean;
   children?: ReactNode;
 }
 
-export const Side = ({ isOpen, children }: SideProps) => {
+export const Side = ({ isOpen, larger = false, children }: SideProps) => {
   return (
     <>
       <Transition
@@ -19,7 +20,9 @@ export const Side = ({ isOpen, children }: SideProps) => {
         leaveFrom="translate-x-0"
         leaveTo="translate-x-full"
       >
-        <div className="absolute inset-y-0 right-0 z-[100] size-full p-4 sm:w-72">
+        <div
+          className={`absolute inset-y-0 right-0 z-[100] size-full p-4 ${larger ? "w-96" : "w-76"}`}
+        >
           <div className="simple-panel flex size-full">{children}</div>
         </div>
       </Transition>

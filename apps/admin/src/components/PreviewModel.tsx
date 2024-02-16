@@ -1,39 +1,18 @@
-import { PivotControls, useGLTF } from "@react-three/drei";
-import { useEffect, useRef, useState } from "react";
-import { Box3, Euler, Mesh, Quaternion, Vector3 } from "three";
-import { useSnapshot } from "valtio";
+import { useGLTF } from "@react-three/drei";
+import { useEffect, useRef } from "react";
+import { Box3, Euler, Mesh, Vector3 } from "three";
 
+import { PlacementControls } from "./PlacementControls.tsx";
+import { PreviewMountingPoint } from "./PreviewMountingPoint.tsx";
+import { useSelectedComponentSpec } from "../hooks/useSelectedComponentSpec.ts";
 import { ComponentsStore } from "../stores/ComponentsStore.ts";
 import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
-
-const toMutableArray = (
-  arr?: readonly [number, number, number]
-): [number, number, number] | undefined => {
-  return arr ? [...arr] : undefined;
-};
+import { refreshBounds } from "../utilities/BoundsManipulation.ts";
 
 export const PreviewModel = () => {
-  const componentsSnap = useSnapshot(ComponentsStore);
-  const editorValuesSnap = useSnapshot(EditorValuesStore);
-
-  const componentSpecId = editorValuesSnap.selectedComponentSpec;
-  if (!componentSpecId) {
-    throw new Error(`No selected component ${componentSpecId}`);
-  }
-
-  const component = componentsSnap.components[componentSpecId];
-  if (!component) {
-    throw new Error(`Missing component ${componentSpecId}`);
-  }
+  const { componentSpecId, component } = useSelectedComponentSpec();
 
   const { scene, nodes, materials } = useGLTF("/kokos.glb");
-
-  const [dragPosition, setDragPosition] = useState<[number, number, number]>(
-    toMutableArray(component.positionOffset) ?? [0, 0, 0]
-  );
-  const [dragRotation, setDragRotation] = useState<[number, number, number]>(
-    toMutableArray(component.rotationOffset) ?? [0, 0, 0]
-  );
 
   const groupRef = useRef(null);
 
@@ -56,32 +35,14 @@ export const PreviewModel = () => {
 
   return (
     <>
-      <PivotControls
-        depthTest={false}
-        fixed={true}
-        scale={100}
-        axisColors={["#DC143C", "#00FF7F", "#1E90FF"]}
-        offset={toMutableArray(component.positionOffset)}
-        rotation={toMutableArray(component.rotationOffset)}
-        autoTransform={false}
-        onDragStart={() => {
-          const editableComponent = ComponentsStore.components[componentSpecId];
-          if (!editableComponent.positionOffset) {
-            editableComponent.positionOffset = [0, 0, 0];
-          }
-          if (!editableComponent.rotationOffset) {
-            editableComponent.rotationOffset = [0, 0, 0];
-          }
-
-          setDragPosition(editableComponent.positionOffset);
-          setDragRotation(editableComponent.rotationOffset);
-        }}
-        onDrag={(w) => {
-          const position = new Vector3();
-          const scale = new Vector3();
-          const quaternion = new Quaternion();
-          w.decompose(position, quaternion, scale);
-
+      <PlacementControls
+        currentPosition={
+          component.positionOffset ? [...component.positionOffset] : [0, 0, 0]
+        }
+        currentRotation={
+          component.rotationOffset ? [...component.rotationOffset] : [0, 0, 0]
+        }
+        updatePosition={(position) => {
           const editableComponent = ComponentsStore.components[componentSpecId];
           if (!editableComponent) {
             throw new Error(
@@ -89,26 +50,20 @@ export const PreviewModel = () => {
             );
           }
 
-          if (quaternion.x === 0 && quaternion.y === 0 && quaternion.z === 0) {
-            editableComponent.positionOffset = [
-              position.x + dragPosition[0],
-              position.y + dragPosition[1],
-              position.z + dragPosition[2],
-            ];
-          } else {
-            const currentRotationQuaternion = new Quaternion().setFromEuler(
-              new Euler().fromArray(dragRotation)
+          editableComponent.positionOffset = position;
+        }}
+        updateRotation={(rotation) => {
+          const editableComponent = ComponentsStore.components[componentSpecId];
+          if (!editableComponent) {
+            throw new Error(
+              `No component specification with ${componentSpecId}`
             );
-
-            const rotation = new Euler().setFromQuaternion(
-              quaternion.multiply(currentRotationQuaternion)
-            );
-            editableComponent.rotationOffset = [
-              rotation.x,
-              rotation.y,
-              rotation.z,
-            ];
           }
+
+          editableComponent.rotationOffset = rotation;
+        }}
+        onManipulationEnd={() => {
+          refreshBounds();
         }}
       >
         <group
@@ -136,8 +91,26 @@ export const PreviewModel = () => {
             }
             return null;
           })}
+          {Object.keys(component.mountingPointsSpecs).map((mountingPointId) => {
+            return (
+              <group
+                scale={
+                  component.scaleOffset
+                    ? (component.scaleOffset.map((scale) => 1 / scale) as [
+                        number,
+                        number,
+                        number,
+                      ])
+                    : [1, 1, 1]
+                }
+                key={mountingPointId}
+              >
+                <PreviewMountingPoint mountingPointId={mountingPointId} />
+              </group>
+            );
+          })}
         </group>
-      </PivotControls>
+      </PlacementControls>
     </>
   );
 };

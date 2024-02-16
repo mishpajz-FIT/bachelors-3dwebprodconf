@@ -14,7 +14,6 @@ export interface MountingPointSpecification {
   position: [number, number, number];
   rotation: [number, number, number];
   isRequired: boolean;
-  obstructedMountingPoints: string[];
   mountableComponents: string[];
 }
 

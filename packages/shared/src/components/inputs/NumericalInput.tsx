@@ -56,6 +56,7 @@ export const NumericalInput = ({
 
     if (value === "" && !allowEmpty) {
       setInnerValue(value);
+      setTooltipText(`Cannot be empty`);
       setIsValid(false);
       return false;
     }
@@ -81,7 +82,6 @@ export const NumericalInput = ({
     }
 
     if (innerValue !== "") {
-      setTooltipText(`Cannot be empty`);
       setIsValid(true);
       return true;
     }

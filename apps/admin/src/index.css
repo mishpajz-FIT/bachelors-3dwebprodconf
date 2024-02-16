@@ -2,6 +2,7 @@
 @import "@3dwebprodconf/shared/src/styles/Panels.css";
 @import "@3dwebprodconf/shared/src/styles/Animations.css";
 @import "@3dwebprodconf/shared/src/styles/Inputs.css";
+@import "./styles/Texts.css";
 
 @tailwind base;
 @tailwind components;

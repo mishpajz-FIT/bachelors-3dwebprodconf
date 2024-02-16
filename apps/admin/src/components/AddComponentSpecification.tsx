@@ -58,20 +58,16 @@ export const AddComponentSpecification = ({
     placeholder: string,
     required?: boolean
   ) => (
-    <div>
-      <label>
-        <span className="mb-1 block text-sm font-medium text-gray-900 dark:text-white">
-          {displayName}
-        </span>
-        <input
-          type="string"
-          name={type}
-          className="field"
-          placeholder={placeholder}
-          required={required}
-        />
-      </label>
-    </div>
+    <label>
+      <span className="label">{displayName}</span>
+      <input
+        type="string"
+        name={type}
+        className="field"
+        placeholder={placeholder}
+        required={required}
+      />
+    </label>
   );
 
   return (
@@ -85,19 +81,15 @@ export const AddComponentSpecification = ({
         <div className="m-4 grid grid-cols-1 gap-4">
           {renderTextInput("ID", "id", "component-1", true)}
           {renderTextInput("Name", "name", "Box")}
-          <div>
-            <label>
-              <span className="mb-1 block text-sm font-medium text-gray-900 dark:text-white">
-                Description
-              </span>
-              <textarea
-                name="description"
-                className="field"
-                placeholder="Description"
-                required={true}
-              />
-            </label>
-          </div>
+          <label>
+            <span className="label">Description</span>
+            <textarea
+              name="description"
+              className="field"
+              placeholder="Description"
+              required={true}
+            />
+          </label>
           {renderTextInput(
             "Model file",
             "modelUrl",

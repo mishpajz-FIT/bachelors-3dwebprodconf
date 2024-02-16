@@ -1,26 +1,16 @@
 import { NumericalInput } from "@3dwebprodconf/shared/src/components/inputs/NumericalInput.tsx";
 import { useEffect } from "react";
 import { MathUtils } from "three";
-import { useSnapshot } from "valtio";
 
-import { ComponentsStore } from "../stores/ComponentsStore.ts";
-import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
-import { refreshBounds } from "../utilities/BoundsManipulation.ts";
+import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
+import { ComponentsStore } from "../../stores/ComponentsStore.ts";
+import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
+import { useSnapshot } from "valtio";
+import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
 
 export const EditComponentSpecificationPositioning = () => {
-  const componentsSnap = useSnapshot(ComponentsStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
-
-  const componentSpecId = editorValuesSnap.selectedComponentSpec;
-  if (!componentSpecId) {
-    throw new Error(`No component selected`);
-  }
-
-  const component =
-    componentsSnap.components[editorValuesSnap.selectedComponentSpec];
-  if (!component) {
-    throw new Error(`No component specification with ${componentSpecId}`);
-  }
+  const { componentSpecId, component } = useSelectedComponentSpec();
 
   useEffect(() => {
     if (!ComponentsStore.components[componentSpecId].positionOffset) {
@@ -37,14 +27,12 @@ export const EditComponentSpecificationPositioning = () => {
   }, [componentSpecId]);
 
   return (
-    <>
-      <h3 className="mt-4 p-2 text-sm font-bold text-gray-800 dark:text-gray-200">
-        Positioning
-      </h3>
+    <div>
+      <h3 className="section-heading">Positioning</h3>
       <form>
         <div className="mx-4 grid grid-cols-1 gap-4">
           <div>
-            <span className="mb-1 block text-sm font-medium text-gray-900 dark:text-white">
+            <span className="label">
               Size
               <span className={"font-mono"}> (m)</span>
             </span>
@@ -60,9 +48,7 @@ export const EditComponentSpecificationPositioning = () => {
             </div>
           </div>
           <label>
-            <span className="mb-1 block text-sm font-medium text-gray-900 dark:text-white">
-              Position
-            </span>
+            <span className="label">Position</span>
             <div className="flex flex-row gap-1">
               {[0, 1, 2].map((index) => (
                 <NumericalInput
@@ -86,7 +72,7 @@ export const EditComponentSpecificationPositioning = () => {
             </div>
           </label>
           <label>
-            <span className="mb-1 block text-sm font-medium text-gray-900 dark:text-white">
+            <span className="label">
               Rotation <span className={"font-mono"}> (&deg;)</span>
             </span>
             <div className="flex flex-row gap-1">
@@ -115,7 +101,7 @@ export const EditComponentSpecificationPositioning = () => {
             </div>
           </label>
           <label>
-            <span className="mb-1 block text-sm font-medium text-gray-900 dark:text-white">
+            <span className="label">
               Scale <span className={"font-mono"}> (&times;)</span>
             </span>
             <div className="flex flex-row gap-1">
@@ -141,6 +127,6 @@ export const EditComponentSpecificationPositioning = () => {
           </label>
         </div>
       </form>
-    </>
+    </div>
   );
 };
