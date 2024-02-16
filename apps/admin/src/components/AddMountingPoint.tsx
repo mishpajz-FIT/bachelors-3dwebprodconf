@@ -1,8 +1,9 @@
+import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
 import { FormEvent } from "react";
+
+import { useSelectedComponentSpec } from "../hooks/useSelectedComponentSpec.ts";
 import { ComponentsStore } from "../stores/ComponentsStore.ts";
 import { refreshBounds } from "../utilities/BoundsManipulation.ts";
-import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
-import { useSelectedComponentSpec } from "../hooks/useSelectedComponentSpec.ts";
 
 interface AddMountingPointProps {
   onClose: () => void;

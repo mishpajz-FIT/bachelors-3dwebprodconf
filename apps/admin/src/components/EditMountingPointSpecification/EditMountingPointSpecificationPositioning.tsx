@@ -1,9 +1,10 @@
+import { NumericalInput } from "@3dwebprodconf/shared/src/components/inputs/NumericalInput.tsx";
+import { MathUtils } from "three";
+
 import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
 import { useSelectedMountingPointSpec } from "../../hooks/useSelectedMountingPointSpec.ts";
 import { ComponentsStore } from "../../stores/ComponentsStore.ts";
-import { NumericalInput } from "@3dwebprodconf/shared/src/components/inputs/NumericalInput.tsx";
 import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
-import { MathUtils } from "three";
 
 export const EditMountingPointSpecificationPositioning = () => {
   const { componentSpecId } = useSelectedComponentSpec();

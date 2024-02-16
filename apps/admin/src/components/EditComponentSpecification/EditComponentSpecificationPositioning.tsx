@@ -1,16 +1,16 @@
 import { NumericalInput } from "@3dwebprodconf/shared/src/components/inputs/NumericalInput.tsx";
 import { useEffect } from "react";
 import { MathUtils } from "three";
+import { useSnapshot } from "valtio";
 
 import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
 import { ComponentsStore } from "../../stores/ComponentsStore.ts";
-import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
-import { useSnapshot } from "valtio";
 import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
+import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
 
 export const EditComponentSpecificationPositioning = () => {
   const editorValuesSnap = useSnapshot(EditorValuesStore);
-  const { componentSpecId, component } = useSelectedComponentSpec();
+  const { componentSpecId, componentSpec } = useSelectedComponentSpec();
 
   useEffect(() => {
     if (!ComponentsStore.components[componentSpecId].positionOffset) {
@@ -63,7 +63,7 @@ export const EditComponentSpecificationPositioning = () => {
                     values[index] = value;
                     refreshBounds();
                   }}
-                  currentValue={component.positionOffset?.at(index)}
+                  currentValue={componentSpec.positionOffset?.at(index)}
                   placeholder={0}
                   maximum={1000}
                   allowEmpty={false}
@@ -90,7 +90,7 @@ export const EditComponentSpecificationPositioning = () => {
                     refreshBounds();
                   }}
                   currentValue={MathUtils.radToDeg(
-                    component.rotationOffset?.at(index) ?? 0
+                    componentSpec.rotationOffset?.at(index) ?? 0
                   )}
                   placeholder={0}
                   minimum={-360}
@@ -117,7 +117,7 @@ export const EditComponentSpecificationPositioning = () => {
                     values[index] = value;
                     refreshBounds();
                   }}
-                  currentValue={component.scaleOffset?.at(index)}
+                  currentValue={componentSpec.scaleOffset?.at(index)}
                   placeholder={1}
                   minimum={0}
                   allowEmpty={false}

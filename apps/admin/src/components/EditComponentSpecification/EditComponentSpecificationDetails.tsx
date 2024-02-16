@@ -5,7 +5,7 @@ import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.t
 import { ComponentsStore } from "../../stores/ComponentsStore.ts";
 
 export const EditComponentSpecificationDetails = () => {
-  const { componentSpecId, component } = useSelectedComponentSpec();
+  const { componentSpecId, componentSpec } = useSelectedComponentSpec();
 
   return (
     <div>
@@ -19,7 +19,7 @@ export const EditComponentSpecificationDetails = () => {
               inputId={"name"}
               allowEmpty={false}
               placeholder={"Box"}
-              currentValue={component.name}
+              currentValue={componentSpec.name}
               submitValue={(value: string) => {
                 const editableComponent =
                   ComponentsStore.components[componentSpecId];
@@ -39,7 +39,7 @@ export const EditComponentSpecificationDetails = () => {
               name="description"
               className="field"
               placeholder="Description"
-              value={component.description}
+              value={componentSpec.description}
               onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
                 const editableComponent =
                   ComponentsStore.components[componentSpecId];
@@ -60,7 +60,7 @@ export const EditComponentSpecificationDetails = () => {
               key={"model"}
               allowEmpty={false}
               placeholder={"https://cdn.url/my-model.gltf"}
-              currentValue={component.modelUrl}
+              currentValue={componentSpec.modelUrl}
               submitValue={(value: string) => {
                 const editableComponent =
                   ComponentsStore.components[componentSpecId];
@@ -81,7 +81,7 @@ export const EditComponentSpecificationDetails = () => {
               inputId={"modelImage"}
               allowEmpty={true}
               placeholder={"https://cdn.url/my-model-image.jpg"}
-              currentValue={component.imageUrl}
+              currentValue={componentSpec.imageUrl}
               submitValue={(value: string) => {
                 const editableComponent =
                   ComponentsStore.components[componentSpecId];

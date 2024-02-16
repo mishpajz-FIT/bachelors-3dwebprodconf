@@ -1,24 +1,24 @@
-import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
-import { useState } from "react";
-import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { Popup } from "@3dwebprodconf/shared/src/components/containers/Popup.tsx";
-
-import { AddMountingPoint } from "../AddMountingPoint.tsx";
 import { Side } from "@3dwebprodconf/shared/src/components/containers/Side.tsx";
-import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
+import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/solid";
+import { useState } from "react";
 import { useSnapshot } from "valtio";
+
+import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
+import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
+import { AddMountingPoint } from "../AddMountingPoint.tsx";
 import { EditMountingPointSpecification } from "../EditMountingPointSpecification/EditMountingPointSpecification.tsx";
 
 export const EditComponentSpecificationMountingPoints = () => {
   const editorValuesSnap = useSnapshot(EditorValuesStore);
-  const { component } = useSelectedComponentSpec();
+  const { componentSpec } = useSelectedComponentSpec();
 
   const [searchTerm, setSearchTerm] = useState("");
 
   const [isOpenAdd, setOpenAdd] = useState(false);
 
   const filteredMountingPoints = Object.keys(
-    component.mountingPointsSpecs
+    componentSpec.mountingPointsSpecs
   ).filter((mountingPointId) =>
     mountingPointId.toLowerCase().includes(searchTerm.toLowerCase())
   );

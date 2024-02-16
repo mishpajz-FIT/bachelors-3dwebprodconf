@@ -2,10 +2,10 @@ import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerH
 import { useSnapshot } from "valtio";
 
 import { EditComponentSpecificationDetails } from "./EditComponentSpecificationDetails.tsx";
+import { EditComponentSpecificationMountingPoints } from "./EditComponentSpecificationMountingPoints.tsx";
 import { EditComponentSpecificationPositioning } from "./EditComponentSpecificationPositioning.tsx";
 import { ComponentsStore } from "../../stores/ComponentsStore.ts";
 import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
-import { EditComponentSpecificationMountingPoints } from "./EditComponentSpecificationMountingPoints.tsx";
 
 interface EditComponentSpecificationProps {
   onClose: () => void;
@@ -22,9 +22,9 @@ export const EditComponentSpecification = ({
     return null;
   }
 
-  const component =
+  const componentSpec =
     componentsSnap.components[editorValuesSnap.selectedComponentSpec];
-  if (!component) {
+  if (!componentSpec) {
     return null;
   }
 

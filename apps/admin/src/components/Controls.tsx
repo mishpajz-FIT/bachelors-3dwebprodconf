@@ -1,12 +1,12 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
 import { Popup } from "@3dwebprodconf/shared/src/components/containers/Popup.tsx";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
 import { AddComponentSpecification } from "./AddComponentSpecification.tsx";
 import { ComponentsStore } from "../stores/ComponentsStore.ts";
 import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
 export const Controls = () => {
   const componentsSnap = useSnapshot(ComponentsStore);
@@ -17,8 +17,8 @@ export const Controls = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredComponents = Object.keys(componentsSnap.components).filter(
-    (componentId) =>
-      componentId.toLowerCase().includes(searchTerm.toLowerCase())
+    (componentSpecId) =>
+      componentSpecId.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (

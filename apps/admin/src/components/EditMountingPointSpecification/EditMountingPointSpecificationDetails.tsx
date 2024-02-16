@@ -1,6 +1,6 @@
-import { ComponentsStore } from "../../stores/ComponentsStore.ts";
-import { useSelectedMountingPointSpec } from "../../hooks/useSelectedMountingPointSpec.ts";
 import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
+import { useSelectedMountingPointSpec } from "../../hooks/useSelectedMountingPointSpec.ts";
+import { ComponentsStore } from "../../stores/ComponentsStore.ts";
 
 export const EditMountingPointSpecificationDetails = () => {
   const { componentSpecId } = useSelectedComponentSpec();

@@ -1,4 +1,5 @@
 import { useSnapshot } from "valtio";
+
 import { ComponentsStore } from "../stores/ComponentsStore.ts";
 import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
 
@@ -11,11 +12,11 @@ export function useSelectedComponentSpec() {
     throw new Error(`No component selected`);
   }
 
-  const component =
+  const componentSpec =
     componentsSnap.components[editorValuesSnap.selectedComponentSpec];
-  if (!component) {
+  if (!componentSpec) {
     throw new Error(`No component specification with ${componentSpecId}`);
   }
 
-  return { componentSpecId, component };
+  return { componentSpecId, componentSpec };
 }

@@ -1,10 +1,11 @@
-import { useSnapshot } from "valtio";
-import { ComponentsStore } from "../../stores/ComponentsStore.ts";
-import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
+import { useSnapshot } from "valtio";
+
+import { EditMountingPointSpecificationComponents } from "./EditMountingPointSpecificationComponents.tsx";
 import { EditMountingPointSpecificationDetails } from "./EditMountingPointSpecificationDetails.tsx";
 import { EditMountingPointSpecificationPositioning } from "./EditMountingPointSpecificationPositioning.tsx";
-import { EditMountingPointSpecificationComponents } from "./EditMountingPointSpecificationComponents.tsx";
+import { ComponentsStore } from "../../stores/ComponentsStore.ts";
+import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
 
 interface EditMountingPointSpecificationProps {
   onClose: () => void;

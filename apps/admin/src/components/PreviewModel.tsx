@@ -10,7 +10,7 @@ import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
 import { refreshBounds } from "../utilities/BoundsManipulation.ts";
 
 export const PreviewModel = () => {
-  const { componentSpecId, component } = useSelectedComponentSpec();
+  const { componentSpecId, componentSpec } = useSelectedComponentSpec();
 
   const { scene, nodes, materials } = useGLTF("/kokos.glb");
 
@@ -22,25 +22,29 @@ export const PreviewModel = () => {
       const size = new Vector3();
       boundingBox.getSize(size);
       EditorValuesStore.boundingBoxSize = [
-        size.x * (component.scaleOffset?.at(0) ?? 1),
-        size.y * (component.scaleOffset?.at(1) ?? 1),
-        size.z * (component.scaleOffset?.at(2) ?? 1),
+        size.x * (componentSpec.scaleOffset?.at(0) ?? 1),
+        size.y * (componentSpec.scaleOffset?.at(1) ?? 1),
+        size.z * (componentSpec.scaleOffset?.at(2) ?? 1),
       ];
     }
 
     return () => {
       EditorValuesStore.boundingBoxSize = undefined;
     };
-  }, [scene, component.scaleOffset]);
+  }, [scene, componentSpec.scaleOffset]);
 
   return (
     <>
       <PlacementControls
         currentPosition={
-          component.positionOffset ? [...component.positionOffset] : [0, 0, 0]
+          componentSpec.positionOffset
+            ? [...componentSpec.positionOffset]
+            : [0, 0, 0]
         }
         currentRotation={
-          component.rotationOffset ? [...component.rotationOffset] : [0, 0, 0]
+          componentSpec.rotationOffset
+            ? [...componentSpec.rotationOffset]
+            : [0, 0, 0]
         }
         updatePosition={(position) => {
           const editableComponent = ComponentsStore.components[componentSpecId];
@@ -67,13 +71,13 @@ export const PreviewModel = () => {
         }}
       >
         <group
-          position={component.positionOffset}
+          position={componentSpec.positionOffset}
           rotation={
-            component.rotationOffset
-              ? new Euler(...component.rotationOffset)
+            componentSpec.rotationOffset
+              ? new Euler(...componentSpec.rotationOffset)
               : undefined
           }
-          scale={component.scaleOffset}
+          scale={componentSpec.scaleOffset}
           ref={groupRef}
         >
           {Object.entries(nodes).map(([name, node]) => {
@@ -91,24 +95,26 @@ export const PreviewModel = () => {
             }
             return null;
           })}
-          {Object.keys(component.mountingPointsSpecs).map((mountingPointId) => {
-            return (
-              <group
-                scale={
-                  component.scaleOffset
-                    ? (component.scaleOffset.map((scale) => 1 / scale) as [
-                        number,
-                        number,
-                        number,
-                      ])
-                    : [1, 1, 1]
-                }
-                key={mountingPointId}
-              >
-                <PreviewMountingPoint mountingPointId={mountingPointId} />
-              </group>
-            );
-          })}
+          {Object.keys(componentSpec.mountingPointsSpecs).map(
+            (mountingPointId) => {
+              return (
+                <group
+                  scale={
+                    componentSpec.scaleOffset
+                      ? (componentSpec.scaleOffset.map((s) => 1 / s) as [
+                          number,
+                          number,
+                          number,
+                        ])
+                      : [1, 1, 1]
+                  }
+                  key={mountingPointId}
+                >
+                  <PreviewMountingPoint mountingPointId={mountingPointId} />
+                </group>
+              );
+            }
+          )}
         </group>
       </PlacementControls>
     </>

@@ -1,8 +1,9 @@
-import { useSnapshot } from "valtio";
-import { ComponentsStore } from "../stores/ComponentsStore.ts";
-import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
 import { useGLTF } from "@react-three/drei";
 import { Euler, Mesh } from "three";
+import { useSnapshot } from "valtio";
+
+import { ComponentsStore } from "../stores/ComponentsStore.ts";
+import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
 
 export const PreviewMountedModel = () => {
   const componentsSnap = useSnapshot(ComponentsStore);

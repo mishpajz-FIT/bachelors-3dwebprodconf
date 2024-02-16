@@ -1,11 +1,12 @@
 import { Html } from "@react-three/drei";
-import { useSelectedComponentSpec } from "../hooks/useSelectedComponentSpec.ts";
-import { useSnapshot } from "valtio";
-import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
-import { PlacementControls } from "./PlacementControls.tsx";
-import { ComponentsStore } from "../stores/ComponentsStore.ts";
 import { Euler } from "three";
+import { useSnapshot } from "valtio";
+
+import { PlacementControls } from "./PlacementControls.tsx";
 import { PreviewMountedModel } from "./PreviewMountedModel.tsx";
+import { useSelectedComponentSpec } from "../hooks/useSelectedComponentSpec.ts";
+import { ComponentsStore } from "../stores/ComponentsStore.ts";
+import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
 
 interface PreviewMountingPointProps {
   mountingPointId: string;
@@ -15,9 +16,9 @@ export const PreviewMountingPoint = ({
   mountingPointId,
 }: PreviewMountingPointProps) => {
   const editorValuesSnap = useSnapshot(EditorValuesStore);
-  const { component, componentSpecId } = useSelectedComponentSpec();
+  const { componentSpec, componentSpecId } = useSelectedComponentSpec();
 
-  const mountingPoint = component.mountingPointsSpecs[mountingPointId];
+  const mountingPoint = componentSpec.mountingPointsSpecs[mountingPointId];
   if (!mountingPoint) {
     throw new Error(
       `No mounting point specification with ${mountingPointId} on component ${componentSpecId}`

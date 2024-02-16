@@ -1,15 +1,16 @@
-import { useSnapshot } from "valtio";
-import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
-import { Fragment, useState } from "react";
+import { Combobox, Transition } from "@headlessui/react";
 import {
   ChevronUpDownIcon,
   MagnifyingGlassIcon,
   PlusIcon,
   TrashIcon,
 } from "@heroicons/react/24/solid";
+import { Fragment, useState } from "react";
+import { useSnapshot } from "valtio";
+
+import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
 import { useSelectedMountingPointSpec } from "../../hooks/useSelectedMountingPointSpec.ts";
 import { ComponentsStore } from "../../stores/ComponentsStore.ts";
-import { Combobox, Transition } from "@headlessui/react";
 import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
 
 export const EditMountingPointSpecificationComponents = () => {
@@ -19,7 +20,7 @@ export const EditMountingPointSpecificationComponents = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [selectedAddComponent, setSelectedAddComponent] = useState("");
+  const [addedComponent, setAddedComponent] = useState("");
   const [addTerm, setAddTerm] = useState("");
 
   const filteredComponents = mountingPoint.mountableComponents.filter(
@@ -138,10 +139,10 @@ export const EditMountingPointSpecificationComponents = () => {
         <div className="flex w-full flex-row justify-end border-t border-gray-300 dark:border-zinc-700">
           <div className="w-full px-1 pb-1 pt-2">
             <Combobox
-              value={selectedAddComponent}
+              value={addedComponent}
               onChange={(value: string) => {
                 addComponent(value);
-                setSelectedAddComponent("");
+                setAddedComponent("");
               }}
             >
               <div className="relative">
