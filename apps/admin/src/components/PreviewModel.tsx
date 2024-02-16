@@ -1,6 +1,7 @@
 import { useGLTF } from "@react-three/drei";
 import { useEffect, useRef } from "react";
-import { Box3, Euler, Mesh, Vector3 } from "three";
+import { Box3, Euler, Mesh, MeshBasicMaterial, Vector3 } from "three";
+import { useSnapshot } from "valtio";
 
 import { PlacementControls } from "./PlacementControls.tsx";
 import { PreviewMountingPoint } from "./PreviewMountingPoint.tsx";
@@ -11,10 +12,13 @@ import { refreshBounds } from "../utilities/BoundsManipulation.ts";
 
 export const PreviewModel = () => {
   const { componentSpecId, componentSpec } = useSelectedComponentSpec();
+  const editorValuesSnap = useSnapshot(EditorValuesStore);
 
   const { scene, nodes, materials } = useGLTF("/kokos.glb");
 
   const groupRef = useRef(null);
+
+  const selectedMaterial = new MeshBasicMaterial({ color: 0x3377ff });
 
   useEffect(() => {
     if (groupRef.current) {
@@ -48,21 +52,11 @@ export const PreviewModel = () => {
         }
         updatePosition={(position) => {
           const editableComponent = ComponentsStore.components[componentSpecId];
-          if (!editableComponent) {
-            throw new Error(
-              `No component specification with ${componentSpecId}`
-            );
-          }
 
           editableComponent.positionOffset = position;
         }}
         updateRotation={(rotation) => {
           const editableComponent = ComponentsStore.components[componentSpecId];
-          if (!editableComponent) {
-            throw new Error(
-              `No component specification with ${componentSpecId}`
-            );
-          }
 
           editableComponent.rotationOffset = rotation;
         }}
@@ -87,7 +81,17 @@ export const PreviewModel = () => {
               const materialName = Array.isArray(mesh.material)
                 ? mesh.material[0].name
                 : mesh.material.name;
-              const material = materials[materialName];
+
+              let material = materials[materialName];
+              if (editorValuesSnap.selectedMaterial) {
+                const materialSpec =
+                  componentSpec.materialSpecs[
+                    editorValuesSnap.selectedMaterial
+                  ];
+                if (materialSpec.modelMaterials.includes(materialName)) {
+                  material = selectedMaterial;
+                }
+              }
 
               return (
                 <mesh key={name} geometry={mesh.geometry} material={material} />

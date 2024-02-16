@@ -89,6 +89,7 @@ function App() {
           onClose={() => {
             EditorValuesStore.selectedComponentSpec = undefined;
             EditorValuesStore.selectedMountingPoint = undefined;
+            EditorValuesStore.selectedMaterial = undefined;
           }}
         />
       </Side>

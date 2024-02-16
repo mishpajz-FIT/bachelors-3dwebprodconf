@@ -4,7 +4,8 @@ import { ComponentsStore } from "../../stores/ComponentsStore.ts";
 
 export const EditMountingPointSpecificationDetails = () => {
   const { componentSpecId } = useSelectedComponentSpec();
-  const { mountingPointSpecId, mountingPoint } = useSelectedMountingPointSpec();
+  const { mountingPointSpecId, mountingPointSpec } =
+    useSelectedMountingPointSpec();
 
   return (
     <div>
@@ -15,18 +16,13 @@ export const EditMountingPointSpecificationDetails = () => {
           <input
             id="required-checkbox"
             type="checkbox"
-            checked={mountingPoint.isRequired}
+            checked={mountingPointSpec.isRequired}
             className="field size-4"
             onChange={() => {
               const editableMountingPoint =
                 ComponentsStore.components[componentSpecId].mountingPointsSpecs[
                   mountingPointSpecId
                 ];
-              if (!editableMountingPoint) {
-                throw new Error(
-                  `No mounting point specification with ${mountingPointSpecId} on component ${componentSpecId}`
-                );
-              }
 
               editableMountingPoint.isRequired =
                 !editableMountingPoint.isRequired;

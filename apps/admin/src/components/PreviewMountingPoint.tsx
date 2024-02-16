@@ -36,11 +36,6 @@ export const PreviewMountingPoint = ({
               ComponentsStore.components[componentSpecId].mountingPointsSpecs[
                 mountingPointId
               ];
-            if (!editableMountingPoint) {
-              throw new Error(
-                `No mounting point specification with ${mountingPointId} on component ${componentSpecId}`
-              );
-            }
 
             editableMountingPoint.position = position;
           }}
@@ -49,11 +44,6 @@ export const PreviewMountingPoint = ({
               ComponentsStore.components[componentSpecId].mountingPointsSpecs[
                 mountingPointId
               ];
-            if (!editableMountingPoint) {
-              throw new Error(
-                `No mounting point specification with ${mountingPointId} on component ${componentSpecId}`
-              );
-            }
 
             editableMountingPoint.rotation = rotation;
           }}

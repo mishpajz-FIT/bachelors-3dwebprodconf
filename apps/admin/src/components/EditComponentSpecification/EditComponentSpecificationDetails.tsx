@@ -23,11 +23,6 @@ export const EditComponentSpecificationDetails = () => {
               submitValue={(value: string) => {
                 const editableComponent =
                   ComponentsStore.components[componentSpecId];
-                if (!editableComponent) {
-                  throw new Error(
-                    `No component specification with ${componentSpecId}`
-                  );
-                }
 
                 editableComponent.name = value;
               }}
@@ -64,11 +59,6 @@ export const EditComponentSpecificationDetails = () => {
               submitValue={(value: string) => {
                 const editableComponent =
                   ComponentsStore.components[componentSpecId];
-                if (!editableComponent) {
-                  throw new Error(
-                    `No component specification with ${componentSpecId}`
-                  );
-                }
 
                 editableComponent.modelUrl = value;
               }}
@@ -85,11 +75,6 @@ export const EditComponentSpecificationDetails = () => {
               submitValue={(value: string) => {
                 const editableComponent =
                   ComponentsStore.components[componentSpecId];
-                if (!editableComponent) {
-                  throw new Error(
-                    `No component specification with ${componentSpecId}`
-                  );
-                }
 
                 editableComponent.imageUrl = value;
               }}

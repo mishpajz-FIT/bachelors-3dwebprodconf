@@ -8,7 +8,8 @@ import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
 
 export const EditMountingPointSpecificationPositioning = () => {
   const { componentSpecId } = useSelectedComponentSpec();
-  const { mountingPointSpecId, mountingPoint } = useSelectedMountingPointSpec();
+  const { mountingPointSpecId, mountingPointSpec } =
+    useSelectedMountingPointSpec();
 
   return (
     <div>
@@ -25,15 +26,10 @@ export const EditMountingPointSpecificationPositioning = () => {
                     const editableMountingPoint =
                       ComponentsStore.components[componentSpecId]
                         .mountingPointsSpecs[mountingPointSpecId];
-                    if (!editableMountingPoint) {
-                      throw new Error(
-                        `No mounting point specification with ${mountingPointSpecId} on component ${componentSpecId}`
-                      );
-                    }
                     editableMountingPoint.position[index] = value;
                     refreshBounds();
                   }}
-                  currentValue={mountingPoint.position.at(index)}
+                  currentValue={mountingPointSpec.position.at(index)}
                   placeholder={0}
                   maximum={1000}
                   allowEmpty={false}
@@ -53,16 +49,11 @@ export const EditMountingPointSpecificationPositioning = () => {
                     const editableMountingPoint =
                       ComponentsStore.components[componentSpecId]
                         .mountingPointsSpecs[mountingPointSpecId];
-                    if (!editableMountingPoint) {
-                      throw new Error(
-                        `No mounting point specification with ${mountingPointSpecId} on component ${componentSpecId}`
-                      );
-                    }
                     editableMountingPoint.rotation[index] = value;
                     refreshBounds();
                   }}
                   currentValue={MathUtils.radToDeg(
-                    mountingPoint.rotation.at(index) ?? 0
+                    mountingPointSpec.rotation.at(index) ?? 0
                   )}
                   placeholder={0}
                   minimum={-360}

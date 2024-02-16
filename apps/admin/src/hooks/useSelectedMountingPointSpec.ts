@@ -1,34 +1,24 @@
 import { useSnapshot } from "valtio";
 
-import { ComponentsStore } from "../stores/ComponentsStore.ts";
+import { useSelectedComponentSpec } from "./useSelectedComponentSpec.ts";
 import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
 
 export function useSelectedMountingPointSpec() {
-  const componentsSnap = useSnapshot(ComponentsStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
-
-  const componentSpecId = editorValuesSnap.selectedComponentSpec;
-  if (!componentSpecId) {
-    throw new Error(`No component selected`);
-  }
-
-  const component =
-    componentsSnap.components[editorValuesSnap.selectedComponentSpec];
-  if (!component) {
-    throw new Error(`No component specification with ${componentSpecId}`);
-  }
+  const { componentSpecId, componentSpec } = useSelectedComponentSpec();
 
   const mountingPointSpecId = editorValuesSnap.selectedMountingPoint;
   if (!mountingPointSpecId) {
     throw new Error(`No mounting point selected`);
   }
 
-  const mountingPoint = component.mountingPointsSpecs[mountingPointSpecId];
-  if (!mountingPoint) {
+  const mountingPointSpec =
+    componentSpec.mountingPointsSpecs[mountingPointSpecId];
+  if (!mountingPointSpec) {
     throw new Error(
       `No mounting point specification with ${mountingPointSpecId} on component ${componentSpecId}`
     );
   }
 
-  return { mountingPointSpecId, mountingPoint };
+  return { mountingPointSpecId, mountingPointSpec };
 }

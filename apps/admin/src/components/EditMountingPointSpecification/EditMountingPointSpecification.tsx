@@ -22,9 +22,9 @@ export const EditMountingPointSpecification = ({
     return null;
   }
 
-  const component =
+  const componentSpec =
     componentsSnap.components[editorValuesSnap.selectedComponentSpec];
-  if (!component) {
+  if (!componentSpec) {
     return null;
   }
 
@@ -33,7 +33,7 @@ export const EditMountingPointSpecification = ({
     return null;
   }
 
-  const mountingPoint = component.mountingPointsSpecs[mountingPointId];
+  const mountingPoint = componentSpec.mountingPointsSpecs[mountingPointId];
   if (!mountingPoint) {
     return null;
   }

@@ -5,13 +5,13 @@ import { useSelectedComponentSpec } from "../hooks/useSelectedComponentSpec.ts";
 import { ComponentsStore } from "../stores/ComponentsStore.ts";
 import { refreshBounds } from "../utilities/BoundsManipulation.ts";
 
-interface AddMountingPointProps {
+interface AddMaterialProps {
   onClose: () => void;
 }
 
-export const AddMountingPoint = ({ onClose }: AddMountingPointProps) => {
+export const AddMaterial = ({ onClose }: AddMaterialProps) => {
   const { componentSpecId } = useSelectedComponentSpec();
-  const addNewMountingPoint = (event: FormEvent<HTMLFormElement>) => {
+  const addNewMaterial = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
@@ -22,11 +22,10 @@ export const AddMountingPoint = ({ onClose }: AddMountingPointProps) => {
 
     const editableComponent = ComponentsStore.components[componentSpecId];
 
-    editableComponent.mountingPointsSpecs[data.get("id") as string] = {
-      position: [0, 0, 0],
-      rotation: [0, 0, 0],
-      isRequired: false,
-      mountableComponents: [],
+    editableComponent.materialSpecs[data.get("id") as string] = {
+      name: data.get("name") as string,
+      modelMaterials: [],
+      colorVariationsSpecs: {},
     };
 
     onClose();
@@ -36,11 +35,11 @@ export const AddMountingPoint = ({ onClose }: AddMountingPointProps) => {
   return (
     <div className="flex min-w-96 flex-col">
       <ContainerHeader
-        title={"Add new mounting point"}
+        title={"Add new material"}
         onClose={onClose}
         subheader={true}
       />
-      <form onSubmit={addNewMountingPoint}>
+      <form onSubmit={addNewMaterial}>
         <div className="m-4 grid grid-cols-1 gap-4">
           <label>
             <span className="label">ID</span>
@@ -48,7 +47,17 @@ export const AddMountingPoint = ({ onClose }: AddMountingPointProps) => {
               type="string"
               name="id"
               className="field"
-              placeholder="top-1"
+              placeholder="wheels-front"
+              required={true}
+            />
+          </label>
+          <label>
+            <span className="label">Name</span>
+            <input
+              type="string"
+              name="name"
+              className="field"
+              placeholder="Front wheels"
               required={true}
             />
           </label>
