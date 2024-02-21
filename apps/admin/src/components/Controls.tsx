@@ -4,7 +4,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
-import { AddComponentSpecification } from "./AddComponentSpecification.tsx";
+import { AddComponentSpecification } from "./Add/AddComponentSpecification.tsx";
 import { ComponentsStore } from "../stores/ComponentsStore.ts";
 import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
 

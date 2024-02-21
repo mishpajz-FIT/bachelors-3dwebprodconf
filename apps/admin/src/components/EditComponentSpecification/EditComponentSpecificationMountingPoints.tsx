@@ -6,7 +6,7 @@ import { useSnapshot } from "valtio";
 
 import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
 import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
-import { AddMountingPoint } from "../AddMountingPoint.tsx";
+import { AddMountingPoint } from "../Add/AddMountingPoint.tsx";
 import { EditMountingPointSpecification } from "../EditMountingPointSpecification/EditMountingPointSpecification.tsx";
 
 export const EditComponentSpecificationMountingPoints = () => {

@@ -1,9 +1,9 @@
-import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 
-import { useSelectedComponentSpec } from "../hooks/useSelectedComponentSpec.ts";
-import { ComponentsStore } from "../stores/ComponentsStore.ts";
-import { refreshBounds } from "../utilities/BoundsManipulation.ts";
+import { Add } from "./Add.tsx";
+import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
+import { ComponentsStore } from "../../stores/ComponentsStore.ts";
+import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
 
 interface AddMountingPointProps {
   onClose: () => void;
@@ -11,16 +11,26 @@ interface AddMountingPointProps {
 
 export const AddMountingPoint = ({ onClose }: AddMountingPointProps) => {
   const { componentSpecId } = useSelectedComponentSpec();
+
+  const [isShowingError, setShowingError] = useState(false);
+
   const addNewMountingPoint = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setShowingError(false);
 
     const data = new FormData(event.currentTarget);
 
-    if (!data.has("id")) {
+    const editableComponent = ComponentsStore.components[componentSpecId];
+
+    if (
+      Object.prototype.hasOwnProperty.call(
+        editableComponent.mountingPointsSpecs,
+        data.get("id") as string
+      )
+    ) {
+      setShowingError(true);
       return;
     }
-
-    const editableComponent = ComponentsStore.components[componentSpecId];
 
     editableComponent.mountingPointsSpecs[data.get("id") as string] = {
       position: [0, 0, 0],
@@ -34,18 +44,18 @@ export const AddMountingPoint = ({ onClose }: AddMountingPointProps) => {
   };
 
   return (
-    <div className="flex min-w-96 flex-col">
-      <ContainerHeader
-        title={"Add new mounting point"}
-        onClose={onClose}
-        subheader={true}
-      />
+    <Add
+      heading={"Add new mounting point"}
+      onClose={onClose}
+      showingError={isShowingError}
+      errorReason={"Mounting point with this ID already exists."}
+    >
       <form onSubmit={addNewMountingPoint}>
         <div className="m-4 grid grid-cols-1 gap-4">
           <label>
             <span className="label">ID</span>
             <input
-              type="string"
+              type="text"
               name="id"
               className="field"
               placeholder="top-1"
@@ -57,6 +67,6 @@ export const AddMountingPoint = ({ onClose }: AddMountingPointProps) => {
           </button>
         </div>
       </form>
-    </div>
+    </Add>
   );
 };

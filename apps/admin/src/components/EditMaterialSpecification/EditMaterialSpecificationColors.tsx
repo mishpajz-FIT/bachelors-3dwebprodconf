@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
 import { useSelectedMaterialSpec } from "../../hooks/useSelectedMaterialSpec.ts";
 import { ComponentsStore } from "../../stores/ComponentsStore.ts";
-import { AddColor } from "../AddColor.tsx";
+import { AddColor } from "../Add/AddColor.tsx";
 
 export const EditMaterialSpecificationColors = () => {
   const { componentSpecId } = useSelectedComponentSpec();

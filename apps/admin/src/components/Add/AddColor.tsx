@@ -1,10 +1,10 @@
-import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
 import { FormEvent, useState } from "react";
 
-import { useSelectedComponentSpec } from "../hooks/useSelectedComponentSpec.ts";
-import { useSelectedMaterialSpec } from "../hooks/useSelectedMaterialSpec.ts";
-import { ComponentsStore } from "../stores/ComponentsStore.ts";
-import { refreshBounds } from "../utilities/BoundsManipulation.ts";
+import { Add } from "./Add.tsx";
+import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
+import { useSelectedMaterialSpec } from "../../hooks/useSelectedMaterialSpec.ts";
+import { ComponentsStore } from "../../stores/ComponentsStore.ts";
+import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
 
 interface AddMaterialProps {
   onClose: () => void;
@@ -16,17 +16,26 @@ export const AddColor = ({ onClose }: AddMaterialProps) => {
 
   const [pickedColor, setPickedColor] = useState("#ffffff");
 
+  const [isShowingError, setShowingError] = useState(false);
+
   const addNewColor = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setShowingError(false);
 
     const data = new FormData(event.currentTarget);
 
-    if (!data.has("id")) {
-      return;
-    }
-
     const editableMaterial =
       ComponentsStore.components[componentSpecId].materialSpecs[materialSpecId];
+
+    if (
+      Object.prototype.hasOwnProperty.call(
+        editableMaterial.colorVariationsSpecs,
+        data.get("id") as string
+      )
+    ) {
+      setShowingError(true);
+      return;
+    }
 
     editableMaterial.colorVariationsSpecs[data.get("id") as string] = {
       name: data.get("name") as string,
@@ -38,18 +47,18 @@ export const AddColor = ({ onClose }: AddMaterialProps) => {
   };
 
   return (
-    <div className="flex min-w-96 flex-col">
-      <ContainerHeader
-        title={"Add new color"}
-        onClose={onClose}
-        subheader={true}
-      />
+    <Add
+      heading={"Add new color"}
+      onClose={onClose}
+      showingError={isShowingError}
+      errorReason={"Color with this ID already exists."}
+    >
       <form onSubmit={addNewColor}>
         <div className="m-4 grid grid-cols-1 gap-4">
           <label>
             <span className="label">ID</span>
             <input
-              type="string"
+              type="text"
               name="id"
               className="field"
               placeholder="red-04"
@@ -59,7 +68,7 @@ export const AddColor = ({ onClose }: AddMaterialProps) => {
           <label>
             <span className="label">Name</span>
             <input
-              type="string"
+              type="text"
               name="name"
               className="field"
               placeholder="Crimson red"
@@ -82,6 +91,6 @@ export const AddColor = ({ onClose }: AddMaterialProps) => {
           </button>
         </div>
       </form>
-    </div>
+    </Add>
   );
 };
