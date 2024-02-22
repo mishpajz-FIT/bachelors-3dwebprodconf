@@ -1,4 +1,6 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
+import { HoldButton } from "@3dwebprodconf/shared/src/components/HoldButton.tsx";
+import { TrashIcon } from "@heroicons/react/24/outline";
 import { useSnapshot } from "valtio";
 
 import { EditMountingPointSpecificationComponents } from "./EditMountingPointSpecificationComponents.tsx";
@@ -38,8 +40,15 @@ export const EditMountingPointSpecification = ({
     return null;
   }
 
+  const remove = () => {
+    delete ComponentsStore.components[componentSpecId].mountingPointsSpecs[
+      mountingPointId
+    ];
+    onClose();
+  };
+
   return (
-    <div className="flex w-full select-text flex-col overflow-x-clip overflow-y-scroll pb-10">
+    <div className="flex w-full select-text flex-col overflow-x-clip overflow-y-scroll">
       <ContainerHeader
         title={"Edit mounting point"}
         onClose={onClose}
@@ -51,6 +60,19 @@ export const EditMountingPointSpecification = ({
       <EditMountingPointSpecificationDetails />
       <EditMountingPointSpecificationPositioning />
       <EditMountingPointSpecificationComponents />
+
+      <div className="mt-auto flex items-center justify-center gap-2 p-4">
+        <HoldButton
+          className="other-button destructive-button-on-hold mt-8 flex w-full items-center justify-center"
+          onSubmit={remove}
+          duration={650}
+          popoverPosition={"top-end"}
+          popoverOffset={6}
+        >
+          <TrashIcon className="size-4" />
+          <span className="ml-2">Remove mounting point</span>
+        </HoldButton>
+      </div>
     </div>
   );
 };
