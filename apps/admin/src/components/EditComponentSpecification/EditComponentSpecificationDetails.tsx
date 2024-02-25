@@ -2,7 +2,7 @@ import { TextInput } from "@3dwebprodconf/shared/src/components/inputs/TextInput
 import { ChangeEvent } from "react";
 
 import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
-import { ComponentsStore } from "../../stores/ComponentsStore.ts";
+import { ProductStore } from "../../stores/ComponentsStore.ts";
 
 export const EditComponentSpecificationDetails = () => {
   const { componentSpecId, componentSpec } = useSelectedComponentSpec();
@@ -22,7 +22,7 @@ export const EditComponentSpecificationDetails = () => {
               currentValue={componentSpec.name}
               submitValue={(value: string) => {
                 const editableComponent =
-                  ComponentsStore.components[componentSpecId];
+                  ProductStore.componentSpecs[componentSpecId];
 
                 editableComponent.name = value;
               }}
@@ -37,7 +37,7 @@ export const EditComponentSpecificationDetails = () => {
               value={componentSpec.description}
               onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
                 const editableComponent =
-                  ComponentsStore.components[componentSpecId];
+                  ProductStore.componentSpecs[componentSpecId];
                 if (!editableComponent) {
                   throw new Error(
                     `No component specification with ${componentSpecId}`
@@ -58,7 +58,7 @@ export const EditComponentSpecificationDetails = () => {
               currentValue={componentSpec.modelUrl}
               submitValue={(value: string) => {
                 const editableComponent =
-                  ComponentsStore.components[componentSpecId];
+                  ProductStore.componentSpecs[componentSpecId];
 
                 editableComponent.modelUrl = value;
               }}
@@ -74,7 +74,7 @@ export const EditComponentSpecificationDetails = () => {
               currentValue={componentSpec.imageUrl}
               submitValue={(value: string) => {
                 const editableComponent =
-                  ComponentsStore.components[componentSpecId];
+                  ProductStore.componentSpecs[componentSpecId];
 
                 editableComponent.imageUrl = value;
               }}

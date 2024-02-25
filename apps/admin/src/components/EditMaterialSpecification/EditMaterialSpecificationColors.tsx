@@ -9,7 +9,7 @@ import { useState } from "react";
 
 import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
 import { useSelectedMaterialSpec } from "../../hooks/useSelectedMaterialSpec.ts";
-import { ComponentsStore } from "../../stores/ComponentsStore.ts";
+import { ProductStore } from "../../stores/ComponentsStore.ts";
 import { AddColor } from "../Add/AddColor.tsx";
 
 export const EditMaterialSpecificationColors = () => {
@@ -73,7 +73,7 @@ export const EditMaterialSpecificationColors = () => {
                   <TextInput
                     submitValue={(value) => {
                       const editableColor =
-                        ComponentsStore.components[componentSpecId]
+                        ProductStore.componentSpecs[componentSpecId]
                           .materialSpecs[materialSpecId].colorVariationsSpecs[
                           colorSpecId
                         ];
@@ -94,7 +94,7 @@ export const EditMaterialSpecificationColors = () => {
                     value={colorSpec.value}
                     onChange={(e) => {
                       const editableColor =
-                        ComponentsStore.components[componentSpecId]
+                        ProductStore.componentSpecs[componentSpecId]
                           .materialSpecs[materialSpecId].colorVariationsSpecs[
                           colorSpecId
                         ];
@@ -108,7 +108,7 @@ export const EditMaterialSpecificationColors = () => {
                     className="other-button w-6 p-1"
                     onClick={() => {
                       const editableMaterial =
-                        ComponentsStore.components[componentSpecId]
+                        ProductStore.componentSpecs[componentSpecId]
                           .materialSpecs[materialSpecId];
 
                       delete editableMaterial.colorVariationsSpecs[colorSpecId];

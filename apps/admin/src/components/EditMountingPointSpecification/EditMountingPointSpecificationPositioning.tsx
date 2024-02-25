@@ -3,7 +3,7 @@ import { MathUtils } from "three";
 
 import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
 import { useSelectedMountingPointSpec } from "../../hooks/useSelectedMountingPointSpec.ts";
-import { ComponentsStore } from "../../stores/ComponentsStore.ts";
+import { ProductStore } from "../../stores/ComponentsStore.ts";
 import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
 
 export const EditMountingPointSpecificationPositioning = () => {
@@ -24,7 +24,7 @@ export const EditMountingPointSpecificationPositioning = () => {
                   key={`position${index}`}
                   submitValue={(value: number) => {
                     const editableMountingPoint =
-                      ComponentsStore.components[componentSpecId]
+                      ProductStore.componentSpecs[componentSpecId]
                         .mountingPointsSpecs[mountingPointSpecId];
                     editableMountingPoint.position[index] = value;
                     refreshBounds();
@@ -47,7 +47,7 @@ export const EditMountingPointSpecificationPositioning = () => {
                   key={`rotation${index}`}
                   submitValue={(value: number) => {
                     const editableMountingPoint =
-                      ComponentsStore.components[componentSpecId]
+                      ProductStore.componentSpecs[componentSpecId]
                         .mountingPointsSpecs[mountingPointSpecId];
                     editableMountingPoint.rotation[index] = value;
                     refreshBounds();

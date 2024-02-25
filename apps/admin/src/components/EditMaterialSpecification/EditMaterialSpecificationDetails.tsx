@@ -2,7 +2,7 @@ import { TextInput } from "@3dwebprodconf/shared/src/components/inputs/TextInput
 
 import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
 import { useSelectedMaterialSpec } from "../../hooks/useSelectedMaterialSpec.ts";
-import { ComponentsStore } from "../../stores/ComponentsStore.ts";
+import { ProductStore } from "../../stores/ComponentsStore.ts";
 
 export const EditMaterialSpecificationDetails = () => {
   const { componentSpecId } = useSelectedComponentSpec();
@@ -23,7 +23,7 @@ export const EditMaterialSpecificationDetails = () => {
               currentValue={materialSpec.name}
               submitValue={(value: string) => {
                 const editableMaterial =
-                  ComponentsStore.components[componentSpecId].materialSpecs[
+                  ProductStore.componentSpecs[componentSpecId].materialSpecs[
                     materialSpecId
                   ];
 

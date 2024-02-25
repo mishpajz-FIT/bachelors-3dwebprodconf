@@ -14,9 +14,9 @@ import {
 import { Canvas } from "@react-three/fiber";
 import { useSnapshot } from "valtio";
 
-import { Controls } from "./components/Controls.tsx";
 import { EditComponentSpecification } from "./components/EditComponentSpecification/EditComponentSpecification.tsx";
 import { PreviewModel } from "./components/PreviewModel.tsx";
+import { ProductComposer } from "./components/ProductComposer.tsx";
 import { EditorValuesStore } from "./stores/EditorValuesStore.ts";
 import { refreshBounds } from "./utilities/BoundsManipulation.ts";
 
@@ -25,7 +25,7 @@ function App() {
 
   return (
     <div className="app flex flex-row">
-      <Controls />
+      <ProductComposer />
       <Canvas
         className="grow touch-none bg-[#fefefe] dark:bg-[#141414]"
         frameloop="demand"

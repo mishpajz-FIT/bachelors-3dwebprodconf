@@ -2,7 +2,7 @@ import { ComponentSpecification } from "@3dwebprodconf/shared/src/interfaces/Pro
 import { FormEvent, useState } from "react";
 
 import { Add } from "./Add.tsx";
-import { ComponentsStore } from "../../stores/ComponentsStore.ts";
+import { ProductStore } from "../../stores/ComponentsStore.ts";
 import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
 
 interface AddComponentSpecificationProps {
@@ -22,7 +22,7 @@ export const AddComponentSpecification = ({
 
     if (
       Object.prototype.hasOwnProperty.call(
-        ComponentsStore.components,
+        ProductStore.componentSpecs,
         data.get("id") as string
       )
     ) {
@@ -44,7 +44,7 @@ export const AddComponentSpecification = ({
       newComponent.price = parseFloat(data.get("price") as string);
     }
 
-    ComponentsStore.components[data.get("id") as string] = newComponent;
+    ProductStore.componentSpecs[data.get("id") as string] = newComponent;
     setShowingError(false);
     onClose();
     refreshBounds();

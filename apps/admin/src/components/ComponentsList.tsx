@@ -1,50 +1,61 @@
-import { useSnapshot } from "valtio";
-import { ComponentsStore } from "../stores/ComponentsStore.ts";
-import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
-import { useState } from "react";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { Popup } from "@3dwebprodconf/shared/src/components/containers/Popup.tsx";
-import { AddComponentSpecification } from "./Add/AddComponentSpecification.tsx";
+import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/solid";
+import { useState } from "react";
+import { useSnapshot } from "valtio";
 
-export const ComponentsCatalog = () => {
-  const componentsSnap = useSnapshot(ComponentsStore);
+import { AddComponentSpecification } from "./Add/AddComponentSpecification.tsx";
+import { ProductStore } from "../stores/ComponentsStore.ts";
+import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
+
+export const ComponentsList = () => {
+  const productSnap = useSnapshot(ProductStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 
   const [isOpenAdd, setOpenAdd] = useState(false);
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredComponents = Object.keys(componentsSnap.components).filter(
+  const filteredComponents = Object.keys(productSnap.componentSpecs).filter(
     (componentSpecId) =>
       componentSpecId.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
-        <label htmlFor="component-search" className="sr-only">
-          Search component specifications
-        </label>
-        <div className="relative">
-          <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
-            <MagnifyingGlassIcon className="size-4" />
+      <div className="mt-6 flex flex-row gap-2">
+        <form
+          className="w-full"
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
+          <label htmlFor="component-search" className="sr-only">
+            Search component specifications
+          </label>
+          <div className="relative">
+            <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
+              <MagnifyingGlassIcon className="size-4" />
+            </div>
+            <input
+              type="search"
+              id="component-search"
+              className="field block w-full bg-transparent ps-10"
+              placeholder="Search component specifications..."
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+              }}
+            />
           </div>
-          <input
-            type="search"
-            id="component-search"
-            className="field block w-full bg-transparent ps-10"
-            placeholder="Search component specifications..."
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-            }}
-          />
-        </div>
-      </form>
-      <ul className="mt-2">
+        </form>
+
+        <button
+          className="secondary-button px-3.5"
+          onClick={() => setOpenAdd(true)}
+        >
+          <PlusIcon className="size-4" />
+        </button>
+      </div>
+      <ul className="mt-4">
         {filteredComponents.map((componentId) => (
           <li
             key={componentId}

@@ -6,7 +6,7 @@ import { useSnapshot } from "valtio";
 import { EditMountingPointSpecificationComponents } from "./EditMountingPointSpecificationComponents.tsx";
 import { EditMountingPointSpecificationDetails } from "./EditMountingPointSpecificationDetails.tsx";
 import { EditMountingPointSpecificationPositioning } from "./EditMountingPointSpecificationPositioning.tsx";
-import { ComponentsStore } from "../../stores/ComponentsStore.ts";
+import { ProductStore } from "../../stores/ComponentsStore.ts";
 import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
 
 interface EditMountingPointSpecificationProps {
@@ -16,7 +16,7 @@ interface EditMountingPointSpecificationProps {
 export const EditMountingPointSpecification = ({
   onClose,
 }: EditMountingPointSpecificationProps) => {
-  const componentsSnap = useSnapshot(ComponentsStore);
+  const productSnap = useSnapshot(ProductStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 
   const componentSpecId = editorValuesSnap.selectedComponentSpec;
@@ -25,7 +25,7 @@ export const EditMountingPointSpecification = ({
   }
 
   const componentSpec =
-    componentsSnap.components[editorValuesSnap.selectedComponentSpec];
+    productSnap.componentSpecs[editorValuesSnap.selectedComponentSpec];
   if (!componentSpec) {
     return null;
   }
@@ -41,7 +41,7 @@ export const EditMountingPointSpecification = ({
   }
 
   const remove = () => {
-    delete ComponentsStore.components[componentSpecId].mountingPointsSpecs[
+    delete ProductStore.componentSpecs[componentSpecId].mountingPointsSpecs[
       mountingPointId
     ];
     onClose();

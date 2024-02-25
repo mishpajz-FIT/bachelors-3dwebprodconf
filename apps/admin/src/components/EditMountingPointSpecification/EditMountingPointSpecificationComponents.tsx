@@ -10,11 +10,11 @@ import { useSnapshot } from "valtio";
 
 import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
 import { useSelectedMountingPointSpec } from "../../hooks/useSelectedMountingPointSpec.ts";
-import { ComponentsStore } from "../../stores/ComponentsStore.ts";
+import { ProductStore } from "../../stores/ComponentsStore.ts";
 import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
 
 export const EditMountingPointSpecificationComponents = () => {
-  const componentsSnap = useSnapshot(ComponentsStore);
+  const productSnap = useSnapshot(ProductStore);
   const { componentSpecId } = useSelectedComponentSpec();
   const { mountingPointSpecId, mountingPointSpec } =
     useSelectedMountingPointSpec();
@@ -29,7 +29,7 @@ export const EditMountingPointSpecificationComponents = () => {
       componentSpecId.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const filteredAddComponent = Object.keys(componentsSnap.components).filter(
+  const filteredAddComponent = Object.keys(productSnap.componentSpecs).filter(
     (componentSpecId) => {
       const isIncluded = componentSpecId
         .toLowerCase()
@@ -95,7 +95,7 @@ export const EditMountingPointSpecificationComponents = () => {
                     className="other-button p-1"
                     onClick={() => {
                       const editableMountingPoint =
-                        ComponentsStore.components[componentSpecId]
+                        ProductStore.componentSpecs[componentSpecId]
                           .mountingPointsSpecs[mountingPointSpecId];
 
                       const index =
@@ -124,7 +124,7 @@ export const EditMountingPointSpecificationComponents = () => {
               value={addedComponent}
               onChange={(value: string) => {
                 const editableMountingPoint =
-                  ComponentsStore.components[componentSpecId]
+                  ProductStore.componentSpecs[componentSpecId]
                     .mountingPointsSpecs[mountingPointSpecId];
 
                 editableMountingPoint.mountableComponents.push(value);

@@ -5,7 +5,7 @@ import { useSnapshot } from "valtio";
 import { PlacementControls } from "./PlacementControls.tsx";
 import { PreviewMountedModel } from "./PreviewMountedModel.tsx";
 import { useSelectedComponentSpec } from "../hooks/useSelectedComponentSpec.ts";
-import { ComponentsStore } from "../stores/ComponentsStore.ts";
+import { ProductStore } from "../stores/ComponentsStore.ts";
 import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
 
 interface PreviewMountingPointProps {
@@ -33,7 +33,7 @@ export const PreviewMountingPoint = ({
           currentRotation={[...mountingPoint.rotation]}
           updatePosition={(position) => {
             const editableMountingPoint =
-              ComponentsStore.components[componentSpecId].mountingPointsSpecs[
+              ProductStore.componentSpecs[componentSpecId].mountingPointsSpecs[
                 mountingPointId
               ];
 
@@ -41,7 +41,7 @@ export const PreviewMountingPoint = ({
           }}
           updateRotation={(rotation) => {
             const editableMountingPoint =
-              ComponentsStore.components[componentSpecId].mountingPointsSpecs[
+              ProductStore.componentSpecs[componentSpecId].mountingPointsSpecs[
                 mountingPointId
               ];
 

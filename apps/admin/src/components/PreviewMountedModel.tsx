@@ -2,11 +2,11 @@ import { useGLTF } from "@react-three/drei";
 import { Euler, Mesh } from "three";
 import { useSnapshot } from "valtio";
 
-import { ComponentsStore } from "../stores/ComponentsStore.ts";
+import { ProductStore } from "../stores/ComponentsStore.ts";
 import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
 
 export const PreviewMountedModel = () => {
-  const componentsSnap = useSnapshot(ComponentsStore);
+  const productSnap = useSnapshot(ProductStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 
   if (!editorValuesSnap.previewedMountedComponent) {
@@ -14,7 +14,7 @@ export const PreviewMountedModel = () => {
   }
 
   const previewedMountedComponent =
-    componentsSnap.components[editorValuesSnap.previewedMountedComponent];
+    productSnap.componentSpecs[editorValuesSnap.previewedMountedComponent];
   if (!previewedMountedComponent) {
     throw Error(
       `Missing component ${editorValuesSnap.previewedMountedComponent}`

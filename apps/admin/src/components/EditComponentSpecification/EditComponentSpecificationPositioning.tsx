@@ -4,7 +4,7 @@ import { MathUtils } from "three";
 import { useSnapshot } from "valtio";
 
 import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
-import { ComponentsStore } from "../../stores/ComponentsStore.ts";
+import { ProductStore } from "../../stores/ComponentsStore.ts";
 import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
 import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
 
@@ -13,16 +13,16 @@ export const EditComponentSpecificationPositioning = () => {
   const { componentSpecId, componentSpec } = useSelectedComponentSpec();
 
   useEffect(() => {
-    if (!ComponentsStore.components[componentSpecId].positionOffset) {
-      ComponentsStore.components[componentSpecId].positionOffset = [0, 0, 0];
+    if (!ProductStore.componentSpecs[componentSpecId].positionOffset) {
+      ProductStore.componentSpecs[componentSpecId].positionOffset = [0, 0, 0];
     }
 
-    if (!ComponentsStore.components[componentSpecId].rotationOffset) {
-      ComponentsStore.components[componentSpecId].rotationOffset = [0, 0, 0];
+    if (!ProductStore.componentSpecs[componentSpecId].rotationOffset) {
+      ProductStore.componentSpecs[componentSpecId].rotationOffset = [0, 0, 0];
     }
 
-    if (!ComponentsStore.components[componentSpecId].scaleOffset) {
-      ComponentsStore.components[componentSpecId].scaleOffset = [1, 1, 1];
+    if (!ProductStore.componentSpecs[componentSpecId].scaleOffset) {
+      ProductStore.componentSpecs[componentSpecId].scaleOffset = [1, 1, 1];
     }
   }, [componentSpecId]);
 
@@ -55,7 +55,7 @@ export const EditComponentSpecificationPositioning = () => {
                   key={`position${index}`}
                   submitValue={(value: number) => {
                     const values =
-                      ComponentsStore.components[componentSpecId]
+                      ProductStore.componentSpecs[componentSpecId]
                         .positionOffset;
                     if (!values) {
                       throw new Error(`Missing editable values!`);
@@ -81,7 +81,7 @@ export const EditComponentSpecificationPositioning = () => {
                   key={`rotation${index}`}
                   submitValue={(value: number) => {
                     const values =
-                      ComponentsStore.components[componentSpecId]
+                      ProductStore.componentSpecs[componentSpecId]
                         .rotationOffset;
                     if (!values) {
                       throw new Error(`Missing editable values!`);
@@ -110,7 +110,7 @@ export const EditComponentSpecificationPositioning = () => {
                   key={`scale${index}`}
                   submitValue={(value: number) => {
                     const values =
-                      ComponentsStore.components[componentSpecId].scaleOffset;
+                      ProductStore.componentSpecs[componentSpecId].scaleOffset;
                     if (!values) {
                       throw new Error(`Missing editable values!`);
                     }

@@ -7,7 +7,7 @@ import { EditComponentSpecificationDetails } from "./EditComponentSpecificationD
 import { EditComponentSpecificationMaterials } from "./EditComponentSpecificationMaterials.tsx";
 import { EditComponentSpecificationMountingPoints } from "./EditComponentSpecificationMountingPoints.tsx";
 import { EditComponentSpecificationPositioning } from "./EditComponentSpecificationPositioning.tsx";
-import { ComponentsStore } from "../../stores/ComponentsStore.ts";
+import { ProductStore } from "../../stores/ComponentsStore.ts";
 import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
 
 interface EditComponentSpecificationProps {
@@ -17,7 +17,7 @@ interface EditComponentSpecificationProps {
 export const EditComponentSpecification = ({
   onClose,
 }: EditComponentSpecificationProps) => {
-  const componentsSnap = useSnapshot(ComponentsStore);
+  const productSnap = useSnapshot(ProductStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 
   const componentSpecId = editorValuesSnap.selectedComponentSpec;
@@ -25,13 +25,13 @@ export const EditComponentSpecification = ({
     return null;
   }
 
-  const componentSpec = componentsSnap.components[componentSpecId];
+  const componentSpec = productSnap.componentSpecs[componentSpecId];
   if (!componentSpec) {
     return null;
   }
 
   const remove = () => {
-    delete ComponentsStore.components[componentSpecId];
+    delete ProductStore.componentSpecs[componentSpecId];
     onClose();
   };
 

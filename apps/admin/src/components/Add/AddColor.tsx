@@ -3,7 +3,7 @@ import { FormEvent, useState } from "react";
 import { Add } from "./Add.tsx";
 import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
 import { useSelectedMaterialSpec } from "../../hooks/useSelectedMaterialSpec.ts";
-import { ComponentsStore } from "../../stores/ComponentsStore.ts";
+import { ProductStore } from "../../stores/ComponentsStore.ts";
 import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
 
 interface AddMaterialProps {
@@ -25,7 +25,9 @@ export const AddColor = ({ onClose }: AddMaterialProps) => {
     const data = new FormData(event.currentTarget);
 
     const editableMaterial =
-      ComponentsStore.components[componentSpecId].materialSpecs[materialSpecId];
+      ProductStore.componentSpecs[componentSpecId].materialSpecs[
+        materialSpecId
+      ];
 
     if (
       Object.prototype.hasOwnProperty.call(

@@ -10,7 +10,7 @@ import { Fragment, useState } from "react";
 
 import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
 import { useSelectedMaterialSpec } from "../../hooks/useSelectedMaterialSpec.ts";
-import { ComponentsStore } from "../../stores/ComponentsStore.ts";
+import { ProductStore } from "../../stores/ComponentsStore.ts";
 
 export const EditMaterialSpecificationModels = () => {
   const { componentSpecId } = useSelectedComponentSpec();
@@ -85,7 +85,7 @@ export const EditMaterialSpecificationModels = () => {
                     className="other-button p-1"
                     onClick={() => {
                       const editableMaterial =
-                        ComponentsStore.components[componentSpecId]
+                        ProductStore.componentSpecs[componentSpecId]
                           .materialSpecs[materialSpecId];
 
                       const index = editableMaterial.modelMaterials.indexOf(
@@ -110,7 +110,7 @@ export const EditMaterialSpecificationModels = () => {
               value={addedModelMaterial}
               onChange={(value: string) => {
                 const editableMaterial =
-                  ComponentsStore.components[componentSpecId].materialSpecs[
+                  ProductStore.componentSpecs[componentSpecId].materialSpecs[
                     materialSpecId
                   ];
 

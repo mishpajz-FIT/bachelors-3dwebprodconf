@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 
 import { Add } from "./Add.tsx";
 import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
-import { ComponentsStore } from "../../stores/ComponentsStore.ts";
+import { ProductStore } from "../../stores/ComponentsStore.ts";
 import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
 
 interface AddMountingPointProps {
@@ -20,7 +20,7 @@ export const AddMountingPoint = ({ onClose }: AddMountingPointProps) => {
 
     const data = new FormData(event.currentTarget);
 
-    const editableComponent = ComponentsStore.components[componentSpecId];
+    const editableComponent = ProductStore.componentSpecs[componentSpecId];
 
     if (
       Object.prototype.hasOwnProperty.call(

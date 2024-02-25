@@ -32,7 +32,6 @@ export interface ComponentSpecification {
 
 export interface BaseSpecification {
   component: string;
-  backgroundUrl: string;
 }
 
 export interface ProductSpecification {

@@ -1,12 +1,8 @@
-import { ComponentSpecification } from "@3dwebprodconf/shared/src/interfaces/ProductSpecification.ts";
+import { ProductSpecification } from "@3dwebprodconf/shared/src/interfaces/ProductSpecification.ts";
 import { proxy } from "valtio";
 
-interface ComponentsStore {
-  components: Record<string, ComponentSpecification>;
-}
-
-export const ComponentsStore = proxy<ComponentsStore>({
-  components: {
+export const ProductStore = proxy<ProductSpecification>({
+  componentSpecs: {
     kokos: {
       name: "Kokos",
       description: "Kokosí description.",
@@ -16,4 +12,5 @@ export const ComponentsStore = proxy<ComponentsStore>({
       mountingPointsSpecs: {},
     },
   },
+  baseSpecs: {},
 });

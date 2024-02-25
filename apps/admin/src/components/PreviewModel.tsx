@@ -6,7 +6,7 @@ import { useSnapshot } from "valtio";
 import { PlacementControls } from "./PlacementControls.tsx";
 import { PreviewMountingPoint } from "./PreviewMountingPoint.tsx";
 import { useSelectedComponentSpec } from "../hooks/useSelectedComponentSpec.ts";
-import { ComponentsStore } from "../stores/ComponentsStore.ts";
+import { ProductStore } from "../stores/ComponentsStore.ts";
 import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
 import { refreshBounds } from "../utilities/BoundsManipulation.ts";
 
@@ -51,12 +51,14 @@ export const PreviewModel = () => {
             : [0, 0, 0]
         }
         updatePosition={(position) => {
-          const editableComponent = ComponentsStore.components[componentSpecId];
+          const editableComponent =
+            ProductStore.componentSpecs[componentSpecId];
 
           editableComponent.positionOffset = position;
         }}
         updateRotation={(rotation) => {
-          const editableComponent = ComponentsStore.components[componentSpecId];
+          const editableComponent =
+            ProductStore.componentSpecs[componentSpecId];
 
           editableComponent.rotationOffset = rotation;
         }}

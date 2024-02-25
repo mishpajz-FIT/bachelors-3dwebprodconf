@@ -1,10 +1,10 @@
 import { useSnapshot } from "valtio";
 
-import { ComponentsStore } from "../stores/ComponentsStore.ts";
+import { ProductStore } from "../stores/ComponentsStore.ts";
 import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
 
 export function useSelectedComponentSpec() {
-  const componentsSnap = useSnapshot(ComponentsStore);
+  const productSnap = useSnapshot(ProductStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 
   const componentSpecId = editorValuesSnap.selectedComponentSpec;
@@ -13,7 +13,7 @@ export function useSelectedComponentSpec() {
   }
 
   const componentSpec =
-    componentsSnap.components[editorValuesSnap.selectedComponentSpec];
+    productSnap.componentSpecs[editorValuesSnap.selectedComponentSpec];
   if (!componentSpec) {
     throw new Error(`No component specification with ${componentSpecId}`);
   }

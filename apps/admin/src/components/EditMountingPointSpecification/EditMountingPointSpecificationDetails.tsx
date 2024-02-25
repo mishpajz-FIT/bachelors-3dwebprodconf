@@ -1,6 +1,6 @@
 import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
 import { useSelectedMountingPointSpec } from "../../hooks/useSelectedMountingPointSpec.ts";
-import { ComponentsStore } from "../../stores/ComponentsStore.ts";
+import { ProductStore } from "../../stores/ComponentsStore.ts";
 
 export const EditMountingPointSpecificationDetails = () => {
   const { componentSpecId } = useSelectedComponentSpec();
@@ -20,9 +20,8 @@ export const EditMountingPointSpecificationDetails = () => {
             className="field size-4"
             onChange={() => {
               const editableMountingPoint =
-                ComponentsStore.components[componentSpecId].mountingPointsSpecs[
-                  mountingPointSpecId
-                ];
+                ProductStore.componentSpecs[componentSpecId]
+                  .mountingPointsSpecs[mountingPointSpecId];
 
               editableMountingPoint.isRequired =
                 !editableMountingPoint.isRequired;

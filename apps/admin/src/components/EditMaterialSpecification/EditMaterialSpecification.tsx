@@ -6,7 +6,7 @@ import { useSnapshot } from "valtio";
 import { EditMaterialSpecificationColors } from "./EditMaterialSpecificationColors.tsx";
 import { EditMaterialSpecificationDetails } from "./EditMaterialSpecificationDetails.tsx";
 import { EditMaterialSpecificationModels } from "./EditMaterialSpecificationModels.tsx";
-import { ComponentsStore } from "../../stores/ComponentsStore.ts";
+import { ProductStore } from "../../stores/ComponentsStore.ts";
 import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
 
 interface EditMaterialSpecificationProps {
@@ -16,7 +16,7 @@ interface EditMaterialSpecificationProps {
 export const EditMaterialSpecification = ({
   onClose,
 }: EditMaterialSpecificationProps) => {
-  const componentsSnap = useSnapshot(ComponentsStore);
+  const productSnap = useSnapshot(ProductStore);
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 
   const componentSpecId = editorValuesSnap.selectedComponentSpec;
@@ -25,7 +25,7 @@ export const EditMaterialSpecification = ({
   }
 
   const componentSpec =
-    componentsSnap.components[editorValuesSnap.selectedComponentSpec];
+    productSnap.componentSpecs[editorValuesSnap.selectedComponentSpec];
   if (!componentSpec) {
     return null;
   }
@@ -41,7 +41,7 @@ export const EditMaterialSpecification = ({
   }
 
   const remove = () => {
-    delete ComponentsStore.components[componentSpecId].materialSpecs[
+    delete ProductStore.componentSpecs[componentSpecId].materialSpecs[
       materialId
     ];
     onClose();
