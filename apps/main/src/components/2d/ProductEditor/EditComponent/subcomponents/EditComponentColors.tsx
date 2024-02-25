@@ -1,9 +1,7 @@
 import { ColorSpecification } from "@3dwebprodconf/shared/src/interfaces/ProductSpecification.ts";
-import { useSnapshot } from "valtio";
 
 import { EditComponentColorsColorTile } from "./EditComponentColorsColorTile.tsx";
-import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
-import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
+import { useComponent } from "../../../../../hooks/useComponent.ts";
 
 interface EditComponentColorsProps {
   componentId: string;
@@ -17,15 +15,7 @@ const defaultColorSpec: ColorSpecification = {
 export const EditComponentColors = ({
   componentId,
 }: EditComponentColorsProps) => {
-  const userCreationSnap = useSnapshot(UserCreationStore);
-  const productSpecsSnap = useSnapshot(ProductSpecificationStore);
-
-  const component = userCreationSnap.components[componentId];
-  if (!component) return null;
-
-  const componentSpecId = component.componentSpec;
-  const componentSpec = productSpecsSnap.componentSpecs[componentSpecId];
-  if (!componentSpec) return null;
+  const { componentSpec } = useComponent(componentId);
 
   return (
     <>

@@ -1,8 +1,6 @@
 import { SkeletonImage } from "@3dwebprodconf/shared/src/components/SkeletonImage.tsx";
-import { useSnapshot } from "valtio";
 
-import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
-import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
+import { useComponent } from "../../../../hooks/useComponent.ts";
 
 interface ProductConfirmationTileProps {
   componentId: string;
@@ -11,21 +9,7 @@ interface ProductConfirmationTileProps {
 export const ProductConfirmationTile = ({
   componentId,
 }: ProductConfirmationTileProps) => {
-  const userCreationSnap = useSnapshot(UserCreationStore);
-  const productSpecsSnap = useSnapshot(ProductSpecificationStore);
-
-  const component = userCreationSnap.components[componentId];
-  if (!component) {
-    throw new Error(`Component ${componentId} not found`);
-  }
-
-  const componentSpec =
-    productSpecsSnap.componentSpecs[component.componentSpec];
-  if (!componentSpec) {
-    throw new Error(
-      `Component specification ${component.componentSpec} not found`
-    );
-  }
+  const { component, componentSpec } = useComponent(componentId);
 
   return (
     <div

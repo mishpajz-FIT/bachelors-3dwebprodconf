@@ -1,9 +1,8 @@
 import { SkeletonImage } from "@3dwebprodconf/shared/src/components/SkeletonImage.tsx";
 import { InformationCircleIcon } from "@heroicons/react/20/solid";
 import { memo, useState } from "react";
-import { useSnapshot } from "valtio";
 
-import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
+import { useComponentSpec } from "../../../../../hooks/useComponentSpec.ts";
 
 interface AddComponentTileProps {
   componentSpecId: string;
@@ -12,14 +11,9 @@ interface AddComponentTileProps {
 
 export const AddComponentTile = memo(
   ({ componentSpecId, add }: AddComponentTileProps) => {
-    const productSpecsSnap = useSnapshot(ProductSpecificationStore);
-
     const [isButtonHovered, setIsButtonHovered] = useState(false);
 
-    const componentSpec = productSpecsSnap.componentSpecs[componentSpecId];
-    if (!componentSpec) {
-      throw new Error(`Component specification ${componentSpecId} not found`);
-    }
+    const componentSpec = useComponentSpec(componentSpecId);
 
     //TODO: create component details
 

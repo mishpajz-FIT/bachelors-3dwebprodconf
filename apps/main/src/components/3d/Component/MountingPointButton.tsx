@@ -2,8 +2,8 @@ import { Modal } from "@3dwebprodconf/shared/src/components/containers/Modal.tsx
 import { PlusIcon } from "@heroicons/react/20/solid";
 import { Html } from "@react-three/drei";
 import { useCallback, useState } from "react";
-import { useSnapshot } from "valtio";
 
+import { useComponent } from "../../../hooks/useComponent.ts";
 import {
   createComponent,
   mountComponent,
@@ -24,19 +24,7 @@ export const MountingPointButton = ({
 }: MountingPointButtonProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const userProductSnap = useSnapshot(UserCreationStore);
-  const productSpecsSnap = useSnapshot(ProductSpecificationStore);
-
-  const component = userProductSnap.components[componentId];
-  if (!component) {
-    throw new Error(`Component ${componentId} not found!`);
-  }
-
-  const componentSpec =
-    productSpecsSnap.componentSpecs[component.componentSpec];
-  if (!componentSpec) {
-    throw new Error(`Component specs ${component.componentSpec} not found!`);
-  }
+  const { component, componentSpec } = useComponent(componentId);
 
   const mountingPointSpec =
     componentSpec.mountingPointsSpecs[mountingPointSpecId];

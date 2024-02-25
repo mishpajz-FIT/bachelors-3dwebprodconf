@@ -1,10 +1,8 @@
 import { lazy } from "react";
 import { Euler } from "three";
-import { useSnapshot } from "valtio";
 
 import { MountingPointButton } from "./MountingPointButton.tsx";
-import { ProductSpecificationStore } from "../../../stores/ProductSpecificationStore.ts";
-import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
+import { useComponent } from "../../../hooks/useComponent.ts";
 
 const ComponentModel = lazy(() => import("./ComponentModel.tsx"));
 
@@ -13,19 +11,7 @@ interface ComponentProps {
 }
 
 export const Component = ({ componentId }: ComponentProps) => {
-  const userCreationSnap = useSnapshot(ProductSpecificationStore);
-  const userProductSnap = useSnapshot(UserCreationStore);
-
-  const component = userProductSnap.components[componentId];
-  if (!component) {
-    throw new Error(`Component ${componentId} not found!`);
-  }
-
-  const componentSpec =
-    userCreationSnap.componentSpecs[component.componentSpec];
-  if (!componentSpec) {
-    throw new Error(`Component specs ${component.componentSpec} not found!`);
-  }
+  const { component, componentSpec } = useComponent(componentId);
 
   return (
     <group

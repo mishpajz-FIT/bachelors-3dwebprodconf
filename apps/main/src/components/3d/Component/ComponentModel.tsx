@@ -5,8 +5,8 @@ import { Color, Mesh, MeshStandardMaterial } from "three";
 import { useSnapshot } from "valtio";
 
 import { globalConfig } from "../../../configurations/Config.ts";
+import { useComponent } from "../../../hooks/useComponent.ts";
 import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore.ts";
-import { ProductSpecificationStore } from "../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 
 interface ComponentModelProps {
@@ -14,15 +14,9 @@ interface ComponentModelProps {
 }
 const ComponentModel = ({ componentId }: ComponentModelProps) => {
   const userCreationSnap = useSnapshot(UserCreationStore);
-  const productSpecsSnap = useSnapshot(ProductSpecificationStore);
   const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
 
-  const componentSpecId =
-    userCreationSnap.components[componentId].componentSpec;
-  const componentSpec = productSpecsSnap.componentSpecs[componentSpecId];
-  if (!componentSpec) {
-    throw `Component spec ${componentSpecId} could not be found.`;
-  }
+  const { componentSpec } = useComponent(componentId);
 
   const [outlineColor, setOutlineColor] = useState(
     globalConfig.config.spatialUi.selectionColors.outline.light
