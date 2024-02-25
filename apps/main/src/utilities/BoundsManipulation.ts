@@ -1,10 +1,10 @@
 import { globalConfig } from "../configurations/Config.ts";
-import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
+import { ConfiguratorValuesStore } from "../stores/ConfiguratorValuesStore.ts";
 
 export const refreshBounds = (action: () => void) => {
   action();
 
-  const bounds = EditorValuesStore.bounds;
+  const bounds = ConfiguratorValuesStore.bounds;
   console.log(bounds);
   if (!bounds) {
     return;

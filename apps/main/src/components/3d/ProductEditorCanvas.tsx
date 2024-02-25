@@ -15,7 +15,7 @@ import { useSnapshot } from "valtio";
 
 import { Component } from "./Component/Component.tsx";
 import { globalConfig } from "../../configurations/Config.ts";
-import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
+import { ConfiguratorValuesStore } from "../../stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
@@ -53,7 +53,7 @@ const ProductEditorCanvas = () => {
       <Bounds fit clip observe margin={2}>
         <BoundsStorer
           key={userCreationSnap.base}
-          boundsStorage={EditorValuesStore}
+          boundsStorage={ConfiguratorValuesStore}
           refresh={() => refreshBounds(() => undefined)}
         >
           <Component componentId={userCreationSnap.base} />

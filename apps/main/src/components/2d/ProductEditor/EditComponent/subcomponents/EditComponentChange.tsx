@@ -9,7 +9,7 @@ import {
   mountComponent,
   removeComponent,
 } from "../../../../../stores/actions/UserCreationActions.ts";
-import { EditorValuesStore } from "../../../../../stores/EditorValuesStore.ts";
+import { ConfiguratorValuesStore } from "../../../../../stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../../../../utilities/BoundsManipulation.ts";
@@ -77,7 +77,7 @@ export const EditComponentChange = ({
           ProductSpecificationStore
         );
 
-        EditorValuesStore.selectedComponentId = newComponentId;
+        ConfiguratorValuesStore.selectedComponentId = newComponentId;
       };
 
       refreshBounds(action);

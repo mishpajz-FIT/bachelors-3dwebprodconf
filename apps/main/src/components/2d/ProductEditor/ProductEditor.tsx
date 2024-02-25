@@ -6,7 +6,7 @@ import { useSnapshot } from "valtio";
 import { EditComponent } from "./EditComponent/EditComponent.tsx";
 import { ProductEditorLoading } from "./ProductEditorLoading.tsx";
 import { SelectBase } from "./SelectBase/SelectBase.tsx";
-import { EditorValuesStore } from "../../../stores/EditorValuesStore.ts";
+import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore.ts";
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 
 const ProductEditorCanvas = lazy(
@@ -17,7 +17,7 @@ const ProductEditor = () => {
   const navigate = useNavigate();
 
   const userCreationSnap = useSnapshot(UserCreationStore);
-  const editorValuesSnap = useSnapshot(EditorValuesStore);
+  const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
 
   const [isBaseSelectionOpen, setBaseSelectionOpen] = useState(
     !userCreationSnap.isBaseSet
@@ -29,10 +29,12 @@ const ProductEditor = () => {
         <div className="relative flex grow overflow-x-hidden">
           {userCreationSnap.isBaseSet && <ProductEditorCanvas />}
 
-          <Side isOpen={editorValuesSnap.selectedComponentId !== undefined}>
+          <Side
+            isOpen={configuratorValuesSnap.selectedComponentId !== undefined}
+          >
             <EditComponent
               onClose={() =>
-                (EditorValuesStore.selectedComponentId = undefined)
+                (ConfiguratorValuesStore.selectedComponentId = undefined)
               }
             />
           </Side>
@@ -43,7 +45,7 @@ const ProductEditor = () => {
             className="other-button"
             onClick={() => {
               setBaseSelectionOpen(true);
-              EditorValuesStore.selectedComponentId = undefined;
+              ConfiguratorValuesStore.selectedComponentId = undefined;
             }}
           >
             Back
@@ -52,7 +54,9 @@ const ProductEditor = () => {
           <button
             className="primary-button"
             onClick={() =>
-              navigate("/" + EditorValuesStore.currentProductId + "/confirm")
+              navigate(
+                "/" + ConfiguratorValuesStore.currentProductId + "/confirm"
+              )
             }
           >
             Done

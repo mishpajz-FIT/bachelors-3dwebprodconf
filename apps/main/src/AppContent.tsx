@@ -9,7 +9,7 @@ import {
 import { ProductConfirmation } from "./components/2d/ProductConfirmation/ProductConfirmation.tsx";
 import { ProductSelection } from "./components/2d/ProductSelection/ProductSelection.tsx";
 import { fetchProductSpecification } from "./stores/actions/ProductSpecificationActions.ts";
-import { EditorValuesStore } from "./stores/EditorValuesStore.ts";
+import { ConfiguratorValuesStore } from "./stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "./stores/ProductSpecificationStore.ts";
 import { ProductsStore } from "./stores/ProductsStore.ts";
 import { UserCreationStore } from "./stores/UserCreationStore.ts";
@@ -52,7 +52,7 @@ const router = createBrowserRouter([
       ProductSpecificationStore.componentSpecs =
         productSpecification.componentSpecs;
 
-      EditorValuesStore.currentProductId = params.productId;
+      ConfiguratorValuesStore.currentProductId = params.productId;
 
       return productSpecification;
     },

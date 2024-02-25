@@ -5,7 +5,7 @@ import { Color, Mesh, MeshStandardMaterial } from "three";
 import { useSnapshot } from "valtio";
 
 import { globalConfig } from "../../../configurations/Config.ts";
-import { EditorValuesStore } from "../../../stores/EditorValuesStore.ts";
+import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 
@@ -16,7 +16,7 @@ interface ComponentModelProps {
 const ComponentModel = ({ componentId, position }: ComponentModelProps) => {
   const userCreationSnap = useSnapshot(UserCreationStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
-  const editorValuesSnap = useSnapshot(EditorValuesStore);
+  const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
 
   const componentSpecId =
     userCreationSnap.components[componentId].componentSpec;
@@ -80,12 +80,12 @@ const ComponentModel = ({ componentId, position }: ComponentModelProps) => {
     event.stopPropagation();
     console.log("select " + componentId);
 
-    if (EditorValuesStore.selectedComponentId === componentId) {
-      EditorValuesStore.selectedComponentId = undefined;
+    if (ConfiguratorValuesStore.selectedComponentId === componentId) {
+      ConfiguratorValuesStore.selectedComponentId = undefined;
       return;
     }
 
-    EditorValuesStore.selectedComponentId = componentId;
+    ConfiguratorValuesStore.selectedComponentId = componentId;
   };
 
   return (
@@ -103,7 +103,9 @@ const ComponentModel = ({ componentId, position }: ComponentModelProps) => {
           return (
             <mesh key={name} geometry={mesh.geometry} material={material}>
               <Edges
-                visible={componentId === editorValuesSnap.selectedComponentId}
+                visible={
+                  componentId === configuratorValuesSnap.selectedComponentId
+                }
                 scale={1.05}
               >
                 <meshBasicMaterial

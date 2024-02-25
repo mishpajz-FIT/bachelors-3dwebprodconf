@@ -6,10 +6,10 @@ interface ConfiguratorValuesStore {
   selectedComponentId?: string;
 }
 
-export const EditorValuesStore = proxy<ConfiguratorValuesStore & BoundsStorage>(
-  {
-    currentProductId: undefined,
-    selectedComponentId: undefined,
-    bounds: undefined,
-  }
-);
+export const ConfiguratorValuesStore = proxy<
+  ConfiguratorValuesStore & BoundsStorage
+>({
+  currentProductId: undefined,
+  selectedComponentId: undefined,
+  bounds: undefined,
+});

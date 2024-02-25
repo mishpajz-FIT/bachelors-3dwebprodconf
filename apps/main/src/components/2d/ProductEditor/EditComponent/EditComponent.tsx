@@ -4,7 +4,7 @@ import { useSnapshot } from "valtio";
 
 import { EditComponentChange } from "./subcomponents/EditComponentChange.tsx";
 import { EditComponentColors } from "./subcomponents/EditComponentColors.tsx";
-import { EditorValuesStore } from "../../../../stores/EditorValuesStore.ts";
+import { ConfiguratorValuesStore } from "../../../../stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
 
@@ -15,9 +15,9 @@ interface EditComponentProps {
 export const EditComponent = ({ onClose }: EditComponentProps) => {
   const userCreationSnap = useSnapshot(UserCreationStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
-  const editorValuesSnap = useSnapshot(EditorValuesStore);
+  const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
 
-  const componentId = editorValuesSnap.selectedComponentId;
+  const componentId = configuratorValuesSnap.selectedComponentId;
   if (!componentId) return null;
 
   const component = userCreationSnap.components[componentId];
@@ -54,7 +54,7 @@ export const EditComponent = ({ onClose }: EditComponentProps) => {
           )}
         </div>
       </div>
-      {editorValuesSnap.selectedComponentId != userCreationSnap.base && (
+      {configuratorValuesSnap.selectedComponentId != userCreationSnap.base && (
         <div className="mt-auto flex items-center justify-center gap-2 p-2">
           <EditComponentChange componentId={componentId} onClose={onClose} />
         </div>
