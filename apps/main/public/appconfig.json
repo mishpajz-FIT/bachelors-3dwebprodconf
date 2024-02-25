@@ -24,6 +24,6 @@
     }
   },
   "sources": {
-    "products": "/products/products.json"
+    "catalogue": "/products/products.json"
   }
 }

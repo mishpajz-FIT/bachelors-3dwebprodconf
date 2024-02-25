@@ -24,6 +24,6 @@ export interface AppConfig {
     };
   };
   sources: {
-    products: string;
+    catalogue: string;
   };
 }

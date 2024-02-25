@@ -26,7 +26,7 @@ const defaultConfig: AppConfig = {
     },
   },
   sources: {
-    products: "/products/products.json",
+    catalogue: "/products/products.json",
   },
 };
 
