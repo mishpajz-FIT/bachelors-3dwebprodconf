@@ -11,9 +11,8 @@ import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 
 interface ComponentModelProps {
   componentId: string;
-  position: [number, number, number];
 }
-const ComponentModel = ({ componentId, position }: ComponentModelProps) => {
+const ComponentModel = ({ componentId }: ComponentModelProps) => {
   const userCreationSnap = useSnapshot(UserCreationStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
   const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
@@ -89,7 +88,7 @@ const ComponentModel = ({ componentId, position }: ComponentModelProps) => {
   };
 
   return (
-    <group position={position} onClick={select}>
+    <group scale={componentSpec.scaleOffset ?? [1, 1, 1]} onClick={select}>
       {Object.entries(nodes).map(([name, node]) => {
         if (node.type === "Mesh") {
           const mesh = node as Mesh;

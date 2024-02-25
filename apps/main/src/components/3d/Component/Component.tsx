@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import { Euler, MathUtils } from "three";
+import { Euler } from "three";
 import { useSnapshot } from "valtio";
 
 import { MountingPointButton } from "./MountingPointButton.tsx";
@@ -10,17 +10,9 @@ const ComponentModel = lazy(() => import("./ComponentModel.tsx"));
 
 interface ComponentProps {
   componentId: string;
-  position?: readonly [number, number, number];
-  rotation?: readonly [number, number, number];
 }
 
-const nullCoordinates: [number, number, number] = [0, 0, 0];
-
-export const Component = ({
-  componentId,
-  position = nullCoordinates,
-  rotation = nullCoordinates,
-}: ComponentProps) => {
+export const Component = ({ componentId }: ComponentProps) => {
   const userCreationSnap = useSnapshot(ProductSpecificationStore);
   const userProductSnap = useSnapshot(UserCreationStore);
 
@@ -35,38 +27,43 @@ export const Component = ({
     throw new Error(`Component specs ${component.componentSpec} not found!`);
   }
 
-  const [rotationX, rotationY, rotationZ] = rotation;
-  const radiansRotation = new Euler(
-    MathUtils.degToRad(rotationX),
-    MathUtils.degToRad(rotationY),
-    MathUtils.degToRad(rotationZ),
-    "XYZ"
-  );
-
   return (
-    <group position={position} rotation={radiansRotation}>
-      <ComponentModel componentId={componentId} position={nullCoordinates} />
+    <group
+      position={componentSpec.positionOffset}
+      rotation={
+        componentSpec.rotationOffset
+          ? new Euler(...componentSpec.rotationOffset)
+          : undefined
+      }
+    >
+      <ComponentModel componentId={componentId} />
 
       {Object.entries(componentSpec.mountingPointsSpecs).map(
-        ([mountingPointSpecId, mp]) => {
+        ([mountingPointSpecId, mountingPoint]) => {
           const mountedComponentId = component.mounted[mountingPointSpecId];
 
           if (mountedComponentId) {
             return (
-              <Component
+              <group
                 key={mountedComponentId}
-                componentId={mountedComponentId}
-                position={mp.position}
-                rotation={mp.rotation}
-              />
+                position={mountingPoint.position}
+                rotation={new Euler(...mountingPoint.rotation)}
+              >
+                <Component componentId={mountedComponentId} />
+              </group>
             );
           } else {
             return (
-              <MountingPointButton
+              <group
                 key={mountingPointSpecId}
-                componentId={componentId}
-                mountingPointSpecId={mountingPointSpecId}
-              />
+                position={mountingPoint.position}
+                rotation={new Euler(...mountingPoint.rotation)}
+              >
+                <MountingPointButton
+                  componentId={componentId}
+                  mountingPointSpecId={mountingPointSpecId}
+                />
+              </group>
             );
           }
         }
