@@ -10,7 +10,7 @@
     "dev-admin": "npm run dev --workspace admin",
     "build": "npm run build --workspaces --if-present",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "fixlint": "eslint . --ext ts,tsx --fix",
+    "fix": "eslint . --ext ts,tsx --fix",
     "cilint": "eslint . --ext ts,tsx --format stylish ; eslint . --ext ts,tsx --format junit -o eslint.xml --max-warnings 0",
     "prepare": "husky install"
   },
