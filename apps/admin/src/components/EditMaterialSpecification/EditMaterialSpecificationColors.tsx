@@ -72,11 +72,11 @@ export const EditMaterialSpecificationColors = () => {
                   <span className="label text-xs">Name</span>
                   <TextInput
                     submitValue={(value) => {
-                      const editableColor =
+                      const editableMaterial =
                         ProductStore.componentSpecs[componentSpecId]
-                          .materialSpecs[materialSpecId].colorVariationsSpecs[
-                          colorSpecId
-                        ];
+                          .materialSpecs[materialSpecId];
+                      const editableColor =
+                        editableMaterial.colorVariationsSpecs[colorSpecId];
                       editableColor.name = value;
                     }}
                     allowEmpty={false}
@@ -93,11 +93,11 @@ export const EditMaterialSpecificationColors = () => {
                     className="block h-10 w-14 cursor-pointer rounded-lg border border-gray-300 bg-gray-50 p-1 focus:border-[var(--primary-light)] focus:ring-[var(--primary-light)] dark:border-zinc-700 dark:bg-zinc-800 dark:focus:border-[var(--primary-dark)] dark:focus:ring-[var(--primary-dark)]"
                     value={colorSpec.value}
                     onChange={(e) => {
-                      const editableColor =
+                      const editableMaterial =
                         ProductStore.componentSpecs[componentSpecId]
-                          .materialSpecs[materialSpecId].colorVariationsSpecs[
-                          colorSpecId
-                        ];
+                          .materialSpecs[materialSpecId];
+                      const editableColor =
+                        editableMaterial.colorVariationsSpecs[colorSpecId];
                       editableColor.value = e.target.value;
                     }}
                     required={true}
