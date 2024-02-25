@@ -7,6 +7,7 @@ import { EditComponentSpecificationDetails } from "./subcomponents/EditComponent
 import { EditComponentSpecificationMaterials } from "./subcomponents/EditComponentSpecificationMaterials.tsx";
 import { EditComponentSpecificationMountingPoints } from "./subcomponents/EditComponentSpecificationMountingPoints.tsx";
 import { EditComponentSpecificationPositioning } from "./subcomponents/EditComponentSpecificationPositioning.tsx";
+import { removeComponentSpec } from "../../../../stores/actions/ProductActions.ts";
 import { EditorValuesStore } from "../../../../stores/EditorValuesStore.ts";
 import { ProductStore } from "../../../../stores/ProductStore.ts";
 
@@ -31,28 +32,7 @@ export const EditComponentSpecification = ({
   }
 
   const remove = () => {
-    Object.keys(ProductStore.baseSpecs).forEach((baseSpecId) => {
-      if (ProductStore.baseSpecs[baseSpecId].component === componentSpecId) {
-        delete ProductStore.baseSpecs[baseSpecId];
-      }
-    });
-
-    Object.keys(ProductStore.componentSpecs).forEach((iterComponentSpecId) => {
-      const iterComponentSpec =
-        ProductStore.componentSpecs[iterComponentSpecId];
-      Object.keys(iterComponentSpec.mountingPointsSpecs).forEach(
-        (iterMountingPointId) => {
-          const iterMountPoint =
-            iterComponentSpec.mountingPointsSpecs[iterMountingPointId];
-          iterMountPoint.mountableComponents =
-            iterMountPoint.mountableComponents.filter(
-              (component) => component !== componentSpecId
-            );
-        }
-      );
-    });
-
-    delete ProductStore.componentSpecs[componentSpecId];
+    removeComponentSpec(componentSpecId);
     onClose();
   };
 
