@@ -1,6 +1,6 @@
-import { Products } from "@3dwebprodconf/shared/src/interfaces/Products.ts";
+import { Catalogue } from "@3dwebprodconf/shared/src/interfaces/Catalogue.ts";
 
-export const fetchProducts = async (url: string): Promise<Products> => {
+export const fetchProducts = async (url: string): Promise<Catalogue> => {
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`${response.status}`);
@@ -8,5 +8,5 @@ export const fetchProducts = async (url: string): Promise<Products> => {
 
   // TODO: Validate data
 
-  return (await response.json()) as Products;
+  return (await response.json()) as Catalogue;
 };

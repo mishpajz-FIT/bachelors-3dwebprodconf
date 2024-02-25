@@ -10,7 +10,7 @@ import {
 import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../../../utilities/BoundsManipulation.ts";
-import { AddComponentTile } from "../AddComponent/AddComponentTile.tsx";
+import { AddComponentTile } from "../AddComponent/subcomponents/AddComponentTile.tsx";
 
 interface SelectBaseProps {
   onClose: () => void;

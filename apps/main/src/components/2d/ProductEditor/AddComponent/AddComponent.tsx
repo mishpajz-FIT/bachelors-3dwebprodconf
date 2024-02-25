@@ -7,7 +7,7 @@ import {
   WheelEventHandler,
 } from "react";
 
-import { AddComponentTile } from "./AddComponentTile.tsx";
+import { AddComponentTile } from "./subcomponents/AddComponentTile.tsx";
 
 interface AddComponentProps {
   mountableComponentsSpecs: readonly string[];

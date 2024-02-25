@@ -2,8 +2,8 @@ import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerH
 import { InformationCircleIcon } from "@heroicons/react/20/solid";
 import { useSnapshot } from "valtio";
 
-import { EditComponentChange } from "./EditComponentChange.tsx";
-import { EditComponentColors } from "./EditComponentColors.tsx";
+import { EditComponentChange } from "./subcomponents/EditComponentChange.tsx";
+import { EditComponentColors } from "./subcomponents/EditComponentColors.tsx";
 import { EditorValuesStore } from "../../../../stores/EditorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";

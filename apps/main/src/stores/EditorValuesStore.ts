@@ -1,13 +1,15 @@
 import { BoundsStorage } from "@3dwebprodconf/shared/src/interfaces/BoundsStorage.ts";
 import { proxy } from "valtio";
 
-interface EditorValuesStore {
+interface ConfiguratorValuesStore {
   currentProductId?: string;
   selectedComponentId?: string;
 }
 
-export const EditorValuesStore = proxy<EditorValuesStore & BoundsStorage>({
-  currentProductId: undefined,
-  selectedComponentId: undefined,
-  bounds: undefined,
-});
+export const EditorValuesStore = proxy<ConfiguratorValuesStore & BoundsStorage>(
+  {
+    currentProductId: undefined,
+    selectedComponentId: undefined,
+    bounds: undefined,
+  }
+);

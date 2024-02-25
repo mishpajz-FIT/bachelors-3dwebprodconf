@@ -1,7 +1,7 @@
 import { useSnapshot } from "valtio";
 
-import { ProductStore } from "../stores/ComponentsStore.ts";
 import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
+import { ProductStore } from "../stores/ProductStore.ts";
 
 export function useSelectedComponentSpec() {
   const productSnap = useSnapshot(ProductStore);

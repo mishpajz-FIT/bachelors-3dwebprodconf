@@ -1,3 +1,4 @@
+import { BoundsStorer } from "@3dwebprodconf/shared/src/components/BoundsStorer.tsx";
 import {
   AdaptiveDpr,
   Bounds,
@@ -12,8 +13,7 @@ import { Canvas } from "@react-three/fiber";
 import { useEffect } from "react";
 import { useSnapshot } from "valtio";
 
-import { Component } from "./Component.tsx";
-import { BoundsStorer } from "../../../../../packages/shared/src/components/BoundsStorer.tsx";
+import { Component } from "./Component/Component.tsx";
 import { globalConfig } from "../../configurations/Config.ts";
 import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";

@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 
-import { ProductConfirmationTile } from "./ProductConfirmationTile.tsx";
+import { ProductConfirmationTile } from "./subcomponents/ProductConfirmationTile.tsx";
 import { EditorValuesStore } from "../../../stores/EditorValuesStore.ts";
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 
