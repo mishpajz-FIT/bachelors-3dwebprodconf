@@ -1,7 +1,7 @@
 import { SkeletonImage } from "@3dwebprodconf/shared/src/components/SkeletonImage.tsx";
 import { useSnapshot } from "valtio";
 
-import { ProductsStore } from "../../../stores/ProductsStore.ts";
+import { CatalogueStore } from "../../../stores/CatalogueStore.ts";
 
 interface ProductSelectionTileProps {
   productId: string;
@@ -10,9 +10,9 @@ interface ProductSelectionTileProps {
 export const ProductSelectionTile = ({
   productId,
 }: ProductSelectionTileProps) => {
-  const productsSnap = useSnapshot(ProductsStore);
+  const catalogueSnap = useSnapshot(CatalogueStore);
 
-  const product = productsSnap.products[productId];
+  const product = catalogueSnap.products[productId];
   if (!product) {
     throw new Error(`Product with id ${productId} not found`);
   }

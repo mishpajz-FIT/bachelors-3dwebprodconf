@@ -1,9 +1,9 @@
 import { proxy } from "valtio";
 
-import { fetchProducts } from "./actions/ProductsActions.ts";
+import { fetchProducts } from "./actions/CatalogueActions.ts";
 import { globalConfig } from "../configurations/Config.ts";
 
-export const ProductsStore = proxy({
+export const CatalogueStore = proxy({
   products: fetchProducts(globalConfig.config.sources.products).catch(
     (error) => {
       const message =

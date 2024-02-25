@@ -9,9 +9,9 @@ import {
 import { ProductConfirmation } from "./components/2d/ProductConfirmation/ProductConfirmation.tsx";
 import { ProductSelection } from "./components/2d/ProductSelection/ProductSelection.tsx";
 import { fetchProductSpecification } from "./stores/actions/ProductSpecificationActions.ts";
+import { CatalogueStore } from "./stores/CatalogueStore.ts";
 import { ConfiguratorValuesStore } from "./stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "./stores/ProductSpecificationStore.ts";
-import { ProductsStore } from "./stores/ProductsStore.ts";
 import { UserCreationStore } from "./stores/UserCreationStore.ts";
 
 const ProductEditor = lazy(
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         throw Error("Wrong ProductID.");
       }
 
-      const products = await ProductsStore.products;
+      const products = await CatalogueStore.products;
       if (!products) {
         throw Error("Products not found.");
       }
@@ -66,7 +66,7 @@ const router = createBrowserRouter([
         throw Error("Wrong ProductID.");
       }
 
-      const products = await ProductsStore.products;
+      const products = await CatalogueStore.products;
       if (!products) {
         throw Error("Products not found.");
       }
