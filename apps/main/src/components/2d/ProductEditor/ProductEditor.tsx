@@ -1,10 +1,10 @@
+import { CanvasLoading } from "@3dwebprodconf/shared/src/components/CanvasLoading.tsx";
 import { Side } from "@3dwebprodconf/shared/src/components/containers/Side.tsx";
 import { lazy, Suspense, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 
 import { EditComponent } from "./EditComponent/EditComponent.tsx";
-import { ProductEditorLoading } from "./ProductEditorLoading.tsx";
 import { SelectBase } from "./SelectBase/SelectBase.tsx";
 import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore.ts";
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
@@ -25,7 +25,7 @@ const ProductEditor = () => {
 
   return (
     <div className="relative flex grow flex-col">
-      <Suspense fallback={<ProductEditorLoading />}>
+      <Suspense fallback={<CanvasLoading />}>
         <div className="relative flex grow overflow-x-hidden">
           {userCreationSnap.isBaseSet && <ProductEditorCanvas />}
 

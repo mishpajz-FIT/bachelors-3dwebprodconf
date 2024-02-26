@@ -1,6 +1,6 @@
 import { useProgress } from "@react-three/drei";
 
-export const ProductEditorLoading = () => {
+export const CanvasLoading = () => {
   const { progress } = useProgress();
 
   return (

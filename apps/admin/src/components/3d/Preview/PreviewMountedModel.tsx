@@ -3,9 +3,9 @@ import { useGLTF } from "@react-three/drei";
 import { Euler, Mesh } from "three";
 import { useSnapshot } from "valtio";
 
-import { defaultAdminConfig } from "../../configurations/Config.ts";
-import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
-import { ProductStore } from "../../stores/ProductStore.ts";
+import { defaultAdminConfig } from "../../../configurations/Config.ts";
+import { EditorValuesStore } from "../../../stores/EditorValuesStore.ts";
+import { ProductStore } from "../../../stores/ProductStore.ts";
 
 export const PreviewMountedModel = () => {
   const productSnap = useSnapshot(ProductStore);

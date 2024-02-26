@@ -5,10 +5,10 @@ import { Euler } from "three";
 import { useSnapshot } from "valtio";
 
 import { PreviewMountedModel } from "./PreviewMountedModel.tsx";
-import { defaultAdminConfig } from "../../configurations/Config.ts";
-import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
-import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
-import { ProductStore } from "../../stores/ProductStore.ts";
+import { defaultAdminConfig } from "../../../configurations/Config.ts";
+import { useSelectedComponentSpec } from "../../../hooks/useSelectedComponentSpec.ts";
+import { EditorValuesStore } from "../../../stores/EditorValuesStore.ts";
+import { ProductStore } from "../../../stores/ProductStore.ts";
 
 interface PreviewMountingPointProps {
   mountingPointId: string;

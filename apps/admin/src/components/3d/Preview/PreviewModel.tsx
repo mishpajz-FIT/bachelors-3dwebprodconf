@@ -6,11 +6,11 @@ import { Box3, Euler, Mesh, MeshBasicMaterial, Vector3 } from "three";
 import { useSnapshot } from "valtio";
 
 import { PreviewMountingPoint } from "./PreviewMountingPoint.tsx";
-import { defaultAdminConfig } from "../../configurations/Config.ts";
-import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
-import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
-import { ProductStore } from "../../stores/ProductStore.ts";
-import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
+import { defaultAdminConfig } from "../../../configurations/Config.ts";
+import { useSelectedComponentSpec } from "../../../hooks/useSelectedComponentSpec.ts";
+import { EditorValuesStore } from "../../../stores/EditorValuesStore.ts";
+import { ProductStore } from "../../../stores/ProductStore.ts";
+import { refreshBounds } from "../../../utilities/BoundsManipulation.ts";
 
 export const PreviewModel = () => {
   const { componentSpecId, componentSpec } = useSelectedComponentSpec();
