@@ -3,10 +3,10 @@ import { useEffect } from "react";
 import { MathUtils } from "three";
 import { useSnapshot } from "valtio";
 
-import { useSelectedComponentSpec } from "../../../../../hooks/useSelectedComponentSpec.ts";
-import { EditorValuesStore } from "../../../../../stores/EditorValuesStore.ts";
-import { ProductStore } from "../../../../../stores/ProductStore.ts";
-import { refreshBounds } from "../../../../../utilities/BoundsManipulation.ts";
+import { useSelectedComponentSpec } from "../../../../../../hooks/useSelectedComponentSpec.ts";
+import { EditorValuesStore } from "../../../../../../stores/EditorValuesStore.ts";
+import { ProductStore } from "../../../../../../stores/ProductStore.ts";
+import { refreshBounds } from "../../../../../../utilities/BoundsManipulation.ts";
 
 export const EditComponentSpecificationPositioning = () => {
   const editorValuesSnap = useSnapshot(EditorValuesStore);

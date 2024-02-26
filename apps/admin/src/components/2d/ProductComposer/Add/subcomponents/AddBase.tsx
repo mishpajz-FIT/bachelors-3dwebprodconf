@@ -4,7 +4,7 @@ import { FormEvent, Fragment, useState } from "react";
 import { useSnapshot } from "valtio";
 
 import { ProductStore } from "../../../../../stores/ProductStore.ts";
-import { Add } from "../Add.tsx";
+import { AddContent } from "../AddContent.tsx";
 
 interface AddBaseProps {
   onClose: () => void;
@@ -54,7 +54,7 @@ export const AddBase = ({ onClose }: AddBaseProps) => {
   };
 
   return (
-    <Add
+    <AddContent
       heading={"Add new base"}
       onClose={onClose}
       showingError={isShowingError}
@@ -140,6 +140,6 @@ export const AddBase = ({ onClose }: AddBaseProps) => {
           </button>
         </div>
       </form>
-    </Add>
+    </AddContent>
   );
 };

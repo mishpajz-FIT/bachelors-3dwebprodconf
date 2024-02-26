@@ -4,9 +4,9 @@ import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
-import { useSelectedComponentSpec } from "../../../../../hooks/useSelectedComponentSpec.ts";
-import { EditorValuesStore } from "../../../../../stores/EditorValuesStore.ts";
-import { AddMountingPoint } from "../../Add/subcomponents/AddMountingPoint.tsx";
+import { useSelectedComponentSpec } from "../../../../../../hooks/useSelectedComponentSpec.ts";
+import { EditorValuesStore } from "../../../../../../stores/EditorValuesStore.ts";
+import { AddMountingPoint } from "../../../Add/subcomponents/AddMountingPoint.tsx";
 import { EditMountingPointSpecification } from "../../EditMountingPointSpecification/EditMountingPointSpecification.tsx";
 
 export const EditComponentSpecificationMountingPoints = () => {

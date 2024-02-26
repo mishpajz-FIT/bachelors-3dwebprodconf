@@ -9,7 +9,7 @@ interface AddProps {
   children: ReactNode;
 }
 
-export const Add = ({
+export const AddContent = ({
   heading,
   onClose,
   showingError,

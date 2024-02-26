@@ -3,7 +3,7 @@ import { FormEvent, useState } from "react";
 
 import { ProductStore } from "../../../../../stores/ProductStore.ts";
 import { refreshBounds } from "../../../../../utilities/BoundsManipulation.ts";
-import { Add } from "../Add.tsx";
+import { AddContent } from "../AddContent.tsx";
 
 interface AddComponentSpecificationProps {
   onClose: () => void;
@@ -68,7 +68,7 @@ export const AddComponentSpecification = ({
   );
 
   return (
-    <Add
+    <AddContent
       heading={"Add new component"}
       onClose={onClose}
       showingError={isShowingError}
@@ -102,6 +102,6 @@ export const AddComponentSpecification = ({
           </button>
         </div>
       </form>
-    </Add>
+    </AddContent>
   );
 };

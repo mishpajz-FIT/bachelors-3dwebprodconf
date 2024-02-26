@@ -4,7 +4,7 @@ import { useSelectedComponentSpec } from "../../../../../hooks/useSelectedCompon
 import { useSelectedMaterialSpec } from "../../../../../hooks/useSelectedMaterialSpec.ts";
 import { ProductStore } from "../../../../../stores/ProductStore.ts";
 import { refreshBounds } from "../../../../../utilities/BoundsManipulation.ts";
-import { Add } from "../Add.tsx";
+import { AddContent } from "../AddContent.tsx";
 
 interface AddMaterialProps {
   onClose: () => void;
@@ -49,7 +49,7 @@ export const AddColor = ({ onClose }: AddMaterialProps) => {
   };
 
   return (
-    <Add
+    <AddContent
       heading={"Add new color"}
       onClose={onClose}
       showingError={isShowingError}
@@ -93,6 +93,6 @@ export const AddColor = ({ onClose }: AddMaterialProps) => {
           </button>
         </div>
       </form>
-    </Add>
+    </AddContent>
   );
 };

@@ -1,8 +1,8 @@
 import { TextInput } from "@3dwebprodconf/shared/src/components/inputs/TextInput.tsx";
 import { ChangeEvent } from "react";
 
-import { useSelectedComponentSpec } from "../../../../../hooks/useSelectedComponentSpec.ts";
-import { ProductStore } from "../../../../../stores/ProductStore.ts";
+import { useSelectedComponentSpec } from "../../../../../../hooks/useSelectedComponentSpec.ts";
+import { ProductStore } from "../../../../../../stores/ProductStore.ts";
 
 export const EditComponentSpecificationDetails = () => {
   const { componentSpecId, componentSpec } = useSelectedComponentSpec();

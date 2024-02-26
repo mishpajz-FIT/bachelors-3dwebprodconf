@@ -14,8 +14,8 @@ import {
 import { Canvas } from "@react-three/fiber";
 import { useSnapshot } from "valtio";
 
-import { EditComponentSpecification } from "./EditComponentSpecification/EditComponentSpecification.tsx";
-import { ProductComposerTabs } from "./ProductComposerTabs/ProductComposerTabs.tsx";
+import { EditComponentSpecification } from "./Edit/EditComponentSpecification/EditComponentSpecification.tsx";
+import { ProductComposerTabs } from "./Tabs/ProductComposerTabs.tsx";
 import { EditorValuesStore } from "../../../stores/EditorValuesStore.ts";
 import { refreshBounds } from "../../../utilities/BoundsManipulation.ts";
 import { PreviewModel } from "../../3d/PreviewModel.tsx";

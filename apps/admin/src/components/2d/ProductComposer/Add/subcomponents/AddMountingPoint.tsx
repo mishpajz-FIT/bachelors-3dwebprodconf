@@ -3,7 +3,7 @@ import { FormEvent, useState } from "react";
 import { useSelectedComponentSpec } from "../../../../../hooks/useSelectedComponentSpec.ts";
 import { ProductStore } from "../../../../../stores/ProductStore.ts";
 import { refreshBounds } from "../../../../../utilities/BoundsManipulation.ts";
-import { Add } from "../Add.tsx";
+import { AddContent } from "../AddContent.tsx";
 
 interface AddMountingPointProps {
   onClose: () => void;
@@ -44,7 +44,7 @@ export const AddMountingPoint = ({ onClose }: AddMountingPointProps) => {
   };
 
   return (
-    <Add
+    <AddContent
       heading={"Add new mounting point"}
       onClose={onClose}
       showingError={isShowingError}
@@ -67,6 +67,6 @@ export const AddMountingPoint = ({ onClose }: AddMountingPointProps) => {
           </button>
         </div>
       </form>
-    </Add>
+    </AddContent>
   );
 };

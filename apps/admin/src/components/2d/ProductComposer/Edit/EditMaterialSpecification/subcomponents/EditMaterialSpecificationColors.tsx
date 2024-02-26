@@ -7,10 +7,10 @@ import {
 } from "@heroicons/react/24/solid";
 import { useState } from "react";
 
-import { useSelectedComponentSpec } from "../../../../../hooks/useSelectedComponentSpec.ts";
-import { useSelectedMaterialSpec } from "../../../../../hooks/useSelectedMaterialSpec.ts";
-import { ProductStore } from "../../../../../stores/ProductStore.ts";
-import { AddColor } from "../../Add/subcomponents/AddColor.tsx";
+import { useSelectedComponentSpec } from "../../../../../../hooks/useSelectedComponentSpec.ts";
+import { useSelectedMaterialSpec } from "../../../../../../hooks/useSelectedMaterialSpec.ts";
+import { ProductStore } from "../../../../../../stores/ProductStore.ts";
+import { AddColor } from "../../../Add/subcomponents/AddColor.tsx";
 
 export const EditMaterialSpecificationColors = () => {
   const { componentSpecId } = useSelectedComponentSpec();

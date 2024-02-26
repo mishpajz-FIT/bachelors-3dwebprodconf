@@ -1,6 +1,6 @@
-import { useSelectedComponentSpec } from "../../../../../hooks/useSelectedComponentSpec.ts";
-import { useSelectedMountingPointSpec } from "../../../../../hooks/useSelectedMountingPointSpec.ts";
-import { ProductStore } from "../../../../../stores/ProductStore.ts";
+import { useSelectedComponentSpec } from "../../../../../../hooks/useSelectedComponentSpec.ts";
+import { useSelectedMountingPointSpec } from "../../../../../../hooks/useSelectedMountingPointSpec.ts";
+import { ProductStore } from "../../../../../../stores/ProductStore.ts";
 
 export const EditMountingPointSpecificationDetails = () => {
   const { componentSpecId } = useSelectedComponentSpec();
