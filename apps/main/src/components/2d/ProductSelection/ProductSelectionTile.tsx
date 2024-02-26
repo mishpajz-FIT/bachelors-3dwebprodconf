@@ -12,7 +12,7 @@ export const ProductSelectionTile = ({
 }: ProductSelectionTileProps) => {
   const catalogueSnap = useSnapshot(CatalogueStore);
 
-  const product = catalogueSnap.products[productId];
+  const product = catalogueSnap.catalogue.products[productId];
   if (!product) {
     throw new Error(`Product with id ${productId} not found`);
   }

@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         throw Error("Wrong ProductID.");
       }
 
-      const catalogue = await CatalogueStore;
+      const catalogue = await CatalogueStore.catalogue;
       const products = catalogue.products;
       if (!products) {
         throw Error("Products not found.");
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
         throw Error("Wrong ProductID.");
       }
 
-      const catalogue = await CatalogueStore;
+      const catalogue = await CatalogueStore.catalogue;
       const products = catalogue.products;
       if (!products) {
         throw Error("Products not found.");

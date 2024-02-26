@@ -25,7 +25,13 @@ const ProductEditor = () => {
 
   return (
     <div className="relative flex grow flex-col">
-      <Suspense fallback={<CanvasLoading />}>
+      <Suspense
+        fallback={
+          <div className="other-background size-full">
+            <CanvasLoading />
+          </div>
+        }
+      >
         <div className="relative flex grow overflow-x-hidden">
           {userCreationSnap.isBaseSet && <ProductEditorCanvas />}
 
