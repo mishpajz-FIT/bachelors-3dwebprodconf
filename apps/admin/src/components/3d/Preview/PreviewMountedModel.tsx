@@ -25,7 +25,7 @@ export const PreviewMountedModel = () => {
     );
   }
 
-  const { nodes } = useGLTF("/kokos.glb");
+  const { nodes } = useGLTF(previewedMountedComponent.modelUrl);
 
   return (
     <group

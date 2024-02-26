@@ -16,7 +16,7 @@ export const PreviewModel = () => {
   const { componentSpecId, componentSpec } = useSelectedComponentSpec();
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 
-  const { scene, nodes, materials } = useGLTF("/kokos.glb");
+  const { scene, nodes, materials } = useGLTF(componentSpec.modelUrl);
 
   const groupRef = useRef(null);
 
