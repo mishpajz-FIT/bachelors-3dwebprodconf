@@ -21,6 +21,13 @@
     @apply dark:outline dark:outline-1 dark:outline-zinc-700;
   }
 
+  .glass-panel {
+    @apply rounded-2xl bg-white/[0.3] shadow-xl backdrop-blur-lg backdrop-opacity-75;
+    @apply border border-gray-200;
+
+    @apply dark:border-zinc-700 dark:bg-zinc-800/[0.7];
+  }
+
   .content-width {
     @apply w-full md:w-4/5 lg:w-[92%] xl:w-3/4 2xl:w-[70%];
   }

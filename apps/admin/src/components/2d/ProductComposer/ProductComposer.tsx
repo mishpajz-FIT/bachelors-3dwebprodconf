@@ -15,8 +15,14 @@ const ProductComposer = () => {
     <div className="relative flex grow flex-row">
       <ProductComposerTabs />
 
-      <div className="relative flex grow overflow-x-hidden overflow-y-hidden">
-        <Suspense fallback={<CanvasLoading />}>
+      <div className="relative flex grow overflow-hidden">
+        <Suspense
+          fallback={
+            <div className="other-background size-full">
+              <CanvasLoading />
+            </div>
+          }
+        >
           <ProductComposerCanvas />
         </Suspense>
 

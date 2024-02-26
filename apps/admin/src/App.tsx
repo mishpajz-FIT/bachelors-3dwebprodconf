@@ -1,6 +1,7 @@
 import { useEffect } from "react";
-import { defaultAdminConfig } from "./configurations/Config.ts";
+
 import { AppContent } from "./AppContent.tsx";
+import { defaultAdminConfig } from "./configurations/Config.ts";
 
 function App() {
   useEffect(() => {

@@ -1,5 +1,6 @@
 import { BoundsStorer } from "@3dwebprodconf/shared/src/components/BoundsStorer.tsx";
 import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
+import { VideoCameraIcon } from "@heroicons/react/24/outline";
 import {
   AdaptiveDpr,
   Bounds,
@@ -102,7 +103,16 @@ export const ProductComposerCanvas = () => {
         </GizmoHelper>
         <Preload all />
       </Canvas>
-      <div className="absolute bottom-4"> hello</div>
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
+        <div className="glass-panel flex flex-row items-center justify-center rounded p-2">
+          <button
+            className="transition duration-150 ease-in-out active:scale-95"
+            onClick={() => refreshBounds()}
+          >
+            <VideoCameraIcon className="size-4 stroke-2 hover:stroke-1" />
+          </button>
+        </div>
+      </div>
     </>
   );
 };
