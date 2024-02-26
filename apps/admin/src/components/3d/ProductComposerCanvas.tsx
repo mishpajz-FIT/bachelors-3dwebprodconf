@@ -13,7 +13,7 @@ import {
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { DoubleSide } from "three";
-import { useSnapshot } from "valtio/esm/index";
+import { useSnapshot } from "valtio";
 
 import { PreviewModel } from "./Preview/PreviewModel.tsx";
 import { defaultAdminConfig } from "../../configurations/Config.ts";
@@ -37,69 +37,72 @@ export const ProductComposerCanvas = () => {
       ];
 
   return (
-    <Canvas
-      className="grow touch-none bg-[#fefefe] dark:bg-[#141414]"
-      frameloop="demand"
-      performance={{ min: 0.85 }}
-      shadows={true}
-      camera={{ position: [0, 1.7, 3] }}
-    >
-      <OrbitControls makeDefault={true} regress={true} />
-      <Environment preset="city" />
-      <AdaptiveDpr />
-      <ambientLight intensity={0.3} />
-      <hemisphereLight
-        color={"#ffffff"}
-        groundColor={"#bbbbbb"}
-        intensity={0.5}
-      />
-      <directionalLight position={[2, 2, 5]} intensity={0.7} />
-      <Grid
-        position={[0, 0, 0]}
-        args={[10, 10]}
-        fadeDistance={30}
-        fadeStrength={2}
-        infiniteGrid={true}
-        cellSize={0.1}
-        sectionSize={1}
-        cellThickness={0.5}
-        sectionThickness={1}
-        side={DoubleSide}
-        cellColor={
-          darkMode
-            ? defaultAdminConfig.spatialUi.gridColors.secondary.dark
-            : defaultAdminConfig.spatialUi.gridColors.secondary.light
-        }
-        sectionColor={
-          darkMode
-            ? defaultAdminConfig.spatialUi.gridColors.primary.dark
-            : defaultAdminConfig.spatialUi.gridColors.primary.light
-        }
-      />
-      <Bounds fit clip observe margin={4}>
-        <BoundsStorer
-          key={editorValuesSnap.selectedComponentSpec}
-          boundsStorage={EditorValuesStore}
-          refresh={() => {
-            refreshBounds();
-          }}
-        >
-          <Box
-            args={[0.1, 0.1, 0.1]}
-            position={[0, 0, 0]}
-            material-color={
-              darkMode
-                ? defaultAdminConfig.spatialUi.gridColors.primary.dark
-                : defaultAdminConfig.spatialUi.gridColors.primary.light
-            }
-          />
-          {editorValuesSnap.selectedComponentSpec && <PreviewModel />}
-        </BoundsStorer>
-      </Bounds>
-      <GizmoHelper alignment="bottom-left" margin={[80, 80]}>
-        <GizmoViewport axisColors={rgbColors} labelColor="white" />
-      </GizmoHelper>
-      <Preload all />
-    </Canvas>
+    <>
+      <Canvas
+        className="grow touch-none bg-[#fefefe] dark:bg-[#141414]"
+        frameloop="demand"
+        performance={{ min: 0.85 }}
+        shadows={true}
+        camera={{ position: [0, 1.7, 3] }}
+      >
+        <OrbitControls makeDefault={true} regress={true} />
+        <Environment preset="city" />
+        <AdaptiveDpr />
+        <ambientLight intensity={0.3} />
+        <hemisphereLight
+          color={"#ffffff"}
+          groundColor={"#bbbbbb"}
+          intensity={0.5}
+        />
+        <directionalLight position={[2, 2, 5]} intensity={0.7} />
+        <Grid
+          position={[0, 0, 0]}
+          args={[10, 10]}
+          fadeDistance={30}
+          fadeStrength={2}
+          infiniteGrid={true}
+          cellSize={0.1}
+          sectionSize={1}
+          cellThickness={0.5}
+          sectionThickness={1}
+          side={DoubleSide}
+          cellColor={
+            darkMode
+              ? defaultAdminConfig.spatialUi.gridColors.secondary.dark
+              : defaultAdminConfig.spatialUi.gridColors.secondary.light
+          }
+          sectionColor={
+            darkMode
+              ? defaultAdminConfig.spatialUi.gridColors.primary.dark
+              : defaultAdminConfig.spatialUi.gridColors.primary.light
+          }
+        />
+        <Bounds fit clip observe margin={4}>
+          <BoundsStorer
+            key={editorValuesSnap.selectedComponentSpec}
+            boundsStorage={EditorValuesStore}
+            refresh={() => {
+              refreshBounds();
+            }}
+          >
+            <Box
+              args={[0.1, 0.1, 0.1]}
+              position={[0, 0, 0]}
+              material-color={
+                darkMode
+                  ? defaultAdminConfig.spatialUi.gridColors.primary.dark
+                  : defaultAdminConfig.spatialUi.gridColors.primary.light
+              }
+            />
+            {editorValuesSnap.selectedComponentSpec && <PreviewModel />}
+          </BoundsStorer>
+        </Bounds>
+        <GizmoHelper alignment="bottom-left" margin={[80, 80]}>
+          <GizmoViewport axisColors={rgbColors} labelColor="white" />
+        </GizmoHelper>
+        <Preload all />
+      </Canvas>
+      <div className="absolute bottom-4"> hello</div>
+    </>
   );
 };

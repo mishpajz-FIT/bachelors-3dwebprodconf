@@ -71,7 +71,7 @@ export const ProductComposerTabs = () => {
   };
 
   return (
-    <div className="simple-panel z-10 flex h-full w-1/2 flex-col rounded-none p-2 lg:w-1/4">
+    <div className="simple-panel z-10 flex h-full w-1/2 flex-col rounded-none p-2 lg:w-1/4 xl:w-1/5">
       <div className="w-full">
         <Tab.Group>
           <Tab.List className="mt-2 flex space-x-1 rounded-md bg-gray-100 p-1 dark:bg-zinc-800">

@@ -8,29 +8,33 @@ import { ProductComposerTabs } from "./Tabs/ProductComposerTabs.tsx";
 import { EditorValuesStore } from "../../../stores/EditorValuesStore.ts";
 import { ProductComposerCanvas } from "../../3d/ProductComposerCanvas.tsx";
 
-export const ProductComposer = () => {
+const ProductComposer = () => {
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 
   return (
-    <>
+    <div className="relative flex grow flex-row">
       <ProductComposerTabs />
 
-      <Suspense fallback={<CanvasLoading />}>
-        <ProductComposerCanvas />
-      </Suspense>
+      <div className="relative flex grow overflow-x-hidden overflow-y-hidden">
+        <Suspense fallback={<CanvasLoading />}>
+          <ProductComposerCanvas />
+        </Suspense>
 
-      <Side
-        isOpen={editorValuesSnap.selectedComponentSpec !== undefined}
-        larger={true}
-      >
-        <EditComponentSpecification
-          onClose={() => {
-            EditorValuesStore.selectedComponentSpec = undefined;
-            EditorValuesStore.selectedMountingPoint = undefined;
-            EditorValuesStore.selectedMaterial = undefined;
-          }}
-        />
-      </Side>
-    </>
+        <Side
+          isOpen={editorValuesSnap.selectedComponentSpec !== undefined}
+          larger={true}
+        >
+          <EditComponentSpecification
+            onClose={() => {
+              EditorValuesStore.selectedComponentSpec = undefined;
+              EditorValuesStore.selectedMountingPoint = undefined;
+              EditorValuesStore.selectedMaterial = undefined;
+            }}
+          />
+        </Side>
+      </div>
+    </div>
   );
 };
+
+export default ProductComposer;

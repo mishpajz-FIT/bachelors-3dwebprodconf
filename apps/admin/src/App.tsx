@@ -1,7 +1,6 @@
 import { useEffect } from "react";
-
-import { ProductComposer } from "./components/2d/ProductComposer/ProductComposer.tsx";
 import { defaultAdminConfig } from "./configurations/Config.ts";
+import { AppContent } from "./AppContent.tsx";
 
 function App() {
   useEffect(() => {
@@ -35,11 +34,7 @@ function App() {
     setCSSVariables();
   }, []);
 
-  return (
-    <div className="app flex flex-row">
-      <ProductComposer />
-    </div>
-  );
+  return <AppContent />;
 }
 
 export default App;
