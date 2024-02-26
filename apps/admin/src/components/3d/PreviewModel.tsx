@@ -65,6 +65,7 @@ export const PreviewModel = () => {
         onManipulationEnd={() => {
           refreshBounds();
         }}
+        hidden={editorValuesSnap.selectedMountingPoint !== undefined}
       >
         <group
           position={componentSpec.positionOffset}

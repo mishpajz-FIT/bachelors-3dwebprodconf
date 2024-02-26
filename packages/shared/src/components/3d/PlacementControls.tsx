@@ -8,6 +8,7 @@ interface PlacementControlsProps {
   onManipulationEnd: () => void;
   updatePosition: (position: [number, number, number]) => void;
   updateRotation: (rotation: [number, number, number]) => void;
+  hidden?: boolean;
   children?: ReactNode;
 }
 
@@ -17,12 +18,17 @@ export const PlacementControls = ({
   onManipulationEnd,
   updatePosition,
   updateRotation,
+  hidden,
   children,
 }: PlacementControlsProps) => {
   const [dragPosition, setDragPosition] =
     useState<[number, number, number]>(currentPosition);
   const [dragRotation, setDragRotation] =
     useState<[number, number, number]>(currentRotation);
+
+  if (hidden) {
+    return children;
+  }
 
   return (
     <PivotControls
