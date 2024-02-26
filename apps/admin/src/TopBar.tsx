@@ -7,7 +7,9 @@ interface TopBarProps {
 
 export const TopBar = ({ children }: TopBarProps) => {
   const baseButtonStyle =
-    "font-bold tracking-tight underlined-selection active:scale-95 transition duration-150 ease-in-out";
+    "font-bold tracking-tight underlined-selection active:scale-95 transition duration-150 ease-in-out hover:dark:text-white hover:text-black";
+  const activeButtonStyle =
+    "underline hover:underline text-black dark:text-white";
 
   return (
     <>
@@ -15,7 +17,7 @@ export const TopBar = ({ children }: TopBarProps) => {
         <NavLink
           to="/cataloguecomposer"
           className={({ isActive }) => {
-            return `${isActive ? "underline" : "decoration-white"} ${baseButtonStyle}`;
+            return `${isActive ? activeButtonStyle : "text-gray-400 hover:no-underline dark:text-gray-400"} ${baseButtonStyle}`;
           }}
         >
           Catalogue Composer
@@ -23,7 +25,7 @@ export const TopBar = ({ children }: TopBarProps) => {
         <NavLink
           to="/productcomposer"
           className={({ isActive }) => {
-            return `${isActive ? "underline" : "decoration-white"} ${baseButtonStyle}`;
+            return `${isActive ? activeButtonStyle : "text-gray-400 hover:no-underline dark:text-gray-400"} ${baseButtonStyle}`;
           }}
         >
           Product Composer
