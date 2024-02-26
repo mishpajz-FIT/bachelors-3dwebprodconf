@@ -1,8 +1,8 @@
 import { ComponentSpecification } from "@3dwebprodconf/shared/src/interfaces/ProductSpecification.ts";
 import { FormEvent, useState } from "react";
 
-import { ProductStore } from "../../../../../stores/ProductStore.ts";
-import { refreshBounds } from "../../../../../utilities/BoundsManipulation.ts";
+import { ProductStore } from "../../../../stores/ProductStore.ts";
+import { refreshBounds } from "../../../../utilities/BoundsManipulation.ts";
 import { AddContent } from "../AddContent.tsx";
 
 interface AddComponentSpecificationProps {

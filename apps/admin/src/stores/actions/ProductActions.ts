@@ -1,3 +1,5 @@
+import { downloadableJson } from "@3dwebprodconf/shared/src/utilites/downloadableJson.ts";
+
 import { ProductStore } from "../ProductStore.ts";
 
 export const removeComponentSpec = (componentSpecId: string) => {
@@ -25,15 +27,7 @@ export const removeComponentSpec = (componentSpecId: string) => {
 };
 
 export const exportProduct = () => {
-  const dataStr =
-    "data:text/json;charset=utf-8," +
-    encodeURIComponent(JSON.stringify(ProductStore));
-  const downloadAnchorNode = document.createElement("a");
-  downloadAnchorNode.setAttribute("href", dataStr);
-  downloadAnchorNode.setAttribute("download", "productspecification.json");
-  document.body.appendChild(downloadAnchorNode);
-  downloadAnchorNode.click();
-  downloadAnchorNode.remove();
+  downloadableJson(JSON.stringify(ProductStore), "productspecification");
 };
 
 export const missingComponentsInMountingPoints = () => {

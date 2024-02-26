@@ -3,7 +3,7 @@ import { ChevronUpDownIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { FormEvent, Fragment, useState } from "react";
 import { useSnapshot } from "valtio";
 
-import { ProductStore } from "../../../../../stores/ProductStore.ts";
+import { ProductStore } from "../../../../stores/ProductStore.ts";
 import { AddContent } from "../AddContent.tsx";
 
 interface AddBaseProps {

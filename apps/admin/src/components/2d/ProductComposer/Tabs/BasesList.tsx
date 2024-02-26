@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useSnapshot } from "valtio";
 
 import { ProductStore } from "../../../../stores/ProductStore.ts";
-import { AddBase } from "../Add/subcomponents/AddBase.tsx";
+import { AddBase } from "../../Add/subcomponents/AddBase.tsx";
 
 export const BasesList = () => {
   const productSnap = useSnapshot(ProductStore);

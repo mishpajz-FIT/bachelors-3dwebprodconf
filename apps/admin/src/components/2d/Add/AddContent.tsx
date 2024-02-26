@@ -20,7 +20,7 @@ export const AddContent = ({
     <div className="flex min-w-96 flex-col">
       <ContainerHeader title={heading} onClose={onClose} subheader={true} />
       {showingError && (
-        <div className="m-2 rounded-lg bg-rose-500 p-2 text-white">
+        <div className="m-2 rounded-lg bg-rose-500 p-2 text-sm text-white">
           {errorReason}
         </div>
       )}

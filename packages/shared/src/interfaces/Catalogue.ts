@@ -4,4 +4,6 @@ export interface CatalogueProduct {
   name: string;
 }
 
-export type Catalogue = Record<string, CatalogueProduct>;
+export interface Catalogue {
+  products: Record<string, CatalogueProduct>;
+}

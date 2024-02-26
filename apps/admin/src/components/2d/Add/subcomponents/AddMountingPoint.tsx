@@ -1,8 +1,8 @@
 import { FormEvent, useState } from "react";
 
-import { useSelectedComponentSpec } from "../../../../../hooks/useSelectedComponentSpec.ts";
-import { ProductStore } from "../../../../../stores/ProductStore.ts";
-import { refreshBounds } from "../../../../../utilities/BoundsManipulation.ts";
+import { useSelectedComponentSpec } from "../../../../hooks/useSelectedComponentSpec.ts";
+import { ProductStore } from "../../../../stores/ProductStore.ts";
+import { refreshBounds } from "../../../../utilities/BoundsManipulation.ts";
 import { AddContent } from "../AddContent.tsx";
 
 interface AddMountingPointProps {

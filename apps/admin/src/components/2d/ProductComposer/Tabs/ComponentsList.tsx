@@ -5,7 +5,7 @@ import { useSnapshot } from "valtio";
 
 import { EditorValuesStore } from "../../../../stores/EditorValuesStore.ts";
 import { ProductStore } from "../../../../stores/ProductStore.ts";
-import { AddComponentSpecification } from "../Add/subcomponents/AddComponentSpecification.tsx";
+import { AddComponentSpecification } from "../../Add/subcomponents/AddComponentSpecification.tsx";
 
 export const ComponentsList = () => {
   const productSnap = useSnapshot(ProductStore);

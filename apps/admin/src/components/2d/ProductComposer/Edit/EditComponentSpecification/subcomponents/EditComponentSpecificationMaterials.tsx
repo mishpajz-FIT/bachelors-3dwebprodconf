@@ -6,7 +6,7 @@ import { useSnapshot } from "valtio";
 
 import { useSelectedComponentSpec } from "../../../../../../hooks/useSelectedComponentSpec.ts";
 import { EditorValuesStore } from "../../../../../../stores/EditorValuesStore.ts";
-import { AddMaterial } from "../../../Add/subcomponents/AddMaterial.tsx";
+import { AddMaterial } from "../../../../Add/subcomponents/AddMaterial.tsx";
 import { EditMaterialSpecification } from "../../EditMaterialSpecification/EditMaterialSpecification.tsx";
 
 export const EditComponentSpecificationMaterials = () => {
