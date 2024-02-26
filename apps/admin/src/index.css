@@ -22,11 +22,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-
-  --primary-light: #3377ff;
-  --primary-dark: #0011ff;
-  --primary-overlay-light: rgb(255 255 255);
-  --primary-overlay-dark: rgb(255 255 255);
 }
 
 h1 {

@@ -1,5 +1,6 @@
 import { BoundsStorer } from "@3dwebprodconf/shared/src/components/BoundsStorer.tsx";
 import { Side } from "@3dwebprodconf/shared/src/components/containers/Side.tsx";
+import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
 import {
   AdaptiveDpr,
   Bounds,
@@ -12,16 +13,32 @@ import {
   Preload,
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import { DoubleSide } from "three";
 import { useSnapshot } from "valtio";
 
 import { EditComponentSpecification } from "./Edit/EditComponentSpecification/EditComponentSpecification.tsx";
 import { ProductComposerTabs } from "./Tabs/ProductComposerTabs.tsx";
+import { defaultAdminConfig } from "../../../configurations/Config.ts";
 import { EditorValuesStore } from "../../../stores/EditorValuesStore.ts";
 import { refreshBounds } from "../../../utilities/BoundsManipulation.ts";
 import { PreviewModel } from "../../3d/PreviewModel.tsx";
 
 export const ProductComposer = () => {
   const editorValuesSnap = useSnapshot(EditorValuesStore);
+
+  const darkMode = useDarkMode();
+
+  const rgbColors: [string, string, string] = darkMode
+    ? [
+        defaultAdminConfig.spatialUi.gizmoColors.r.dark,
+        defaultAdminConfig.spatialUi.gizmoColors.g.dark,
+        defaultAdminConfig.spatialUi.gizmoColors.b.dark,
+      ]
+    : [
+        defaultAdminConfig.spatialUi.gizmoColors.r.light,
+        defaultAdminConfig.spatialUi.gizmoColors.g.light,
+        defaultAdminConfig.spatialUi.gizmoColors.b.light,
+      ];
 
   return (
     <>
@@ -46,17 +63,26 @@ export const ProductComposer = () => {
         <Grid
           position={[0, 0, 0]}
           args={[10, 10]}
-          fadeDistance={10}
-          fadeStrength={1}
+          fadeDistance={30}
+          fadeStrength={2}
           infiniteGrid={true}
           cellSize={0.1}
           sectionSize={1}
           cellThickness={0.5}
           sectionThickness={1}
-          cellColor={"#6f6f6f"}
-          sectionColor={"#3377ff"}
+          side={DoubleSide}
+          cellColor={
+            darkMode
+              ? defaultAdminConfig.spatialUi.gridColors.secondary.dark
+              : defaultAdminConfig.spatialUi.gridColors.secondary.light
+          }
+          sectionColor={
+            darkMode
+              ? defaultAdminConfig.spatialUi.gridColors.primary.dark
+              : defaultAdminConfig.spatialUi.gridColors.primary.light
+          }
         />
-        <Bounds fit clip observe margin={2}>
+        <Bounds fit clip observe margin={4}>
           <BoundsStorer
             key={editorValuesSnap.selectedComponentSpec}
             boundsStorage={EditorValuesStore}
@@ -67,16 +93,17 @@ export const ProductComposer = () => {
             <Box
               args={[0.1, 0.1, 0.1]}
               position={[0, 0, 0]}
-              material-color={"#3377ff"}
+              material-color={
+                darkMode
+                  ? defaultAdminConfig.spatialUi.gridColors.primary.dark
+                  : defaultAdminConfig.spatialUi.gridColors.primary.light
+              }
             />
             {editorValuesSnap.selectedComponentSpec && <PreviewModel />}
           </BoundsStorer>
         </Bounds>
         <GizmoHelper alignment="bottom-left" margin={[80, 80]}>
-          <GizmoViewport
-            axisColors={["#DC143C", "#00FF7F", "#1E90FF"]}
-            labelColor="white"
-          />
+          <GizmoViewport axisColors={rgbColors} labelColor="white" />
         </GizmoHelper>
         <Preload all />
       </Canvas>

@@ -1,6 +1,6 @@
+import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
 import { Edges, useGLTF } from "@react-three/drei";
 import { ThreeEvent } from "@react-three/fiber";
-import { useEffect, useState } from "react";
 import { Color, Mesh, MeshStandardMaterial } from "three";
 import { useSnapshot } from "valtio";
 
@@ -18,31 +18,7 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
 
   const { componentSpec } = useComponent(componentId);
 
-  const [outlineColor, setOutlineColor] = useState(
-    globalConfig.config.spatialUi.selectionColors.outline.light
-  );
-  useEffect(() => {
-    const darkThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-    const themeSwitcher = (dark: boolean) => {
-      if (dark) {
-        setOutlineColor(
-          globalConfig.config.spatialUi.selectionColors.outline.dark
-        );
-      } else {
-        setOutlineColor(
-          globalConfig.config.spatialUi.selectionColors.outline.light
-        );
-      }
-    };
-
-    const themeListener = (e: MediaQueryListEvent) => {
-      themeSwitcher(e.matches);
-    };
-    themeSwitcher(darkThemeQuery.matches);
-    darkThemeQuery.addEventListener("change", themeListener);
-    return () => darkThemeQuery.removeEventListener("change", themeListener);
-  }, []);
+  const darkMode = useDarkMode();
 
   const { nodes, materials } = useGLTF(componentSpec.modelUrl);
 
@@ -103,7 +79,13 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
               >
                 <meshBasicMaterial
                   transparent={true}
-                  color={outlineColor}
+                  color={
+                    darkMode
+                      ? globalConfig.config.spatialUi.selectionColors.outline
+                          .dark
+                      : globalConfig.config.spatialUi.selectionColors.outline
+                          .light
+                  }
                   depthTest={false}
                 />
               </Edges>

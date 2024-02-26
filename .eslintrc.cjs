@@ -13,8 +13,8 @@ module.exports = {
     "plugin:@react-three/recommended",
     "plugin:valtio/recommended",
     "plugin:tailwindcss/recommended",
-    "plugin:prettier/recommended",
-    "plugin:jsx-a11y/recommended"
+    "plugin:jsx-a11y/recommended",
+    "plugin:prettier/recommended"
   ],
   ignorePatterns: [
     "dist",
@@ -51,7 +51,6 @@ module.exports = {
         ],
       },
     ],
-    indent: ["warn", 2],
     semi: [
       "error",
       "always",

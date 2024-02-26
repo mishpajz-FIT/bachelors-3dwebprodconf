@@ -8,6 +8,7 @@ interface PlacementControlsProps {
   onManipulationEnd: () => void;
   updatePosition: (position: [number, number, number]) => void;
   updateRotation: (rotation: [number, number, number]) => void;
+  axisColors?: [string, string, string];
   hidden?: boolean;
   children?: ReactNode;
 }
@@ -18,6 +19,7 @@ export const PlacementControls = ({
   onManipulationEnd,
   updatePosition,
   updateRotation,
+  axisColors = ["#DC143C", "#00FF7F", "#1E90FF"],
   hidden,
   children,
 }: PlacementControlsProps) => {
@@ -35,7 +37,7 @@ export const PlacementControls = ({
       depthTest={false}
       fixed={true}
       scale={100}
-      axisColors={["#DC143C", "#00FF7F", "#1E90FF"]}
+      axisColors={axisColors}
       offset={currentPosition}
       rotation={currentRotation}
       autoTransform={false}

@@ -1,10 +1,12 @@
+import { PlacementControls } from "@3dwebprodconf/shared/src/components/3d/PlacementControls.tsx";
+import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
 import { useGLTF } from "@react-three/drei";
 import { useEffect, useRef } from "react";
 import { Box3, Euler, Mesh, MeshBasicMaterial, Vector3 } from "three";
 import { useSnapshot } from "valtio";
 
 import { PreviewMountingPoint } from "./PreviewMountingPoint.tsx";
-import { PlacementControls } from "../../../../../packages/shared/src/components/3d/PlacementControls.tsx";
+import { defaultAdminConfig } from "../../configurations/Config.ts";
 import { useSelectedComponentSpec } from "../../hooks/useSelectedComponentSpec.ts";
 import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
 import { ProductStore } from "../../stores/ProductStore.ts";
@@ -18,7 +20,24 @@ export const PreviewModel = () => {
 
   const groupRef = useRef(null);
 
-  const selectedMaterial = new MeshBasicMaterial({ color: 0x3377ff });
+  const darkMode = useDarkMode();
+  const rgbColors: [string, string, string] = darkMode
+    ? [
+        defaultAdminConfig.spatialUi.gizmoColors.r.dark,
+        defaultAdminConfig.spatialUi.gizmoColors.g.dark,
+        defaultAdminConfig.spatialUi.gizmoColors.b.dark,
+      ]
+    : [
+        defaultAdminConfig.spatialUi.gizmoColors.r.light,
+        defaultAdminConfig.spatialUi.gizmoColors.g.light,
+        defaultAdminConfig.spatialUi.gizmoColors.b.light,
+      ];
+
+  const selectedMaterial = new MeshBasicMaterial({
+    color: darkMode
+      ? defaultAdminConfig.spatialUi.gridColors.primary.dark
+      : defaultAdminConfig.spatialUi.gridColors.primary.light,
+  });
 
   useEffect(() => {
     if (groupRef.current) {
@@ -65,6 +84,7 @@ export const PreviewModel = () => {
         onManipulationEnd={() => {
           refreshBounds();
         }}
+        axisColors={rgbColors}
         hidden={editorValuesSnap.selectedMountingPoint !== undefined}
       >
         <group
