@@ -13,10 +13,10 @@ import { useSelectedMaterialSpec } from "../../../../../../hooks/useSelectedMate
 import { ProductStore } from "../../../../../../stores/ProductStore.ts";
 
 export const EditMaterialSpecificationModels = () => {
-  const { componentSpecId } = useSelectedComponentSpec();
+  const { componentSpecId, componentSpec } = useSelectedComponentSpec();
   const { materialSpecId, materialSpec } = useSelectedMaterialSpec();
 
-  const { materials } = useGLTF("/kokos.glb");
+  const { materials } = useGLTF(componentSpec.modelUrl);
 
   const [searchTerm, setSearchTerm] = useState("");
 

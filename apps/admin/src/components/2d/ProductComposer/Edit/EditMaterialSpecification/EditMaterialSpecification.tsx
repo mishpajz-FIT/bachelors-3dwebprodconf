@@ -1,3 +1,4 @@
+import { ErrorBoundary } from "react-error-boundary";
 import { useSnapshot } from "valtio";
 
 import { EditMaterialSpecificationColors } from "./subcomponents/EditMaterialSpecificationColors.tsx";
@@ -54,7 +55,19 @@ export const EditMaterialSpecification = ({
       onRemove={remove}
     >
       <EditMaterialSpecificationDetails />
-      <EditMaterialSpecificationModels />
+      <ErrorBoundary
+        key={"materials" + componentSpec.modelUrl}
+        fallback={
+          <div>
+            <h3 className="section-heading">Included Model Materials</h3>
+            <div className="mx-4 rounded-lg bg-[var(--error-light)] bg-rose-500 p-2 text-sm text-white dark:bg-[var(--error-dark)]">
+              Model materials of component could not be loaded.
+            </div>
+          </div>
+        }
+      >
+        <EditMaterialSpecificationModels />
+      </ErrorBoundary>
       <EditMaterialSpecificationColors />
     </EditContent>
   );

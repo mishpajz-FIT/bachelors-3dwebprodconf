@@ -13,18 +13,21 @@ import {
   Preload,
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import { ErrorBoundary } from "react-error-boundary";
+import { toast } from "react-hot-toast";
 import { DoubleSide } from "three";
 import { useSnapshot } from "valtio";
 
 import { PreviewModel } from "./Preview/PreviewModel.tsx";
 import { defaultAdminConfig } from "../../configurations/Config.ts";
 import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
+import { ProductStore } from "../../stores/ProductStore.ts";
 import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
-import { ErrorBoundary } from "react-error-boundary";
-import toast from "react-hot-toast";
 
 export const ProductComposerCanvas = () => {
   const editorValuesSnap = useSnapshot(EditorValuesStore);
+
+  const productSnap = useSnapshot(ProductStore);
 
   const darkMode = useDarkMode();
   const rgbColors: [string, string, string] = darkMode
@@ -99,6 +102,14 @@ export const ProductComposerCanvas = () => {
             />
 
             <ErrorBoundary
+              key={
+                "editedModel" +
+                (editorValuesSnap.selectedComponentSpec
+                  ? productSnap.componentSpecs[
+                      editorValuesSnap.selectedComponentSpec
+                    ]?.modelUrl ?? ""
+                  : "")
+              }
               fallbackRender={() => null}
               onError={() => {
                 toast.error("Model of component could not be loaded.", {

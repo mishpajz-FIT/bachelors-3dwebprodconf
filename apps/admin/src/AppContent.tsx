@@ -1,5 +1,6 @@
 import { ErrorPage } from "@3dwebprodconf/shared/src/components/ErrorPage.tsx";
 import { lazy, Suspense } from "react";
+import { Toaster } from "react-hot-toast";
 import {
   createBrowserRouter,
   redirect,
@@ -8,7 +9,6 @@ import {
 
 import { CatalogueComposer } from "./components/2d/CatalogueComposer/CatalogueComposer.tsx";
 import { TopBar } from "./TopBar.tsx";
-import { Toaster } from "react-hot-toast";
 
 export const AppContent = () => {
   const ProductComposer = lazy(
