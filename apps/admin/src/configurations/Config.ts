@@ -20,6 +20,10 @@ export const defaultAdminConfig: AdminConfig = {
         overlayTextWhiteDark: true,
         overlayTextWhiteLight: true,
       },
+      error: {
+        dark: "#f43f5e",
+        light: "#f43f5e",
+      },
     },
   },
 };

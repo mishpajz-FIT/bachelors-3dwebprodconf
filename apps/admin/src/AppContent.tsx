@@ -8,6 +8,7 @@ import {
 
 import { CatalogueComposer } from "./components/2d/CatalogueComposer/CatalogueComposer.tsx";
 import { TopBar } from "./TopBar.tsx";
+import { Toaster } from "react-hot-toast";
 
 export const AppContent = () => {
   const ProductComposer = lazy(
@@ -59,6 +60,7 @@ export const AppContent = () => {
 
   return (
     <div className="app flex h-dvh flex-col">
+      <Toaster position="top-right" reverseOrder={true} />
       <RouterProvider router={router} />
     </div>
   );

@@ -115,7 +115,7 @@ export const ProductComposerTabs = () => {
             {exportIssues.map((issue, index) => (
               <li
                 key={index}
-                className="m-2 rounded-lg bg-rose-500 p-2 text-sm text-white"
+                className="m-2 rounded-lg bg-[var(--error-light)] p-2 text-sm text-white dark:bg-[var(--error-dark)]"
               >
                 {issue}
               </li>

@@ -33,6 +33,10 @@ export interface AdminConfig {
         overlayTextWhiteLight: boolean;
         overlayTextWhiteDark: boolean;
       };
+      error: {
+        light: string;
+        dark: string;
+      };
     };
   };
 }

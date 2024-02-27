@@ -9,6 +9,8 @@ import { defaultAdminConfig } from "../../../configurations/Config.ts";
 import { useSelectedComponentSpec } from "../../../hooks/useSelectedComponentSpec.ts";
 import { EditorValuesStore } from "../../../stores/EditorValuesStore.ts";
 import { ProductStore } from "../../../stores/ProductStore.ts";
+import toast from "react-hot-toast";
+import { ErrorBoundary } from "react-error-boundary";
 
 interface PreviewMountingPointProps {
   mountingPointId: string;
@@ -76,9 +78,29 @@ export const PreviewMountingPoint = ({
             </div>
           </Html>
 
-          {editorValuesSnap.previewedMountedComponent !== undefined && (
-            <PreviewMountedModel />
-          )}
+          <ErrorBoundary
+            fallbackRender={() => null}
+            onError={() => {
+              toast.error("Model of component could not be loaded.", {
+                style: {
+                  color: "white",
+                  background: darkMode
+                    ? defaultAdminConfig.ui.colors.error.dark
+                    : defaultAdminConfig.ui.colors.error.light,
+                },
+                iconTheme: {
+                  secondary: darkMode
+                    ? defaultAdminConfig.ui.colors.error.dark
+                    : defaultAdminConfig.ui.colors.error.light,
+                  primary: "white",
+                },
+              });
+            }}
+          >
+            {editorValuesSnap.previewedMountedComponent !== undefined && (
+              <PreviewMountedModel />
+            )}
+          </ErrorBoundary>
         </group>
       </PlacementControls>
     );

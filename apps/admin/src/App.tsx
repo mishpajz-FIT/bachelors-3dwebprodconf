@@ -18,6 +18,15 @@ function App() {
       );
 
       root.style.setProperty(
+        "--error-light",
+        defaultAdminConfig.ui.colors.error.light
+      );
+      root.style.setProperty(
+        "--error-dark",
+        defaultAdminConfig.ui.colors.error.dark
+      );
+
+      root.style.setProperty(
         "--primary-overlay-light",
         defaultAdminConfig.ui.colors.primary.overlayTextWhiteLight
           ? "rgb(255 255 255)"
