@@ -13,8 +13,8 @@ module.exports = {
     "plugin:@react-three/recommended",
     "plugin:valtio/recommended",
     "plugin:tailwindcss/recommended",
-    "plugin:prettier/recommended",
-    "plugin:jsx-a11y/recommended"
+    "plugin:jsx-a11y/recommended",
+    "plugin:prettier/recommended"
   ],
   ignorePatterns: [
     "dist",
@@ -51,7 +51,6 @@ module.exports = {
         ],
       },
     ],
-    indent: ["warn", 2],
     semi: [
       "error",
       "always",
@@ -80,7 +79,13 @@ module.exports = {
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
-    project: ["./tsconfig.json", "./tsconfig.node.json"],
+    project: [
+      "./apps/main/tsconfig.json",
+      "./apps/main/tsconfig.node.json",
+      "./packages/shared/tsconfig.json",
+      "./apps/admin/tsconfig.json",
+      "./apps/admin/tsconfig.node.json"
+    ],
     tsconfigRootDir: __dirname,
   },
   settings: {

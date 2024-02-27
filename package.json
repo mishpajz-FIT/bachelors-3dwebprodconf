@@ -1,20 +1,24 @@
 {
-  "name": "webprodconf-fe",
+  "name": "3dwebprodconf",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev": "npm run dev --workspace main",
+    "dev-admin": "npm run dev --workspace admin",
+    "build": "npm run build --workspaces --if-present",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "fixlint": "eslint . --ext ts,tsx --fix",
+    "fix": "eslint . --ext ts,tsx --fix",
     "cilint": "eslint . --ext ts,tsx --format stylish ; eslint . --ext ts,tsx --format junit -o eslint.xml --max-warnings 0",
-    "preview": "vite preview",
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,md,html,css}": "prettier --ignore-unknown --write",
-    "*.{js,jsx,ts,tsx}": "eslint --cache"
+    "packages/*/src/**/*.{js,jsx,ts,tsx,md,html,css}": "prettier --ignore-unknown --write",
+    "packages/*/src/**/*.{js,jsx,ts,tsx}": "eslint --cache",
+    "apps/*/src/**/*.{js,jsx,ts,tsx,md,html,css}": "prettier --ignore-unknown --write",
+    "apps/*/src/**/*.{js,jsx,ts,tsx}": "eslint --cache"
   },
   "browserslist": [
     "> 1%",
@@ -22,15 +26,17 @@
     "last 2 versions"
   ],
   "dependencies": {
+    "@floating-ui/react": "^0.26.9",
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
-    "@popperjs/core": "^2.11.8",
     "@react-three/drei": "^9.96.5",
     "@react-three/fiber": "^8.15.15",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-error-boundary": "^4.0.12",
+    "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.21.3",
-    "three": "^0.160.1",
+    "three": "^0.161.0",
     "uuid": "^9.0.1",
     "valtio": "^1.13.0"
   },
@@ -40,7 +46,7 @@
     "@react-three/eslint-plugin": "^0.1.1",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
-    "@types/three": "^0.160.0",
+    "@types/three": "^0.161.2",
     "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^6.19.1",
     "@typescript-eslint/parser": "^6.19.1",
@@ -59,7 +65,7 @@
     "eslint-plugin-valtio": "^0.6.2",
     "husky": "^9.0.6",
     "lint-staged": "^15.2.0",
-    "postcss": "^8.4.33",
+    "postcss": "^8.4.35",
     "prettier": "^3.2.4",
     "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.4.1",
