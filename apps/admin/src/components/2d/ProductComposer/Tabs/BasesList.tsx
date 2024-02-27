@@ -57,33 +57,39 @@ export const BasesList = () => {
         </button>
       </div>
       <ul className="mt-4">
-        {filteredBases.map((baseId) => (
-          <li
-            key={baseId}
-            className="tile-background m-2 rounded-lg border-2 border-transparent"
-          >
-            <div>
-              <div className="flex flex-col items-center justify-start gap-2 p-2 slashed-zero tabular-nums tracking-tight text-black dark:text-gray-200">
-                <span className="w-full text-wrap font-mono text-sm font-semibold">
-                  {baseId}
-                </span>
-                <span className="w-full text-wrap font-mono text-xs font-thin">
-                  {productSnap.baseSpecs[baseId].component}
-                </span>
-                <div className="flex w-full flex-row items-center justify-end">
-                  <button
-                    className="other-button p-1"
-                    onClick={() => {
-                      delete ProductStore.baseSpecs[baseId];
-                    }}
-                  >
-                    <TrashIcon className="size-4" />
-                  </button>
+        {filteredBases.length === 0 ? (
+          <li className="pointer-events-none select-none  p-4 text-center text-sm text-gray-900 dark:text-gray-400">
+            No bases
+          </li>
+        ) : (
+          filteredBases.map((baseId) => (
+            <li
+              key={baseId}
+              className="tile-background m-2 rounded-lg border-2 border-transparent"
+            >
+              <div>
+                <div className="flex flex-col items-center justify-start gap-2 p-2 slashed-zero tabular-nums tracking-tight text-black dark:text-gray-200">
+                  <span className="w-full text-wrap font-mono text-sm font-semibold">
+                    {baseId}
+                  </span>
+                  <span className="w-full text-wrap font-mono text-xs font-thin">
+                    {productSnap.baseSpecs[baseId].component}
+                  </span>
+                  <div className="flex w-full flex-row items-center justify-end">
+                    <button
+                      className="other-button p-1"
+                      onClick={() => {
+                        delete ProductStore.baseSpecs[baseId];
+                      }}
+                    >
+                      <TrashIcon className="size-4" />
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </li>
-        ))}
+            </li>
+          ))
+        )}
       </ul>
 
       <Popup isOpen={isOpenAdd} onClose={() => setOpenAdd(false)}>

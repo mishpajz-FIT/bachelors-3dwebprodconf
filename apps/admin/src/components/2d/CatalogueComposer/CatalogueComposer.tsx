@@ -28,11 +28,17 @@ export const CatalogueComposer = () => {
             </button>
           </div>
           <ul className="mb-2 w-full overflow-y-scroll p-2">
-            {Object.keys(catalogueSnap.products).map((productId) => (
-              <li key={productId} className="mt-2">
-                <CatalogueComposerTile productId={productId} />
+            {Object.keys(catalogueSnap.products).length === 0 ? (
+              <li className="pointer-events-none select-none p-4 text-center text-sm text-gray-900 dark:text-gray-400">
+                No products
               </li>
-            ))}
+            ) : (
+              Object.keys(catalogueSnap.products).map((productId) => (
+                <li key={productId} className="mt-2">
+                  <CatalogueComposerTile productId={productId} />
+                </li>
+              ))
+            )}
           </ul>
           <div className="mt-auto flex flex-row items-center justify-end">
             <button

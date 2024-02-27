@@ -56,26 +56,32 @@ export const ComponentsList = () => {
         </button>
       </div>
       <ul className="mt-4">
-        {filteredComponents.map((componentId) => (
-          <li
-            key={componentId}
-            className={`tile m-2 rounded-lg border-2 
+        {filteredComponents.length === 0 ? (
+          <li className="pointer-events-none select-none p-4 text-center text-sm text-gray-900 dark:text-gray-400">
+            No components
+          </li>
+        ) : (
+          filteredComponents.map((componentId) => (
+            <li
+              key={componentId}
+              className={`tile m-2 rounded-lg border-2 
             ${editorValuesSnap.selectedComponentSpec === componentId ? "underlined-selection border-[var(--primary-light)] underline dark:border-[var(--primary-dark)]" : "border-transparent"}
             `}
-          >
-            <button
-              onClick={() => {
-                EditorValuesStore.selectedComponentSpec = componentId;
-                EditorValuesStore.selectedMountingPoint = undefined;
-              }}
-              className="flex w-full flex-row items-center justify-start gap-2 p-2"
             >
-              <span className="text-wrap font-mono text-sm font-semibold slashed-zero tabular-nums tracking-tight text-black dark:text-gray-200">
-                {componentId}
-              </span>
-            </button>
-          </li>
-        ))}
+              <button
+                onClick={() => {
+                  EditorValuesStore.selectedComponentSpec = componentId;
+                  EditorValuesStore.selectedMountingPoint = undefined;
+                }}
+                className="flex w-full flex-row items-center justify-start gap-2 p-2"
+              >
+                <span className="text-wrap font-mono text-sm font-semibold slashed-zero tabular-nums tracking-tight text-black dark:text-gray-200">
+                  {componentId}
+                </span>
+              </button>
+            </li>
+          ))
+        )}
       </ul>
 
       <Popup isOpen={isOpenAdd} onClose={() => setOpenAdd(false)}>
