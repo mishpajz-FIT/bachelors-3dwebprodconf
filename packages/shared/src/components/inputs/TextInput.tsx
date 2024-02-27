@@ -104,16 +104,15 @@ export const TextInput = ({
         onChange={handleChange}
         onKeyDown={handleKey}
         onBlur={handleFocus}
+        ref={refs.setReference}
       />
       {!isValid && (
         <div ref={refs.setFloating} style={floatingStyles}>
-          <div className="simple-panel cursor-default select-none p-2 px-4 text-xs outline outline-1 outline-gray-100 dark:outline-gray-700">
-            {tooltipText}
-          </div>
+          <div className="tooltip">{tooltipText}</div>
           <FloatingArrow
             ref={tooltipArrowRef}
             context={context}
-            className="fill-zinc-50 dark:fill-zinc-950 [&>path:first-of-type]:stroke-gray-200 dark:[&>path:first-of-type]:stroke-zinc-700"
+            className="fill-white/[0.3] dark:fill-zinc-800/[0.7] [&>path:first-of-type]:stroke-gray-200 dark:[&>path:first-of-type]:stroke-zinc-700"
           />
         </div>
       )}

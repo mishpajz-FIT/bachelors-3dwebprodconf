@@ -35,7 +35,6 @@ export const AddComponentSpecification = ({
       description: data.get("description") as string,
       imageUrl: data.get("imageUrl") as string,
       modelUrl: data.get("modelUrl") as string,
-      // Parse JSON strings from FormData into objects
       materialSpecs: {},
       mountingPointsSpecs: {},
     };

@@ -101,10 +101,7 @@ export const HoldButton = ({
 
       {isPopoverOpen && (
         <div ref={refs.setFloating} style={floatingStyles}>
-          <button
-            className="simple-panel cursor-default select-none p-2 px-4 text-xs outline outline-1 outline-gray-100 dark:outline-gray-700"
-            onClick={() => setIsPopoverOpen(false)}
-          >
+          <button className="tooltip" onClick={() => setIsPopoverOpen(false)}>
             Hold to confirm
           </button>
         </div>

@@ -10,9 +10,13 @@ export const SkeletonImage = ({ src, alt, className }: SkeletonImageProps) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
-  return imageError ? (
-    <div className={`${className} shrink-0 bg-gray-300 dark:bg-gray-600`} />
-  ) : (
+  if (imageError) {
+    return (
+      <div className={`${className} shrink-0 bg-gray-300 dark:bg-gray-600`} />
+    );
+  }
+
+  return (
     <>
       <img
         src={src}

@@ -1,3 +1,4 @@
+import { ImageURLInput } from "@3dwebprodconf/shared/src/components/inputs/ImageURLInput.tsx";
 import { TextInput } from "@3dwebprodconf/shared/src/components/inputs/TextInput.tsx";
 import { ChangeEvent } from "react";
 
@@ -66,7 +67,7 @@ export const EditComponentSpecificationDetails = () => {
           </label>
           <label htmlFor={"modelImage"}>
             <span className="label">Preview image</span>
-            <TextInput
+            <ImageURLInput
               key={"modelImage"}
               inputId={"modelImage"}
               allowEmpty={true}

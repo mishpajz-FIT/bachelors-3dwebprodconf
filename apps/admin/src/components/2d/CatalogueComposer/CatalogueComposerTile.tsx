@@ -1,3 +1,4 @@
+import { ImageURLInput } from "@3dwebprodconf/shared/src/components/inputs/ImageURLInput.tsx";
 import { TextInput } from "@3dwebprodconf/shared/src/components/inputs/TextInput.tsx";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { useSnapshot } from "valtio";
@@ -44,7 +45,7 @@ export const CatalogueComposerTile = ({
             <div className="flex w-full flex-col gap-2">
               <label htmlFor={"imageUrl"}>
                 <span className="label">Preview image</span>
-                <TextInput
+                <ImageURLInput
                   key={"imageUrl"}
                   inputId={"imageUrl"}
                   allowEmpty={false}

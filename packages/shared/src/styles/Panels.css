@@ -22,7 +22,7 @@
   }
 
   .glass-panel {
-    @apply rounded-2xl bg-white/[0.3] shadow-xl backdrop-blur-lg backdrop-opacity-75;
+    @apply rounded-2xl bg-white/[0.7] shadow-xl backdrop-blur-lg backdrop-opacity-75;
     @apply border border-gray-200;
 
     @apply dark:border-zinc-700 dark:bg-zinc-800/[0.7];
@@ -61,5 +61,11 @@
   .tile {
     @apply tile-background;
     @apply tile-pressable;
+  }
+
+  .tooltip {
+    @apply glass-panel;
+    @apply cursor-default select-none;
+    @apply p-2 px-4 text-xs;
   }
 }
