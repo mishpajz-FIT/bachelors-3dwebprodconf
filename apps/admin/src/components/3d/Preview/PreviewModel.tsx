@@ -10,7 +10,6 @@ import { defaultAdminConfig } from "../../../configurations/Config.ts";
 import { useSelectedComponentSpec } from "../../../hooks/useSelectedComponentSpec.ts";
 import { EditorValuesStore } from "../../../stores/EditorValuesStore.ts";
 import { ProductStore } from "../../../stores/ProductStore.ts";
-import { refreshBounds } from "../../../utilities/BoundsManipulation.ts";
 
 export const PreviewModel = () => {
   const { componentSpecId, componentSpec } = useSelectedComponentSpec();
@@ -81,9 +80,7 @@ export const PreviewModel = () => {
 
           editableComponent.rotationOffset = rotation;
         }}
-        onManipulationEnd={() => {
-          refreshBounds();
-        }}
+        onManipulationEnd={() => undefined}
         axisColors={rgbColors}
         hidden={editorValuesSnap.selectedMountingPoint !== undefined}
       >
@@ -134,6 +131,15 @@ export const PreviewModel = () => {
                           number,
                         ])
                       : [1, 1, 1]
+                  }
+                  rotation={
+                    componentSpec.rotationOffset
+                      ? new Euler(
+                          -componentSpec.rotationOffset[0],
+                          -componentSpec.rotationOffset[1],
+                          -componentSpec.rotationOffset[2]
+                        )
+                      : undefined
                   }
                   key={mountingPointId}
                 >

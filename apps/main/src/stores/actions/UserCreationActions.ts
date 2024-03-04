@@ -3,6 +3,7 @@ import { v4 as uuid } from "uuid";
 
 import {
   validateColorSpec,
+  validateComponentSpec,
   validateMaterialSpec,
   validateMountingPointSpec,
 } from "./ProductSpecificationActions.ts";
@@ -208,4 +209,36 @@ export const changeMaterial = (
   );
   userCreationStore.components[componentId].materials[materialSpecId] =
     colorSpecId;
+};
+
+export const detectEmptyRequired = (
+  userCreationStore: typeof UserCreationStore,
+  productSpecificationStore: typeof ProductSpecificationStore
+) => {
+  const missingComponents: string[] = [];
+
+  Object.entries(userCreationStore.components).forEach(
+    ([componentId, component]) => {
+      const componentSpec = validateComponentSpec(
+        component.componentSpec,
+        productSpecificationStore
+      );
+
+      Object.entries(componentSpec.mountingPointsSpecs).forEach(
+        ([mountingPointId, mountingPoint]) => {
+          if (
+            mountingPoint.isRequired &&
+            !Object.prototype.hasOwnProperty.call(
+              component.mounted,
+              mountingPointId
+            )
+          ) {
+            missingComponents.push(componentId);
+          }
+        }
+      );
+    }
+  );
+
+  return missingComponents;
 };
