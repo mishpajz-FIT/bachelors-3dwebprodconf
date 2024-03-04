@@ -33,7 +33,7 @@ export const EditComponentSpecificationPositioning = () => {
           <div>
             <span className="label">
               Size
-              <span className={"font-mono"}> (m)</span>
+              <span className="font-mono"> (m)</span>
             </span>
             <div className="flex flex-row gap-1">
               {[0, 1, 2].map((index) => (
@@ -71,7 +71,7 @@ export const EditComponentSpecificationPositioning = () => {
           </label>
           <label>
             <span className="label">
-              Rotation <span className={"font-mono"}> (&deg;)</span>
+              Rotation <span className="font-mono"> (&deg;)</span>
             </span>
             <div className="flex flex-row gap-1">
               {[0, 1, 2].map((index) => (
