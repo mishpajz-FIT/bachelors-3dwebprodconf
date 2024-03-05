@@ -1,21 +1,69 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
-import { useCallback } from "react";
+import { Popup } from "@3dwebprodconf/shared/src/components/containers/Popup.tsx";
+import { SubmissionType } from "@3dwebprodconf/shared/src/interfaces/Catalogue.ts";
+import { UserCreation } from "@3dwebprodconf/shared/src/interfaces/UserCreation.ts";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 
+import { ProductConfirmationContactForm } from "./subcomponents/ProductConfirmationContactForm.tsx";
 import { ProductConfirmationTile } from "./subcomponents/ProductConfirmationTile.tsx";
 import { globalConfig } from "../../../configurations/Config.ts";
+import { submitProduct } from "../../../stores/actions/CatalogueActions.ts";
+import { CatalogueStore } from "../../../stores/CatalogueStore.ts";
 import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore.ts";
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 
 export const ProductConfirmation = () => {
   const navigate = useNavigate();
 
+  const catalogueSnap = useSnapshot(CatalogueStore);
+  const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
   const userCreationSnap = useSnapshot(UserCreationStore);
+
+  const [isContactFormPopupOpen, setContactFormPopupOpen] = useState(false);
 
   const onClose = useCallback(() => {
     navigate("/" + ConfiguratorValuesStore.currentProductId + "/editor");
   }, [navigate]);
+
+  const onConfirm = async () => {
+    if (!ConfiguratorValuesStore.currentProductId) {
+      return;
+    }
+
+    const submission =
+      CatalogueStore.catalogue?.products[
+        ConfiguratorValuesStore.currentProductId
+      ].submission;
+    if (!submission) {
+      return;
+    }
+
+    if (submission.type === SubmissionType.POST) {
+      const userCreation: UserCreation = {
+        base: UserCreationStore.base,
+        components: UserCreationStore.components,
+      };
+
+      const redirectUrl = await submitProduct(
+        submission,
+        JSON.stringify(userCreation)
+      );
+
+      if (redirectUrl) {
+        window.location.href = redirectUrl;
+      }
+    } else if (submission.type === SubmissionType.CONTACT_FORM) {
+      setContactFormPopupOpen(true);
+    }
+  };
+
+  const hasSubmissionOption =
+    catalogueSnap.catalogue &&
+    configuratorValuesSnap.currentProductId &&
+    catalogueSnap.catalogue.products[configuratorValuesSnap.currentProductId]
+      .submission;
 
   return (
     <div className="content-background flex size-full select-none flex-col items-center justify-start overflow-y-scroll p-4">
@@ -52,7 +100,12 @@ export const ProductConfirmation = () => {
               <button className="other-button" onClick={onClose}>
                 Back
               </button>
-              <button className="primary-button">Confirm</button>
+              {hasSubmissionOption && (
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                <button className="primary-button" onClick={onConfirm}>
+                  Confirm
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -69,10 +122,23 @@ export const ProductConfirmation = () => {
                 Save as PDF
               </button>
             )}
-            <button className="primary-button">Confirm</button>
+            {hasSubmissionOption && (
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
+              <button className="primary-button" onClick={onConfirm}>
+                Confirm
+              </button>
+            )}
           </div>
         </div>
       </div>
+      <Popup
+        isOpen={isContactFormPopupOpen}
+        onClose={() => setContactFormPopupOpen(false)}
+      >
+        <ProductConfirmationContactForm
+          onClose={() => setContactFormPopupOpen(false)}
+        />
+      </Popup>
     </div>
   );
 };

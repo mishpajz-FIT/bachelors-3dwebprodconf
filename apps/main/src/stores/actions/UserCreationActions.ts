@@ -10,21 +10,21 @@ import {
 import { ProductSpecificationStore } from "../ProductSpecificationStore.ts";
 import { UserCreationStore } from "../UserCreationStore.ts";
 
-export const validateComponent = (
+export function validateComponent(
   componentId: string,
   store: typeof UserCreationStore
-) => {
+) {
   const component = store.components[componentId];
   if (!component) {
     throw new Error(`Component with ID ${componentId} does not exist.`);
   }
   return component;
-};
+}
 
-const recursiveRemoveComponent = (
+function recursiveRemoveComponent(
   componentId: string,
   store: typeof UserCreationStore
-) => {
+) {
   const component = validateComponent(componentId, store);
 
   Object.values(component.mounted).forEach((componentId) =>
@@ -33,13 +33,13 @@ const recursiveRemoveComponent = (
 
   store.childToParentMap.delete(componentId);
   delete store.components[componentId];
-};
+}
 
-const detectComponentCycle = (
+function detectComponentCycle(
   sourceComponentId: string,
   targetComponentId: string,
   store: typeof UserCreationStore
-): boolean => {
+): boolean {
   if (sourceComponentId == targetComponentId) {
     return true;
   }
@@ -70,13 +70,13 @@ const detectComponentCycle = (
   }
 
   return false;
-};
+}
 
-export const createComponent = (
+export function createComponent(
   componentSpec: string,
   userCreationStore: typeof UserCreationStore,
   productSpecificationStore: typeof ProductSpecificationStore
-): string => {
+): string {
   const newComponentId = uuid();
 
   if (!productSpecificationStore.componentSpecs[componentSpec]) {
@@ -90,15 +90,15 @@ export const createComponent = (
   };
 
   return newComponentId;
-};
+}
 
-export const mountComponent = (
+export function mountComponent(
   targetComponentId: string,
   mountingPointSpecId: string,
   mountComponentId: string,
   userCreationStore: typeof UserCreationStore,
   productSpecificationStore: typeof ProductSpecificationStore
-) => {
+) {
   const targetComponent = validateComponent(
     targetComponentId,
     userCreationStore
@@ -131,13 +131,13 @@ export const mountComponent = (
     targetComponentId,
     mountingPointSpecId,
   ]);
-};
+}
 
-export const unmountComponent = (
+export function unmountComponent(
   componentId: string,
   mountingPointSpecId: string,
   userProductStore: typeof UserCreationStore
-) => {
+) {
   const component = validateComponent(componentId, userProductStore);
 
   const mountedComponentId = component.mounted[mountingPointSpecId];
@@ -145,7 +145,7 @@ export const unmountComponent = (
     userProductStore.childToParentMap.delete(mountedComponentId);
     delete component.mounted[mountingPointSpecId];
   }
-};
+}
 
 export const removeComponent = (
   componentId: string,
@@ -160,7 +160,7 @@ export const removeComponent = (
   recursiveRemoveComponent(componentId, store);
 };
 
-export const removeNonbaseComponents = (store: typeof UserCreationStore) => {
+export function removeNonbaseComponents(store: typeof UserCreationStore) {
   const base = store.base;
 
   const newComponents: Record<string, UserComponent> = {};
@@ -171,7 +171,7 @@ export const removeNonbaseComponents = (store: typeof UserCreationStore) => {
 
   store.childToParentMap.clear();
   store.components = newComponents;
-};
+}
 
 export const mountBase = (
   componentId: string,
@@ -211,10 +211,10 @@ export const changeMaterial = (
     colorSpecId;
 };
 
-export const detectRequiredMissing = (
+export function detectRequiredMissing(
   userCreationStore: typeof UserCreationStore,
   productSpecificationStore: typeof ProductSpecificationStore
-): string[] => {
+): string[] {
   const missingComponents: string[] = [];
 
   Object.entries(userCreationStore.components).forEach(
@@ -241,4 +241,4 @@ export const detectRequiredMissing = (
   );
 
   return missingComponents;
-};
+}

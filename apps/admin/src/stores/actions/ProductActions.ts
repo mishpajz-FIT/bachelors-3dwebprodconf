@@ -2,7 +2,7 @@ import { downloadableJson } from "@3dwebprodconf/shared/src/utilites/downloadabl
 
 import { ProductStore } from "../ProductStore.ts";
 
-export const removeComponentSpec = (componentSpecId: string) => {
+export function removeComponentSpec(componentSpecId: string) {
   Object.keys(ProductStore.baseSpecs).forEach((baseSpecId) => {
     if (ProductStore.baseSpecs[baseSpecId].component === componentSpecId) {
       delete ProductStore.baseSpecs[baseSpecId];
@@ -24,13 +24,13 @@ export const removeComponentSpec = (componentSpecId: string) => {
   });
 
   delete ProductStore.componentSpecs[componentSpecId];
-};
+}
 
-export const exportProduct = () => {
+export function exportProduct() {
   downloadableJson(JSON.stringify(ProductStore), "productspecification");
-};
+}
 
-export const missingComponentsInMountingPoints = () => {
+export function missingComponentsInMountingPoints(): Record<string, string[]> {
   const result: Record<string, string[]> = {};
 
   Object.entries(ProductStore.componentSpecs).forEach(
@@ -50,9 +50,9 @@ export const missingComponentsInMountingPoints = () => {
   );
 
   return result;
-};
+}
 
-export const missingColorsInMaterials = () => {
+export function missingColorsInMaterials(): Record<string, string[]> {
   const result: Record<string, string[]> = {};
 
   Object.entries(ProductStore.componentSpecs).forEach(
@@ -71,9 +71,9 @@ export const missingColorsInMaterials = () => {
   );
 
   return result;
-};
+}
 
-export const missingModelsInMaterials = () => {
+export function missingModelsInMaterials(): Record<string, string[]> {
   const result: Record<string, string[]> = {};
 
   Object.entries(ProductStore.componentSpecs).forEach(
@@ -92,4 +92,4 @@ export const missingModelsInMaterials = () => {
   );
 
   return result;
-};
+}

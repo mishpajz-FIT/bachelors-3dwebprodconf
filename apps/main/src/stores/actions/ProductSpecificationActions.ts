@@ -2,9 +2,9 @@ import { ProductSpecification } from "@3dwebprodconf/shared/src/interfaces/Produ
 
 import { ProductSpecificationStore } from "../ProductSpecificationStore.ts";
 
-export const fetchProductSpecification = async (
+export async function fetchProductSpecification(
   url: string
-): Promise<ProductSpecification> => {
+): Promise<ProductSpecification> {
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`${response.status}`);
@@ -13,24 +13,24 @@ export const fetchProductSpecification = async (
   // TODO: Validate data
 
   return (await response.json()) as ProductSpecification;
-};
+}
 
-export const validateComponentSpec = (
+export function validateComponentSpec(
   componentSpecId: string,
   store: typeof ProductSpecificationStore
-) => {
+) {
   const componentSpec = store.componentSpecs[componentSpecId];
   if (!componentSpec) {
     throw new Error(`Specification ${componentSpecId} component do not exist.`);
   }
   return componentSpec;
-};
+}
 
-export const validateMountingPointSpec = (
+export function validateMountingPointSpec(
   componentSpecId: string,
   mountingPointSpecId: string,
   store: typeof ProductSpecificationStore
-) => {
+) {
   const componentSpec = validateComponentSpec(componentSpecId, store);
 
   const mountingPointSpec =
@@ -42,13 +42,13 @@ export const validateMountingPointSpec = (
   }
 
   return mountingPointSpec;
-};
+}
 
-export const validateMaterialSpec = (
+export function validateMaterialSpec(
   componentSpecId: string,
   materialSpecId: string,
   store: typeof ProductSpecificationStore
-) => {
+) {
   const componentSpec = validateComponentSpec(componentSpecId, store);
 
   const materialSpec = componentSpec.materialSpecs[materialSpecId];
@@ -59,14 +59,14 @@ export const validateMaterialSpec = (
   }
 
   return materialSpec;
-};
+}
 
-export const validateColorSpec = (
+export function validateColorSpec(
   componentSpecId: string,
   materialSpecId: string,
   colorSpecId: string,
   store: typeof ProductSpecificationStore
-) => {
+) {
   const materialSpec = validateMaterialSpec(
     componentSpecId,
     materialSpecId,
@@ -81,4 +81,4 @@ export const validateColorSpec = (
   }
 
   return colorVariationSpec;
-};
+}
