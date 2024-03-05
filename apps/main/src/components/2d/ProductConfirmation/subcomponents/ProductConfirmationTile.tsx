@@ -45,7 +45,7 @@ export const ProductConfirmationTile = ({
                 className="flex flex-col rounded-md bg-gray-50 px-2 pb-2 pt-1 dark:bg-zinc-800"
                 key={materialId}
               >
-                <h2 className="pb-1 text-sm font-normal">{material.name}</h2>
+                <h2 className="label pb-1">{material.name}</h2>
                 <div className="flex flex-row items-center">
                   <div
                     className="size-10 rounded shadow-sm ring-1 ring-gray-300 dark:ring-gray-600"
@@ -54,7 +54,7 @@ export const ProductConfirmationTile = ({
                     }}
                   />
 
-                  <span className="ml-2 select-none truncate text-sm font-light leading-tight text-gray-600 dark:text-gray-400">
+                  <span className="ml-2 select-none truncate text-sm leading-tight text-gray-700 dark:text-gray-400">
                     {colorSpec.name}
                   </span>
                 </div>

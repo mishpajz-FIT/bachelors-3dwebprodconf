@@ -32,23 +32,24 @@ export const ProductSelection = () => {
         <ContainerHeader title={"Select product"} onClose={undefined} />
         <Suspense fallback={<Skeleton />}>
           <div className="flex flex-wrap justify-start">
-            {Object.keys(catalogueSnap.catalogue.products).map(
-              (productId, index) => (
-                <div
-                  key={index}
-                  className="w-full p-2 md:w-1/2 lg:w-1/3 xl:w-1/4 2xl:w-1/4"
-                >
-                  <button
-                    className="tile w-full"
-                    onClick={() => {
-                      navigate("/" + productId + "/editor");
-                    }}
+            {catalogueSnap.catalogue &&
+              Object.keys(catalogueSnap.catalogue.products).map(
+                (productId, index) => (
+                  <div
+                    key={index}
+                    className="w-full p-2 md:w-1/2 lg:w-1/3 xl:w-1/2 2xl:w-1/2"
                   >
-                    <ProductSelectionTile productId={productId} />
-                  </button>
-                </div>
-              )
-            )}
+                    <button
+                      className="tile w-full"
+                      onClick={() => {
+                        navigate("/" + productId + "/editor");
+                      }}
+                    >
+                      <ProductSelectionTile productId={productId} />
+                    </button>
+                  </div>
+                )
+              )}
           </div>
         </Suspense>
       </div>

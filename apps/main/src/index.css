@@ -1,6 +1,7 @@
 @import "@3dwebprodconf/shared/src/styles/Buttons.css";
 @import "@3dwebprodconf/shared/src/styles/Panels.css";
 @import "@3dwebprodconf/shared/src/styles/Animations.css";
+@import "./styles/Texts.css";
 
 @tailwind base;
 @tailwind components;

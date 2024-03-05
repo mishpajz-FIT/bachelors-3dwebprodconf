@@ -59,9 +59,17 @@ export const AppContent = () => {
   ]);
 
   return (
-    <div className="app flex h-dvh flex-col">
-      <Toaster position="top-right" reverseOrder={true} />
-      <RouterProvider router={router} />
-    </div>
+    <>
+      <div className="app hidden h-dvh flex-col lg:flex">
+        <Toaster position="top-right" reverseOrder={true} />
+        <RouterProvider router={router} />
+      </div>
+      <div className="flex h-screen flex-row items-center justify-center p-4 text-center lg:hidden">
+        <p className="text-lg">
+          Sorry, this application requires a larger screen to function
+          correctly.
+        </p>
+      </div>
+    </>
   );
 };

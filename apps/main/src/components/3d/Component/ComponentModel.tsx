@@ -75,7 +75,7 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
                 visible={
                   componentId === configuratorValuesSnap.selectedComponentId
                 }
-                scale={1.05}
+                scale={1}
               >
                 <meshBasicMaterial
                   transparent={true}
