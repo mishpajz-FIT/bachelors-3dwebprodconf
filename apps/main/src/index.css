@@ -38,3 +38,22 @@ h1 {
     background-color: #ffffff;
   }
 }
+
+@media print {
+  body,
+  html {
+    background: none !important;
+    color: #000 !important;
+  }
+  .content {
+    padding: 0;
+    margin: 0;
+    border: none;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
+}

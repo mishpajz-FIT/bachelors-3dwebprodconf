@@ -28,6 +28,9 @@ const defaultConfig: AppConfig = {
   sources: {
     catalogue: "/products/catalogue.json",
   },
+  capabilities: {
+    savePdfButton: true,
+  },
 };
 
 class GlobalConfig {
