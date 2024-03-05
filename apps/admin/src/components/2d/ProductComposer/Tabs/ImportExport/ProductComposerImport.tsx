@@ -19,16 +19,14 @@ export const ProductComposerImport = () => {
 
         //TODO: validation
 
+        ProductStore.componentSpecs = {};
         if (json.componentSpecs) {
           ProductStore.componentSpecs = json.componentSpecs;
-        } else {
-          ProductStore.componentSpecs = {};
         }
 
+        ProductStore.baseSpecs = {};
         if (json.baseSpecs) {
           ProductStore.baseSpecs = json.baseSpecs;
-        } else {
-          ProductStore.baseSpecs = {};
         }
 
         EditorValuesStore.selectedComponentSpec = undefined;

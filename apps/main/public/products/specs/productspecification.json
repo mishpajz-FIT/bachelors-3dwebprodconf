@@ -1,0 +1,671 @@
+{
+  "componentSpecs": {
+    "backboard-s": {
+      "name": "Backboard",
+      "description": "Backboard for bench.",
+      "imageUrl": "https://c.media.kavehome.com/images/Products/N0100007MM40_1V01.jpg?tx=w_1900",
+      "modelUrl": "https://3dwebprodconf-demoassets.pages.dev/backboard-s.glb",
+      "materialSpecs": {
+        "board": {
+          "name": "Board",
+          "modelMaterials": [
+            "lambert2SG.001"
+          ],
+          "colorVariationsSpecs": {
+            "dark-wood": {
+              "name": "Dark wood",
+              "value": "#583400"
+            },
+            "light-wood": {
+              "name": "Light wood",
+              "value": "#fab15e"
+            },
+            "white": {
+              "name": "Matte white",
+              "value": "#ffffff"
+            },
+            "black": {
+              "name": "Black",
+              "value": "#232323"
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {},
+      "positionOffset": [
+        0.5,
+        -0.5,
+        0
+      ],
+      "rotationOffset": [
+        -1.5707963267948966,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        0.025,
+        0.025,
+        0.025
+      ]
+    },
+    "backboard-s-cushion": {
+      "name": "Backboard cushioned",
+      "description": "Backboard for bench with cushioning.",
+      "imageUrl": "https://www.vidaxl.cz/dw/image/v2/BFNS_PRD/on/demandware.static/-/Sites-vidaxl-catalog-master-sku/default/dwdfdcc578/hi-res/436/6433/451/346417/image_2_346417.jpg?sw=400",
+      "modelUrl": "https://3dwebprodconf-demoassets.pages.dev/backboard-cushioned-s.glb",
+      "materialSpecs": {
+        "board": {
+          "name": "Board",
+          "modelMaterials": [
+            "lambert2SG.001"
+          ],
+          "colorVariationsSpecs": {
+            "dark-wood": {
+              "name": "Dark wood",
+              "value": "#583400"
+            },
+            "light-wood": {
+              "name": "Light wood",
+              "value": "#fab15e"
+            },
+            "white": {
+              "name": "Matte white",
+              "value": "#ffffff"
+            },
+            "black": {
+              "name": "Black",
+              "value": "#232323"
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {},
+      "positionOffset": [
+        1.32273616454784,
+        -0.5057582052395131,
+        0.05
+      ],
+      "rotationOffset": [
+        -1.5707963267948966,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        0.025,
+        0.025,
+        0.025
+      ]
+    },
+    "bench-s-base": {
+      "name": "Bench",
+      "description": "Bench for sitting or as a table.\n\n70 cm wide.",
+      "imageUrl": "https://www.nardinabytek.cz/data/images/tx770_1_tn1.jpg",
+      "modelUrl": "https://3dwebprodconf-demoassets.pages.dev/bench-s.glb",
+      "materialSpecs": {
+        "frame": {
+          "name": "Frame",
+          "modelMaterials": [
+            "lambert2SG.001"
+          ],
+          "colorVariationsSpecs": {
+            "dark-wood": {
+              "name": "Dark wood",
+              "value": "#583400"
+            },
+            "light-wood": {
+              "name": "Light wood",
+              "value": "#fab15e"
+            },
+            "white": {
+              "name": "Matte white",
+              "value": "#ffffff"
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "top": {
+          "position": [
+            -0.5,
+            0.7096903343255291,
+            0.5
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "cushion-s"
+          ]
+        },
+        "right": {
+          "position": [
+            0.2,
+            0.25,
+            0.5
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "bench-s-r",
+            "bench-s-nr"
+          ]
+        },
+        "left": {
+          "position": [
+            -1.2,
+            0.25,
+            0.5
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "bench-s-nl",
+            "bench-s-l"
+          ]
+        },
+        "back": {
+          "position": [
+            -0.5,
+            0.5,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "backboard-s"
+          ]
+        }
+      },
+      "positionOffset": [
+        0.5,
+        0,
+        -0.5
+      ],
+      "rotationOffset": [
+        -1.5707963267948966,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        0.025,
+        0.025,
+        0.025
+      ]
+    },
+    "bench-s-l": {
+      "name": "Bench left corner",
+      "description": "Bench for sitting or as a table in left corner",
+      "imageUrl": "https://www.nardinabytek.cz/data/images/tx770_1_tn1.jpg",
+      "modelUrl": "https://3dwebprodconf-demoassets.pages.dev/bench-s.glb",
+      "materialSpecs": {
+        "frame": {
+          "name": "Frame",
+          "modelMaterials": [
+            "lambert2SG.001"
+          ],
+          "colorVariationsSpecs": {
+            "dark-wood": {
+              "name": "Dark wood",
+              "value": "#583400"
+            },
+            "light-wood": {
+              "name": "Light wood",
+              "value": "#fab15e"
+            },
+            "white": {
+              "name": "Matte white",
+              "value": "#ffffff"
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "top": {
+          "position": [
+            -0.5,
+            0.7151165231030747,
+            0.5
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "cushion-s"
+          ]
+        },
+        "front": {
+          "position": [
+            -0.5,
+            0.25,
+            1.2
+          ],
+          "rotation": [
+            0,
+            1.5707963267948966,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "bench-s-nl",
+            "bench-s-l"
+          ]
+        },
+        "back": {
+          "position": [
+            -0.5,
+            0.5,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "backboard-s"
+          ]
+        },
+        "left": {
+          "position": [
+            -1,
+            0.5,
+            0.5
+          ],
+          "rotation": [
+            0,
+            1.5707963267948966,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "backboard-s"
+          ]
+        }
+      },
+      "positionOffset": [
+        0.5,
+        -0.25,
+        -0.5
+      ],
+      "rotationOffset": [
+        -1.5707963267948966,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        0.025,
+        0.025,
+        0.025
+      ]
+    },
+    "bench-s-nl": {
+      "name": "Bench",
+      "description": "Bench for sitting or as a table.\n\n70 cm wide.",
+      "imageUrl": "https://www.nardinabytek.cz/data/images/tx770_1_tn1.jpg",
+      "modelUrl": "https://3dwebprodconf-demoassets.pages.dev/bench-s.glb",
+      "materialSpecs": {
+        "frame": {
+          "name": "Frame",
+          "modelMaterials": [
+            "lambert2SG.001"
+          ],
+          "colorVariationsSpecs": {
+            "dark-wood": {
+              "name": "Dark wood",
+              "value": "#583400"
+            },
+            "light-wood": {
+              "name": "Light wood",
+              "value": "#fab15e"
+            },
+            "white": {
+              "name": "Matte white",
+              "value": "#ffffff"
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "top": {
+          "position": [
+            -0.5,
+            0.7151165231030747,
+            0.5
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "cushion-s"
+          ]
+        },
+        "left": {
+          "position": [
+            -1.2,
+            0.25,
+            0.5
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "bench-s-nl",
+            "bench-s-l"
+          ]
+        },
+        "back": {
+          "position": [
+            -0.5,
+            0.5,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "backboard-s",
+            "backboard-s-cushion"
+          ]
+        }
+      },
+      "positionOffset": [
+        0.5,
+        -0.25,
+        -0.5
+      ],
+      "rotationOffset": [
+        -1.5707963267948966,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        0.025,
+        0.025,
+        0.025
+      ]
+    },
+    "bench-s-nr": {
+      "name": "Bench",
+      "description": "Bench for sitting or as a table.\n\n70 cm wide.",
+      "imageUrl": "https://www.nardinabytek.cz/data/images/tx770_1_tn1.jpg",
+      "modelUrl": "https://3dwebprodconf-demoassets.pages.dev/bench-s.glb",
+      "materialSpecs": {
+        "frame": {
+          "name": "Frame",
+          "modelMaterials": [
+            "lambert2SG.001"
+          ],
+          "colorVariationsSpecs": {
+            "dark-wood": {
+              "name": "Dark wood",
+              "value": "#583400"
+            },
+            "light-wood": {
+              "name": "Light wood",
+              "value": "#fab15e"
+            },
+            "white": {
+              "name": "Matte white",
+              "value": "#ffffff"
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "top": {
+          "position": [
+            -0.5,
+            0.7151165231030747,
+            0.5
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "cushion-s"
+          ]
+        },
+        "right": {
+          "position": [
+            0.2,
+            0.25,
+            0.5
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "bench-s-nr",
+            "bench-s-r"
+          ]
+        },
+        "back": {
+          "position": [
+            -0.5,
+            0.5,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "backboard-s",
+            "backboard-s-cushion"
+          ]
+        }
+      },
+      "positionOffset": [
+        0.5,
+        -0.25,
+        -0.5
+      ],
+      "rotationOffset": [
+        -1.5707963267948966,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        0.025,
+        0.025,
+        0.025
+      ]
+    },
+    "bench-s-r": {
+      "name": "Bench right corner",
+      "description": "Bench for sitting or as a table in right corner",
+      "imageUrl": "https://www.nardinabytek.cz/data/images/tx770_1_tn1.jpg",
+      "modelUrl": "https://3dwebprodconf-demoassets.pages.dev/bench-s.glb",
+      "materialSpecs": {
+        "frame": {
+          "name": "Frame",
+          "modelMaterials": [
+            "lambert2SG.001"
+          ],
+          "colorVariationsSpecs": {
+            "dark-wood": {
+              "name": "Dark wood",
+              "value": "#583400"
+            },
+            "light-wood": {
+              "name": "Light wood",
+              "value": "#fab15e"
+            },
+            "white": {
+              "name": "Matte white",
+              "value": "#ffffff"
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "top": {
+          "position": [
+            -0.5,
+            0.7151165231030747,
+            0.5
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "cushion-s"
+          ]
+        },
+        "front": {
+          "position": [
+            -0.5,
+            0.25,
+            1.2
+          ],
+          "rotation": [
+            0,
+            -1.5707963267948966,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "bench-s-n",
+            "bench-s-r"
+          ]
+        },
+        "back": {
+          "position": [
+            -0.5,
+            0.5,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "backboard-s",
+            "backboard-s-cushion"
+          ]
+        },
+        "right": {
+          "position": [
+            0,
+            0.5,
+            0.5
+          ],
+          "rotation": [
+            0,
+            -1.5707963267948966,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "backboard-s"
+          ]
+        }
+      },
+      "positionOffset": [
+        0.5,
+        -0.25,
+        -0.5
+      ],
+      "rotationOffset": [
+        -1.5707963267948966,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        0.025,
+        0.025,
+        0.025
+      ]
+    },
+    "cushion-s": {
+      "name": "Cushion",
+      "description": "Cushion for bench.",
+      "imageUrl": "https://cdn-at-ft.com/ZGF0YV9maWxlcy9wcm9kdWt0eS8xNy90a2FuaW55LzE3XzI0MDMuMS5qcGc_3D/sq1290",
+      "modelUrl": "https://3dwebprodconf-demoassets.pages.dev/cushion-s.glb",
+      "materialSpecs": {
+        "cushioning": {
+          "name": "Cushioning",
+          "modelMaterials": [
+            "lambert2SG.001"
+          ],
+          "colorVariationsSpecs": {
+            "blue": {
+              "name": "Navy blue",
+              "value": "#2c1376"
+            },
+            "red": {
+              "name": "Crimson red",
+              "value": "#b51a00"
+            },
+            "green": {
+              "name": "Military green",
+              "value": "#4f7a28"
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {},
+      "positionOffset": [
+        0.5,
+        -0.7136157103899701,
+        -0.5000000000000001
+      ],
+      "rotationOffset": [
+        -1.5707963267948966,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        0.025,
+        0.025,
+        0.025
+      ]
+    }
+  },
+  "baseSpecs": {
+    "normal": {
+      "component": "bench-s-base"
+    }
+  }
+}

@@ -29,10 +29,9 @@ export const CatalogueComposer = () => {
 
         //TODO: validation
 
+        CatalogueStore.products = {};
         if (json.products) {
           CatalogueStore.products = json.products;
-        } else {
-          CatalogueStore.products = {};
         }
       }
     };

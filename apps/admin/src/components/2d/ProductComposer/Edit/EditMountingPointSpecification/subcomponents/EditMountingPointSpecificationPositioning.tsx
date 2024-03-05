@@ -47,7 +47,8 @@ export const EditMountingPointSpecificationPositioning = () => {
                     const editableMountingPoint =
                       ProductStore.componentSpecs[componentSpecId]
                         .mountingPointsSpecs[mountingPointSpecId];
-                    editableMountingPoint.rotation[index] = value;
+                    editableMountingPoint.rotation[index] =
+                      MathUtils.degToRad(value);
                   }}
                   currentValue={MathUtils.radToDeg(
                     mountingPointSpec.rotation.at(index) ?? 0

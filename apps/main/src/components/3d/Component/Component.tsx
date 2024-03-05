@@ -22,36 +22,43 @@ export const Component = ({ componentId }: ComponentProps) => {
           : undefined
       }
     >
-      <ComponentModel componentId={componentId} />
+      <group scale={componentSpec.scaleOffset}>
+        <ComponentModel componentId={componentId} />
+      </group>
 
       {Object.entries(componentSpec.mountingPointsSpecs).map(
         ([mountingPointSpecId, mountingPoint]) => {
           const mountedComponentId = component.mounted[mountingPointSpecId];
 
-          if (mountedComponentId) {
-            return (
-              <group
-                key={mountedComponentId}
-                position={mountingPoint.position}
-                rotation={new Euler(...mountingPoint.rotation)}
-              >
-                <Component componentId={mountedComponentId} />
-              </group>
-            );
-          } else {
-            return (
+          return (
+            <group
+              key={mountingPointSpecId}
+              rotation={
+                componentSpec.rotationOffset
+                  ? new Euler(
+                      -componentSpec.rotationOffset[0],
+                      -componentSpec.rotationOffset[1],
+                      -componentSpec.rotationOffset[2]
+                    )
+                  : undefined
+              }
+            >
               <group
                 key={mountingPointSpecId}
                 position={mountingPoint.position}
                 rotation={new Euler(...mountingPoint.rotation)}
               >
-                <MountingPointButton
-                  componentId={componentId}
-                  mountingPointSpecId={mountingPointSpecId}
-                />
+                {mountedComponentId ? (
+                  <Component componentId={mountedComponentId} />
+                ) : (
+                  <MountingPointButton
+                    componentId={componentId}
+                    mountingPointSpecId={mountingPointSpecId}
+                  />
+                )}
               </group>
-            );
-          }
+            </group>
+          );
         }
       )}
     </group>
