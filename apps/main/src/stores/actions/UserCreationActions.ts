@@ -211,10 +211,10 @@ export const changeMaterial = (
     colorSpecId;
 };
 
-export const detectEmptyRequired = (
+export const detectRequiredMissing = (
   userCreationStore: typeof UserCreationStore,
   productSpecificationStore: typeof ProductSpecificationStore
-) => {
+): string[] => {
   const missingComponents: string[] = [];
 
   Object.entries(userCreationStore.components).forEach(
