@@ -3,7 +3,11 @@
     "bench": {
       "imageUrl": "https://www.nardinabytek.cz/data/images/tx770_1_tn1.jpg",
       "name": "Modular bench",
-      "productSpecificationUrl": "/products/specs/productspecification.json"
+      "productSpecificationUrl": "/products/specs/productspecification.json",
+      "submission": {
+        "endpoint": "https://test-url",
+        "type": "CONTACT_FORM"
+      }
     }
   }
 }

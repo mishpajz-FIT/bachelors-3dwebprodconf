@@ -62,45 +62,47 @@ export const ProductConfirmationContactForm = ({
       <ContainerHeader title={"Inquiry"} onClose={onClose} subheader={true} />
       {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
       <form onSubmit={handleSubmit}>
-        <label>
-          <span className="label">Name</span>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            className="field"
-            placeholder="Your Name"
-            required={true}
-          />
-        </label>
-        <label>
-          <span className="label">Email</span>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            className="field"
-            placeholder="your@email.com"
-            required={true}
-          />
-        </label>
-        <label>
-          <span className="label">Phone number</span>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            className="field"
-            placeholder="+00"
-          />
-        </label>
-        <label>
-          <span className="label">Note</span>
-          <textarea name="note" className="field" placeholder="Note" />
-        </label>
-        <button type="submit" className="primary-button" tabIndex={0}>
-          Confirm
-        </button>
+        <div className="m-4 grid grid-cols-1 gap-4">
+          <label>
+            <span className="label">Name</span>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              className="field"
+              placeholder="Your Name"
+              required={true}
+            />
+          </label>
+          <label>
+            <span className="label">Email</span>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              className="field"
+              placeholder="your@email.com"
+              required={true}
+            />
+          </label>
+          <label>
+            <span className="label">Phone number</span>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              className="field"
+              placeholder="+00"
+            />
+          </label>
+          <label>
+            <span className="label">Note</span>
+            <textarea name="note" className="field" placeholder="Note" />
+          </label>
+          <button type="submit" className="primary-button" tabIndex={0}>
+            Confirm
+          </button>
+        </div>
       </form>
     </div>
   );
