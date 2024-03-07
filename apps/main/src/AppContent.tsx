@@ -8,8 +8,9 @@ import {
 
 import { ProductConfirmation } from "./components/2d/ProductConfirmation/ProductConfirmation.tsx";
 import { ProductSelection } from "./components/2d/ProductSelection/ProductSelection.tsx";
+import { globalConfig } from "./configurations/Config.ts";
+import { getCatalogue } from "./stores/actions/CatalogueActions.ts";
 import { fetchProductSpecification } from "./stores/actions/ProductSpecificationActions.ts";
-import { CatalogueStore } from "./stores/CatalogueStore.ts";
 import { ConfiguratorValuesStore } from "./stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "./stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "./stores/UserCreationStore.ts";
@@ -23,6 +24,17 @@ const router = createBrowserRouter([
     path: "/",
     errorElement: <ErrorPage />,
     element: <ProductSelection />,
+    loader: async () => {
+      const catalogue = await getCatalogue(
+        globalConfig.config.sources.catalogue
+      );
+      const products = catalogue.products;
+      if (!products) {
+        throw Error("Products not found.");
+      }
+
+      return products;
+    },
   },
   {
     path: "/:productId/editor",
@@ -37,7 +49,9 @@ const router = createBrowserRouter([
         throw Error("Wrong ProductID.");
       }
 
-      const catalogue = await CatalogueStore.catalogue;
+      const catalogue = await getCatalogue(
+        globalConfig.config.sources.catalogue
+      );
       const products = catalogue.products;
       if (!products) {
         throw Error("Products not found.");
@@ -67,7 +81,9 @@ const router = createBrowserRouter([
         throw Error("Wrong ProductID.");
       }
 
-      const catalogue = await CatalogueStore.catalogue;
+      const catalogue = await getCatalogue(
+        globalConfig.config.sources.catalogue
+      );
       const products = catalogue.products;
       if (!products) {
         throw Error("Products not found.");

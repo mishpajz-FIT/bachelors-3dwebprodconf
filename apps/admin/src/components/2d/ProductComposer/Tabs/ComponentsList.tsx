@@ -72,6 +72,7 @@ export const ComponentsList = () => {
                 onClick={() => {
                   EditorValuesStore.selectedComponentSpec = componentId;
                   EditorValuesStore.selectedMountingPoint = undefined;
+                  EditorValuesStore.selectedMaterial = undefined;
                 }}
                 className="flex w-full flex-row items-center justify-start gap-2 p-2"
               >

@@ -48,7 +48,7 @@ export const EditComponent = ({ onClose }: EditComponentProps) => {
 
           {Object.keys(componentSpec.materialSpecs).length !== 0 && (
             <div className="pt-8">
-              <h4 className="text-base font-medium">Materials</h4>
+              <h4 className="section-heading">Materials</h4>
               <EditComponentColors componentId={componentId} />
             </div>
           )}

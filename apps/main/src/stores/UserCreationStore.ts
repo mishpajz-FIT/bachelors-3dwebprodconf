@@ -1,13 +1,13 @@
 import { UserCreation } from "@3dwebprodconf/shared/src/interfaces/UserCreation.ts";
 import { proxy } from "valtio";
 
-interface UserProductAdditionalInfo {
+interface UserCreationAdditionalInfo {
   childToParentMap: Map<string, [string, string]>; // reverse lookup from component to its parent and the mounting point id
   isBaseSet: boolean;
 }
 
 export const UserCreationStore = proxy<
-  UserCreation & UserProductAdditionalInfo
+  UserCreation & UserCreationAdditionalInfo
 >({
   base: "",
   components: {},

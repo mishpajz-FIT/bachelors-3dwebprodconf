@@ -1,6 +1,8 @@
 @import "@3dwebprodconf/shared/src/styles/Buttons.css";
 @import "@3dwebprodconf/shared/src/styles/Panels.css";
 @import "@3dwebprodconf/shared/src/styles/Animations.css";
+@import "@3dwebprodconf/shared/src/styles/Inputs.css";
+@import "./styles/Texts.css";
 
 @tailwind base;
 @tailwind components;
@@ -36,5 +38,24 @@ h1 {
   :root {
     color: #213547;
     background-color: #ffffff;
+  }
+}
+
+@media print {
+  body,
+  html {
+    background: none !important;
+    color: #000 !important;
+  }
+  .content {
+    padding: 0;
+    margin: 0;
+    border: none;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none;
   }
 }

@@ -40,7 +40,7 @@
     @apply bg-gradient-to-r;
     @apply from-white/0 to-white;
 
-    @apply to-zinc-900 dark:from-zinc-900/0;
+    @apply dark:from-zinc-900/0 dark:to-zinc-900;
   }
 
   .tile-background {

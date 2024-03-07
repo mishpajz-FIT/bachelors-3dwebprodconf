@@ -3,6 +3,7 @@ import { TextInput } from "@3dwebprodconf/shared/src/components/inputs/TextInput
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { useSnapshot } from "valtio";
 
+import { CatalogueComposerTileSubmission } from "./CatalogueComposerTileSubmission.tsx";
 import { CatalogueStore } from "../../../stores/CatalogueStore.ts";
 
 interface CatalogueComposerTileProps {
@@ -26,54 +27,59 @@ export const CatalogueComposerTile = ({
           <span className="w-full shrink-0 truncate font-mono text-lg font-semibold tracking-tight text-gray-700 dark:text-gray-300">
             {productId}
           </span>
-          <div className="flex w-full flex-row gap-4 p-4">
-            <label htmlFor={"name"} className="w-full">
-              <span className="label">Name</span>
-              <TextInput
-                key={"name"}
-                inputId={"name"}
-                allowEmpty={false}
-                placeholder={"Car"}
-                currentValue={product.name}
-                submitValue={(value: string) => {
-                  const editableProduct = CatalogueStore.products[productId];
-
-                  editableProduct.name = value;
-                }}
-              />
-            </label>
-            <div className="flex w-full flex-col gap-2">
-              <label htmlFor={"imageUrl"}>
-                <span className="label">Preview image</span>
-                <ImageURLInput
-                  key={"imageUrl"}
-                  inputId={"imageUrl"}
-                  allowEmpty={false}
-                  placeholder={"https://cdn.url/my-product-image.jpg"}
-                  currentValue={product.imageUrl}
-                  submitValue={(value: string) => {
-                    const editableProduct = CatalogueStore.products[productId];
-
-                    editableProduct.imageUrl = value;
-                  }}
-                />
-              </label>
-              <label htmlFor={"specificationUrl"}>
-                <span className="label">Product specification</span>
+          <div className="flex w-full flex-col gap-4">
+            <div className="flex w-full flex-row gap-4 p-4">
+              <label htmlFor={"name"} className="w-full">
+                <span className="label">Name</span>
                 <TextInput
-                  key={"specificationUrl"}
-                  inputId={"specificationUrl"}
+                  key={"name"}
+                  inputId={"name"}
                   allowEmpty={false}
-                  placeholder={"/productspecification.json"}
-                  currentValue={product.productSpecificationUrl}
+                  placeholder={"Car"}
+                  currentValue={product.name}
                   submitValue={(value: string) => {
                     const editableProduct = CatalogueStore.products[productId];
 
-                    editableProduct.productSpecificationUrl = value;
+                    editableProduct.name = value;
                   }}
                 />
               </label>
+              <div className="flex w-full flex-col gap-2">
+                <label htmlFor={"imageUrl"}>
+                  <span className="label">Preview image</span>
+                  <ImageURLInput
+                    key={"imageUrl"}
+                    inputId={"imageUrl"}
+                    allowEmpty={false}
+                    placeholder={"https://cdn.url/my-product-image.jpg"}
+                    currentValue={product.imageUrl}
+                    submitValue={(value: string) => {
+                      const editableProduct =
+                        CatalogueStore.products[productId];
+
+                      editableProduct.imageUrl = value;
+                    }}
+                  />
+                </label>
+                <label htmlFor={"specificationUrl"}>
+                  <span className="label">Product specification</span>
+                  <TextInput
+                    key={"specificationUrl"}
+                    inputId={"specificationUrl"}
+                    allowEmpty={false}
+                    placeholder={"/productspecification.json"}
+                    currentValue={product.productSpecificationUrl}
+                    submitValue={(value: string) => {
+                      const editableProduct =
+                        CatalogueStore.products[productId];
+
+                      editableProduct.productSpecificationUrl = value;
+                    }}
+                  />
+                </label>
+              </div>
             </div>
+            <CatalogueComposerTileSubmission productId={productId} />
           </div>
 
           <div className="flex w-full flex-row items-center justify-end">

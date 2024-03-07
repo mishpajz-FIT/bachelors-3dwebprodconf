@@ -58,7 +58,7 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
   };
 
   return (
-    <group scale={componentSpec.scaleOffset ?? [1, 1, 1]} onClick={select}>
+    <group onClick={select}>
       {Object.entries(nodes).map(([name, node]) => {
         if (node.type === "Mesh") {
           const mesh = node as Mesh;
@@ -75,7 +75,7 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
                 visible={
                   componentId === configuratorValuesSnap.selectedComponentId
                 }
-                scale={1.05}
+                scale={1}
               >
                 <meshBasicMaterial
                   transparent={true}

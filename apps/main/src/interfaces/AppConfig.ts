@@ -26,4 +26,7 @@ export interface AppConfig {
   sources: {
     catalogue: string;
   };
+  capabilities: {
+    savePdfButton: boolean;
+  };
 }

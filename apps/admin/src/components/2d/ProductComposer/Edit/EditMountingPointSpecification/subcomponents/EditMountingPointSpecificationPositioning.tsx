@@ -4,7 +4,6 @@ import { MathUtils } from "three";
 import { useSelectedComponentSpec } from "../../../../../../hooks/useSelectedComponentSpec.ts";
 import { useSelectedMountingPointSpec } from "../../../../../../hooks/useSelectedMountingPointSpec.ts";
 import { ProductStore } from "../../../../../../stores/ProductStore.ts";
-import { refreshBounds } from "../../../../../../utilities/BoundsManipulation.ts";
 
 export const EditMountingPointSpecificationPositioning = () => {
   const { componentSpecId } = useSelectedComponentSpec();
@@ -27,7 +26,6 @@ export const EditMountingPointSpecificationPositioning = () => {
                       ProductStore.componentSpecs[componentSpecId]
                         .mountingPointsSpecs[mountingPointSpecId];
                     editableMountingPoint.position[index] = value;
-                    refreshBounds();
                   }}
                   currentValue={mountingPointSpec.position.at(index)}
                   placeholder={0}
@@ -39,7 +37,7 @@ export const EditMountingPointSpecificationPositioning = () => {
           </label>
           <label>
             <span className="label">
-              Rotation <span className={"font-mono"}> (&deg;)</span>
+              Rotation <span className="font-mono"> (&deg;)</span>
             </span>
             <div className="flex flex-row gap-1">
               {[0, 1, 2].map((index) => (
@@ -49,8 +47,8 @@ export const EditMountingPointSpecificationPositioning = () => {
                     const editableMountingPoint =
                       ProductStore.componentSpecs[componentSpecId]
                         .mountingPointsSpecs[mountingPointSpecId];
-                    editableMountingPoint.rotation[index] = value;
-                    refreshBounds();
+                    editableMountingPoint.rotation[index] =
+                      MathUtils.degToRad(value);
                   }}
                   currentValue={MathUtils.radToDeg(
                     mountingPointSpec.rotation.at(index) ?? 0

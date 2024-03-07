@@ -56,7 +56,7 @@ export const EditComponentColorsColorTile = ({
         />
         <span
           hidden={!isSelected}
-          className="ml-2 select-none truncate text-sm font-light leading-tight text-gray-600 dark:text-gray-400"
+          className="ml-2 select-none truncate text-sm leading-tight text-gray-700 dark:text-gray-400"
         >
           {colorSpec.name}
         </span>

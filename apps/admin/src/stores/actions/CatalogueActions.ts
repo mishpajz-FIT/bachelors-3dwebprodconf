@@ -2,6 +2,6 @@ import { downloadableJson } from "@3dwebprodconf/shared/src/utilites/downloadabl
 
 import { CatalogueStore } from "../CatalogueStore.ts";
 
-export const exportCatalogue = () => {
+export function exportCatalogue() {
   downloadableJson(JSON.stringify(CatalogueStore), "catalogue");
-};
+}

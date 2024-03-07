@@ -11,6 +11,9 @@ export const ProductSelectionTile = ({
   productId,
 }: ProductSelectionTileProps) => {
   const catalogueSnap = useSnapshot(CatalogueStore);
+  if (!catalogueSnap.catalogue) {
+    throw new Error(`No catalogue found`);
+  }
 
   const product = catalogueSnap.catalogue.products[productId];
   if (!product) {
@@ -18,15 +21,15 @@ export const ProductSelectionTile = ({
   }
 
   return (
-    <div className="flex flex-row items-center justify-start p-4">
+    <div className="flex flex-col items-center justify-start p-4">
       <SkeletonImage
         src={product.imageUrl}
         alt={product.name}
         className="pointer-events-none inset-1 size-24 rounded"
       />
 
-      <div className="ml-4 grow">
-        <p className="truncate text-left text-lg font-semibold">
+      <div className="mt-4 grow">
+        <p className="truncate text-center text-lg font-semibold">
           {product.name}
         </p>
       </div>

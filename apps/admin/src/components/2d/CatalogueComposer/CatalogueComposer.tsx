@@ -1,7 +1,8 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
 import { Popup } from "@3dwebprodconf/shared/src/components/containers/Popup.tsx";
+import { Catalogue } from "@3dwebprodconf/shared/src/interfaces/Catalogue.ts";
 import { PlusIcon } from "@heroicons/react/24/solid";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useSnapshot } from "valtio";
 
 import { CatalogueComposerTile } from "./CatalogueComposerTile.tsx";
@@ -13,6 +14,29 @@ export const CatalogueComposer = () => {
   const catalogueSnap = useSnapshot(CatalogueStore);
 
   const [isOpenAdd, setOpenAdd] = useState(false);
+
+  const handleFileSelection = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e: ProgressEvent<FileReader>) => {
+      const text = e.target?.result;
+      if (text) {
+        const json = JSON.parse(text as string) as Catalogue;
+
+        //TODO: validation
+
+        CatalogueStore.products = {};
+        if (json.products) {
+          CatalogueStore.products = json.products;
+        }
+      }
+    };
+    reader.readAsText(file);
+  };
 
   return (
     <div className="content-background flex size-full select-none flex-col items-center justify-start overflow-y-scroll p-4">
@@ -40,7 +64,17 @@ export const CatalogueComposer = () => {
               ))
             )}
           </ul>
-          <div className="mt-auto flex flex-row items-center justify-end">
+          <div className="mt-auto flex flex-row items-center justify-end gap-1">
+            <input
+              type="file"
+              id="file"
+              accept=".json"
+              style={{ display: "none" }}
+              onChange={handleFileSelection}
+            />
+            <label htmlFor="file" className="secondary-button">
+              Import
+            </label>
             <button
               className="primary-button"
               onClick={() => exportCatalogue()}

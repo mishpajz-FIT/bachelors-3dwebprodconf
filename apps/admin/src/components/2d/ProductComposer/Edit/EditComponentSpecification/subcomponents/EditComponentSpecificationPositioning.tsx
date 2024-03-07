@@ -6,7 +6,6 @@ import { useSnapshot } from "valtio";
 import { useSelectedComponentSpec } from "../../../../../../hooks/useSelectedComponentSpec.ts";
 import { EditorValuesStore } from "../../../../../../stores/EditorValuesStore.ts";
 import { ProductStore } from "../../../../../../stores/ProductStore.ts";
-import { refreshBounds } from "../../../../../../utilities/BoundsManipulation.ts";
 
 export const EditComponentSpecificationPositioning = () => {
   const editorValuesSnap = useSnapshot(EditorValuesStore);
@@ -34,7 +33,7 @@ export const EditComponentSpecificationPositioning = () => {
           <div>
             <span className="label">
               Size
-              <span className={"font-mono"}> (m)</span>
+              <span className="font-mono"> (m)</span>
             </span>
             <div className="flex flex-row gap-1">
               {[0, 1, 2].map((index) => (
@@ -61,7 +60,6 @@ export const EditComponentSpecificationPositioning = () => {
                       throw new Error(`Missing editable values!`);
                     }
                     values[index] = value;
-                    refreshBounds();
                   }}
                   currentValue={componentSpec.positionOffset?.at(index)}
                   placeholder={0}
@@ -73,7 +71,7 @@ export const EditComponentSpecificationPositioning = () => {
           </label>
           <label>
             <span className="label">
-              Rotation <span className={"font-mono"}> (&deg;)</span>
+              Rotation <span className="font-mono"> (&deg;)</span>
             </span>
             <div className="flex flex-row gap-1">
               {[0, 1, 2].map((index) => (
@@ -87,7 +85,6 @@ export const EditComponentSpecificationPositioning = () => {
                       throw new Error(`Missing editable values!`);
                     }
                     values[index] = MathUtils.degToRad(value);
-                    refreshBounds();
                   }}
                   currentValue={MathUtils.radToDeg(
                     componentSpec.rotationOffset?.at(index) ?? 0
@@ -115,7 +112,6 @@ export const EditComponentSpecificationPositioning = () => {
                       throw new Error(`Missing editable values!`);
                     }
                     values[index] = value;
-                    refreshBounds();
                   }}
                   currentValue={componentSpec.scaleOffset?.at(index)}
                   placeholder={1}

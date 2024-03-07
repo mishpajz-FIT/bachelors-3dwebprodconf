@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .label {
+    @apply block;
+    @apply text-sm font-medium;
+    @apply text-gray-900 dark:text-white;
+  }
+
+  .section-heading {
+    @apply text-sm font-bold;
+    @apply text-gray-800 dark:text-gray-200;
+  }
+}

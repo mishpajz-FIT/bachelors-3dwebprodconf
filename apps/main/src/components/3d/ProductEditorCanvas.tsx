@@ -6,7 +6,6 @@ import {
   Environment,
   OrbitControls,
   Preload,
-  Stats,
   useGLTF,
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
@@ -69,7 +68,6 @@ const ProductEditorCanvas = () => {
         />
       )}
       <Preload all />
-      <Stats />
     </Canvas>
   );
 };

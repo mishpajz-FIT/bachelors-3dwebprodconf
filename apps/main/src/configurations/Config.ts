@@ -26,7 +26,10 @@ const defaultConfig: AppConfig = {
     },
   },
   sources: {
-    catalogue: "/products/products.json",
+    catalogue: "/products/catalogue.json",
+  },
+  capabilities: {
+    savePdfButton: true,
   },
 };
 

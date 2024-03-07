@@ -2,12 +2,14 @@ import { Modal } from "@3dwebprodconf/shared/src/components/containers/Modal.tsx
 import { PlusIcon } from "@heroicons/react/20/solid";
 import { Html } from "@react-three/drei";
 import { useCallback, useState } from "react";
+import { useSnapshot } from "valtio";
 
 import { useComponent } from "../../../hooks/useComponent.ts";
 import {
   createComponent,
   mountComponent,
 } from "../../../stores/actions/UserCreationActions.ts";
+import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../../utilities/BoundsManipulation.ts";
@@ -22,6 +24,8 @@ export const MountingPointButton = ({
   componentId,
   mountingPointSpecId,
 }: MountingPointButtonProps) => {
+  const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
+
   const [isModalOpen, setModalOpen] = useState(false);
 
   const { component, componentSpec } = useComponent(componentId);
@@ -57,8 +61,14 @@ export const MountingPointButton = ({
   );
 
   return (
-    <Html position={mountingPointSpec.position} zIndexRange={[50, 0]}>
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+    <Html zIndexRange={[50, 0]}>
+      <div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        hidden={
+          configuratorValuesSnap.selectedComponentId !== undefined &&
+          configuratorValuesSnap.selectedComponentId !== componentId
+        }
+      >
         <button
           className={`secondary-button ${mountingPointSpec.isRequired ? "outline outline-1 outline-offset-1 outline-red-400" : ""}`}
           onClick={() => setModalOpen(true)}

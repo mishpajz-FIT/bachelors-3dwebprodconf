@@ -1,4 +1,5 @@
 import { CanvasLoading } from "@3dwebprodconf/shared/src/components/CanvasLoading.tsx";
+import { Popup } from "@3dwebprodconf/shared/src/components/containers/Popup.tsx";
 import { Side } from "@3dwebprodconf/shared/src/components/containers/Side.tsx";
 import { lazy, Suspense, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +7,9 @@ import { useSnapshot } from "valtio";
 
 import { EditComponent } from "./EditComponent/EditComponent.tsx";
 import { SelectBase } from "./SelectBase/SelectBase.tsx";
+import { detectRequiredMissing } from "../../../stores/actions/UserCreationActions.ts";
 import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore.ts";
+import { ProductSpecificationStore } from "../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 
 const ProductEditorCanvas = lazy(
@@ -19,9 +22,23 @@ const ProductEditor = () => {
   const userCreationSnap = useSnapshot(UserCreationStore);
   const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
 
+  const [isMissingPopupOpen, setMissingPopupOpen] = useState(false);
+
   const [isBaseSelectionOpen, setBaseSelectionOpen] = useState(
     !userCreationSnap.isBaseSet
   );
+
+  const onDone = () => {
+    if (
+      detectRequiredMissing(UserCreationStore, ProductSpecificationStore)
+        .length !== 0
+    ) {
+      setMissingPopupOpen(true);
+      return;
+    }
+
+    navigate("/" + ConfiguratorValuesStore.currentProductId + "/confirm");
+  };
 
   return (
     <div className="relative flex grow flex-col">
@@ -57,14 +74,7 @@ const ProductEditor = () => {
             Back
           </button>
 
-          <button
-            className="primary-button"
-            onClick={() =>
-              navigate(
-                "/" + ConfiguratorValuesStore.currentProductId + "/confirm"
-              )
-            }
-          >
+          <button className="primary-button" onClick={onDone}>
             Done
           </button>
         </div>
@@ -75,6 +85,14 @@ const ProductEditor = () => {
           </div>
         )}
       </Suspense>
+      <Popup
+        isOpen={isMissingPopupOpen}
+        onClose={() => setMissingPopupOpen(false)}
+      >
+        <p className="m-4 rounded-lg bg-rose-500 p-2 text-sm text-white">
+          Missing required components needed to complete configuration.
+        </p>
+      </Popup>
     </div>
   );
 };
