@@ -13,11 +13,7 @@ export async function fetchProductSpecification(
     throw new Error(`${response.status}`);
   }
 
-  const productSpecification = ProductSpecificationSchema.parse(
-    await response.json()
-  );
-
-  return productSpecification;
+  return ProductSpecificationSchema.parse(await response.json());
 }
 
 export function validateComponentSpec(

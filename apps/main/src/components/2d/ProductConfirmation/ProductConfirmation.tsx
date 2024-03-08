@@ -1,7 +1,7 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
 import { Popup } from "@3dwebprodconf/shared/src/components/containers/Popup.tsx";
-import { SubmissionType } from "@3dwebprodconf/shared/src/interfaces/Catalogue.ts";
 import { UserCreation } from "@3dwebprodconf/shared/src/interfaces/UserCreation.ts";
+import { SubmissionTypeSchema } from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
@@ -40,7 +40,7 @@ export const ProductConfirmation = () => {
       return;
     }
 
-    if (submission.type === SubmissionType.POST) {
+    if (submission.type === SubmissionTypeSchema.Enum.POST) {
       const userCreation: UserCreation = {
         base: UserCreationStore.base,
         components: UserCreationStore.components,
@@ -54,7 +54,7 @@ export const ProductConfirmation = () => {
       if (redirectUrl) {
         window.location.href = redirectUrl;
       }
-    } else if (submission.type === SubmissionType.CONTACT_FORM) {
+    } else if (submission.type === SubmissionTypeSchema.Enum.CONTACT_FORM) {
       setContactFormPopupOpen(true);
     }
   };

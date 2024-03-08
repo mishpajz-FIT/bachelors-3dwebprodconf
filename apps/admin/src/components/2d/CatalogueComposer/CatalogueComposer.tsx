@@ -1,6 +1,6 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
 import { Popup } from "@3dwebprodconf/shared/src/components/containers/Popup.tsx";
-import { Catalogue } from "@3dwebprodconf/shared/src/interfaces/Catalogue.ts";
+import { CatalogueSchema } from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { ChangeEvent, useState } from "react";
 import { useSnapshot } from "valtio";
@@ -25,14 +25,10 @@ export const CatalogueComposer = () => {
     reader.onload = (e: ProgressEvent<FileReader>) => {
       const text = e.target?.result;
       if (text) {
-        const json = JSON.parse(text as string) as Catalogue;
-
-        //TODO: validation
+        const catalogue = CatalogueSchema.parse(JSON.parse(text as string));
 
         CatalogueStore.products = {};
-        if (json.products) {
-          CatalogueStore.products = json.products;
-        }
+        Object.assign(CatalogueSchema, catalogue);
       }
     };
     reader.readAsText(file);
