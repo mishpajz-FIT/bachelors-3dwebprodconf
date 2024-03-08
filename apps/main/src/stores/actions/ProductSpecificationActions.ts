@@ -1,4 +1,7 @@
-import { ProductSpecification } from "@3dwebprodconf/shared/src/interfaces/ProductSpecification.ts";
+import {
+  ProductSpecification,
+  ProductSpecificationSchema,
+} from "@3dwebprodconf/shared/src/schemas/ProductSpecification.ts";
 
 import { ProductSpecificationStore } from "../ProductSpecificationStore.ts";
 
@@ -10,9 +13,11 @@ export async function fetchProductSpecification(
     throw new Error(`${response.status}`);
   }
 
-  // TODO: Validate data
+  const productSpecification = ProductSpecificationSchema.parse(
+    await response.json()
+  );
 
-  return (await response.json()) as ProductSpecification;
+  return productSpecification;
 }
 
 export function validateComponentSpec(

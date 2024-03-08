@@ -1,4 +1,4 @@
-import { ProductSpecification } from "@3dwebprodconf/shared/src/interfaces/ProductSpecification.ts";
+import { ProductSpecificationSchema } from "@3dwebprodconf/shared/src/schemas/ProductSpecification.ts";
 import { ChangeEvent } from "react";
 
 import { EditorValuesStore } from "../../../../../stores/EditorValuesStore.ts";
@@ -15,19 +15,13 @@ export const ProductComposerImport = () => {
     reader.onload = (e: ProgressEvent<FileReader>) => {
       const text = e.target?.result;
       if (text) {
-        const json = JSON.parse(text as string) as ProductSpecification;
-
-        //TODO: validation
+        const productSpecs = ProductSpecificationSchema.parse(
+          JSON.parse(text as string)
+        );
 
         ProductStore.componentSpecs = {};
-        if (json.componentSpecs) {
-          ProductStore.componentSpecs = json.componentSpecs;
-        }
-
         ProductStore.baseSpecs = {};
-        if (json.baseSpecs) {
-          ProductStore.baseSpecs = json.baseSpecs;
-        }
+        Object.assign(ProductStore, productSpecs);
 
         EditorValuesStore.selectedComponentSpec = undefined;
         EditorValuesStore.selectedMaterial = undefined;

@@ -1,4 +1,4 @@
-import { ComponentSpecification } from "@3dwebprodconf/shared/src/interfaces/ProductSpecification.ts";
+import { ComponentSpecification } from "@3dwebprodconf/shared/src/schemas/ProductSpecification.ts";
 import { FormEvent, useState } from "react";
 
 import { ProductStore } from "../../../../stores/ProductStore.ts";

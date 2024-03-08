@@ -38,7 +38,8 @@
     "react-router-dom": "^6.21.3",
     "three": "^0.161.0",
     "uuid": "^9.0.1",
-    "valtio": "^1.13.0"
+    "valtio": "^1.13.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.6.0",
