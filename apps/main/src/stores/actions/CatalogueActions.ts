@@ -1,9 +1,9 @@
-import { SubmissionResponse } from "@3dwebprodconf/shared/src/interfaces/SubmissionResponse.ts";
 import {
   Catalogue,
   CatalogueSchema,
   SubmissionOption,
 } from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
+import { SubmissionResponseSchema } from "@3dwebprodconf/shared/src/schemas/network/SubmissionResponse.ts";
 
 import { CatalogueStore } from "../CatalogueStore.ts";
 
@@ -37,11 +37,7 @@ export async function submitProduct(
   };
 
   const response = await fetch(url, fetchOptions);
-  const responseData = (await response.json()) as SubmissionResponse;
+  const responseData = SubmissionResponseSchema.parse(await response.json());
 
-  if (responseData?.redirectUrl) {
-    return responseData.redirectUrl;
-  }
-
-  return undefined;
+  return responseData.redirectUrl;
 }
