@@ -1,4 +1,4 @@
-import { UserComponent } from "@3dwebprodconf/shared/src/interfaces/UserCreation.ts";
+import { UserComponent } from "@3dwebprodconf/shared/src/schemas/UserCreation.ts";
 import { v4 as uuid } from "uuid";
 
 import {

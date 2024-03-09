@@ -1,4 +1,4 @@
-import { UserCreation } from "@3dwebprodconf/shared/src/interfaces/UserCreation.ts";
+import { UserCreation } from "@3dwebprodconf/shared/src/schemas/UserCreation.ts";
 import { proxy } from "valtio";
 
 interface UserCreationAdditionalInfo {
