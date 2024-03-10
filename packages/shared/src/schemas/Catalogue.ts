@@ -9,8 +9,8 @@ export const SubmissionOptionSchema = z.object({
 
 export const CatalogueProductSchema = z.object({
   name: z.string().max(100),
-  productSpecificationUrl: z.string().url(),
-  imageUrl: z.string().url(),
+  productSpecificationUrl: z.string(),
+  imageUrl: z.string(),
   submission: SubmissionOptionSchema.optional(),
 });
 

@@ -1,8 +1,7 @@
-import { ProductSpecificationSchema } from "@3dwebprodconf/shared/src/schemas/ProductSpecification.ts";
 import { ChangeEvent } from "react";
 
 import { EditorValuesStore } from "../../../../../stores/EditorValuesStore.ts";
-import { ProductStore } from "../../../../../stores/ProductStore.ts";
+import { readProductSpecificationFromFile } from "../../../../../utilities/readProductSpecificationFromFile.ts";
 
 export const ProductComposerImport = () => {
   const handleFileSelection = (event: ChangeEvent<HTMLInputElement>) => {
@@ -11,24 +10,11 @@ export const ProductComposerImport = () => {
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = (e: ProgressEvent<FileReader>) => {
-      const text = e.target?.result;
-      if (text) {
-        const productSpecs = ProductSpecificationSchema.parse(
-          JSON.parse(text as string)
-        );
+    readProductSpecificationFromFile(file);
 
-        ProductStore.componentSpecs = {};
-        ProductStore.baseSpecs = {};
-        Object.assign(ProductStore, productSpecs);
-
-        EditorValuesStore.selectedComponentSpec = undefined;
-        EditorValuesStore.selectedMaterial = undefined;
-        EditorValuesStore.selectedMountingPoint = undefined;
-      }
-    };
-    reader.readAsText(file);
+    EditorValuesStore.selectedComponentSpec = undefined;
+    EditorValuesStore.selectedMaterial = undefined;
+    EditorValuesStore.selectedMountingPoint = undefined;
   };
 
   return (

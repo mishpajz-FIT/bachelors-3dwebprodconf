@@ -4,14 +4,14 @@ import ReactDOM from "react-dom/client";
 
 import App from "./App.tsx";
 import { globalConfig, globalConfigUrl } from "./configurations/Config.ts";
-import { AppConfig } from "./interfaces/AppConfig.ts";
+import { AppConfigSchema } from "./schemas/AppConfig.ts";
 
 fetch(globalConfigUrl)
   .then((response) => {
     return response.json();
   })
   .then((data) => {
-    globalConfig.config = data as AppConfig;
+    globalConfig.config = AppConfigSchema.parse(data);
   })
   .then(() => {
     ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -20,7 +20,9 @@ fetch(globalConfigUrl)
       </React.StrictMode>
     );
   })
-  .catch(() => {
+  .catch((error) => {
+    console.error(error);
+
     return ReactDOM.createRoot(document.getElementById("root")!).render(
       <React.StrictMode>
         <p className="text-red-600">Error fetching global configuration.</p>

@@ -1,6 +1,5 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
 import { Popup } from "@3dwebprodconf/shared/src/components/containers/Popup.tsx";
-import { CatalogueSchema } from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { ChangeEvent, useState } from "react";
 import { useSnapshot } from "valtio";
@@ -8,6 +7,7 @@ import { useSnapshot } from "valtio";
 import { CatalogueComposerTile } from "./CatalogueComposerTile.tsx";
 import { exportCatalogue } from "../../../stores/actions/CatalogueActions.ts";
 import { CatalogueStore } from "../../../stores/CatalogueStore.ts";
+import { readCatalogueFromFile } from "../../../utilities/readCatalogueFromFile.ts";
 import { AddProduct } from "../Add/subcomponents/AddProduct.tsx";
 
 export const CatalogueComposer = () => {
@@ -21,17 +21,7 @@ export const CatalogueComposer = () => {
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = (e: ProgressEvent<FileReader>) => {
-      const text = e.target?.result;
-      if (text) {
-        const catalogue = CatalogueSchema.parse(JSON.parse(text as string));
-
-        CatalogueStore.products = {};
-        Object.assign(CatalogueSchema, catalogue);
-      }
-    };
-    reader.readAsText(file);
+    readCatalogueFromFile(file);
   };
 
   return (
