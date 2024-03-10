@@ -1,4 +1,5 @@
 import { CatalogueSchema } from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
+
 import { CatalogueStore } from "../stores/CatalogueStore.ts";
 
 export function readCatalogueFromFile(file: File) {

@@ -1,4 +1,5 @@
 import { parseProductSpecification } from "@3dwebprodconf/shared/src/utilites/parseProductSpecification.ts";
+
 import { ProductStore } from "../stores/ProductStore.ts";
 
 export function readProductSpecificationFromFile(file: File) {
