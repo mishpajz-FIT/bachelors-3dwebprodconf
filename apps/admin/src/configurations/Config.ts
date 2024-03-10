@@ -1,4 +1,4 @@
-import { AdminConfig } from "../interfaces/AdminConfig.ts";
+import { AdminConfig } from "../schemas/AdminConfig.ts";
 
 export const defaultAdminConfig: AdminConfig = {
   spatialUi: {

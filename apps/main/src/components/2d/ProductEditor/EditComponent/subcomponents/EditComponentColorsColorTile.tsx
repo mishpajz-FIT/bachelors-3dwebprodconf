@@ -1,4 +1,4 @@
-import { ColorSpecification } from "@3dwebprodconf/shared/src/interfaces/ProductSpecification.ts";
+import { ColorSpecification } from "@3dwebprodconf/shared/src/schemas/ProductSpecification.ts";
 import { useCallback } from "react";
 import { useSnapshot } from "valtio";
 

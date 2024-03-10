@@ -1,8 +1,9 @@
 import {
   Catalogue,
+  CatalogueSchema,
   SubmissionOption,
-} from "@3dwebprodconf/shared/src/interfaces/Catalogue.ts";
-import { SubmissionResponse } from "@3dwebprodconf/shared/src/interfaces/SubmissionResponse.ts";
+} from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
+import { SubmissionResponseSchema } from "@3dwebprodconf/shared/src/schemas/network/SubmissionResponse.ts";
 
 import { CatalogueStore } from "../CatalogueStore.ts";
 
@@ -13,9 +14,7 @@ async function fetchCatalogue(url: string): Promise<Catalogue> {
     throw new Error(`${response.status}`);
   }
 
-  // TODO: Validate data
-
-  return (await response.json()) as Catalogue;
+  return CatalogueSchema.parse(await response.json());
 }
 
 export async function getCatalogue(fallbackUrl: string): Promise<Catalogue> {
@@ -30,7 +29,7 @@ export async function submitProduct(
   submissionOption: SubmissionOption,
   data: string
 ): Promise<string | undefined> {
-  const url = submissionOption.endpoint;
+  const url = submissionOption.endpointUrl;
   const fetchOptions: RequestInit = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -38,11 +37,7 @@ export async function submitProduct(
   };
 
   const response = await fetch(url, fetchOptions);
-  const responseData = (await response.json()) as SubmissionResponse;
+  const responseData = SubmissionResponseSchema.parse(await response.json());
 
-  if (responseData?.redirectUrl) {
-    return responseData.redirectUrl;
-  }
-
-  return undefined;
+  return responseData.redirectUrl;
 }

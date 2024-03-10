@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     element: <ProductSelection />,
     loader: async () => {
       const catalogue = await getCatalogue(
-        globalConfig.config.sources.catalogue
+        globalConfig.config.sources.catalogueUrl
       );
       const products = catalogue.products;
       if (!products) {
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
       }
 
       const catalogue = await getCatalogue(
-        globalConfig.config.sources.catalogue
+        globalConfig.config.sources.catalogueUrl
       );
       const products = catalogue.products;
       if (!products) {
@@ -82,7 +82,7 @@ const router = createBrowserRouter([
       }
 
       const catalogue = await getCatalogue(
-        globalConfig.config.sources.catalogue
+        globalConfig.config.sources.catalogueUrl
       );
       const products = catalogue.products;
       if (!products) {

@@ -1,5 +1,8 @@
 import { TextInput } from "@3dwebprodconf/shared/src/components/inputs/TextInput.tsx";
-import { SubmissionType } from "@3dwebprodconf/shared/src/interfaces/Catalogue.ts";
+import {
+  SubmissionType,
+  SubmissionTypeSchema,
+} from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
 import { useSnapshot } from "valtio";
 
 import { CatalogueStore } from "../../../stores/CatalogueStore.ts";
@@ -34,8 +37,8 @@ export const CatalogueComposerTileSubmission = ({
             } else {
               if (!editableProduct.submission) {
                 editableProduct.submission = {
-                  endpoint: "",
-                  type: SubmissionType.POST,
+                  endpointUrl: "",
+                  type: SubmissionTypeSchema.Enum.POST,
                 };
               }
               editableProduct.submission.type = e.target
@@ -46,12 +49,15 @@ export const CatalogueComposerTileSubmission = ({
           <option key={noneType} value={noneType}>
             Preview only
           </option>
-          <option key={SubmissionType.POST} value={SubmissionType.POST}>
+          <option
+            key={SubmissionTypeSchema.Enum.POST}
+            value={SubmissionTypeSchema.Enum.POST}
+          >
             POST request
           </option>
           <option
-            key={SubmissionType.CONTACT_FORM}
-            value={SubmissionType.CONTACT_FORM}
+            key={SubmissionTypeSchema.Enum.CONTACT_FORM}
+            value={SubmissionTypeSchema.Enum.CONTACT_FORM}
           >
             Contact form
           </option>
@@ -65,7 +71,7 @@ export const CatalogueComposerTileSubmission = ({
             inputId={"endpoint"}
             allowEmpty={false}
             placeholder={"https://eshop.com/api/order/submit"}
-            currentValue={product.submission.endpoint}
+            currentValue={product.submission.endpointUrl}
             submitValue={(value: string) => {
               const editableSubmission =
                 CatalogueStore.products[productId].submission;
@@ -73,7 +79,7 @@ export const CatalogueComposerTileSubmission = ({
                 return;
               }
 
-              editableSubmission.endpoint = value;
+              editableSubmission.endpointUrl = value;
             }}
           />
         </label>

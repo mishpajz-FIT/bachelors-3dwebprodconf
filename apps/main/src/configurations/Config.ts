@@ -1,4 +1,4 @@
-import { AppConfig } from "../interfaces/AppConfig.ts";
+import { AppConfig } from "../schemas/AppConfig.ts";
 
 const defaultConfig: AppConfig = {
   camera: {
@@ -26,7 +26,7 @@ const defaultConfig: AppConfig = {
     },
   },
   sources: {
-    catalogue: "/products/catalogue.json",
+    catalogueUrl: "/products/catalogue.json",
   },
   capabilities: {
     savePdfButton: true,

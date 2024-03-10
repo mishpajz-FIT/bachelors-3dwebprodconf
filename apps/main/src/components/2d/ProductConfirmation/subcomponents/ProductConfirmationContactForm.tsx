@@ -1,5 +1,5 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
-import { ContactInfo } from "@3dwebprodconf/shared/src/interfaces/SubmissionResponse.ts";
+import { ContactInfo } from "@3dwebprodconf/shared/src/schemas/network/ContactInfo.ts";
 import { FormEvent } from "react";
 
 import { submitProduct } from "../../../../stores/actions/CatalogueActions.ts";

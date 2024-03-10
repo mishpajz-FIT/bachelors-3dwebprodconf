@@ -24,7 +24,7 @@
     }
   },
   "sources": {
-    "catalogue": "/products/catalogue.json"
+    "catalogueUrl": "/products/catalogue.json"
   },
   "capabilities": {
     "savePdfButton": true
