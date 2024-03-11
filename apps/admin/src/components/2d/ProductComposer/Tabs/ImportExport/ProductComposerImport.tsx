@@ -1,4 +1,4 @@
-import { formatZodError } from "@3dwebprodconf/shared/src/utilites/formatZodError.ts";
+import { formatting } from "packages/shared/src/utilites/Formatting.ts";
 import { ChangeEvent } from "react";
 import { ZodError } from "zod";
 
@@ -18,7 +18,7 @@ export const ProductComposerImport = () => {
       let message = "Product specification couldn't be imported.";
 
       if (error instanceof ZodError) {
-        message = formatZodError(error);
+        message = formatting(error);
       } else if (error instanceof Error) {
         message = error.message;
       }

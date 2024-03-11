@@ -1,7 +1,7 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
 import { Popup } from "@3dwebprodconf/shared/src/components/containers/Popup.tsx";
 import { CatalogueSchema } from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
-import { formatZodError } from "@3dwebprodconf/shared/src/utilites/formatZodError.ts";
+import { formatting } from "packages/shared/src/utilites/Formatting.ts";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { ChangeEvent, useState } from "react";
 import { useSnapshot } from "valtio";
@@ -30,7 +30,7 @@ export const CatalogueComposer = () => {
       let message = "Product specification couldn't be imported.";
 
       if (error instanceof ZodError) {
-        message = formatZodError(error);
+        message = formatting(error);
       } else if (error instanceof Error) {
         message = error.message;
       }

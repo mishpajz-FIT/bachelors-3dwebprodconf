@@ -1,4 +1,4 @@
-import { downloadableJson } from "@3dwebprodconf/shared/src/utilites/downloadableJson.ts";
+import { downloadableJson } from "packages/shared/src/utilites/Exporting.ts";
 
 import { CatalogueStore } from "../CatalogueStore.ts";
 

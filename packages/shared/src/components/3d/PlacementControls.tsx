@@ -28,9 +28,7 @@ export const PlacementControls = ({
   const [dragRotation, setDragRotation] =
     useState<[number, number, number]>(currentRotation);
 
-  if (hidden) {
-    return children;
-  }
+  if (hidden) return children;
 
   return (
     <PivotControls

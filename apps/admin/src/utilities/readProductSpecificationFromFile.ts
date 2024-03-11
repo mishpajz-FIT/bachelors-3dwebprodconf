@@ -1,4 +1,4 @@
-import { parseProductSpecification } from "@3dwebprodconf/shared/src/utilites/parseProductSpecification.ts";
+import { parseProductSpecification } from "packages/shared/src/utilites/Parsing.ts";
 
 import { ProductStore } from "../stores/ProductStore.ts";
 

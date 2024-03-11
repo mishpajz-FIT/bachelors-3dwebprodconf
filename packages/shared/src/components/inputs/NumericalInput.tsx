@@ -90,7 +90,7 @@ export const NumericalInput = ({
     return false;
   };
 
-  const submit = (value: string) => {
+  const onSubmit = (value: string) => {
     if (!validate(value)) {
       setInnerValue(currentValue?.toString() ?? "");
       setIsValid(true);
@@ -113,7 +113,7 @@ export const NumericalInput = ({
   ) => {
     const { value } = e.target as HTMLInputElement;
 
-    submit(value);
+    onSubmit(value);
   };
 
   const handleKey = (e: KeyboardEvent<HTMLInputElement>) => {

@@ -13,19 +13,17 @@ export const Modal = ({
   isPopupOpen,
   children,
 }: ModalProps) => {
-  const handleClose = () => {
-    if (!isPopupOpen) {
-      onClose();
-    }
-  };
-
   return (
     <Transition show={isOpen} as={Fragment}>
       <Dialog
         as="div"
         className="fixed inset-0 z-[100] overflow-y-auto"
         open={isOpen}
-        onClose={handleClose}
+        onClose={() => {
+          if (!isPopupOpen) {
+            onClose();
+          }
+        }}
       >
         <Transition.Child
           as={Fragment}
