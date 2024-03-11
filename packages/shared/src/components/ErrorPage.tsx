@@ -5,15 +5,22 @@ export const ErrorPage = () => {
 
   console.error(error);
 
-  if (isRouteErrorResponse(error)) {
-    return (
-      <div>
-        <h1>Error!</h1>
-        <h2>{error.status}</h2>
-        <p>{error.statusText}</p>
+  const errorText = isRouteErrorResponse(error)
+    ? error.statusText
+    : "An unexpected error has occurred.";
+
+  return (
+    <div className="flex h-screen w-full items-center justify-center">
+      <div className="p-4 text-center">
+        <h1 className="mb-4 text-4xl font-bold">Oops!</h1>
+        <p className="mb-8 text-xl">{errorText}</p>
+        <button
+          onClick={() => (window.location.href = "/")}
+          className="other-button mt-4"
+        >
+          Reset
+        </button>
       </div>
-    );
-  } else {
-    return <div>Oops</div>;
-  }
+    </div>
+  );
 };
