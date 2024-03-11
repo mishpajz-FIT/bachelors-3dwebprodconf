@@ -37,9 +37,9 @@ const ProductEditor = () => {
       return;
     }
 
-    navigate("/" + ConfiguratorValuesStore.currentProductId + "/confirm");
+    navigate("/confirm/" + ConfiguratorValuesStore.currentProductId);
   };
-
+  // TODO: fix side on small devices
   return (
     <div className="relative flex grow flex-col">
       <Suspense

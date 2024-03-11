@@ -4,13 +4,13 @@ import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
+import { useComponent } from "../../../../../hooks/useComponent.ts";
+import { UserCreationActions } from "../../../../../stores/actions/UserCreationActions.ts";
 import { ConfiguratorValuesStore } from "../../../../../stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../../../../utilities/BoundsManipulation.ts";
 import { AddComponent } from "../../AddComponent/AddComponent.tsx";
-import { useComponent } from "../../../../../hooks/useComponent.ts";
-import { UserCreationActions } from "../../../../../stores/actions/UserCreationActions.ts";
 
 interface EditComponentControlsProps {
   componentId: string;

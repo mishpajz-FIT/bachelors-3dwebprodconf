@@ -15,9 +15,9 @@ import { globalConfig } from "../../../configurations/Config.ts";
 import { CatalogueStore } from "../../../stores/CatalogueStore.ts";
 import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore.ts";
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
+import { errorToast } from "../../../toasts/errorToast.ts";
 import { successToast } from "../../../toasts/successToast.ts";
 import { submitProduct } from "../../../utilities/Requesting.ts";
-import { errorToast } from "../../../toasts/errorToast.ts";
 
 export const ProductConfirmation = () => {
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ export const ProductConfirmation = () => {
       CatalogueStore.catalogue?.products[
         ConfiguratorValuesStore.currentProductId
       ]?.submission,
-    [CatalogueStore.catalogue, ConfiguratorValuesStore.currentProductId]
+    []
   );
 
   const handleSubmit = async (submission: SubmissionOption) => {

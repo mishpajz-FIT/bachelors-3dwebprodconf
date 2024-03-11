@@ -26,7 +26,7 @@ export const ProductConfirmationContactForm = ({
       CatalogueStore.catalogue?.products[
         ConfiguratorValuesStore.currentProductId
       ]?.submission,
-    [CatalogueStore.catalogue, ConfiguratorValuesStore.currentProductId]
+    []
   );
 
   const handleSubmit = async (

@@ -97,7 +97,7 @@ export const PreviewModel = () => {
           {Object.entries(nodes).map(([name, node]) => {
             if (node.type === "Mesh") {
               const mesh = node as Mesh;
-
+              // TODO: attempt to change color of geometries instead of materials
               const materialName = Array.isArray(mesh.material)
                 ? mesh.material[0].name
                 : mesh.material.name;

@@ -3,15 +3,15 @@ import { Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 
+import { ProductSelectionSkeleton } from "./subcomponents/ProductSelectionSkeleton.tsx";
 import { ProductSelectionTile } from "./subcomponents/ProductSelectionTile.tsx";
 import { CatalogueStore } from "../../../stores/CatalogueStore.ts";
-import { ProductSelectionSkeleton } from "./subcomponents/ProductSelectionSkeleton.tsx";
 
 export const ProductSelection = () => {
   const navigate = useNavigate();
 
   const catalogueSnap = useSnapshot(CatalogueStore);
-
+  //TODO: Change tile width, change z-index for shadow
   return (
     <div className="content-background flex size-full select-none flex-col items-center justify-start overflow-y-scroll p-4">
       <div className="content-width">

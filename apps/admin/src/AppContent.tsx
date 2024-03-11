@@ -7,57 +7,51 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { CatalogueComposer } from "./components/2d/CatalogueComposer/CatalogueComposer.tsx";
+import { CatalogueComposer } from "./components/pages/CatalogueComposer/CatalogueComposer.tsx";
 import { TopBar } from "./TopBar.tsx";
 
+const ProductComposer = lazy(
+  () => import("./components/pages/ProductComposer/ProductComposer.tsx")
+);
+
+const ErrorElement = () => (
+  <TopBar>
+    <ErrorPage />
+  </TopBar>
+);
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <></>,
+    errorElement: <ErrorElement />,
+    loader: () => {
+      return redirect("/productcomposer");
+    },
+  },
+  {
+    path: "/cataloguecomposer",
+    element: (
+      <TopBar>
+        <CatalogueComposer />
+      </TopBar>
+    ),
+    errorElement: <ErrorElement />,
+  },
+  {
+    path: "/productcomposer",
+    element: (
+      <TopBar>
+        <Suspense fallback={<div className="content-background size-full" />}>
+          <ProductComposer />
+        </Suspense>
+      </TopBar>
+    ),
+    errorElement: <ErrorElement />,
+  },
+]);
+
 export const AppContent = () => {
-  const ProductComposer = lazy(
-    () => import("./components/2d/ProductComposer/ProductComposer.tsx")
-  );
-
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <></>,
-      errorElement: (
-        <TopBar>
-          <ErrorPage />
-        </TopBar>
-      ),
-      loader: () => {
-        return redirect("/productcomposer");
-      },
-    },
-    {
-      path: "/cataloguecomposer",
-      element: (
-        <TopBar>
-          <CatalogueComposer />
-        </TopBar>
-      ),
-      errorElement: (
-        <TopBar>
-          <ErrorPage />
-        </TopBar>
-      ),
-    },
-    {
-      path: "/productcomposer",
-      element: (
-        <TopBar>
-          <Suspense fallback={<div className="content-background size-full" />}>
-            <ProductComposer />
-          </Suspense>
-        </TopBar>
-      ),
-      errorElement: (
-        <TopBar>
-          <ErrorPage />
-        </TopBar>
-      ),
-    },
-  ]);
-
   return (
     <>
       <div className="app hidden h-dvh flex-col lg:flex">

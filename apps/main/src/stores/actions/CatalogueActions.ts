@@ -1,7 +1,7 @@
 import { Catalogue } from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
 
-import { CatalogueStore } from "../CatalogueStore.ts";
 import { fetchCatalogue } from "../../utilities/Fetching.ts";
+import { CatalogueStore } from "../CatalogueStore.ts";
 
 export class CatalogueActions {
   static async getCatalogue(
