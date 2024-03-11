@@ -14,7 +14,6 @@ import {
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { ErrorBoundary } from "react-error-boundary";
-import { toast } from "react-hot-toast";
 import { DoubleSide } from "three";
 import { useSnapshot } from "valtio";
 
@@ -22,6 +21,7 @@ import { PreviewModel } from "./Preview/PreviewModel.tsx";
 import { defaultAdminConfig } from "../../configurations/Config.ts";
 import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
 import { ProductStore } from "../../stores/ProductStore.ts";
+import { errorToast } from "../../toasts/errorToast.ts";
 import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
 
 export const ProductComposerCanvas = () => {
@@ -112,20 +112,7 @@ export const ProductComposerCanvas = () => {
               }
               fallbackRender={() => null}
               onError={() => {
-                toast.error("Model of component could not be loaded.", {
-                  style: {
-                    color: "white",
-                    background: darkMode
-                      ? defaultAdminConfig.ui.colors.error.dark
-                      : defaultAdminConfig.ui.colors.error.light,
-                  },
-                  iconTheme: {
-                    secondary: darkMode
-                      ? defaultAdminConfig.ui.colors.error.dark
-                      : defaultAdminConfig.ui.colors.error.light,
-                    primary: "white",
-                  },
-                });
+                errorToast("Model of component could not be loaded.");
               }}
             >
               {editorValuesSnap.selectedComponentSpec && <PreviewModel />}

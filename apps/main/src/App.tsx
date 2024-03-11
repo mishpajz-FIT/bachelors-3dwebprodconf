@@ -18,6 +18,15 @@ function App() {
       );
 
       root.style.setProperty(
+        "--error-light",
+        globalConfig.config.ui.colors.error.light
+      );
+      root.style.setProperty(
+        "--error-dark",
+        globalConfig.config.ui.colors.error.dark
+      );
+
+      root.style.setProperty(
         "--primary-overlay-light",
         globalConfig.config.ui.colors.primary.overlayTextWhiteLight
           ? "rgb(255 255 255)"

@@ -25,7 +25,9 @@ fetch(globalConfigUrl)
 
     return ReactDOM.createRoot(document.getElementById("root")!).render(
       <React.StrictMode>
-        <p className="text-red-600">Error fetching global configuration.</p>
+        <p className="text-red-600">
+          Fatal error: couldn&apos;t initialize appconfig.
+        </p>
       </React.StrictMode>
     );
   });

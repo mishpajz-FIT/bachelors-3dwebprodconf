@@ -10,6 +10,8 @@ export const SkeletonImage = ({ src, alt, className }: SkeletonImageProps) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
+  throw new Error("Demo error!");
+
   if (imageError) {
     return (
       <div className={`${className} shrink-0 bg-gray-300 dark:bg-gray-600`} />

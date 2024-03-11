@@ -1,5 +1,6 @@
 import { ErrorPage } from "@3dwebprodconf/shared/src/components/ErrorPage.tsx";
 import { lazy, Suspense } from "react";
+import { Toaster } from "react-hot-toast";
 import {
   createBrowserRouter,
   redirect,
@@ -109,6 +110,7 @@ export const AppContent = () => {
         <img src={"/logo.svg"} alt={"logo"} className="ml-2 max-h-12" />
       </div>
 
+      <Toaster position="top-right" reverseOrder={true} />
       <RouterProvider router={router} />
     </div>
   );

@@ -89,7 +89,7 @@ const ProductEditor = () => {
         isOpen={isMissingPopupOpen}
         onClose={() => setMissingPopupOpen(false)}
       >
-        <p className="m-4 rounded-lg bg-rose-500 p-2 text-sm text-white">
+        <p className="m-4 rounded-lg bg-[var(--error-light)] p-2 text-sm text-white dark:bg-[var(--error-dark)]">
           Missing required components needed to complete configuration.
         </p>
       </Popup>

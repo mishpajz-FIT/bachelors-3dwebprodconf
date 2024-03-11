@@ -37,7 +37,19 @@ export async function submitProduct(
   };
 
   const response = await fetch(url, fetchOptions);
-  const responseData = SubmissionResponseSchema.parse(await response.json());
 
-  return responseData.redirectUrl;
+  if (!response.ok) {
+    throw new Error(
+      `Endpoint responded with error, status: ${response.status}`
+    );
+  }
+
+  let responseData;
+  try {
+    responseData = SubmissionResponseSchema.parse(await response.json());
+  } catch {
+    responseData = {};
+  }
+
+  return responseData ? responseData.redirectUrl : undefined;
 }
