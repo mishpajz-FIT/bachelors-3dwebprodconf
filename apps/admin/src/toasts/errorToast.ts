@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import { defaultAdminConfig } from "../configurations/Config.ts";
 
 export const errorToast = (message: string) => {
-  const darkMode = window.matchMedia("(prefers-color-scheme: dark)");
+  const darkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
   toast.error(message, {
     style: {

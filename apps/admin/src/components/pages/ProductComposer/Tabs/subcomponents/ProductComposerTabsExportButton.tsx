@@ -66,11 +66,25 @@ const validate = (): string[] => {
     );
   }
 
+  function schemaValidation() {
+    const result = ProductSpecificationSchema.safeParse(ProductStore);
+    if (result.success) {
+      return [];
+    }
+
+    return result.error.issues.reduce((acc, issue) => {
+      const pathString = issue.path.join(".");
+      acc.push(`Error while parsing: ${issue.message}, path: ${pathString}`);
+      return acc;
+    }, [] as string[]);
+  }
+
   const validations = [
     baseValidation,
     missingComponentsInMountingPointsValidation,
     missingColorsInMaterialsValidation,
     missingModelsInMaterialsValidation,
+    schemaValidation,
   ];
 
   validations.forEach((validationFunc) => {
@@ -90,7 +104,6 @@ export const ProductComposerTabsExportButton = () => {
 
     if (issues.length === 0) {
       try {
-        ProductSpecificationSchema.parse(ProductStore);
         downloadableJson(JSON.stringify(ProductStore), "productspecification");
       } catch (error) {
         let message = "Product specification couldn't be exported.";

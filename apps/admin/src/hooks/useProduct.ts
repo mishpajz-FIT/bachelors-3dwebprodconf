@@ -1,5 +1,5 @@
 import { CatalogueProduct } from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
-import { useSnapshot } from "valtio/esm/index";
+import { useSnapshot } from "valtio";
 
 import { CatalogueStore } from "../stores/CatalogueStore.ts";
 

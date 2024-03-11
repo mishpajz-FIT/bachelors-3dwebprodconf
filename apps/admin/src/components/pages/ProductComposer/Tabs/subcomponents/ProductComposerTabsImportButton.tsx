@@ -17,9 +17,9 @@ export const ProductComposerTabsImportButton = () => {
     }
 
     readProductSpecificationFromFile(file)
-      .then((productSpecificaiton) => {
+      .then((productSpecification) => {
         ProductActions.storeProductSpecification(
-          productSpecificaiton,
+          productSpecification,
           ProductStore
         );
       })

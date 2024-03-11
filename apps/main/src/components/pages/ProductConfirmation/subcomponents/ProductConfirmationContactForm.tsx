@@ -1,6 +1,7 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
 import { SubmissionOption } from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
 import { ContactInfo } from "@3dwebprodconf/shared/src/schemas/network/ContactInfo.ts";
+import { successToast } from "@3dwebprodconf/shared/src/toasts/successToast.ts";
 import { FormEvent, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -8,7 +9,6 @@ import { CatalogueStore } from "../../../../stores/CatalogueStore.ts";
 import { ConfiguratorValuesStore } from "../../../../stores/ConfiguratorValuesStore.ts";
 import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
 import { errorToast } from "../../../../toasts/errorToast.ts";
-import { successToast } from "../../../../toasts/successToast.ts";
 import { submitProduct } from "../../../../utilities/Requesting.ts";
 
 interface ProductConfirmationContactFormProps {

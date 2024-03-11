@@ -5,6 +5,7 @@ import {
   SubmissionTypeSchema,
 } from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
 import { UserCreation } from "@3dwebprodconf/shared/src/schemas/UserCreation.ts";
+import { successToast } from "@3dwebprodconf/shared/src/toasts/successToast.ts";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
@@ -16,7 +17,6 @@ import { CatalogueStore } from "../../../stores/CatalogueStore.ts";
 import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore.ts";
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 import { errorToast } from "../../../toasts/errorToast.ts";
-import { successToast } from "../../../toasts/successToast.ts";
 import { submitProduct } from "../../../utilities/Requesting.ts";
 
 export const ProductConfirmation = () => {

@@ -1,4 +1,5 @@
 import { CatalogueSchema } from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
+import { warningToast } from "@3dwebprodconf/shared/src/toasts/warningToast.ts";
 import { downloadableJson } from "@3dwebprodconf/shared/src/utilites/Exporting.ts";
 import { formatZodError } from "@3dwebprodconf/shared/src/utilites/Formatting.ts";
 import { ChangeEvent } from "react";
@@ -36,7 +37,13 @@ export const CatalogueComposerButtons = () => {
 
   const onExport = () => {
     try {
-      CatalogueSchema.parse(CatalogueStore);
+      const validationResult = CatalogueSchema.safeParse(CatalogueStore);
+      if (!validationResult.success) {
+        warningToast(
+          `This catalogue has incorrect values: ${formatZodError(validationResult.error)}`
+        );
+      }
+
       downloadableJson(JSON.stringify(CatalogueStore), "catalogue");
     } catch (error) {
       let message = "Catalogue couldn't be exported.";
