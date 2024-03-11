@@ -1,13 +1,15 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
+import { SubmissionOption } from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
 import { ContactInfo } from "@3dwebprodconf/shared/src/schemas/network/ContactInfo.ts";
-import { FormEvent } from "react";
+import { FormEvent, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { submitProduct } from "../../../../stores/actions/CatalogueActions.ts";
 import { CatalogueStore } from "../../../../stores/CatalogueStore.ts";
 import { ConfiguratorValuesStore } from "../../../../stores/ConfiguratorValuesStore.ts";
 import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
 import { errorToast } from "../../../../toasts/errorToast.ts";
 import { successToast } from "../../../../toasts/successToast.ts";
+import { submitProduct } from "../../../../utilities/Requesting.ts";
 
 interface ProductConfirmationContactFormProps {
   onClose: () => void;
@@ -16,20 +18,44 @@ interface ProductConfirmationContactFormProps {
 export const ProductConfirmationContactForm = ({
   onClose,
 }: ProductConfirmationContactFormProps) => {
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const navigate = useNavigate();
 
-    if (!ConfiguratorValuesStore.currentProductId) {
-      return;
-    }
-
-    const submission =
+  const submissionOption = useMemo(
+    () =>
+      ConfiguratorValuesStore.currentProductId &&
       CatalogueStore.catalogue?.products[
         ConfiguratorValuesStore.currentProductId
-      ].submission;
-    if (!submission) {
-      return;
+      ]?.submission,
+    [CatalogueStore.catalogue, ConfiguratorValuesStore.currentProductId]
+  );
+
+  const handleSubmit = async (
+    submission: SubmissionOption,
+    contactInfo: ContactInfo
+  ) => {
+    const userCreationWithContact = {
+      base: UserCreationStore.base,
+      components: UserCreationStore.components,
+      contact: contactInfo,
+    };
+
+    const redirectUrl = await submitProduct(
+      submission,
+      JSON.stringify(userCreationWithContact)
+    );
+
+    if (redirectUrl) {
+      window.location.href = redirectUrl;
+    } else {
+      navigate("/");
     }
+
+    successToast("Sent.");
+  };
+
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!submissionOption) return;
 
     const formData = new FormData(event.currentTarget);
     const contactInfo: ContactInfo = {
@@ -43,33 +69,15 @@ export const ProductConfirmationContactForm = ({
     if (phone) contactInfo.phone = phone as string;
     if (note) contactInfo.note = note as string;
 
-    const userCreationWithContact = {
-      base: UserCreationStore.base,
-      components: UserCreationStore.components,
-      contact: contactInfo,
-    };
-
-    try {
-      const redirectUrl = await submitProduct(
-        submission,
-        JSON.stringify(userCreationWithContact)
-      );
-
-      if (redirectUrl) {
-        window.location.href = redirectUrl;
-      }
-
-      successToast("Sent.");
-    } catch {
-      errorToast("Unknown error has occurred when sending contact info.");
-    }
+    handleSubmit(submissionOption, contactInfo).catch(() => {
+      errorToast("Unknown error has occurred when sending contact info..");
+    });
   };
 
   return (
     <div className="flex min-w-96 flex-col">
       <ContainerHeader title={"Inquiry"} onClose={onClose} subheader={true} />
-      {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmit}>
         <div className="m-4 grid grid-cols-1 gap-4">
           <label>
             <span className="label">Name</span>

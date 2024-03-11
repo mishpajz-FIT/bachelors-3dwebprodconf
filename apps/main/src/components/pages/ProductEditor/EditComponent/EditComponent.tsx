@@ -2,7 +2,7 @@ import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerH
 import { InformationCircleIcon } from "@heroicons/react/20/solid";
 import { useSnapshot } from "valtio";
 
-import { EditComponentChange } from "./subcomponents/EditComponentChange.tsx";
+import { EditComponentControls } from "./subcomponents/EditComponentControls.tsx";
 import { EditComponentColors } from "./subcomponents/EditComponentColors.tsx";
 import { ConfiguratorValuesStore } from "../../../../stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
@@ -56,7 +56,7 @@ export const EditComponent = ({ onClose }: EditComponentProps) => {
       </div>
       {configuratorValuesSnap.selectedComponentId != userCreationSnap.base && (
         <div className="mt-auto flex items-center justify-center gap-2 p-2">
-          <EditComponentChange componentId={componentId} onClose={onClose} />
+          <EditComponentControls componentId={componentId} onClose={onClose} />
         </div>
       )}
     </div>

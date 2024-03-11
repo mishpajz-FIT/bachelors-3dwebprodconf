@@ -45,7 +45,7 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
     {}
   );
 
-  const select = (event: ThreeEvent<MouseEvent>) => {
+  const onSelect = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();
     console.log("select " + componentId);
 
@@ -58,7 +58,7 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
   };
 
   return (
-    <group onClick={select}>
+    <group onClick={onSelect}>
       {Object.entries(nodes).map(([name, node]) => {
         if (node.type === "Mesh") {
           const mesh = node as Mesh;

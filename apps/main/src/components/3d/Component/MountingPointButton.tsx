@@ -1,19 +1,16 @@
 import { Modal } from "@3dwebprodconf/shared/src/components/containers/Modal.tsx";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import { Html } from "@react-three/drei";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useSnapshot } from "valtio";
 
 import { useComponent } from "../../../hooks/useComponent.ts";
-import {
-  createComponent,
-  mountComponent,
-} from "../../../stores/actions/UserCreationActions.ts";
+import { UserCreationActions } from "../../../stores/actions/UserCreationActions.ts";
 import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../../utilities/BoundsManipulation.ts";
-import { AddComponent } from "../../2d/ProductEditor/AddComponent/AddComponent.tsx";
+import { AddComponent } from "../../pages/ProductEditor/AddComponent/AddComponent.tsx";
 
 interface MountingPointButtonProps {
   componentId: string;
@@ -34,31 +31,28 @@ export const MountingPointButton = ({
     componentSpec.mountingPointsSpecs[mountingPointSpecId];
   if (!mountingPointSpec) {
     throw new Error(
-      `Mounting point specs ${mountingPointSpecId} on component specs ${component.componentSpec} not found!`
+      `Mounting point spec not found ${mountingPointSpecId} on component spec ${component.componentSpec}.`
     );
   }
 
-  const add = useCallback(
-    (newComponentSpecId: string) => {
-      const action = () => {
-        const newComponentId = createComponent(
-          newComponentSpecId,
-          UserCreationStore,
-          ProductSpecificationStore
-        );
-        mountComponent(
-          componentId,
-          mountingPointSpecId,
-          newComponentId,
-          UserCreationStore,
-          ProductSpecificationStore
-        );
-      };
+  const onAdd = (newComponentSpecId: string) => {
+    const action = () => {
+      const newComponentId = UserCreationActions.createComponent(
+        newComponentSpecId,
+        UserCreationStore,
+        ProductSpecificationStore
+      );
+      UserCreationActions.mountComponent(
+        componentId,
+        mountingPointSpecId,
+        newComponentId,
+        UserCreationStore,
+        ProductSpecificationStore
+      );
+    };
 
-      refreshBounds(action);
-    },
-    [componentId, mountingPointSpecId]
-  );
+    refreshBounds(action);
+  };
 
   return (
     <Html zIndexRange={[50, 0]}>
@@ -80,7 +74,7 @@ export const MountingPointButton = ({
         <AddComponent
           mountableComponentsSpecs={mountingPointSpec.mountableComponents}
           onClose={() => setModalOpen(false)}
-          add={add}
+          onAdd={onAdd}
         />
       </Modal>
     </Html>

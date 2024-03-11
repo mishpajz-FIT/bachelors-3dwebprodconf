@@ -1,89 +1,68 @@
 import { Modal } from "@3dwebprodconf/shared/src/components/containers/Modal.tsx";
 import { HoldButton } from "@3dwebprodconf/shared/src/components/HoldButton.tsx";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useSnapshot } from "valtio";
 
-import {
-  createComponent,
-  mountComponent,
-  removeComponent,
-} from "../../../../../stores/actions/UserCreationActions.ts";
 import { ConfiguratorValuesStore } from "../../../../../stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../../../../utilities/BoundsManipulation.ts";
 import { AddComponent } from "../../AddComponent/AddComponent.tsx";
+import { useComponent } from "../../../../../hooks/useComponent.ts";
+import { UserCreationActions } from "../../../../../stores/actions/UserCreationActions.ts";
 
-interface EditComponentChangeProps {
+interface EditComponentControlsProps {
   componentId: string;
   onClose?: () => void;
 }
-export const EditComponentChange = ({
+export const EditComponentControls = ({
   componentId,
   onClose,
-}: EditComponentChangeProps) => {
+}: EditComponentControlsProps) => {
   const userCreationSnap = useSnapshot(UserCreationStore);
-  const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
   const [isChangeModalOpen, setChangeModalOpen] = useState(false);
 
   const parentInfo = userCreationSnap.childToParentMap.get(componentId);
   if (!parentInfo) {
     throw Error(
-      `Component hierarchy is damaged, components is without parent component!`
+      "Component hierarchy is damaged, component does not have parent component!"
     );
   }
   const [parentComponentId, parentMountingPointId] = parentInfo;
 
-  const parentComponent = userCreationSnap.components[parentComponentId];
-  if (!parentComponent) {
-    throw Error(`Could not find component ${parentComponentId}!`);
-  }
+  const { componentSpec: parentComponentSpec } =
+    useComponent(parentComponentId);
 
-  const parentComponentSpec =
-    productSpecsSnap.componentSpecs[parentComponent.componentSpec];
-  if (!parentComponentSpec) {
-    throw Error(
-      `Could not find component spec ${parentComponent.componentSpec}!`
-    );
-  }
+  const handleRemove = () => {
+    refreshBounds(() => {
+      UserCreationActions.removeComponent(componentId, UserCreationStore);
+    });
 
-  const remove = useCallback(() => {
+    onClose?.();
+  };
+
+  const handleChange = (newComponentSpecId: string) => {
     const action = () => {
-      removeComponent(componentId, UserCreationStore);
+      const newComponentId = UserCreationActions.createComponent(
+        newComponentSpecId,
+        UserCreationStore,
+        ProductSpecificationStore
+      );
+      UserCreationActions.mountComponent(
+        parentComponentId,
+        parentMountingPointId,
+        newComponentId,
+        UserCreationStore,
+        ProductSpecificationStore
+      );
+
+      ConfiguratorValuesStore.selectedComponentId = newComponentId;
     };
 
     refreshBounds(action);
-
-    if (onClose) {
-      onClose();
-    }
-  }, [onClose, componentId]);
-
-  const change = useCallback(
-    (newComponentSpecId: string) => {
-      const action = () => {
-        const newComponentId = createComponent(
-          newComponentSpecId,
-          UserCreationStore,
-          ProductSpecificationStore
-        );
-        mountComponent(
-          parentComponentId,
-          parentMountingPointId,
-          newComponentId,
-          UserCreationStore,
-          ProductSpecificationStore
-        );
-
-        ConfiguratorValuesStore.selectedComponentId = newComponentId;
-      };
-
-      refreshBounds(action);
-    },
-    [parentComponentId, parentMountingPointId]
-  );
+  };
 
   return (
     <>
@@ -96,7 +75,7 @@ export const EditComponentChange = ({
       </button>
       <HoldButton
         className="other-button destructive-button-on-hold flex w-full items-center justify-center"
-        onSubmit={remove}
+        onSubmit={handleRemove}
         duration={650}
         popoverPosition={"top-end"}
         popoverOffset={6}
@@ -114,7 +93,7 @@ export const EditComponentChange = ({
               .mountableComponents
           }
           onClose={() => setChangeModalOpen(false)}
-          add={change}
+          onAdd={handleChange}
         />
       </Modal>
     </>

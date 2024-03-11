@@ -12,33 +12,32 @@ import { AddComponentTile } from "./subcomponents/AddComponentTile.tsx";
 interface AddComponentProps {
   mountableComponentsSpecs: readonly string[];
   onClose: () => void;
-  add: (id: string) => void;
+  onAdd: (id: string) => void;
 }
 
 export const AddComponent = ({
   mountableComponentsSpecs,
   onClose,
-  add,
+  onAdd,
 }: AddComponentProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
 
-  const checkOverflow = useCallback(() => {
-    if (containerRef.current) {
-      const currentOverflow =
-        containerRef.current.scrollWidth > containerRef.current.clientWidth;
+  const updateLayout = useCallback(() => {
+    if (!containerRef.current) return;
+    const currentOverflow =
+      containerRef.current.scrollWidth > containerRef.current.clientWidth;
 
-      setIsOverflowing(currentOverflow);
-      containerRef.current.classList.toggle("justify-center", !currentOverflow);
-      containerRef.current.classList.toggle("justify-start", currentOverflow);
-    }
+    setIsOverflowing(currentOverflow);
+    containerRef.current.classList.toggle("justify-center", !currentOverflow);
+    containerRef.current.classList.toggle("justify-start", currentOverflow);
   }, []);
 
   useEffect(() => {
-    checkOverflow();
-    window.addEventListener("resize", checkOverflow);
-    return () => window.removeEventListener("resize", checkOverflow);
-  }, [checkOverflow]);
+    updateLayout();
+    window.addEventListener("resize", updateLayout);
+    return () => window.removeEventListener("resize", updateLayout);
+  }, [updateLayout]);
 
   const onWheel = useCallback<WheelEventHandler<HTMLDivElement>>((e) => {
     if (containerRef.current) {
@@ -46,16 +45,6 @@ export const AddComponent = ({
       containerRef.current.scrollLeft += scrollAmount;
     }
   }, []);
-
-  const handleAdd = useCallback(
-    (componentSpecId: string) => {
-      return () => {
-        add(componentSpecId);
-        onClose();
-      };
-    },
-    [add, onClose]
-  );
 
   return (
     <>
@@ -74,7 +63,10 @@ export const AddComponent = ({
           <div className="m-2 h-[150px] w-[360px] shrink-0" key={index}>
             <AddComponentTile
               componentSpecId={componentSpecId}
-              add={handleAdd(componentSpecId)}
+              onAdd={() => {
+                onAdd(componentSpecId);
+                onClose();
+              }}
             />
           </div>
         ))}

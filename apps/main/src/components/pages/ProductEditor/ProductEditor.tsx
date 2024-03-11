@@ -7,7 +7,7 @@ import { useSnapshot } from "valtio";
 
 import { EditComponent } from "./EditComponent/EditComponent.tsx";
 import { SelectBase } from "./SelectBase/SelectBase.tsx";
-import { detectRequiredMissing } from "../../../stores/actions/UserCreationActions.ts";
+import { UserCreationActions } from "../../../stores/actions/UserCreationActions.ts";
 import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
@@ -23,16 +23,16 @@ const ProductEditor = () => {
   const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
 
   const [isMissingPopupOpen, setMissingPopupOpen] = useState(false);
-
   const [isBaseSelectionOpen, setBaseSelectionOpen] = useState(
     !userCreationSnap.isBaseSet
   );
 
   const onDone = () => {
-    if (
-      detectRequiredMissing(UserCreationStore, ProductSpecificationStore)
-        .length !== 0
-    ) {
+    const missingRequired = UserCreationActions.detectMissingRequired(
+      UserCreationStore,
+      ProductSpecificationStore
+    );
+    if (missingRequired.length !== 0) {
       setMissingPopupOpen(true);
       return;
     }
@@ -85,6 +85,7 @@ const ProductEditor = () => {
           </div>
         )}
       </Suspense>
+
       <Popup
         isOpen={isMissingPopupOpen}
         onClose={() => setMissingPopupOpen(false)}

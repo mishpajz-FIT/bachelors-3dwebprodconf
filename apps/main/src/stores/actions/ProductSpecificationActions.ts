@@ -1,83 +1,69 @@
-import { ProductSpecification } from "@3dwebprodconf/shared/src/schemas/ProductSpecification.ts";
-import { parseProductSpecification } from "@3dwebprodconf/shared/src/utilites/parseProductSpecification.ts";
-
 import { ProductSpecificationStore } from "../ProductSpecificationStore.ts";
+import {
+  ComponentSpecification,
+  MaterialSpecification,
+  ProductSpecification,
+} from "@3dwebprodconf/shared/src/schemas/ProductSpecification.ts";
 
-export async function fetchProductSpecification(
-  url: string
-): Promise<ProductSpecification> {
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`${response.status}`);
+export class ProductSpecificationActions {
+  private static get<T>(id: string, from: Record<string, T>, name: string): T {
+    const element = from[id];
+    if (!element) {
+      throw new Error(`${name} ${id} does not exist.`);
+    }
+    return element;
   }
 
-  return parseProductSpecification(await response.json());
-}
-
-export function validateComponentSpec(
-  componentSpecId: string,
-  store: typeof ProductSpecificationStore
-) {
-  const componentSpec = store.componentSpecs[componentSpecId];
-  if (!componentSpec) {
-    throw new Error(`Specification ${componentSpecId} component do not exist.`);
-  }
-  return componentSpec;
-}
-
-export function validateMountingPointSpec(
-  componentSpecId: string,
-  mountingPointSpecId: string,
-  store: typeof ProductSpecificationStore
-) {
-  const componentSpec = validateComponentSpec(componentSpecId, store);
-
-  const mountingPointSpec =
-    componentSpec.mountingPointsSpecs[mountingPointSpecId];
-  if (!mountingPointSpec) {
-    throw new Error(
-      `Mounting point ${mountingPointSpecId} on ${componentSpecId} does not exist.`
+  static getComponentSpec(
+    componentSpecId: string,
+    store: typeof ProductSpecificationStore
+  ) {
+    return this.get(
+      componentSpecId,
+      store.componentSpecs,
+      "Component specification"
     );
   }
 
-  return mountingPointSpec;
-}
-
-export function validateMaterialSpec(
-  componentSpecId: string,
-  materialSpecId: string,
-  store: typeof ProductSpecificationStore
-) {
-  const componentSpec = validateComponentSpec(componentSpecId, store);
-
-  const materialSpec = componentSpec.materialSpecs[materialSpecId];
-  if (!materialSpec) {
-    throw new Error(
-      `Material ${materialSpecId} on ${componentSpecId} does not exist.`
+  static getMountingPointSpec(
+    componentSpec: ComponentSpecification,
+    mountingPointSpecId: string
+  ) {
+    return this.get(
+      mountingPointSpecId,
+      componentSpec.mountingPointsSpecs,
+      "Mounting point specification"
     );
   }
 
-  return materialSpec;
-}
-
-export function validateColorSpec(
-  componentSpecId: string,
-  materialSpecId: string,
-  colorSpecId: string,
-  store: typeof ProductSpecificationStore
-) {
-  const materialSpec = validateMaterialSpec(
-    componentSpecId,
-    materialSpecId,
-    store
-  );
-
-  const colorVariationSpec = materialSpec.colorVariationsSpecs[colorSpecId];
-  if (!colorVariationSpec) {
-    throw new Error(
-      `Color variation ${componentSpecId} on material ${materialSpecId} on ${componentSpecId} does not exist.`
+  static getMaterialSpec(
+    componentSpec: ComponentSpecification,
+    materialSpecId: string
+  ) {
+    return this.get(
+      materialSpecId,
+      componentSpec.materialSpecs,
+      "Material specification"
     );
   }
 
-  return colorVariationSpec;
+  static getColorSpec(
+    materialSpec: MaterialSpecification,
+    colorSpecId: string
+  ) {
+    return this.get(
+      colorSpecId,
+      materialSpec.colorVariationsSpecs,
+      "Color specification"
+    );
+  }
+
+  static storeProductSpecification(
+    productSpec: ProductSpecification,
+    store: typeof ProductSpecificationStore
+  ) {
+    store.componentSpecs = {};
+    store.baseSpecs = {};
+    Object.assign(store, productSpec);
+  }
 }

@@ -6,12 +6,12 @@ import { useComponentSpec } from "../../../../../hooks/useComponentSpec.ts";
 
 interface AddComponentTileProps {
   componentSpecId: string;
-  add: () => void;
+  onAdd: () => void;
 }
 
 export const AddComponentTile = ({
   componentSpecId,
-  add,
+  onAdd,
 }: AddComponentTileProps) => {
   const [isButtonHovered, setIsButtonHovered] = useState(false);
 
@@ -26,11 +26,11 @@ export const AddComponentTile = ({
       className={`tile-background flex size-full shrink-0 select-none flex-row justify-start overflow-hidden rounded-md p-4 text-left ${
         !isButtonHovered ? "tile-pressable" : ""
       }`}
-      onClick={add}
+      onClick={onAdd}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          add();
+          onAdd();
         }
       }}
     >

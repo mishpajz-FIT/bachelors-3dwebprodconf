@@ -1,77 +1,77 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
 import { Popup } from "@3dwebprodconf/shared/src/components/containers/Popup.tsx";
-import { SubmissionTypeSchema } from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
+import {
+  SubmissionOption,
+  SubmissionTypeSchema,
+} from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
 import { UserCreation } from "@3dwebprodconf/shared/src/schemas/UserCreation.ts";
-import { useCallback, useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 
 import { ProductConfirmationContactForm } from "./subcomponents/ProductConfirmationContactForm.tsx";
 import { ProductConfirmationTile } from "./subcomponents/ProductConfirmationTile.tsx";
 import { globalConfig } from "../../../configurations/Config.ts";
-import { submitProduct } from "../../../stores/actions/CatalogueActions.ts";
 import { CatalogueStore } from "../../../stores/CatalogueStore.ts";
 import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore.ts";
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
-import { errorToast } from "../../../toasts/errorToast.ts";
 import { successToast } from "../../../toasts/successToast.ts";
+import { submitProduct } from "../../../utilities/Requesting.ts";
+import { errorToast } from "../../../toasts/errorToast.ts";
 
 export const ProductConfirmation = () => {
   const navigate = useNavigate();
 
-  const catalogueSnap = useSnapshot(CatalogueStore);
   const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
   const userCreationSnap = useSnapshot(UserCreationStore);
 
   const [isContactFormPopupOpen, setContactFormPopupOpen] = useState(false);
 
-  const onClose = useCallback(() => {
-    navigate("/" + ConfiguratorValuesStore.currentProductId + "/editor");
-  }, [navigate]);
-
-  const onConfirm = async () => {
-    if (!ConfiguratorValuesStore.currentProductId) {
-      return;
-    }
-
-    const submission =
+  const submissionOption = useMemo(
+    () =>
+      ConfiguratorValuesStore.currentProductId &&
       CatalogueStore.catalogue?.products[
         ConfiguratorValuesStore.currentProductId
-      ].submission;
-    if (!submission) {
-      return;
+      ]?.submission,
+    [CatalogueStore.catalogue, ConfiguratorValuesStore.currentProductId]
+  );
+
+  const handleSubmit = async (submission: SubmissionOption) => {
+    const userCreation: UserCreation = {
+      base: UserCreationStore.base,
+      components: UserCreationStore.components,
+    };
+
+    const redirectUrl = await submitProduct(
+      submission,
+      JSON.stringify(userCreation)
+    );
+
+    if (redirectUrl) {
+      window.location.href = redirectUrl;
+    } else {
+      navigate("/");
     }
 
-    if (submission.type === SubmissionTypeSchema.Enum.POST) {
-      const userCreation: UserCreation = {
-        base: UserCreationStore.base,
-        components: UserCreationStore.components,
-      };
-
-      try {
-        const redirectUrl = await submitProduct(
-          submission,
-          JSON.stringify(userCreation)
-        );
-
-        if (redirectUrl) {
-          window.location.href = redirectUrl;
-        }
-
-        successToast("Confirmed.");
-      } catch {
-        errorToast("Unknown error has occurred when confirming.");
-      }
-    } else if (submission.type === SubmissionTypeSchema.Enum.CONTACT_FORM) {
-      setContactFormPopupOpen(true);
-    }
+    successToast("Submitted.");
   };
 
-  const hasSubmissionOption =
-    catalogueSnap.catalogue &&
-    configuratorValuesSnap.currentProductId &&
-    catalogueSnap.catalogue.products[configuratorValuesSnap.currentProductId]
-      .submission;
+  const onConfirm = () => {
+    if (!submissionOption) return;
+
+    switch (submissionOption.type) {
+      case SubmissionTypeSchema.Enum.POST:
+        handleSubmit(submissionOption).catch(() => {
+          errorToast("Error has occurred during submission.");
+        });
+        break;
+      case SubmissionTypeSchema.Enum.CONTACT_FORM:
+        setContactFormPopupOpen(true);
+        break;
+      default:
+        throw new Error("Unsupported submission type.");
+    }
+  };
 
   return (
     <div className="content-background flex size-full select-none flex-col items-center justify-start overflow-y-scroll p-4">
@@ -105,11 +105,15 @@ export const ProductConfirmation = () => {
               </div>
             )}
             <div className="flex flex-row items-center justify-end gap-1">
-              <button className="other-button" onClick={onClose}>
+              <button
+                className="other-button"
+                onClick={() =>
+                  navigate("/editor/" + configuratorValuesSnap.currentProductId)
+                }
+              >
                 Back
               </button>
-              {hasSubmissionOption && (
-                // eslint-disable-next-line @typescript-eslint/no-misused-promises
+              {submissionOption && (
                 <button className="primary-button" onClick={onConfirm}>
                   Confirm
                 </button>
@@ -121,7 +125,12 @@ export const ProductConfirmation = () => {
 
       <div className="simple-panel no-print absolute inset-x-0 bottom-0 w-full rounded-b-none shadow-2xl lg:hidden">
         <div className="flex flex-row items-center justify-between px-2 py-4">
-          <button className="other-button" onClick={onClose}>
+          <button
+            className="other-button"
+            onClick={() =>
+              navigate("/editor/" + configuratorValuesSnap.currentProductId)
+            }
+          >
             Back
           </button>
           <div className="flex flex-row items-center justify-end gap-1">
@@ -130,8 +139,7 @@ export const ProductConfirmation = () => {
                 Save as PDF
               </button>
             )}
-            {hasSubmissionOption && (
-              // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            {submissionOption && (
               <button className="primary-button" onClick={onConfirm}>
                 Confirm
               </button>

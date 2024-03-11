@@ -1,8 +1,7 @@
 import { ColorSpecification } from "@3dwebprodconf/shared/src/schemas/ProductSpecification.ts";
-import { useCallback } from "react";
 import { useSnapshot } from "valtio";
 
-import { changeMaterial } from "../../../../../stores/actions/UserCreationActions.ts";
+import { UserCreationActions } from "../../../../../stores/actions/UserCreationActions.ts";
 import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
 
@@ -23,15 +22,15 @@ export const EditComponentColorsColorTile = ({
   const materials = userCreationSnap.components[componentId].materials;
   const isSelected = materials[materialSpecId] === colorSpecId;
 
-  const choose = useCallback(() => {
-    changeMaterial(
+  const handleChoose = () => {
+    UserCreationActions.changeMaterialColor(
       componentId,
       materialSpecId,
       colorSpecId,
       UserCreationStore,
       ProductSpecificationStore
     );
-  }, [colorSpecId, componentId, materialSpecId]);
+  };
 
   return (
     <div
@@ -51,7 +50,7 @@ export const EditComponentColorsColorTile = ({
             backgroundColor: colorSpec.value,
             outlineColor: colorSpec.value,
           }}
-          onClick={isSelected ? undefined : choose}
+          onClick={isSelected ? undefined : handleChoose}
           disabled={isSelected}
         />
         <span

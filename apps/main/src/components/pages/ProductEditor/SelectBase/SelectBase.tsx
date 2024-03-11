@@ -3,10 +3,7 @@ import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 
-import {
-  createComponent,
-  mountBase,
-} from "../../../../stores/actions/UserCreationActions.ts";
+import { UserCreationActions } from "../../../../stores/actions/UserCreationActions.ts";
 import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../../../utilities/BoundsManipulation.ts";
@@ -22,19 +19,19 @@ export const SelectBase = ({ onClose }: SelectBaseProps) => {
   const userCreationSnap = useSnapshot(UserCreationStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
-  const selectBase = useCallback(
+  const handleSelectBase = useCallback(
     (newComponentSpecId: string) => {
-      const action = () => {
-        const newComponentId = createComponent(
+      const createAndSetBase = () => {
+        const newComponentId = UserCreationActions.createComponent(
           newComponentSpecId,
           UserCreationStore,
           ProductSpecificationStore
         );
 
-        mountBase(newComponentId, UserCreationStore);
+        UserCreationActions.setBase(newComponentId, UserCreationStore);
       };
 
-      refreshBounds(action);
+      refreshBounds(createAndSetBase);
       onClose();
     },
     [onClose]
@@ -53,17 +50,15 @@ export const SelectBase = ({ onClose }: SelectBaseProps) => {
           <div className="h-[165px] w-full p-2 md:w-1/2 lg:w-1/3" key={index}>
             <AddComponentTile
               componentSpecId={baseSpecs.component}
-              add={() => selectBase(baseSpecs.component)}
+              onAdd={() => handleSelectBase(baseSpecs.component)}
             />
           </div>
         ))}
       </div>
-      <div className="mt-auto w-full">
-        <div className="flex flex-row justify-start px-2 pb-2">
-          <button className="other-button" onClick={() => navigate("/")}>
-            Change product
-          </button>
-        </div>
+      <div className="mt-auto flex w-full flex-row justify-start px-2 pb-2">
+        <button className="other-button" onClick={() => navigate("/")}>
+          Change product
+        </button>
       </div>
     </div>
   );
