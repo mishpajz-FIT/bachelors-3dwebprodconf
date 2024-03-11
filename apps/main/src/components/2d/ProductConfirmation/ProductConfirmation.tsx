@@ -13,6 +13,8 @@ import { submitProduct } from "../../../stores/actions/CatalogueActions.ts";
 import { CatalogueStore } from "../../../stores/CatalogueStore.ts";
 import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore.ts";
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
+import { errorToast } from "../../../toasts/errorToast.ts";
+import { successToast } from "../../../toasts/successToast.ts";
 
 export const ProductConfirmation = () => {
   const navigate = useNavigate();
@@ -46,13 +48,19 @@ export const ProductConfirmation = () => {
         components: UserCreationStore.components,
       };
 
-      const redirectUrl = await submitProduct(
-        submission,
-        JSON.stringify(userCreation)
-      );
+      try {
+        const redirectUrl = await submitProduct(
+          submission,
+          JSON.stringify(userCreation)
+        );
 
-      if (redirectUrl) {
-        window.location.href = redirectUrl;
+        if (redirectUrl) {
+          window.location.href = redirectUrl;
+        }
+
+        successToast("Confirmed.");
+      } catch {
+        errorToast("Unknown error has occurred when confirming.");
       }
     } else if (submission.type === SubmissionTypeSchema.Enum.CONTACT_FORM) {
       setContactFormPopupOpen(true);

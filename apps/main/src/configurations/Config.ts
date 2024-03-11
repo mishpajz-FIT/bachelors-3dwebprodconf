@@ -23,6 +23,10 @@ const defaultConfig: AppConfig = {
         overlayTextWhiteLight: true,
         overlayTextWhiteDark: true,
       },
+      error: {
+        dark: "#f43f5e",
+        light: "#f43f5e",
+      },
     },
   },
   sources: {

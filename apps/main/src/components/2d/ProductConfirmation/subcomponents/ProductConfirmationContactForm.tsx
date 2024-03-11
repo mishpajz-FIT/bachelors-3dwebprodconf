@@ -6,6 +6,8 @@ import { submitProduct } from "../../../../stores/actions/CatalogueActions.ts";
 import { CatalogueStore } from "../../../../stores/CatalogueStore.ts";
 import { ConfiguratorValuesStore } from "../../../../stores/ConfiguratorValuesStore.ts";
 import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
+import { errorToast } from "../../../../toasts/errorToast.ts";
+import { successToast } from "../../../../toasts/successToast.ts";
 
 interface ProductConfirmationContactFormProps {
   onClose: () => void;
@@ -47,13 +49,19 @@ export const ProductConfirmationContactForm = ({
       contact: contactInfo,
     };
 
-    const redirectUrl = await submitProduct(
-      submission,
-      JSON.stringify(userCreationWithContact)
-    );
+    try {
+      const redirectUrl = await submitProduct(
+        submission,
+        JSON.stringify(userCreationWithContact)
+      );
 
-    if (redirectUrl) {
-      window.location.href = redirectUrl;
+      if (redirectUrl) {
+        window.location.href = redirectUrl;
+      }
+
+      successToast("Sent.");
+    } catch {
+      errorToast("Unknown error has occurred when sending contact info.");
     }
   };
 

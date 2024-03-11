@@ -1,5 +1,6 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
 import { Popup } from "@3dwebprodconf/shared/src/components/containers/Popup.tsx";
+import { ProductSpecificationSchema } from "@3dwebprodconf/shared/src/schemas/ProductSpecification.ts";
 import { useState } from "react";
 
 import {
@@ -9,6 +10,7 @@ import {
   missingModelsInMaterials,
 } from "../../../../../stores/actions/ProductActions.ts";
 import { ProductStore } from "../../../../../stores/ProductStore.ts";
+import { errorToast } from "../../../../../toasts/errorToast.ts";
 
 export const ProductComposerExport = () => {
   const [exportIssues, setExportIssues] = useState<string[]>([]);
@@ -52,7 +54,18 @@ export const ProductComposerExport = () => {
     });
 
     if (issues.length === 0) {
-      exportProduct();
+      try {
+        ProductSpecificationSchema.parse(ProductStore);
+        exportProduct();
+      } catch (error) {
+        let message = "Product specification couldn't be exported.";
+
+        if (error instanceof Error) {
+          message = error.message;
+        }
+
+        errorToast(message);
+      }
     } else {
       setExportIssues(issues);
     }

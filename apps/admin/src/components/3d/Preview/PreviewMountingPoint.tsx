@@ -2,7 +2,6 @@ import { PlacementControls } from "@3dwebprodconf/shared/src/components/3d/Place
 import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
 import { Html } from "@react-three/drei";
 import { ErrorBoundary } from "react-error-boundary";
-import { toast } from "react-hot-toast";
 import { Euler } from "three";
 import { useSnapshot } from "valtio";
 
@@ -11,6 +10,7 @@ import { defaultAdminConfig } from "../../../configurations/Config.ts";
 import { useSelectedComponentSpec } from "../../../hooks/useSelectedComponentSpec.ts";
 import { EditorValuesStore } from "../../../stores/EditorValuesStore.ts";
 import { ProductStore } from "../../../stores/ProductStore.ts";
+import { errorToast } from "../../../toasts/errorToast.ts";
 
 interface PreviewMountingPointProps {
   mountingPointId: string;
@@ -82,20 +82,7 @@ export const PreviewMountingPoint = ({
             key={"previewMounted" + editorValuesSnap.previewedMountedComponent}
             fallbackRender={() => null}
             onError={() => {
-              toast.error("Model of component could not be loaded.", {
-                style: {
-                  color: "white",
-                  background: darkMode
-                    ? defaultAdminConfig.ui.colors.error.dark
-                    : defaultAdminConfig.ui.colors.error.light,
-                },
-                iconTheme: {
-                  secondary: darkMode
-                    ? defaultAdminConfig.ui.colors.error.dark
-                    : defaultAdminConfig.ui.colors.error.light,
-                  primary: "white",
-                },
-              });
+              errorToast("Model of component could not be loaded.");
             }}
           >
             {editorValuesSnap.previewedMountedComponent !== undefined && (

@@ -1,12 +1,16 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
 import { Popup } from "@3dwebprodconf/shared/src/components/containers/Popup.tsx";
+import { CatalogueSchema } from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
+import { formatZodError } from "@3dwebprodconf/shared/src/utilites/formatZodError.ts";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { ChangeEvent, useState } from "react";
 import { useSnapshot } from "valtio";
+import { ZodError } from "zod";
 
 import { CatalogueComposerTile } from "./CatalogueComposerTile.tsx";
 import { exportCatalogue } from "../../../stores/actions/CatalogueActions.ts";
 import { CatalogueStore } from "../../../stores/CatalogueStore.ts";
+import { errorToast } from "../../../toasts/errorToast.ts";
 import { readCatalogueFromFile } from "../../../utilities/readCatalogueFromFile.ts";
 import { AddProduct } from "../Add/subcomponents/AddProduct.tsx";
 
@@ -18,10 +22,36 @@ export const CatalogueComposer = () => {
   const handleFileSelection = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) {
+      errorToast("File could not be loaded.");
       return;
     }
 
-    readCatalogueFromFile(file);
+    readCatalogueFromFile(file).catch((error) => {
+      let message = "Product specification couldn't be imported.";
+
+      if (error instanceof ZodError) {
+        message = formatZodError(error);
+      } else if (error instanceof Error) {
+        message = error.message;
+      }
+
+      errorToast(message);
+    });
+  };
+
+  const clickExport = () => {
+    try {
+      CatalogueSchema.parse(CatalogueStore);
+      exportCatalogue();
+    } catch (error) {
+      let message = "Catalogue couldn't be exported.";
+
+      if (error instanceof Error) {
+        message = error.message;
+      }
+
+      errorToast(message);
+    }
   };
 
   return (
@@ -61,10 +91,7 @@ export const CatalogueComposer = () => {
             <label htmlFor="file" className="secondary-button">
               Import
             </label>
-            <button
-              className="primary-button"
-              onClick={() => exportCatalogue()}
-            >
+            <button className="primary-button" onClick={clickExport}>
               Export
             </button>
           </div>

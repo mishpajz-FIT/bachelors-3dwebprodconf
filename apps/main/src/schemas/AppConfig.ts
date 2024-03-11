@@ -23,6 +23,10 @@ export const AppConfigSchema = z.object({
         overlayTextWhiteLight: z.boolean(),
         overlayTextWhiteDark: z.boolean(),
       }),
+      error: z.object({
+        light: z.string().length(7).regex(/^#/),
+        dark: z.string().length(7).regex(/^#/),
+      }),
     }),
   }),
   sources: z.object({
