@@ -12,7 +12,7 @@ export const ProductSelection = () => {
 
   const catalogueSnap = useSnapshot(CatalogueStore);
   return (
-    <div className="content-background flex size-full select-none flex-col items-center justify-start overflow-y-scroll p-4">
+    <div className="content-background flex min-h-fit shrink grow select-none flex-col items-center justify-start overflow-y-scroll p-4">
       <div className="content-width">
         <ContainerHeader title={"Select product"} onClose={undefined} />
         <Suspense fallback={<ProductSelectionSkeleton />}>

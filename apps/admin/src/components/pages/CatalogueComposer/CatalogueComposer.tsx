@@ -15,7 +15,7 @@ export const CatalogueComposer = () => {
   const [isOpenAdd, setOpenAdd] = useState(false);
 
   return (
-    <div className="content-background flex size-full select-none flex-col items-center justify-start overflow-y-scroll p-4">
+    <div className="content-background flex min-h-0 shrink grow select-none flex-col items-center justify-start overflow-y-scroll p-4">
       <div className="content-width flex h-full flex-row justify-center">
         <div className="flex size-full flex-col lg:w-2/3">
           <div className="flex flex-row items-center justify-between">

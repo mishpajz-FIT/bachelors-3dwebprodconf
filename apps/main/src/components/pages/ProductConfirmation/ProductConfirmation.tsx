@@ -74,7 +74,7 @@ export const ProductConfirmation = () => {
   };
 
   return (
-    <div className="content-background flex size-full select-none flex-col items-center justify-start overflow-y-scroll p-4 print:w-screen print:overflow-y-visible print:bg-transparent">
+    <div className="content-background flex min-h-fit shrink grow select-none flex-col items-center justify-start overflow-y-scroll p-4 print:w-screen print:overflow-y-visible print:bg-transparent">
       <div className="content-width no-print">
         <ContainerHeader title={"Confirm configuration"} onClose={undefined} />
       </div>
