@@ -12,10 +12,10 @@ const ProductComposer = () => {
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 
   return (
-    <div className="relative flex grow flex-row">
+    <div className="relative flex min-h-0 shrink grow flex-row">
       <ProductComposerTabs />
 
-      <div className="relative flex grow overflow-hidden">
+      <div className="relative flex shrink grow overflow-hidden">
         <Suspense
           fallback={
             <div className="other-background size-full">
