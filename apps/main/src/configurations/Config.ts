@@ -41,7 +41,9 @@ const defaultConfig: AppConfig = {
       light: "/logo.svg",
       dark: "/logo.svg",
     },
+    favicon: "/logo.svg",
   },
+  title: "3dwebrpodconf",
 };
 
 class GlobalConfig {

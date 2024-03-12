@@ -38,6 +38,8 @@
     "logo": {
       "light": "/logo.svg",
       "dark": "/logo.svg"
-    }
-  }
+    },
+    "favicon": "/logo.svg"
+  },
+  "title": "Configurator - 3dwebprodconf"
 }

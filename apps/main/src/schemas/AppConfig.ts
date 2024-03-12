@@ -41,7 +41,9 @@ export const AppConfigSchema = z.object({
       light: z.string(),
       dark: z.string(),
     }),
+    favicon: z.string(),
   }),
+  title: z.string(),
 });
 
 export type AppConfig = z.infer<typeof AppConfigSchema>;
