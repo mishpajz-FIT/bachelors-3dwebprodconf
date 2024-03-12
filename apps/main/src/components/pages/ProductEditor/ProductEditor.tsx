@@ -41,7 +41,7 @@ const ProductEditor = () => {
   };
 
   return (
-    <div className="relative flex grow flex-col">
+    <div className="relative flex min-h-0 shrink grow flex-col">
       <Suspense
         fallback={
           <div className="other-background size-full">
@@ -49,7 +49,7 @@ const ProductEditor = () => {
           </div>
         }
       >
-        <div className="relative flex grow overflow-x-hidden">
+        <div className="relative shrink grow overflow-hidden">
           {userCreationSnap.isBaseSet && <ProductEditorCanvas />}
 
           <Side

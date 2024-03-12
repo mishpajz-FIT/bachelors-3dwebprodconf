@@ -32,7 +32,7 @@ const ProductEditorCanvas = () => {
 
   return (
     <Canvas
-      className="grow touch-none bg-[#fefefe] dark:bg-[#141414]"
+      className="shrink grow touch-none bg-[#fefefe] dark:bg-[#141414]"
       frameloop="demand"
       performance={{ min: 0.85 }}
       shadows={true}

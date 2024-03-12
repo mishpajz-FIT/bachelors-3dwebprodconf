@@ -24,7 +24,7 @@ export const ProductSelection = () => {
                   className="min-h-56 w-full p-2 md:w-1/2 lg:w-1/3 xl:w-1/3 2xl:w-1/3"
                 >
                   <button
-                    className="tile h-full w-full"
+                    className="tile size-full"
                     onClick={() => {
                       navigate("/editor/" + productId);
                     }}
