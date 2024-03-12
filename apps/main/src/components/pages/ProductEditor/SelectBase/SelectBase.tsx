@@ -38,14 +38,14 @@ export const SelectBase = ({ onClose }: SelectBaseProps) => {
   );
 
   return (
-    <div className="content-background flex size-full select-none flex-col items-center justify-start pt-4">
-      <div className="content-width px-4">
+    <div className="content-background flex size-full select-none flex-col items-center justify-start px-4 pt-4">
+      <div className="content-width">
         <ContainerHeader
           title={"Select base"}
           onClose={userCreationSnap.isBaseSet ? onClose : undefined}
         />
       </div>
-      <div className="content-width flex flex-wrap justify-start px-4">
+      <div className="content-width mb-10 flex flex-wrap justify-start">
         {Object.values(productSpecsSnap.baseSpecs).map((baseSpecs, index) => (
           <div className="h-[165px] w-full p-2 md:w-1/2 lg:w-1/3" key={index}>
             <AddComponentTile
@@ -55,7 +55,7 @@ export const SelectBase = ({ onClose }: SelectBaseProps) => {
           </div>
         ))}
       </div>
-      <div className="mt-auto flex w-full flex-row justify-start px-2 pb-2">
+      <div className="fixed bottom-2 left-2 flex w-full flex-row justify-start">
         <button className="other-button" onClick={() => navigate("/")}>
           Change product
         </button>

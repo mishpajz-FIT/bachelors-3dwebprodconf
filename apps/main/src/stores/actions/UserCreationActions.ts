@@ -128,7 +128,7 @@ export class UserCreationActions {
 
     ProductSpecificationActions.getMountingPointSpec(
       ProductSpecificationActions.getComponentSpec(
-        targetComponentId,
+        targetComponent.componentSpec,
         productSpecificationStore
       ),
       mountingPointSpecId

@@ -70,7 +70,7 @@ export const ProductConfirmationContactForm = ({
     if (note) contactInfo.note = note as string;
 
     handleSubmit(submissionOption, contactInfo).catch(() => {
-      errorToast("Unknown error has occurred when sending contact info..");
+      errorToast("Unknown error has occurred when sending contact info.");
     });
   };
 

@@ -564,7 +564,7 @@
           ],
           "isRequired": false,
           "mountableComponents": [
-            "bench-s-n",
+            "bench-s-nr",
             "bench-s-r"
           ]
         },

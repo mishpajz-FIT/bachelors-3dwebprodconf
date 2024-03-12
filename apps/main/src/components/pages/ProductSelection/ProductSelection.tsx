@@ -11,7 +11,6 @@ export const ProductSelection = () => {
   const navigate = useNavigate();
 
   const catalogueSnap = useSnapshot(CatalogueStore);
-  //TODO: Change tile width, change z-index for shadow
   return (
     <div className="content-background flex size-full select-none flex-col items-center justify-start overflow-y-scroll p-4">
       <div className="content-width">
@@ -22,10 +21,10 @@ export const ProductSelection = () => {
               Object.keys(catalogueSnap.catalogue.products).map((productId) => (
                 <div
                   key={productId}
-                  className="w-full p-2 md:w-1/2 lg:w-1/3 xl:w-1/2 2xl:w-1/2"
+                  className="min-h-56 w-full p-2 md:w-1/2 lg:w-1/3 xl:w-1/3 2xl:w-1/3"
                 >
                   <button
-                    className="tile w-full"
+                    className="tile h-full w-full"
                     onClick={() => {
                       navigate("/editor/" + productId);
                     }}

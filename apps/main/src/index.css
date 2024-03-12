@@ -41,21 +41,30 @@ h1 {
   }
 }
 
-@media print {
-  body,
-  html {
-    background: none !important;
-    color: #000 !important;
-  }
-  .content {
-    padding: 0;
-    margin: 0;
-    border: none;
+@media all {
+  .print-page-break {
+    display: none;
   }
 }
 
 @media print {
+  html,
+  body {
+    height: 100vh;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact;
+    position: absolute;
+  }
   .no-print {
     display: none;
+  }
+  .print-scroll-container {
+    overflow: visible !important;
+  }
+  .print-page-break {
+    display: block;
+    page-break-before: auto;
   }
 }

@@ -13,5 +13,7 @@ export function parseProductSpecification(from: unknown): ProductSpecification {
     }
   });
 
+  //TODO: enhanced parsing
+
   return productSpec;
 }
