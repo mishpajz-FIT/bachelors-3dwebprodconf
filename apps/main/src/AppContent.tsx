@@ -91,7 +91,7 @@ const router = createBrowserRouter([
 export const AppContent = () => {
   return (
     <div className="app flex h-dvh flex-col">
-      <div className="other-background z-[100] border-b border-gray-200 p-2 shadow-sm dark:border-zinc-700">
+      <div className="other-background z-[90] border-b border-gray-200 p-2 shadow-sm dark:border-zinc-700">
         <img src={"/logo.svg"} alt={"logo"} className="ml-2 max-h-12" />
       </div>
 
