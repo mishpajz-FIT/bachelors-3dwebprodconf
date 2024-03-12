@@ -1,4 +1,5 @@
 import { ErrorPage } from "@3dwebprodconf/shared/src/components/ErrorPage.tsx";
+import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
 import { lazy, Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 import {
@@ -89,10 +90,25 @@ const router = createBrowserRouter([
 ]);
 
 export const AppContent = () => {
+  const darkmode = useDarkMode();
+
   return (
     <div className="app flex h-dvh flex-col">
       <div className="other-background z-[90] block border-b border-gray-200 p-2 shadow-sm dark:border-zinc-700">
-        <img src={"/logo.svg"} alt={"logo"} className="ml-2 max-h-12" />
+        <a
+          href={globalConfig.config.sources.homepageUrl}
+          className="ml-2 inline-flex h-full items-center"
+        >
+          <img
+            src={
+              darkmode
+                ? globalConfig.config.images.logo.dark
+                : globalConfig.config.images.logo.light
+            }
+            alt={"logo"}
+            className="max-h-12"
+          />
+        </a>
       </div>
       <Toaster position="top-right" reverseOrder={true} />
       <RouterProvider router={router} />

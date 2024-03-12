@@ -31,9 +31,16 @@ const defaultConfig: AppConfig = {
   },
   sources: {
     catalogueUrl: "/products/catalogue.json",
+    homepageUrl: "https://google.com",
   },
   capabilities: {
     savePdfButton: true,
+  },
+  images: {
+    logo: {
+      light: "/logo.svg",
+      dark: "/logo.svg",
+    },
   },
 };
 
