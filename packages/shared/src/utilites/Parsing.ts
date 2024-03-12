@@ -13,7 +13,17 @@ export function parseProductSpecification(from: unknown): ProductSpecification {
     }
   });
 
-  //TODO: enhanced parsing
+  Object.values(productSpec.componentSpecs).forEach((componentSpec) => {
+    Object.values(componentSpec.mountingPointsSpecs).forEach(
+      (mountingPointSpec) => {
+        mountingPointSpec.mountableComponents.forEach((mountableComponent) => {
+          if (!componentSpecKeys.has(mountableComponent)) {
+            throw new Error(`Component ${mountableComponent} does not exist.`);
+          }
+        });
+      }
+    );
+  });
 
   return productSpec;
 }
