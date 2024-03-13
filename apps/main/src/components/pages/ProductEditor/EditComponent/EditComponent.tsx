@@ -1,5 +1,4 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
-import { InformationCircleIcon } from "@heroicons/react/20/solid";
 import { useSnapshot } from "valtio";
 
 import { EditComponentColors } from "./subcomponents/EditComponentColors.tsx";
@@ -42,9 +41,9 @@ export const EditComponent = ({ onClose }: EditComponentProps) => {
           <p className="line-clamp-3 select-text text-pretty text-sm leading-tight text-slate-600 dark:text-slate-400">
             {componentSpec.description}
           </p>
-          <button className="other-button mt-3">
+          {/*<button className="other-button mt-3">
             <InformationCircleIcon className="size-4" />
-          </button>
+          </button>*/}
 
           {Object.keys(componentSpec.materialSpecs).length !== 0 && (
             <div className="pt-8">

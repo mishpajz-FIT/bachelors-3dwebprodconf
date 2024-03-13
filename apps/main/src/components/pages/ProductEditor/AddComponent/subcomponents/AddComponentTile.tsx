@@ -1,6 +1,4 @@
 import { SkeletonImage } from "@3dwebprodconf/shared/src/components/SkeletonImage.tsx";
-import { InformationCircleIcon } from "@heroicons/react/20/solid";
-import { useState } from "react";
 
 import { useComponentSpec } from "../../../../../hooks/useComponentSpec.ts";
 
@@ -13,11 +11,10 @@ export const AddComponentTile = ({
   componentSpecId,
   onAdd,
 }: AddComponentTileProps) => {
-  const [isButtonHovered, setIsButtonHovered] = useState(false);
+  //const [isButtonHovered, setIsButtonHovered] = useState(false);
+  const isButtonHovered = false;
 
   const componentSpec = useComponentSpec(componentSpecId);
-
-  //TODO: create component details
 
   return (
     <div
@@ -50,14 +47,14 @@ export const AddComponentTile = ({
         </div>
         <div className="mt-1 flex shrink-0 flex-row items-center justify-between">
           <span className="text-sm font-light">{componentSpec.price}</span>
-          <button
+          {/*<button
             className="other-button"
             onClick={(e) => e.stopPropagation()}
             onMouseEnter={() => setIsButtonHovered(true)}
             onMouseLeave={() => setIsButtonHovered(false)}
           >
             <InformationCircleIcon className="size-4" />
-          </button>
+          </button>*/}
         </div>
       </div>
     </div>
