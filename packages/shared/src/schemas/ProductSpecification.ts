@@ -3,6 +3,7 @@ import { z } from "zod";
 export const ColorSpecificationSchema = z.object({
   name: z.string().max(100),
   value: z.string().length(7).regex(/^#/),
+  sortIndex: z.number(),
   price: z.number().optional(),
 });
 
@@ -16,7 +17,7 @@ export const MountingPointSpecificationSchema = z.object({
   position: z.tuple([z.number(), z.number(), z.number()]),
   rotation: z.tuple([z.number(), z.number(), z.number()]),
   isRequired: z.boolean(),
-  mountableComponents: z.array(z.string()),
+  mountableComponents: z.array(z.string()).min(1),
 });
 
 export const ComponentSpecificationSchema = z.object({

@@ -50,22 +50,6 @@ const validate = (): string[] => {
     );
   }
 
-  function missingModelsInMaterialsValidation() {
-    const missingModels = ProductActions.missingModelsInMaterials(ProductStore);
-
-    return Object.entries(missingModels).reduce(
-      (acc, [componentId, materials]) => {
-        if (materials.length > 0) {
-          acc.push(
-            `Component specification "${componentId}" has materials without models: ${materials.join(", ")}.`
-          );
-        }
-        return acc;
-      },
-      [] as string[]
-    );
-  }
-
   function schemaValidation() {
     const result = ProductSpecificationSchema.safeParse(ProductStore);
     if (result.success) {
@@ -83,7 +67,6 @@ const validate = (): string[] => {
     baseValidation,
     missingComponentsInMountingPointsValidation,
     missingColorsInMaterialsValidation,
-    missingModelsInMaterialsValidation,
     schemaValidation,
   ];
 

@@ -22,16 +22,6 @@ export const EditComponentColorsColorTile = ({
   const materials = userCreationSnap.components[componentId].materials;
   const isSelected = materials[materialSpecId] === colorSpecId;
 
-  const handleChoose = () => {
-    UserCreationActions.changeMaterialColor(
-      componentId,
-      materialSpecId,
-      colorSpecId,
-      UserCreationStore,
-      ProductSpecificationStore
-    );
-  };
-
   return (
     <div
       className={`flex items-center ${isSelected ? "m-1 w-full" : "w-12"}`}
@@ -50,7 +40,19 @@ export const EditComponentColorsColorTile = ({
             backgroundColor: colorSpec.value,
             outlineColor: colorSpec.value,
           }}
-          onClick={isSelected ? undefined : handleChoose}
+          onClick={
+            isSelected
+              ? undefined
+              : () => {
+                  UserCreationActions.changeMaterialColor(
+                    componentId,
+                    materialSpecId,
+                    colorSpecId,
+                    UserCreationStore,
+                    ProductSpecificationStore
+                  );
+                }
+          }
           disabled={isSelected}
         />
         <span

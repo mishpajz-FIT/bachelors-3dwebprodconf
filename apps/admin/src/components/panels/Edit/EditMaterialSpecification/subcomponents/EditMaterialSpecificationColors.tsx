@@ -1,4 +1,5 @@
 import { Popup } from "@3dwebprodconf/shared/src/components/containers/Popup.tsx";
+import { NumericalInput } from "@3dwebprodconf/shared/src/components/inputs/NumericalInput.tsx";
 import { TextInput } from "@3dwebprodconf/shared/src/components/inputs/TextInput.tsx";
 import {
   MagnifyingGlassIcon,
@@ -110,6 +111,27 @@ export const EditMaterialSpecificationColors = () => {
                       ).value = e.target.value;
                     }}
                     required={true}
+                  />
+                </label>
+                <label htmlFor={"color-index"}>
+                  <span className="label-aligned text-xs">Sort index</span>
+                  <NumericalInput
+                    submitValue={(value: number) => {
+                      ProductActions.getColorSpec(
+                        ProductActions.getMaterialSpec(
+                          ProductActions.getComponentSpec(
+                            componentSpecId,
+                            ProductStore
+                          ),
+                          materialSpecId
+                        ),
+                        colorSpecId
+                      ).sortIndex = value;
+                    }}
+                    currentValue={colorSpec.sortIndex}
+                    placeholder={1}
+                    allowEmpty={false}
+                    inputId={"color-index"}
                   />
                 </label>
                 <div className="flex flex-row items-center justify-end">

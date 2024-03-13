@@ -58,4 +58,49 @@ export class GenericProductSpecificationActions extends GenericActions {
   ) {
     delete materialSpec.colorVariationsSpecs[colorSpecId];
   }
+
+  static validateMountingPoints(
+    componentSpecs: Record<string, ComponentSpecification>
+  ): Record<string, string[]> {
+    return Object.entries(componentSpecs).reduce(
+      (acc, [componentId, componentSpec]) => {
+        const emptyMountingPoints = Object.entries(
+          componentSpec.mountingPointsSpecs
+        )
+          .filter(
+            ([_, mountPoint]) => mountPoint.mountableComponents.length === 0
+          )
+          .map(([mountingPointId, _]) => mountingPointId);
+
+        if (emptyMountingPoints.length > 0) {
+          acc[componentId] = emptyMountingPoints;
+        }
+
+        return acc;
+      },
+      {} as Record<string, string[]>
+    );
+  }
+
+  static validateMaterials(
+    componentSpecs: Record<string, ComponentSpecification>
+  ): Record<string, string[]> {
+    return Object.entries(componentSpecs).reduce(
+      (acc, [componentId, componentSpec]) => {
+        const materialsWithNoColors = Object.keys(
+          componentSpec.materialSpecs
+        ).filter((materialId) => {
+          const material = componentSpec.materialSpecs[materialId];
+          return Object.keys(material.colorVariationsSpecs).length === 0;
+        });
+
+        if (materialsWithNoColors.length > 0) {
+          acc[componentId] = materialsWithNoColors;
+        }
+
+        return acc;
+      },
+      {} as Record<string, string[]>
+    );
+  }
 }

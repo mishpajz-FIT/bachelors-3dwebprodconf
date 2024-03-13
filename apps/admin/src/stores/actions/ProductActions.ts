@@ -26,11 +26,11 @@ export class ProductActions extends GenericProductSpecificationActions {
     componentSpecId: string,
     store: typeof ProductStore
   ) {
-    for (const baseSpecId in store.baseSpecs) {
+    Object.keys(store.baseSpecs).forEach((baseSpecId) => {
       if (store.baseSpecs[baseSpecId].component === componentSpecId) {
         delete store.baseSpecs[baseSpecId];
       }
-    }
+    });
 
     Object.values(store.componentSpecs).forEach((componentSpec) => {
       Object.values(componentSpec.mountingPointsSpecs).forEach((mountPoint) => {
@@ -133,67 +133,16 @@ export class ProductActions extends GenericProductSpecificationActions {
   static missingComponentsInMountingPoints(
     store: typeof ProductStore
   ): Record<string, string[]> {
-    return Object.entries(store.componentSpecs).reduce(
-      (acc, [componentId, componentSpec]) => {
-        const emptyMountingPoints = Object.entries(
-          componentSpec.mountingPointsSpecs
-        )
-          .filter(
-            ([_, mountPoint]) => mountPoint.mountableComponents.length === 0
-          )
-          .map(([mountingPointId, _]) => mountingPointId);
-
-        if (emptyMountingPoints.length > 0) {
-          acc[componentId] = emptyMountingPoints;
-        }
-
-        return acc;
-      },
-      {} as Record<string, string[]>
+    return GenericProductSpecificationActions.validateMountingPoints(
+      store.componentSpecs
     );
   }
 
   static missingColorsInMaterials(
     store: typeof ProductStore
   ): Record<string, string[]> {
-    return Object.entries(store.componentSpecs).reduce(
-      (acc, [componentId, componentSpec]) => {
-        const materialsWithNoColors = Object.keys(
-          componentSpec.materialSpecs
-        ).filter((materialId) => {
-          const material = componentSpec.materialSpecs[materialId];
-          return Object.keys(material.colorVariationsSpecs).length === 0;
-        });
-
-        if (materialsWithNoColors.length > 0) {
-          acc[componentId] = materialsWithNoColors;
-        }
-
-        return acc;
-      },
-      {} as Record<string, string[]>
-    );
-  }
-
-  static missingModelsInMaterials(
-    store: typeof ProductStore
-  ): Record<string, string[]> {
-    return Object.entries(store.componentSpecs).reduce(
-      (acc, [componentId, componentSpec]) => {
-        const materialsWithNoModels = Object.keys(
-          componentSpec.materialSpecs
-        ).filter((materialId) => {
-          const material = componentSpec.materialSpecs[materialId];
-          return material.modelMaterials.length === 0;
-        });
-
-        if (materialsWithNoModels.length > 0) {
-          acc[componentId] = materialsWithNoModels;
-        }
-
-        return acc;
-      },
-      {} as Record<string, string[]>
+    return GenericProductSpecificationActions.validateMaterials(
+      store.componentSpecs
     );
   }
 

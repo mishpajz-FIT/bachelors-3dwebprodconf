@@ -21,6 +21,7 @@ interface NumericalInputProps {
   maximum?: number;
   placeholder: number;
   currentValue?: number;
+  inputId?: string;
 }
 
 export const NumericalInput = ({
@@ -30,6 +31,7 @@ export const NumericalInput = ({
   maximum,
   placeholder,
   currentValue,
+  inputId,
 }: NumericalInputProps) => {
   const [innerValue, setInnerValue] = useState<string>(
     currentValue?.toString() ?? ""
@@ -129,6 +131,7 @@ export const NumericalInput = ({
   return (
     <>
       <input
+        id={inputId}
         type={"text"}
         className={`field ${isValid ? "" : "outline outline-1 outline-rose-500 dark:outline-rose-600"}`}
         placeholder={placeholder.toString()}

@@ -39,6 +39,7 @@ export const AddColor = ({ onClose }: AddMaterialProps) => {
     const newColorSpec: ColorSpecification = {
       name: data.get("name") as string,
       value: data.get("value") as string,
+      sortIndex: Object.keys(editableMaterial.colorVariationsSpecs).length,
     };
 
     ProductActions.addColorSpec(id, newColorSpec, editableMaterial);

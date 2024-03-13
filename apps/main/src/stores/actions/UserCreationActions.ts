@@ -66,14 +66,29 @@ export class UserCreationActions {
   ): string {
     const newComponentId = uuid();
 
-    ProductSpecificationActions.getComponentSpec(
+    const componentSpec = ProductSpecificationActions.getComponentSpec(
       componentSpecId,
       productSpecificationStore
     );
 
+    const materials: Record<string, string> = {};
+    Object.keys(componentSpec.materialSpecs).forEach((materialSpecId) => {
+      const materialSpec = ProductSpecificationActions.getMaterialSpec(
+        componentSpec,
+        materialSpecId
+      );
+      const lowest =
+        ProductSpecificationActions.colorSpecificationWithLowestSortIndex(
+          materialSpec
+        );
+      if (lowest) {
+        materials[materialSpecId] = lowest;
+      }
+    });
+
     userCreationStore.components[newComponentId] = {
       componentSpec: componentSpecId,
-      materials: {},
+      materials: materials,
       mounted: {},
     };
 
@@ -184,8 +199,15 @@ export class UserCreationActions {
     );
 
     if (colorSpecId === undefined) {
-      delete component.materials[materialSpecId];
-      return;
+      colorSpecId =
+        ProductSpecificationActions.colorSpecificationWithLowestSortIndex(
+          materialSpec
+        );
+      if (!colorSpecId) {
+        throw Error(
+          `Material ${materialSpecId} on ${componentId} does not have a color variation.`
+        );
+      }
     }
 
     ProductSpecificationActions.getColorSpec(materialSpec, colorSpecId);

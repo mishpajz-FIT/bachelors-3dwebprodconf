@@ -1,17 +1,9 @@
-import { ColorSpecification } from "@3dwebprodconf/shared/src/schemas/ProductSpecification.ts";
-
 import { EditComponentColorsColorTile } from "./EditComponentColorsColorTile.tsx";
 import { useComponent } from "../../../../../hooks/useComponent.ts";
 
 interface EditComponentColorsProps {
   componentId: string;
 }
-
-// TODO: change design of default color spec
-const defaultColorSpec: ColorSpecification = {
-  name: "Default",
-  value: "#ffffff",
-};
 
 export const EditComponentColors = ({
   componentId,
@@ -24,12 +16,13 @@ export const EditComponentColors = ({
         ([materialSpecId, materialSpec], materialIndex) => {
           const sortedColorVariations = Object.entries(
             materialSpec.colorVariationsSpecs
-          ).sort(([colorSpecIdA], [colorSpecIdB]) => {
+          ).sort(([colorSpecIdA, colorSpecA], [colorSpecIdB, colorSpecB]) => {
             const selectedColorSpec = component.materials[materialSpecId];
 
             if (colorSpecIdA === selectedColorSpec) return -1;
             if (colorSpecIdB === selectedColorSpec) return 1;
-            return 0;
+
+            return colorSpecA.sortIndex - colorSpecB.sortIndex;
           });
 
           return (
@@ -45,13 +38,6 @@ export const EditComponentColors = ({
                     key={colorSpecId}
                   />
                 ))}
-                <EditComponentColorsColorTile
-                  componentId={componentId}
-                  materialSpecId={materialSpecId}
-                  colorSpec={defaultColorSpec}
-                  colorSpecId={undefined}
-                  key={"default"}
-                />
               </div>
             </div>
           );
