@@ -18,6 +18,7 @@ import { ConfiguratorValuesStore } from "../../stores/ConfiguratorValuesStore.ts
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
+import { VideoCameraIcon } from "@heroicons/react/24/outline";
 
 const ProductEditorCanvas = () => {
   const userCreationSnap = useSnapshot(UserCreationStore);
@@ -31,44 +32,56 @@ const ProductEditorCanvas = () => {
   }, []);
 
   return (
-    <Canvas
-      className="shrink grow touch-none bg-[#fefefe] dark:bg-[#141414]"
-      frameloop="demand"
-      performance={{ min: 0.85 }}
-      shadows={true}
-      orthographic={globalConfig.config.camera.isOrthogonal}
-      camera={{ position: [0, 1.7, 3] }}
-    >
-      <OrbitControls makeDefault={true} regress={true} />
-      <Environment preset="city" />
-      <AdaptiveDpr />
-      <ambientLight intensity={0.3} />
-      <hemisphereLight
-        color={"#ffffff"}
-        groundColor={"#bbbbbb"}
-        intensity={0.5}
-      />
-      <directionalLight position={[2, 2, 5]} intensity={0.7} />
-      <Bounds fit clip observe margin={2}>
-        <BoundsStorer
-          key={userCreationSnap.base}
-          boundsStorage={ConfiguratorValuesStore}
-          refresh={() => refreshBounds(() => undefined)}
-        >
-          <Component componentId={userCreationSnap.base} />
-        </BoundsStorer>
-      </Bounds>
-      {globalConfig.config.shadows.floorShadow && (
-        <ContactShadows
-          position={[0, -0.5, 0]}
-          scale={10}
-          blur={1.5}
-          far={1}
-          opacity={0.4}
+    <>
+      <Canvas
+        className="shrink grow touch-none bg-[#fefefe] dark:bg-[#141414]"
+        frameloop="demand"
+        performance={{ min: 0.85 }}
+        shadows={true}
+        orthographic={globalConfig.config.camera.isOrthogonal}
+        camera={{ position: [0, 1.7, 3] }}
+      >
+        <OrbitControls makeDefault={true} regress={true} />
+        <Environment preset="city" />
+        <AdaptiveDpr />
+        <ambientLight intensity={0.3} />
+        <hemisphereLight
+          color={"#ffffff"}
+          groundColor={"#bbbbbb"}
+          intensity={0.5}
         />
-      )}
-      <Preload all />
-    </Canvas>
+        <directionalLight position={[2, 2, 5]} intensity={0.7} />
+        <Bounds fit clip observe margin={2}>
+          <BoundsStorer
+            key={userCreationSnap.base}
+            boundsStorage={ConfiguratorValuesStore}
+            refresh={() => refreshBounds(() => undefined)}
+          >
+            <Component componentId={userCreationSnap.base} />
+          </BoundsStorer>
+        </Bounds>
+        {globalConfig.config.shadows.floorShadow && (
+          <ContactShadows
+            position={[0, -0.5, 0]}
+            scale={10}
+            blur={1.5}
+            far={1}
+            opacity={0.4}
+          />
+        )}
+        <Preload all />
+      </Canvas>
+      <div className="absolute left-4 top-6">
+        <div className="glass-panel flex flex-col items-center justify-center rounded p-2">
+          <button
+            className="transition duration-150 ease-in-out active:scale-95"
+            onClick={() => refreshBounds(() => undefined)}
+          >
+            <VideoCameraIcon className="size-4 stroke-2 hover:stroke-1" />
+          </button>
+        </div>
+      </div>
+    </>
   );
 };
 
