@@ -80,7 +80,7 @@ const router = createBrowserRouter([
         throw Error("Missing product.");
       }
 
-      if (!UserCreationStore.isBaseSet) {
+      if (!UserCreationStore.value.isBaseSet) {
         return redirect("/editor/" + params.productId);
       }
 

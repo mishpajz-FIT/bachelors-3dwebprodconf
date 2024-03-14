@@ -19,7 +19,7 @@ export const EditComponentColorsColorTile = ({
 }: EditComponentColorsColorTileProps) => {
   const userCreationSnap = useSnapshot(UserCreationStore);
 
-  const materials = userCreationSnap.components[componentId].materials;
+  const materials = userCreationSnap.value.components[componentId].materials;
   const isSelected = materials[materialSpecId] === colorSpecId;
 
   return (

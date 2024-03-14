@@ -19,7 +19,7 @@ export const EditComponent = ({ onClose }: EditComponentProps) => {
   const componentId = configuratorValuesSnap.selectedComponentId;
   if (!componentId) return null;
 
-  const component = userCreationSnap.components[componentId];
+  const component = userCreationSnap.value.components[componentId];
   if (!component) return null;
 
   const componentSpecId = component.componentSpec;
@@ -53,7 +53,8 @@ export const EditComponent = ({ onClose }: EditComponentProps) => {
           )}
         </div>
       </div>
-      {configuratorValuesSnap.selectedComponentId != userCreationSnap.base && (
+      {configuratorValuesSnap.selectedComponentId !=
+        userCreationSnap.value.base && (
         <div className="mt-auto flex items-center justify-center gap-2 p-2">
           <EditComponentControls componentId={componentId} onClose={onClose} />
         </div>

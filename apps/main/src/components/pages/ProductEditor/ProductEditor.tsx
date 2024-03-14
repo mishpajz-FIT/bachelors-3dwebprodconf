@@ -24,7 +24,7 @@ const ProductEditor = () => {
 
   const [isMissingPopupOpen, setMissingPopupOpen] = useState(false);
   const [isBaseSelectionOpen, setBaseSelectionOpen] = useState(
-    !userCreationSnap.isBaseSet
+    !userCreationSnap.value.isBaseSet
   );
 
   const onDone = () => {
@@ -50,7 +50,7 @@ const ProductEditor = () => {
         }
       >
         <div className="relative shrink grow overflow-hidden">
-          {userCreationSnap.isBaseSet && <ProductEditorCanvas />}
+          {userCreationSnap.value.isBaseSet && <ProductEditorCanvas />}
 
           <Side
             isOpen={configuratorValuesSnap.selectedComponentId !== undefined}
@@ -73,13 +73,12 @@ const ProductEditor = () => {
           >
             Back
           </button>
-
           <button className="primary-button" onClick={onDone}>
             Done
           </button>
         </div>
 
-        {isBaseSelectionOpen && (
+        {(isBaseSelectionOpen || !userCreationSnap.value.isBaseSet) && (
           <div className="absolute inset-0 z-[75] bg-white dark:bg-gray-900">
             <SelectBase onClose={() => setBaseSelectionOpen(false)} />
           </div>

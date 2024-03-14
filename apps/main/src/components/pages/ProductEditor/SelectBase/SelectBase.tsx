@@ -42,7 +42,7 @@ export const SelectBase = ({ onClose }: SelectBaseProps) => {
       <div className="content-width">
         <ContainerHeader
           title={"Select base"}
-          onClose={userCreationSnap.isBaseSet ? onClose : undefined}
+          onClose={userCreationSnap.value.isBaseSet ? onClose : undefined}
         />
       </div>
       <div className="content-width mb-10 flex flex-wrap justify-start">

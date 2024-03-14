@@ -1,5 +1,10 @@
 import { BoundsStorer } from "@3dwebprodconf/shared/src/components/BoundsStorer.tsx";
 import {
+  ArrowUturnLeftIcon,
+  ArrowUturnRightIcon,
+  VideoCameraIcon,
+} from "@heroicons/react/24/outline";
+import {
   AdaptiveDpr,
   Bounds,
   ContactShadows,
@@ -18,7 +23,6 @@ import { ConfiguratorValuesStore } from "../../stores/ConfiguratorValuesStore.ts
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
-import { VideoCameraIcon } from "@heroicons/react/24/outline";
 
 const ProductEditorCanvas = () => {
   const userCreationSnap = useSnapshot(UserCreationStore);
@@ -53,11 +57,11 @@ const ProductEditorCanvas = () => {
         <directionalLight position={[2, 2, 5]} intensity={0.7} />
         <Bounds fit clip observe margin={2}>
           <BoundsStorer
-            key={userCreationSnap.base}
+            key={userCreationSnap.value.base}
             boundsStorage={ConfiguratorValuesStore}
             refresh={() => refreshBounds(() => undefined)}
           >
-            <Component componentId={userCreationSnap.base} />
+            <Component componentId={userCreationSnap.value.base} />
           </BoundsStorer>
         </Bounds>
         {globalConfig.config.shadows.floorShadow && (
@@ -72,12 +76,34 @@ const ProductEditorCanvas = () => {
         <Preload all />
       </Canvas>
       <div className="absolute left-4 top-6">
-        <div className="glass-panel flex flex-col items-center justify-center rounded p-2">
+        <div className="glass-panel flex flex-col items-center justify-center rounded p-3 sm:p-2">
           <button
             className="transition duration-150 ease-in-out active:scale-95"
             onClick={() => refreshBounds(() => undefined)}
           >
             <VideoCameraIcon className="size-4 stroke-2 hover:stroke-1" />
+          </button>
+        </div>
+      </div>
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2">
+        <div className="glass-panel flex items-center justify-center divide-x divide-gray-200 rounded-md dark:divide-zinc-700">
+          <button
+            onClick={userCreationSnap.undo}
+            className={`p-3 sm:p-2 ${userCreationSnap.isUndoEnabled && "transition duration-150 ease-in-out active:scale-95"}`}
+            disabled={!userCreationSnap.isUndoEnabled}
+          >
+            <ArrowUturnLeftIcon
+              className={`size-4 stroke-2 ${userCreationSnap.isUndoEnabled ? "hover:stroke-1" : "stroke-gray-400 dark:stroke-gray-500"}`}
+            />
+          </button>
+          <button
+            onClick={userCreationSnap.redo}
+            className={`p-3 sm:p-2 ${userCreationSnap.isRedoEnabled && "transition duration-150 ease-in-out active:scale-95"}`}
+            disabled={!userCreationSnap.isRedoEnabled}
+          >
+            <ArrowUturnRightIcon
+              className={`size-4 stroke-2 ${userCreationSnap.isRedoEnabled ? "hover:stroke-1" : "stroke-gray-400 dark:stroke-gray-500"}`}
+            />
           </button>
         </div>
       </div>

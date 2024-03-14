@@ -23,7 +23,7 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
   const { nodes, materials } = useGLTF(componentSpec.modelUrl);
 
   const customMaterials = Object.entries(
-    userCreationSnap.components[componentId].materials
+    userCreationSnap.value.components[componentId].materials
   ).reduce<Record<string, MeshStandardMaterial>>(
     (acc, [materialSpecId, colorSpecId]) => {
       const materialSpec = componentSpec.materialSpecs[materialSpecId];

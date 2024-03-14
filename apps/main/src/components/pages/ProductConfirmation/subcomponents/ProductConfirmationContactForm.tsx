@@ -34,8 +34,8 @@ export const ProductConfirmationContactForm = ({
     contactInfo: ContactInfo
   ) => {
     const userCreationWithContact = {
-      base: UserCreationStore.base,
-      components: UserCreationStore.components,
+      base: UserCreationStore.value.base,
+      components: UserCreationStore.value.components,
       contact: contactInfo,
     };
 

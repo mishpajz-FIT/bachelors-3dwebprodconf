@@ -38,8 +38,8 @@ export const ProductConfirmation = () => {
 
   const handleSubmit = async (submission: SubmissionOption) => {
     const userCreation: UserCreation = {
-      base: UserCreationStore.base,
-      components: UserCreationStore.components,
+      base: UserCreationStore.value.base,
+      components: UserCreationStore.value.components,
     };
 
     const redirectUrl = await submitProduct(
@@ -82,11 +82,11 @@ export const ProductConfirmation = () => {
       <div className="flex w-full grow flex-row justify-center">
         <div className="w-full md:w-4/5 lg:w-2/3 xl:w-1/2 print:w-full">
           <ol className="simple-panel mb-20 mt-2 flex w-full flex-col justify-start rounded-xl shadow-none">
-            {Object.keys(userCreationSnap.components).map(
+            {Object.keys(userCreationSnap.value.components).map(
               (componentId, index) => (
                 <li
                   key={componentId}
-                  className={`${index !== Object.keys(userCreationSnap.components).length - 1 ? "border-b border-b-gray-300 dark:border-b-gray-700" : ""}`}
+                  className={`${index !== Object.keys(userCreationSnap.value.components).length - 1 ? "border-b border-b-gray-300 dark:border-b-gray-700" : ""}`}
                 >
                   <ProductConfirmationTile componentId={componentId} />
                   <div className="print-page-break" />

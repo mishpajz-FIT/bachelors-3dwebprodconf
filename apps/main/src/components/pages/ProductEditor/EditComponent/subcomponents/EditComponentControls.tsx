@@ -24,7 +24,7 @@ export const EditComponentControls = ({
 
   const [isChangeModalOpen, setChangeModalOpen] = useState(false);
 
-  const parentInfo = userCreationSnap.childToParentMap.get(componentId);
+  const parentInfo = userCreationSnap.value.childToParentMap[componentId];
   if (!parentInfo) {
     throw Error(
       "Component hierarchy is damaged, component does not have parent component!"

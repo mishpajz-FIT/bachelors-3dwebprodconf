@@ -6,7 +6,7 @@ import { UserCreationStore } from "../stores/UserCreationStore.ts";
 export function useComponent(componentId: string) {
   const userCreationSnap = useSnapshot(UserCreationStore);
 
-  const component = userCreationSnap.components[componentId];
+  const component = userCreationSnap.value.components[componentId];
   if (!component) {
     throw new Error(`Component ${componentId} not found`);
   }

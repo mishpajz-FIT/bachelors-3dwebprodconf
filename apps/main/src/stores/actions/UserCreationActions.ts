@@ -6,7 +6,7 @@ import { UserCreationStore } from "../UserCreationStore.ts";
 
 export class UserCreationActions {
   static getComponent(componentId: string, store: typeof UserCreationStore) {
-    const component = store.components[componentId];
+    const component = store.value.components[componentId];
     if (!component) {
       throw new Error(`User created component ${componentId} does not exist.`);
     }
@@ -23,8 +23,8 @@ export class UserCreationActions {
       this.recursiveRemoveComponent(componentId, store)
     );
 
-    store.childToParentMap.delete(componentId);
-    delete store.components[componentId];
+    delete store.value.childToParentMap[componentId];
+    delete store.value.components[componentId];
   }
 
   private static detectComponentCycle(
@@ -47,7 +47,7 @@ export class UserCreationActions {
         return true;
       }
 
-      const currentComponent = store.components[top];
+      const currentComponent = store.value.components[top];
       Object.values(currentComponent.mounted).forEach((neighbor) => {
         if (visited.has(neighbor)) {
           return true;
@@ -86,7 +86,7 @@ export class UserCreationActions {
       }
     });
 
-    userCreationStore.components[newComponentId] = {
+    userCreationStore.value.components[newComponentId] = {
       componentSpec: componentSpecId,
       materials: materials,
       mounted: {},
@@ -104,13 +104,13 @@ export class UserCreationActions {
     const mountedComponentId = component.mounted[mountingPointSpecId];
 
     if (mountedComponentId) {
-      store.childToParentMap.delete(mountedComponentId);
+      delete store.value.childToParentMap[mountedComponentId];
       delete component.mounted[mountingPointSpecId];
     }
   }
 
   static removeComponent(componentId: string, store: typeof UserCreationStore) {
-    const parentInfo = store.childToParentMap.get(componentId);
+    const parentInfo = store.value.childToParentMap[componentId];
     if (parentInfo) {
       const [parentId, mountingPointSpecId] = parentInfo;
       this.unmountComponent(parentId, mountingPointSpecId, store);
@@ -157,27 +157,29 @@ export class UserCreationActions {
     }
 
     targetComponent.mounted[mountingPointSpecId] = mountComponentId;
-    userCreationStore.childToParentMap.set(mountComponentId, [
+    userCreationStore.value.childToParentMap[mountComponentId] = [
       targetComponentId,
       mountingPointSpecId,
-    ]);
+    ];
   }
 
   static removeAllNonbaseComponents(store: typeof UserCreationStore) {
-    if (store.isBaseSet && store.base) {
-      const baseComponent = this.getComponent(store.base, store);
-      store.components = { [store.base]: { ...baseComponent, mounted: {} } };
+    if (store.value.isBaseSet && store.value.base) {
+      const baseComponent = this.getComponent(store.value.base, store);
+      store.value.components = {
+        [store.value.base]: { ...baseComponent, mounted: {} },
+      };
     } else {
-      store.components = {};
+      store.value.components = {};
     }
 
-    store.childToParentMap.clear();
+    store.value.childToParentMap = {};
   }
 
   static setBase(componentId: string, store: typeof UserCreationStore) {
     this.getComponent(componentId, store);
-    store.base = componentId;
-    store.isBaseSet = true;
+    store.value.base = componentId;
+    store.value.isBaseSet = true;
     this.removeAllNonbaseComponents(store);
   }
 
@@ -218,7 +220,7 @@ export class UserCreationActions {
     userCreationStore: typeof UserCreationStore,
     productSpecificationStore: typeof ProductSpecificationStore
   ) {
-    return Object.entries(userCreationStore.components).reduce(
+    return Object.entries(userCreationStore.value.components).reduce(
       (missingComponents, [componentId, component]) => {
         const componentSpec = ProductSpecificationActions.getComponentSpec(
           component.componentSpec,
