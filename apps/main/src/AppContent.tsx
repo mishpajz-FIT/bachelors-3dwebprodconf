@@ -1,4 +1,5 @@
 import { ErrorPage } from "@3dwebprodconf/shared/src/components/ErrorPage.tsx";
+import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
 import { lazy, Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 import {
@@ -7,18 +8,32 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { ProductConfirmation } from "./components/2d/ProductConfirmation/ProductConfirmation.tsx";
-import { ProductSelection } from "./components/2d/ProductSelection/ProductSelection.tsx";
+import { ProductConfirmation } from "./components/pages/ProductConfirmation/ProductConfirmation.tsx";
+import { ProductSelection } from "./components/pages/ProductSelection/ProductSelection.tsx";
 import { globalConfig } from "./configurations/Config.ts";
-import { getCatalogue } from "./stores/actions/CatalogueActions.ts";
-import { fetchProductSpecification } from "./stores/actions/ProductSpecificationActions.ts";
+import { CatalogueActions } from "./stores/actions/CatalogueActions.ts";
+import { ProductSpecificationActions } from "./stores/actions/ProductSpecificationActions.ts";
+import { CatalogueStore } from "./stores/CatalogueStore.ts";
 import { ConfiguratorValuesStore } from "./stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "./stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "./stores/UserCreationStore.ts";
+import { fetchProductSpecification } from "./utilities/Fetching.ts";
 
 const ProductEditor = lazy(
-  () => import("./components/2d/ProductEditor/ProductEditor.tsx")
+  () => import("./components/pages/ProductEditor/ProductEditor.tsx")
 );
+
+async function loadCatalogueWithValidProduct(productId?: string) {
+  const catalogue = await CatalogueActions.getCatalogue(
+    globalConfig.config.sources.catalogueUrl,
+    CatalogueStore
+  );
+  const products = catalogue?.products;
+  if (productId && !products[productId]) {
+    throw Error("Product not found in catalogue.");
+  }
+  return products;
+}
 
 const router = createBrowserRouter([
   {
@@ -26,19 +41,11 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     element: <ProductSelection />,
     loader: async () => {
-      const catalogue = await getCatalogue(
-        globalConfig.config.sources.catalogueUrl
-      );
-      const products = catalogue.products;
-      if (!products) {
-        throw Error("Products not found.");
-      }
-
-      return products;
+      return await loadCatalogueWithValidProduct();
     },
   },
   {
-    path: "/:productId/editor",
+    path: "/editor/:productId",
     element: (
       <Suspense fallback={<div className="content-background size-full" />}>
         <ProductEditor />
@@ -47,26 +54,17 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     loader: async ({ params }) => {
       if (!params.productId) {
-        throw Error("Wrong ProductID.");
+        throw Error("Missing product.");
       }
 
-      const catalogue = await getCatalogue(
-        globalConfig.config.sources.catalogueUrl
-      );
-      const products = catalogue.products;
-      if (!products) {
-        throw Error("Products not found.");
-      }
-      const productSpecificationUrl =
-        products[params.productId].productSpecificationUrl;
-
+      const products = await loadCatalogueWithValidProduct(params.productId);
       const productSpecification = await fetchProductSpecification(
-        productSpecificationUrl
+        products[params.productId].productSpecificationUrl
       );
-
-      ProductSpecificationStore.baseSpecs = productSpecification.baseSpecs;
-      ProductSpecificationStore.componentSpecs =
-        productSpecification.componentSpecs;
+      ProductSpecificationActions.storeProductSpecification(
+        productSpecification,
+        ProductSpecificationStore
+      );
 
       ConfiguratorValuesStore.currentProductId = params.productId;
 
@@ -74,28 +72,16 @@ const router = createBrowserRouter([
     },
   },
   {
-    path: "/:productId/confirm",
+    path: "/confirm/:productId",
     errorElement: <ErrorPage />,
     element: <ProductConfirmation />,
-    loader: async ({ params }) => {
+    loader: ({ params }) => {
       if (!params.productId) {
-        throw Error("Wrong ProductID.");
+        throw Error("Missing product.");
       }
 
-      const catalogue = await getCatalogue(
-        globalConfig.config.sources.catalogueUrl
-      );
-      const products = catalogue.products;
-      if (!products) {
-        throw Error("Products not found.");
-      }
-
-      if (!products[params.productId]) {
-        throw Error("Product not found.");
-      }
-
-      if (!UserCreationStore.isBaseSet) {
-        return redirect("/" + params.productId + "/editor");
+      if (!UserCreationStore.value.isBaseSet) {
+        return redirect("/editor/" + params.productId);
       }
 
       return null;
@@ -104,12 +90,26 @@ const router = createBrowserRouter([
 ]);
 
 export const AppContent = () => {
+  const darkmode = useDarkMode();
+
   return (
     <div className="app flex h-dvh flex-col">
-      <div className="other-background z-10 border-b border-gray-200 p-2 shadow-sm dark:border-zinc-700">
-        <img src={"/logo.svg"} alt={"logo"} className="ml-2 max-h-12" />
+      <div className="other-background z-[90] block border-b border-gray-200 p-2 shadow-sm dark:border-zinc-700">
+        <a
+          href={globalConfig.config.sources.homepageUrl}
+          className="ml-2 inline-flex h-full items-center"
+        >
+          <img
+            src={
+              darkmode
+                ? globalConfig.config.images.logo.dark
+                : globalConfig.config.images.logo.light
+            }
+            alt={"logo"}
+            className="max-h-12"
+          />
+        </a>
       </div>
-
       <Toaster position="top-right" reverseOrder={true} />
       <RouterProvider router={router} />
     </div>

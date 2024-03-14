@@ -59,7 +59,7 @@ export const TextInput = ({
     return true;
   };
 
-  const submit = (value: string) => {
+  const onSubmit = (value: string) => {
     if (!validate(value)) {
       setInnerValue(currentValue ?? "");
       setIsValid(true);
@@ -74,7 +74,7 @@ export const TextInput = ({
   ) => {
     const { value } = e.target as HTMLInputElement;
 
-    submit(value);
+    onSubmit(value);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

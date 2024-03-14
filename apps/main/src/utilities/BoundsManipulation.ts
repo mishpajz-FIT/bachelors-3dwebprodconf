@@ -5,7 +5,6 @@ export const refreshBounds = (action: () => void) => {
   action();
 
   const bounds = ConfiguratorValuesStore.bounds;
-  console.log(bounds);
   if (!bounds) {
     return;
   }

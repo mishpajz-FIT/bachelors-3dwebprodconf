@@ -1,244 +1,250 @@
-import { UserComponent } from "@3dwebprodconf/shared/src/schemas/UserCreation.ts";
 import { v4 as uuid } from "uuid";
 
-import {
-  validateColorSpec,
-  validateComponentSpec,
-  validateMaterialSpec,
-  validateMountingPointSpec,
-} from "./ProductSpecificationActions.ts";
+import { ProductSpecificationActions } from "./ProductSpecificationActions.ts";
 import { ProductSpecificationStore } from "../ProductSpecificationStore.ts";
 import { UserCreationStore } from "../UserCreationStore.ts";
 
-export function validateComponent(
-  componentId: string,
-  store: typeof UserCreationStore
-) {
-  const component = store.components[componentId];
-  if (!component) {
-    throw new Error(`Component with ID ${componentId} does not exist.`);
-  }
-  return component;
-}
-
-function recursiveRemoveComponent(
-  componentId: string,
-  store: typeof UserCreationStore
-) {
-  const component = validateComponent(componentId, store);
-
-  Object.values(component.mounted).forEach((componentId) =>
-    recursiveRemoveComponent(componentId, store)
-  );
-
-  store.childToParentMap.delete(componentId);
-  delete store.components[componentId];
-}
-
-function detectComponentCycle(
-  sourceComponentId: string,
-  targetComponentId: string,
-  store: typeof UserCreationStore
-): boolean {
-  if (sourceComponentId == targetComponentId) {
-    return true;
-  }
-
-  const visited = new Set<string>(targetComponentId);
-  const queue: string[] = [targetComponentId];
-
-  while (queue.length > 0) {
-    const top = queue.shift();
-
-    if (!top) {
-      throw new Error(
-        `Component tree failure, component with ID: ${top} does not exist.`
-      );
+export class UserCreationActions {
+  static getComponent(componentId: string, store: typeof UserCreationStore) {
+    const component = store.value.components[componentId];
+    if (!component) {
+      throw new Error(`User created component ${componentId} does not exist.`);
     }
+    return component;
+  }
 
-    if (top == sourceComponentId) {
+  private static recursiveRemoveComponent(
+    componentId: string,
+    store: typeof UserCreationStore
+  ) {
+    const component = this.getComponent(componentId, store);
+
+    Object.values(component.mounted).forEach((componentId) =>
+      this.recursiveRemoveComponent(componentId, store)
+    );
+
+    delete store.value.childToParentMap[componentId];
+    delete store.value.components[componentId];
+  }
+
+  private static detectComponentCycle(
+    sourceComponentId: string,
+    targetComponentId: string,
+    store: typeof UserCreationStore
+  ): boolean {
+    if (sourceComponentId === targetComponentId) {
       return true;
     }
 
-    const currentComponent = store.components[top];
-    for (const neighbor of Object.values(currentComponent.mounted)) {
-      if (!visited.has(neighbor)) {
-        visited.add(neighbor);
-        queue.push(neighbor);
+    const visited = new Set<string>();
+    const queue = [sourceComponentId];
+
+    while (queue.length) {
+      const top = queue.shift()!;
+      visited.add(top);
+
+      if (top === targetComponentId) {
+        return true;
       }
+
+      const currentComponent = store.value.components[top];
+      Object.values(currentComponent.mounted).forEach((neighbor) => {
+        if (visited.has(neighbor)) {
+          return true;
+        }
+        queue.push(neighbor);
+      });
+    }
+
+    return false;
+  }
+
+  static createComponent(
+    componentSpecId: string,
+    userCreationStore: typeof UserCreationStore,
+    productSpecificationStore: typeof ProductSpecificationStore
+  ): string {
+    const newComponentId = uuid();
+
+    const componentSpec = ProductSpecificationActions.getComponentSpec(
+      componentSpecId,
+      productSpecificationStore
+    );
+
+    const materials: Record<string, string> = {};
+    Object.keys(componentSpec.materialSpecs).forEach((materialSpecId) => {
+      const materialSpec = ProductSpecificationActions.getMaterialSpec(
+        componentSpec,
+        materialSpecId
+      );
+      const lowest =
+        ProductSpecificationActions.colorSpecificationWithLowestSortIndex(
+          materialSpec
+        );
+      if (lowest) {
+        materials[materialSpecId] = lowest;
+      }
+    });
+
+    userCreationStore.value.components[newComponentId] = {
+      componentSpec: componentSpecId,
+      materials: materials,
+      mounted: {},
+    };
+
+    return newComponentId;
+  }
+
+  static unmountComponent(
+    componentId: string,
+    mountingPointSpecId: string,
+    store: typeof UserCreationStore
+  ) {
+    const component = this.getComponent(componentId, store);
+    const mountedComponentId = component.mounted[mountingPointSpecId];
+
+    if (mountedComponentId) {
+      delete store.value.childToParentMap[mountedComponentId];
+      delete component.mounted[mountingPointSpecId];
     }
   }
 
-  return false;
-}
+  static removeComponent(componentId: string, store: typeof UserCreationStore) {
+    const parentInfo = store.value.childToParentMap[componentId];
+    if (parentInfo) {
+      const [parentId, mountingPointSpecId] = parentInfo;
+      this.unmountComponent(parentId, mountingPointSpecId, store);
+    }
 
-export function createComponent(
-  componentSpec: string,
-  userCreationStore: typeof UserCreationStore,
-  productSpecificationStore: typeof ProductSpecificationStore
-): string {
-  const newComponentId = uuid();
-
-  if (!productSpecificationStore.componentSpecs[componentSpec]) {
-    throw Error(`Component spec ${componentSpec} does not exist!`);
+    this.recursiveRemoveComponent(componentId, store);
   }
 
-  userCreationStore.components[newComponentId] = {
-    componentSpec: componentSpec,
-    materials: {},
-    mounted: {},
-  };
-
-  return newComponentId;
-}
-
-export function mountComponent(
-  targetComponentId: string,
-  mountingPointSpecId: string,
-  mountComponentId: string,
-  userCreationStore: typeof UserCreationStore,
-  productSpecificationStore: typeof ProductSpecificationStore
-) {
-  const targetComponent = validateComponent(
-    targetComponentId,
-    userCreationStore
-  );
-  validateComponent(mountComponentId, userCreationStore);
-
-  validateMountingPointSpec(
-    targetComponent.componentSpec,
-    mountingPointSpecId,
-    productSpecificationStore
-  );
-
-  if (
-    detectComponentCycle(targetComponentId, mountComponentId, userCreationStore)
+  static mountComponent(
+    targetComponentId: string,
+    mountingPointSpecId: string,
+    mountComponentId: string,
+    userCreationStore: typeof UserCreationStore,
+    productSpecificationStore: typeof ProductSpecificationStore
   ) {
-    throw new Error(
-      `Component tree failure, component mounting cycle detected.`
-    );
-  }
+    if (
+      this.detectComponentCycle(
+        targetComponentId,
+        mountComponentId,
+        userCreationStore
+      )
+    ) {
+      throw new Error("Component mounting cycle detected.");
+    }
 
-  if (targetComponent.mounted[mountingPointSpecId]) {
-    recursiveRemoveComponent(
-      targetComponent.mounted[mountingPointSpecId],
+    const targetComponent = this.getComponent(
+      targetComponentId,
       userCreationStore
     );
-  }
 
-  targetComponent.mounted[mountingPointSpecId] = mountComponentId;
-  userCreationStore.childToParentMap.set(mountComponentId, [
-    targetComponentId,
-    mountingPointSpecId,
-  ]);
-}
-
-export function unmountComponent(
-  componentId: string,
-  mountingPointSpecId: string,
-  userProductStore: typeof UserCreationStore
-) {
-  const component = validateComponent(componentId, userProductStore);
-
-  const mountedComponentId = component.mounted[mountingPointSpecId];
-  if (mountedComponentId) {
-    userProductStore.childToParentMap.delete(mountedComponentId);
-    delete component.mounted[mountingPointSpecId];
-  }
-}
-
-export const removeComponent = (
-  componentId: string,
-  store: typeof UserCreationStore
-) => {
-  const parentInfo = store.childToParentMap.get(componentId);
-  if (parentInfo) {
-    const [parentId, mountingPointSpecId] = parentInfo;
-    unmountComponent(parentId, mountingPointSpecId, store);
-  }
-
-  recursiveRemoveComponent(componentId, store);
-};
-
-export function removeNonbaseComponents(store: typeof UserCreationStore) {
-  const base = store.base;
-
-  const newComponents: Record<string, UserComponent> = {};
-  if (store.components[base]) {
-    newComponents[base] = store.components[base];
-    newComponents[base].mounted = {};
-  }
-
-  store.childToParentMap.clear();
-  store.components = newComponents;
-}
-
-export const mountBase = (
-  componentId: string,
-  store: typeof UserCreationStore
-) => {
-  store.base = componentId;
-  store.isBaseSet = true;
-  removeNonbaseComponents(store);
-};
-
-export const changeMaterial = (
-  componentId: string,
-  materialSpecId: string,
-  colorSpecId: string | undefined,
-  userCreationStore: typeof UserCreationStore,
-  productSpecificationStore: typeof ProductSpecificationStore
-) => {
-  const component = validateComponent(componentId, userCreationStore);
-  validateMaterialSpec(
-    component.componentSpec,
-    materialSpecId,
-    productSpecificationStore
-  );
-
-  if (colorSpecId === undefined) {
-    delete userCreationStore.components[componentId].materials[materialSpecId];
-    return;
-  }
-
-  validateColorSpec(
-    component.componentSpec,
-    materialSpecId,
-    colorSpecId,
-    productSpecificationStore
-  );
-  userCreationStore.components[componentId].materials[materialSpecId] =
-    colorSpecId;
-};
-
-export function detectRequiredMissing(
-  userCreationStore: typeof UserCreationStore,
-  productSpecificationStore: typeof ProductSpecificationStore
-): string[] {
-  const missingComponents: string[] = [];
-
-  Object.entries(userCreationStore.components).forEach(
-    ([componentId, component]) => {
-      const componentSpec = validateComponentSpec(
-        component.componentSpec,
+    ProductSpecificationActions.getMountingPointSpec(
+      ProductSpecificationActions.getComponentSpec(
+        targetComponent.componentSpec,
         productSpecificationStore
-      );
+      ),
+      mountingPointSpecId
+    );
 
-      Object.entries(componentSpec.mountingPointsSpecs).forEach(
-        ([mountingPointId, mountingPoint]) => {
-          if (
-            mountingPoint.isRequired &&
+    if (targetComponent.mounted[mountingPointSpecId]) {
+      this.removeComponent(
+        targetComponent.mounted[mountingPointSpecId],
+        userCreationStore
+      );
+    }
+
+    targetComponent.mounted[mountingPointSpecId] = mountComponentId;
+    userCreationStore.value.childToParentMap[mountComponentId] = [
+      targetComponentId,
+      mountingPointSpecId,
+    ];
+  }
+
+  static removeAllNonbaseComponents(store: typeof UserCreationStore) {
+    if (store.value.isBaseSet && store.value.base) {
+      const baseComponent = this.getComponent(store.value.base, store);
+      store.value.components = {
+        [store.value.base]: { ...baseComponent, mounted: {} },
+      };
+    } else {
+      store.value.components = {};
+    }
+
+    store.value.childToParentMap = {};
+  }
+
+  static setBase(componentId: string, store: typeof UserCreationStore) {
+    this.getComponent(componentId, store);
+    store.value.base = componentId;
+    store.value.isBaseSet = true;
+    this.removeAllNonbaseComponents(store);
+  }
+
+  static changeMaterialColor(
+    componentId: string,
+    materialSpecId: string,
+    colorSpecId: string | undefined,
+    userCreationStore: typeof UserCreationStore,
+    productSpecificationStore: typeof ProductSpecificationStore
+  ) {
+    const component = this.getComponent(componentId, userCreationStore);
+    const componentSpec = ProductSpecificationActions.getComponentSpec(
+      component.componentSpec,
+      productSpecificationStore
+    );
+    const materialSpec = ProductSpecificationActions.getMaterialSpec(
+      componentSpec,
+      materialSpecId
+    );
+
+    if (colorSpecId === undefined) {
+      colorSpecId =
+        ProductSpecificationActions.colorSpecificationWithLowestSortIndex(
+          materialSpec
+        );
+      if (!colorSpecId) {
+        throw Error(
+          `Material ${materialSpecId} on ${componentId} does not have a color variation.`
+        );
+      }
+    }
+
+    ProductSpecificationActions.getColorSpec(materialSpec, colorSpecId);
+    component.materials[materialSpecId] = colorSpecId;
+  }
+
+  static detectMissingRequired(
+    userCreationStore: typeof UserCreationStore,
+    productSpecificationStore: typeof ProductSpecificationStore
+  ) {
+    return Object.entries(userCreationStore.value.components).reduce(
+      (missingComponents, [componentId, component]) => {
+        const componentSpec = ProductSpecificationActions.getComponentSpec(
+          component.componentSpec,
+          productSpecificationStore
+        );
+
+        const isMissing = Object.entries(
+          componentSpec.mountingPointsSpecs
+        ).some(
+          ([mountingPointId, { isRequired }]) =>
+            isRequired &&
             !Object.prototype.hasOwnProperty.call(
               component.mounted,
               mountingPointId
             )
-          ) {
-            missingComponents.push(componentId);
-          }
-        }
-      );
-    }
-  );
+        );
 
-  return missingComponents;
+        if (isMissing) {
+          missingComponents.push(componentId);
+        }
+
+        return missingComponents;
+      },
+      [] as string[]
+    );
+  }
 }

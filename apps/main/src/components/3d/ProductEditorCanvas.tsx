@@ -1,5 +1,10 @@
 import { BoundsStorer } from "@3dwebprodconf/shared/src/components/BoundsStorer.tsx";
 import {
+  ArrowUturnLeftIcon,
+  ArrowUturnRightIcon,
+  VideoCameraIcon,
+} from "@heroicons/react/24/outline";
+import {
   AdaptiveDpr,
   Bounds,
   ContactShadows,
@@ -31,44 +36,78 @@ const ProductEditorCanvas = () => {
   }, []);
 
   return (
-    <Canvas
-      className="grow touch-none bg-[#fefefe] dark:bg-[#141414]"
-      frameloop="demand"
-      performance={{ min: 0.85 }}
-      shadows={true}
-      orthographic={globalConfig.config.camera.isOrthogonal}
-      camera={{ position: [0, 1.7, 3] }}
-    >
-      <OrbitControls makeDefault={true} regress={true} />
-      <Environment preset="city" />
-      <AdaptiveDpr />
-      <ambientLight intensity={0.3} />
-      <hemisphereLight
-        color={"#ffffff"}
-        groundColor={"#bbbbbb"}
-        intensity={0.5}
-      />
-      <directionalLight position={[2, 2, 5]} intensity={0.7} />
-      <Bounds fit clip observe margin={2}>
-        <BoundsStorer
-          key={userCreationSnap.base}
-          boundsStorage={ConfiguratorValuesStore}
-          refresh={() => refreshBounds(() => undefined)}
-        >
-          <Component componentId={userCreationSnap.base} />
-        </BoundsStorer>
-      </Bounds>
-      {globalConfig.config.shadows.floorShadow && (
-        <ContactShadows
-          position={[0, -0.5, 0]}
-          scale={10}
-          blur={1.5}
-          far={1}
-          opacity={0.4}
+    <>
+      <Canvas
+        className="shrink grow touch-none bg-[#fefefe] dark:bg-[#141414]"
+        frameloop="demand"
+        performance={{ min: 0.85 }}
+        shadows={true}
+        orthographic={globalConfig.config.camera.isOrthogonal}
+        camera={{ position: [0, 1.7, 3] }}
+      >
+        <OrbitControls makeDefault={true} regress={true} />
+        <Environment preset="city" />
+        <AdaptiveDpr />
+        <ambientLight intensity={0.3} />
+        <hemisphereLight
+          color={"#ffffff"}
+          groundColor={"#bbbbbb"}
+          intensity={0.5}
         />
-      )}
-      <Preload all />
-    </Canvas>
+        <directionalLight position={[2, 2, 5]} intensity={0.7} />
+        <Bounds fit clip observe margin={2}>
+          <BoundsStorer
+            key={userCreationSnap.value.base}
+            boundsStorage={ConfiguratorValuesStore}
+            refresh={() => refreshBounds(() => undefined)}
+          >
+            <Component componentId={userCreationSnap.value.base} />
+          </BoundsStorer>
+        </Bounds>
+        {globalConfig.config.shadows.floorShadow && (
+          <ContactShadows
+            position={[0, -0.5, 0]}
+            scale={10}
+            blur={1.5}
+            far={1}
+            opacity={0.4}
+          />
+        )}
+        <Preload all />
+      </Canvas>
+      <div className="absolute left-4 top-6">
+        <div className="glass-panel flex flex-col items-center justify-center rounded p-3 sm:p-2">
+          <button
+            className="transition duration-150 ease-in-out active:scale-95"
+            onClick={() => refreshBounds(() => undefined)}
+          >
+            <VideoCameraIcon className="size-4 stroke-2 hover:stroke-1" />
+          </button>
+        </div>
+      </div>
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2">
+        <div className="glass-panel flex items-center justify-center divide-x divide-gray-200 rounded-md dark:divide-zinc-700">
+          <button
+            onClick={userCreationSnap.undo}
+            className={`p-3 sm:p-2 ${userCreationSnap.isUndoEnabled && "transition duration-150 ease-in-out active:scale-95"}`}
+            disabled={!userCreationSnap.isUndoEnabled}
+          >
+            <ArrowUturnLeftIcon
+              className={`size-4 stroke-2 ${userCreationSnap.isUndoEnabled ? "hover:stroke-1" : "stroke-gray-400 dark:stroke-gray-500"}`}
+            />
+          </button>
+          <button
+            onClick={userCreationSnap.redo}
+            className={`p-3 sm:p-2 ${userCreationSnap.isRedoEnabled && "transition duration-150 ease-in-out active:scale-95"}`}
+            disabled={!userCreationSnap.isRedoEnabled}
+          >
+            <ArrowUturnRightIcon
+              className={`size-4 stroke-2 ${userCreationSnap.isRedoEnabled ? "hover:stroke-1" : "stroke-gray-400 dark:stroke-gray-500"}`}
+            />
+          </button>
+        </div>
+      </div>
+    </>
   );
 };
 

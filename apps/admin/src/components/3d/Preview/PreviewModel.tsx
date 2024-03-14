@@ -97,7 +97,6 @@ export const PreviewModel = () => {
           {Object.entries(nodes).map(([name, node]) => {
             if (node.type === "Mesh") {
               const mesh = node as Mesh;
-
               const materialName = Array.isArray(mesh.material)
                 ? mesh.material[0].name
                 : mesh.material.name;

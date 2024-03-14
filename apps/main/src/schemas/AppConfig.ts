@@ -31,10 +31,19 @@ export const AppConfigSchema = z.object({
   }),
   sources: z.object({
     catalogueUrl: z.string(),
+    homepageUrl: z.string(),
   }),
   capabilities: z.object({
     savePdfButton: z.boolean(),
   }),
+  images: z.object({
+    logo: z.object({
+      light: z.string(),
+      dark: z.string(),
+    }),
+    favicon: z.string(),
+  }),
+  title: z.string(),
 });
 
 export type AppConfig = z.infer<typeof AppConfigSchema>;

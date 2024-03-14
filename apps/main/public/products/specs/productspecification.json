@@ -14,19 +14,23 @@
           "colorVariationsSpecs": {
             "dark-wood": {
               "name": "Dark wood",
-              "value": "#583400"
+              "value": "#583400",
+              "sortIndex": 1
             },
             "light-wood": {
               "name": "Light wood",
-              "value": "#fab15e"
+              "value": "#fab15e",
+              "sortIndex": 1
             },
             "white": {
               "name": "Matte white",
-              "value": "#ffffff"
+              "value": "#ffffff",
+              "sortIndex": 0
             },
             "black": {
               "name": "Black",
-              "value": "#232323"
+              "value": "#232323",
+              "sortIndex": 2
             }
           }
         }
@@ -62,19 +66,23 @@
           "colorVariationsSpecs": {
             "dark-wood": {
               "name": "Dark wood",
-              "value": "#583400"
+              "value": "#583400",
+              "sortIndex": 1
             },
             "light-wood": {
               "name": "Light wood",
-              "value": "#fab15e"
+              "value": "#fab15e",
+              "sortIndex": 1
             },
             "white": {
               "name": "Matte white",
-              "value": "#ffffff"
+              "value": "#ffffff",
+              "sortIndex": 0
             },
             "black": {
               "name": "Black",
-              "value": "#232323"
+              "value": "#232323",
+              "sortIndex": 2
             }
           }
         }
@@ -110,15 +118,18 @@
           "colorVariationsSpecs": {
             "dark-wood": {
               "name": "Dark wood",
-              "value": "#583400"
+              "value": "#583400",
+              "sortIndex": 1
             },
             "light-wood": {
               "name": "Light wood",
-              "value": "#fab15e"
+              "value": "#fab15e",
+              "sortIndex": 1
             },
             "white": {
               "name": "Matte white",
-              "value": "#ffffff"
+              "value": "#ffffff",
+              "sortIndex": 0
             }
           }
         }
@@ -221,15 +232,18 @@
           "colorVariationsSpecs": {
             "dark-wood": {
               "name": "Dark wood",
-              "value": "#583400"
+              "value": "#583400",
+              "sortIndex": 1
             },
             "light-wood": {
               "name": "Light wood",
-              "value": "#fab15e"
+              "value": "#fab15e",
+              "sortIndex": 1
             },
             "white": {
               "name": "Matte white",
-              "value": "#ffffff"
+              "value": "#ffffff",
+              "sortIndex": 0
             }
           }
         }
@@ -331,15 +345,18 @@
           "colorVariationsSpecs": {
             "dark-wood": {
               "name": "Dark wood",
-              "value": "#583400"
+              "value": "#583400",
+              "sortIndex": 1
             },
             "light-wood": {
               "name": "Light wood",
-              "value": "#fab15e"
+              "value": "#fab15e",
+              "sortIndex": 1
             },
             "white": {
               "name": "Matte white",
-              "value": "#ffffff"
+              "value": "#ffffff",
+              "sortIndex": 0
             }
           }
         }
@@ -426,15 +443,18 @@
           "colorVariationsSpecs": {
             "dark-wood": {
               "name": "Dark wood",
-              "value": "#583400"
+              "value": "#583400",
+              "sortIndex": 1
             },
             "light-wood": {
               "name": "Light wood",
-              "value": "#fab15e"
+              "value": "#fab15e",
+              "sortIndex": 1
             },
             "white": {
               "name": "Matte white",
-              "value": "#ffffff"
+              "value": "#ffffff",
+              "sortIndex": 0
             }
           }
         }
@@ -521,15 +541,18 @@
           "colorVariationsSpecs": {
             "dark-wood": {
               "name": "Dark wood",
-              "value": "#583400"
+              "value": "#583400",
+              "sortIndex": 1
             },
             "light-wood": {
               "name": "Light wood",
-              "value": "#fab15e"
+              "value": "#fab15e",
+              "sortIndex": 1
             },
             "white": {
               "name": "Matte white",
-              "value": "#ffffff"
+              "value": "#ffffff",
+              "sortIndex": 0
             }
           }
         }
@@ -564,7 +587,7 @@
           ],
           "isRequired": false,
           "mountableComponents": [
-            "bench-s-n",
+            "bench-s-nr",
             "bench-s-r"
           ]
         },
@@ -632,15 +655,18 @@
           "colorVariationsSpecs": {
             "blue": {
               "name": "Navy blue",
-              "value": "#2c1376"
+              "value": "#2c1376",
+              "sortIndex": 1
             },
             "red": {
               "name": "Crimson red",
-              "value": "#b51a00"
+              "value": "#b51a00",
+              "sortIndex": 2
             },
             "green": {
               "name": "Military green",
-              "value": "#4f7a28"
+              "value": "#4f7a28",
+              "sortIndex": 3
             }
           }
         }

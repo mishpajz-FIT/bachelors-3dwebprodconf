@@ -1,95 +1,157 @@
-import { downloadableJson } from "@3dwebprodconf/shared/src/utilites/downloadableJson.ts";
+import {
+  BaseSpecification,
+  ColorSpecification,
+  ComponentSpecification,
+  MaterialSpecification,
+  MountingPointSpecification,
+  ProductSpecification,
+} from "@3dwebprodconf/shared/src/schemas/ProductSpecification.ts";
+import { GenericProductSpecificationActions } from "@3dwebprodconf/shared/src/stores/actions/GenericProductSpecificationActions.ts";
 
 import { ProductStore } from "../ProductStore.ts";
 
-export function removeComponentSpec(componentSpecId: string) {
-  Object.keys(ProductStore.baseSpecs).forEach((baseSpecId) => {
-    if (ProductStore.baseSpecs[baseSpecId].component === componentSpecId) {
-      delete ProductStore.baseSpecs[baseSpecId];
-    }
-  });
-
-  Object.keys(ProductStore.componentSpecs).forEach((iterComponentSpecId) => {
-    const iterComponentSpec = ProductStore.componentSpecs[iterComponentSpecId];
-    Object.keys(iterComponentSpec.mountingPointsSpecs).forEach(
-      (iterMountingPointId) => {
-        const iterMountPoint =
-          iterComponentSpec.mountingPointsSpecs[iterMountingPointId];
-        iterMountPoint.mountableComponents =
-          iterMountPoint.mountableComponents.filter(
-            (component) => component !== componentSpecId
-          );
-      }
+export class ProductActions extends GenericProductSpecificationActions {
+  static getComponentSpec(
+    componentSpecId: string,
+    store: typeof ProductStore
+  ): ComponentSpecification {
+    return this.get(
+      componentSpecId,
+      store.componentSpecs,
+      "Component specification"
     );
-  });
+  }
 
-  delete ProductStore.componentSpecs[componentSpecId];
-}
-
-export function exportProduct() {
-  downloadableJson(JSON.stringify(ProductStore), "productspecification");
-}
-
-export function missingComponentsInMountingPoints(): Record<string, string[]> {
-  const result: Record<string, string[]> = {};
-
-  Object.entries(ProductStore.componentSpecs).forEach(
-    ([componentId, componentSpec]) => {
-      const emptyMountingPoints = Object.keys(
-        componentSpec.mountingPointsSpecs
-      ).filter(
-        (mountingPointId) =>
-          componentSpec.mountingPointsSpecs[mountingPointId].mountableComponents
-            .length === 0
-      );
-
-      if (emptyMountingPoints.length > 0) {
-        result[componentId] = emptyMountingPoints;
+  static removeComponentSpec(
+    componentSpecId: string,
+    store: typeof ProductStore
+  ) {
+    Object.keys(store.baseSpecs).forEach((baseSpecId) => {
+      if (store.baseSpecs[baseSpecId].component === componentSpecId) {
+        delete store.baseSpecs[baseSpecId];
       }
-    }
-  );
+    });
 
-  return result;
-}
-
-export function missingColorsInMaterials(): Record<string, string[]> {
-  const result: Record<string, string[]> = {};
-
-  Object.entries(ProductStore.componentSpecs).forEach(
-    ([componentId, componentSpec]) => {
-      const materialsWithNoColors = Object.keys(
-        componentSpec.materialSpecs
-      ).filter((materialId) => {
-        const material = componentSpec.materialSpecs[materialId];
-        return Object.keys(material.colorVariationsSpecs).length === 0;
+    Object.values(store.componentSpecs).forEach((componentSpec) => {
+      Object.values(componentSpec.mountingPointsSpecs).forEach((mountPoint) => {
+        mountPoint.mountableComponents = mountPoint.mountableComponents.filter(
+          (component) => component !== componentSpecId
+        );
       });
+    });
 
-      if (materialsWithNoColors.length > 0) {
-        result[componentId] = materialsWithNoColors;
-      }
-    }
-  );
+    delete store.componentSpecs[componentSpecId];
+  }
 
-  return result;
-}
+  static addBaseSpec(
+    baseSpecId: string,
+    baseSpec: BaseSpecification,
+    store: typeof ProductStore
+  ) {
+    store.baseSpecs[baseSpecId] = baseSpec;
+  }
 
-export function missingModelsInMaterials(): Record<string, string[]> {
-  const result: Record<string, string[]> = {};
+  static addComponentSpec(
+    componentSpecId: string,
+    componentSpec: ComponentSpecification,
+    store: typeof ProductStore
+  ) {
+    store.componentSpecs[componentSpecId] = componentSpec;
+  }
 
-  Object.entries(ProductStore.componentSpecs).forEach(
-    ([componentId, componentSpec]) => {
-      const materialsWithNoModels = Object.keys(
-        componentSpec.materialSpecs
-      ).filter((materialId) => {
-        const material = componentSpec.materialSpecs[materialId];
-        return material.modelMaterials.length === 0;
-      });
+  static addMountingPointSpec(
+    mountingPointId: string,
+    mountingPointSpec: MountingPointSpecification,
+    componentSpec: ComponentSpecification
+  ) {
+    componentSpec.mountingPointsSpecs[mountingPointId] = mountingPointSpec;
+  }
 
-      if (materialsWithNoModels.length > 0) {
-        result[componentId] = materialsWithNoModels;
-      }
-    }
-  );
+  static addMaterialSpec(
+    materialSpecId: string,
+    materialSpec: MaterialSpecification,
+    componentSpec: ComponentSpecification
+  ) {
+    componentSpec.materialSpecs[materialSpecId] = materialSpec;
+  }
 
-  return result;
+  static addColorSpec(
+    colorSpecId: string,
+    colorSpec: ColorSpecification,
+    materialSpec: MaterialSpecification
+  ) {
+    materialSpec.colorVariationsSpecs[colorSpecId] = colorSpec;
+  }
+
+  static baseSpecExists(
+    baseSpecId: string,
+    store: typeof ProductStore
+  ): boolean {
+    return Object.prototype.hasOwnProperty.call(store.baseSpecs, baseSpecId);
+  }
+
+  static componentSpecExists(
+    componentSpecId: string,
+    store: typeof ProductStore
+  ): boolean {
+    return Object.prototype.hasOwnProperty.call(
+      store.componentSpecs,
+      componentSpecId
+    );
+  }
+
+  static mountingPointSpecExists(
+    componentSpec: ComponentSpecification,
+    mountingPointSpecId: string
+  ): boolean {
+    return Object.prototype.hasOwnProperty.call(
+      componentSpec.mountingPointsSpecs,
+      mountingPointSpecId
+    );
+  }
+
+  static materialSpecExists(
+    componentSpec: ComponentSpecification,
+    materialSpecId: string
+  ): boolean {
+    return Object.prototype.hasOwnProperty.call(
+      componentSpec.materialSpecs,
+      materialSpecId
+    );
+  }
+
+  static colorSpecExists(
+    materialSpec: MaterialSpecification,
+    colorSpecId: string
+  ): boolean {
+    return Object.prototype.hasOwnProperty.call(
+      materialSpec.colorVariationsSpecs,
+      colorSpecId
+    );
+  }
+
+  static missingComponentsInMountingPoints(
+    store: typeof ProductStore
+  ): Record<string, string[]> {
+    return GenericProductSpecificationActions.validateMountingPoints(
+      store.componentSpecs
+    );
+  }
+
+  static missingColorsInMaterials(
+    store: typeof ProductStore
+  ): Record<string, string[]> {
+    return GenericProductSpecificationActions.validateMaterials(
+      store.componentSpecs
+    );
+  }
+
+  static storeProductSpecification(
+    productSpec: ProductSpecification,
+    store: typeof ProductStore
+  ) {
+    store.componentSpecs = {};
+    store.baseSpecs = {};
+    Object.assign(store, productSpec);
+  }
 }

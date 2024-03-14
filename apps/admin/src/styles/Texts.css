@@ -1,18 +1,18 @@
+@import "@3dwebprodconf/shared/src/styles/Texts.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer components {
-  .label {
+  .label-aligned {
+    @apply label;
     @apply mb-1 block;
-    @apply text-sm font-medium;
-    @apply text-gray-900 dark:text-white;
   }
 
-  .section-heading {
+  .section-heading-aligned {
+    @apply section-heading;
     @apply mt-4 p-2;
-    @apply text-sm font-bold;
-    @apply text-gray-800 dark:text-gray-200;
   }
 
   .underlined-selection {
