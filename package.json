@@ -37,6 +37,7 @@
     "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.21.3",
     "three": "^0.161.0",
+    "three-mesh-bvh": "^0.7.3",
     "uuid": "^9.0.1",
     "valtio": "^1.13.0",
     "valtio-history": "^0.3.2",

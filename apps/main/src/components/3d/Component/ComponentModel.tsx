@@ -12,6 +12,7 @@ import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 interface ComponentModelProps {
   componentId: string;
 }
+
 const ComponentModel = ({ componentId }: ComponentModelProps) => {
   const userCreationSnap = useSnapshot(UserCreationStore);
   const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
@@ -47,7 +48,6 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
 
   const onSelect = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();
-    console.log("select " + componentId);
 
     if (ConfiguratorValuesStore.selectedComponentId === componentId) {
       ConfiguratorValuesStore.selectedComponentId = undefined;
@@ -62,6 +62,8 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
       {Object.entries(nodes).map(([name, node]) => {
         if (node.type === "Mesh") {
           const mesh = node as Mesh;
+
+          mesh.geometry.computeBoundsTree();
 
           const materialName = Array.isArray(mesh.material)
             ? mesh.material[0].name
