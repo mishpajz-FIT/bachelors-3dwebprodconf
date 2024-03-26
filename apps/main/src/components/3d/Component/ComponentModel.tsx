@@ -72,7 +72,10 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
           return (
             <mesh
               key={name}
-              userData={{ componentId: componentId }}
+              userData={{
+                componentId: componentId,
+                ignoreCollisions: componentSpec.ignoreCollisions,
+              }}
               geometry={mesh.geometry}
               material={material}
             >

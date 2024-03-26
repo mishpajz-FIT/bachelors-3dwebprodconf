@@ -9,7 +9,7 @@ import { ProductSpecificationActions } from "../stores/actions/ProductSpecificat
 import { ProductSpecificationStore } from "../stores/ProductSpecificationStore.ts";
 import "three-mesh-bvh/src/index";
 
-const COLLISION_TOLERANCE = 5;
+const COLLISION_TOLERANCE = 2;
 
 function checkForCollision(
   newMesh: THREE.Mesh,
@@ -23,13 +23,20 @@ function checkForCollision(
       return;
     }
 
+    const componentId = sceneMesh.userData.componentId as string | undefined;
+    if (componentId && ignoredComponents?.includes(componentId)) {
+      return;
+    }
+
+    const ignoreCollisions = sceneMesh.userData.ignoreCollisions as
+      | boolean
+      | undefined;
+    if (ignoreCollisions) {
+      return;
+    }
+
     const sceneGeometry = sceneMesh.geometry as BVHBufferGeometry;
     if (sceneGeometry.boundsTree) {
-      const componentId = sceneMesh.userData.componentId as string | undefined;
-      if (componentId && ignoredComponents?.includes(componentId)) {
-        return;
-      }
-
       // Calculate relative transformation
       const transformMatrix = new THREE.Matrix4()
         .copy(sceneMesh.matrixWorld)

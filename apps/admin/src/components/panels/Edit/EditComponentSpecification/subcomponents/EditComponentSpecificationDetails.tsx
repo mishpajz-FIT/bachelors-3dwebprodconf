@@ -77,6 +77,24 @@ export const EditComponentSpecificationDetails = () => {
               }}
             />
           </label>
+          <label htmlFor={"ignore-collisions-checkbox"}>
+            <span className="label-aligned">Ignore collisions</span>
+            <input
+              id="ignore-collisions-checkbox"
+              type="checkbox"
+              checked={componentSpec.ignoreCollisions}
+              className="field size-4"
+              onChange={() => {
+                const editableComponent = ProductActions.getComponentSpec(
+                  componentSpecId,
+                  ProductStore
+                );
+
+                editableComponent.ignoreCollisions =
+                  !editableComponent.ignoreCollisions;
+              }}
+            />
+          </label>
         </div>
       </form>
     </div>

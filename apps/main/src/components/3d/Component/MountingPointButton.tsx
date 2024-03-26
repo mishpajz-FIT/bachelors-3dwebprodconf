@@ -32,6 +32,7 @@ export const MountingPointButton = ({
 
   const groupRef = useRef<THREE.Group>(null);
   const recalculateCollisionsFlag = useRef(true);
+  const frameDelayRef = useRef(0);
   const { scene } = useThree();
 
   const { worldPosition, worldQuaternion, worldRotation } = useMemo(() => {
@@ -72,6 +73,10 @@ export const MountingPointButton = ({
 
   useFrame(() => {
     if (recalculateCollisionsFlag.current) {
+      if (frameDelayRef.current > 0) {
+        frameDelayRef.current -= 1;
+        return;
+      }
       const collisionChecks = mountingPointSpec.mountableComponents.map(
         async (mountableComponentSpec) => {
           const collision = await willComponentCollide(
@@ -96,6 +101,7 @@ export const MountingPointButton = ({
           throw e;
         });
 
+      frameDelayRef.current = 3;
       recalculateCollisionsFlag.current = false;
     }
   });
