@@ -12,3 +12,8 @@ function App() {
 }
 
 export default App;
+
+// TODO: Extract default positioning from gltf's scene
+// TODO: Refactor add's in code
+// TODO: Changeable collision sensitivity
+// TODO: Click-away unselect

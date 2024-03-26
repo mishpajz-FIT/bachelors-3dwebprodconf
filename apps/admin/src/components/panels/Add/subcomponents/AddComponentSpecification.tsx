@@ -34,6 +34,7 @@ export const AddComponentSpecification = ({
       modelUrl: data.get("modelUrl") as string,
       materialSpecs: {},
       mountingPointsSpecs: {},
+      ignoreCollisions: false,
     };
 
     if (data.has("price")) {

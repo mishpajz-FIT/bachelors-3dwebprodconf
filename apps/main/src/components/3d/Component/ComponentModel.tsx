@@ -12,6 +12,7 @@ import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 interface ComponentModelProps {
   componentId: string;
 }
+
 const ComponentModel = ({ componentId }: ComponentModelProps) => {
   const userCreationSnap = useSnapshot(UserCreationStore);
   const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
@@ -47,7 +48,6 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
 
   const onSelect = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();
-    console.log("select " + componentId);
 
     if (ConfiguratorValuesStore.selectedComponentId === componentId) {
       ConfiguratorValuesStore.selectedComponentId = undefined;
@@ -70,7 +70,15 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
             customMaterials[materialName] || materials[materialName];
 
           return (
-            <mesh key={name} geometry={mesh.geometry} material={material}>
+            <mesh
+              key={name}
+              userData={{
+                componentId: componentId,
+                ignoreCollisions: componentSpec.ignoreCollisions,
+              }}
+              geometry={mesh.geometry}
+              material={material}
+            >
               <Edges
                 visible={
                   componentId === configuratorValuesSnap.selectedComponentId
