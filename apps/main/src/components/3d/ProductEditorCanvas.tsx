@@ -16,12 +16,6 @@ import {
 import { Canvas } from "@react-three/fiber";
 import { useEffect } from "react";
 import { useSnapshot } from "valtio";
-import * as THREE from "three";
-import {
-  computeBoundsTree,
-  disposeBoundsTree,
-  acceleratedRaycast,
-} from "three-mesh-bvh";
 
 import { Component } from "./Component/Component.tsx";
 import { globalConfig } from "../../configurations/Config.ts";
@@ -39,12 +33,6 @@ const ProductEditorCanvas = () => {
         useGLTF.preload(componentSpec.modelUrl);
       }
     );
-  }, []);
-
-  useEffect(() => {
-    THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
-    THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
-    THREE.Mesh.prototype.raycast = acceleratedRaycast;
   }, []);
 
   return (

@@ -63,8 +63,6 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
         if (node.type === "Mesh") {
           const mesh = node as Mesh;
 
-          mesh.geometry.computeBoundsTree();
-
           const materialName = Array.isArray(mesh.material)
             ? mesh.material[0].name
             : mesh.material.name;
@@ -72,7 +70,12 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
             customMaterials[materialName] || materials[materialName];
 
           return (
-            <mesh key={name} geometry={mesh.geometry} material={material}>
+            <mesh
+              key={name}
+              userData={{ componentId: componentId }}
+              geometry={mesh.geometry}
+              material={material}
+            >
               <Edges
                 visible={
                   componentId === configuratorValuesSnap.selectedComponentId

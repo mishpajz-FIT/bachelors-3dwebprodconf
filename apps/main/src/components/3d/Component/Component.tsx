@@ -1,3 +1,4 @@
+import { Bvh } from "@react-three/drei";
 import { lazy } from "react";
 import { Euler } from "three";
 
@@ -23,7 +24,9 @@ export const Component = ({ componentId }: ComponentProps) => {
       }
     >
       <group scale={componentSpec.scaleOffset}>
-        <ComponentModel componentId={componentId} />
+        <Bvh>
+          <ComponentModel componentId={componentId} />
+        </Bvh>
       </group>
 
       {Object.entries(componentSpec.mountingPointsSpecs).map(

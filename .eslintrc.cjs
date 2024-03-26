@@ -48,6 +48,7 @@ module.exports = {
           "depthTest",
           "geometry",
           "material",
+          "userData"
         ],
       },
     ],

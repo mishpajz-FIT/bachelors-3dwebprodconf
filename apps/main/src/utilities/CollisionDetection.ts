@@ -1,23 +1,48 @@
+import {
+  BVHBufferGeometry,
+  traverseMeshes,
+} from "@3dwebprodconf/shared/src/utilites/ThreeExtensions.ts";
+import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+
 import { ProductSpecificationActions } from "../stores/actions/ProductSpecificationActions.ts";
 import { ProductSpecificationStore } from "../stores/ProductSpecificationStore.ts";
-import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import * as THREE from "three";
+import "three-mesh-bvh/src/index";
 
-function checkForCollision(newMesh, scene) {
+const COLLISION_TOLERANCE = 5;
+
+function checkForCollision(
+  newMesh: THREE.Mesh,
+  scene: THREE.Scene,
+  ignoredComponents?: string[]
+) {
   let collisionDetected = false;
 
-  scene.traverse((child) => {
-    if (child.type === "Mesh") {
-      if (child.geometry.boundsTree) {
-        const result = child.geometry.boundsTree.intersectsGeometry(
-          newMesh.geometry,
-          newMesh.matrixWorld
-        );
+  traverseMeshes(scene, (sceneMesh) => {
+    if (collisionDetected) {
+      return;
+    }
 
-        if (result) {
-          collisionDetected = true;
-          return;
-        }
+    const sceneGeometry = sceneMesh.geometry as BVHBufferGeometry;
+    if (sceneGeometry.boundsTree) {
+      const componentId = sceneMesh.userData.componentId as string | undefined;
+      if (componentId && ignoredComponents?.includes(componentId)) {
+        return;
+      }
+
+      // Calculate relative transformation
+      const transformMatrix = new THREE.Matrix4()
+        .copy(sceneMesh.matrixWorld)
+        .invert()
+        .multiply(newMesh.matrixWorld);
+
+      const result = sceneGeometry.boundsTree.intersectsGeometry(
+        newMesh.geometry,
+        transformMatrix
+      );
+
+      if (result) {
+        collisionDetected = true;
       }
     }
   });
@@ -28,43 +53,56 @@ function checkForCollision(newMesh, scene) {
 export async function willComponentCollide(
   componentSpecId: string,
   scene: THREE.Scene,
-  position,
-  rotation
+  position: THREE.Vector3,
+  rotation: THREE.Euler,
+  ignoredComponents?: string[]
 ): Promise<boolean> {
   const componentSpec = ProductSpecificationActions.getComponentSpec(
     componentSpecId,
     ProductSpecificationStore
   );
 
-  return new Promise((resolve) => {
-    const loader = new GLTFLoader();
-    loader.load(componentSpec.modelUrl, (gltf: GLTF) => {
-      const model = gltf.scene;
-      model.scale.copy(componentSpec.scaleOffset ?? [1, 1, 1]);
+  const loader = new GLTFLoader();
 
-      const outerGroup = new THREE.Group();
-      outerGroup.position.copy(position);
-      outerGroup.rotation.copy(rotation);
+  const gltf = await loader.loadAsync(componentSpec.modelUrl);
+  const model = gltf.scene;
 
-      const innerGroup = new THREE.Group();
-      innerGroup.position.copy(componentSpec.positionOffset);
-      innerGroup.position.copy(componentSpec.rotationOffset);
+  const outerGroup = new THREE.Group();
+  outerGroup.position.copy(position);
+  outerGroup.rotation.copy(rotation);
 
-      innerGroup.add(model);
-      outerGroup.add(innerGroup);
+  const innerGroup = new THREE.Group();
+  innerGroup.position.copy(
+    new THREE.Vector3().fromArray(componentSpec.positionOffset ?? [0, 0, 0])
+  );
+  innerGroup.rotation.copy(
+    new THREE.Euler().fromArray(componentSpec.rotationOffset ?? [0, 0, 0])
+  );
 
-      let collisionDetected = false;
+  const modelGroup = new THREE.Group();
+  modelGroup.scale.copy(
+    new THREE.Vector3().fromArray(componentSpec.scaleOffset ?? [1, 1, 1])
+  );
 
-      outerGroup.traverse((child) => {
-        if (child.type === "Mesh") {
-          if (checkForCollision(child, scene)) {
-            collisionDetected = true;
-            return;
-          }
-        }
-      });
-
-      resolve(collisionDetected);
-    });
+  traverseMeshes(model, (modelMesh) => {
+    modelGroup.add(modelMesh);
   });
+
+  innerGroup.add(modelGroup);
+  outerGroup.add(innerGroup);
+
+  modelGroup.scale.multiplyScalar((100 - COLLISION_TOLERANCE) / 100);
+  outerGroup.updateMatrixWorld(true);
+
+  let collisionDetected = false;
+
+  traverseMeshes(outerGroup, (modelMesh) => {
+    if (!collisionDetected) {
+      if (checkForCollision(modelMesh, scene, ignoredComponents)) {
+        collisionDetected = true;
+      }
+    }
+  });
+
+  return collisionDetected;
 }

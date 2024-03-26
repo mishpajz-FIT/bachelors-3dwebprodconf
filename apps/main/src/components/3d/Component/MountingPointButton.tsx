@@ -1,7 +1,9 @@
 import { Modal } from "@3dwebprodconf/shared/src/components/containers/Modal.tsx";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import { Html } from "@react-three/drei";
-import { useEffect, useRef, useState } from "react";
+import { useFrame, useThree } from "@react-three/fiber";
+import { useEffect, useMemo, useRef, useState } from "react";
+import * as THREE from "three";
 import { useSnapshot } from "valtio";
 
 import { useComponent } from "../../../hooks/useComponent.ts";
@@ -10,10 +12,8 @@ import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore
 import { ProductSpecificationStore } from "../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../../utilities/BoundsManipulation.ts";
-import { AddComponent } from "../../pages/ProductEditor/AddComponent/AddComponent.tsx";
-import { useThree } from "@react-three/fiber";
-import * as THREE from "three";
 import { willComponentCollide } from "../../../utilities/CollisionDetection.ts";
+import { AddComponent } from "../../pages/ProductEditor/AddComponent/AddComponent.tsx";
 
 interface MountingPointButtonProps {
   componentId: string;
@@ -28,11 +28,19 @@ export const MountingPointButton = ({
 
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const { component, componentSpec, componentSpecId } =
-    useComponent(componentId);
+  const { component, componentSpec } = useComponent(componentId);
 
   const groupRef = useRef<THREE.Group>(null);
+  const recalculateCollisionsFlag = useRef(true);
   const { scene } = useThree();
+
+  const { worldPosition, worldQuaternion, worldRotation } = useMemo(() => {
+    const worldPosition = new THREE.Vector3();
+    const worldQuaternion = new THREE.Quaternion();
+    const worldRotation = new THREE.Euler();
+
+    return { worldPosition, worldQuaternion, worldRotation };
+  }, []);
 
   const mountingPointSpec =
     componentSpec.mountingPointsSpecs[mountingPointSpecId];
@@ -42,28 +50,55 @@ export const MountingPointButton = ({
     );
   }
 
+  const [mountableComponents, setMountableComponents] = useState(
+    mountingPointSpec.mountableComponents
+  );
+
   useEffect(() => {
     if (groupRef.current) {
-      const worldPosition = new THREE.Vector3();
       groupRef.current.getWorldPosition(worldPosition);
-
-      const worldQuaternion = new THREE.Quaternion();
       groupRef.current.getWorldQuaternion(worldQuaternion);
+      worldRotation.setFromQuaternion(worldQuaternion, "XYZ");
+    }
+    recalculateCollisionsFlag.current = true;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    groupRef.current,
+    worldPosition,
+    worldRotation,
+    worldQuaternion,
+    UserCreationStore.value.components,
+  ]);
 
-      const worldRotation = new THREE.Euler().setFromQuaternion(
-        worldQuaternion,
-        "XYZ"
+  useFrame(() => {
+    if (recalculateCollisionsFlag.current) {
+      const collisionChecks = mountingPointSpec.mountableComponents.map(
+        async (mountableComponentSpec) => {
+          const collision = await willComponentCollide(
+            mountableComponentSpec,
+            scene,
+            worldPosition,
+            worldRotation,
+            [componentId]
+          );
+          return collision ? null : mountableComponentSpec;
+        }
       );
 
-      willComponentCollide(componentSpecId, scene, worldPosition, worldRotation)
-        .then((b) => {
-          console.log(`${componentSpecId} collides: ${b}`);
+      Promise.all(collisionChecks)
+        .then((results) => {
+          const filteredComponents = results.filter(
+            (result): result is string => result !== null
+          );
+          setMountableComponents(filteredComponents);
         })
         .catch((e) => {
           throw e;
         });
+
+      recalculateCollisionsFlag.current = false;
     }
-  }, [componentSpecId, scene]);
+  });
 
   const onAdd = (newComponentSpecId: string) => {
     const action = () => {
@@ -84,6 +119,10 @@ export const MountingPointButton = ({
     refreshBounds(action);
   };
 
+  if (mountableComponents.length === 0) {
+    return null;
+  }
+
   return (
     <group ref={groupRef}>
       <Html zIndexRange={[50, 0]}>
@@ -103,7 +142,7 @@ export const MountingPointButton = ({
         </div>
         <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
           <AddComponent
-            mountableComponentsSpecs={mountingPointSpec.mountableComponents}
+            mountableComponentsSpecs={mountableComponents}
             onClose={() => setModalOpen(false)}
             onAdd={onAdd}
           />
