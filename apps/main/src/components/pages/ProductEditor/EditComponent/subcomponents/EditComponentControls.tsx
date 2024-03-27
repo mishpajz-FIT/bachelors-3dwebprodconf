@@ -11,6 +11,7 @@ import { ProductSpecificationStore } from "../../../../../stores/ProductSpecific
 import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../../../../utilities/BoundsManipulation.ts";
 import { AddComponent } from "../../AddComponent/AddComponent.tsx";
+import { useTranslation } from "react-i18next";
 
 interface EditComponentControlsProps {
   componentId: string;
@@ -20,15 +21,15 @@ export const EditComponentControls = ({
   componentId,
   onClose,
 }: EditComponentControlsProps) => {
+  const { t } = useTranslation();
+
   const userCreationSnap = useSnapshot(UserCreationStore);
 
   const [isChangeModalOpen, setChangeModalOpen] = useState(false);
 
   const parentInfo = userCreationSnap.value.childToParentMap[componentId];
   if (!parentInfo) {
-    throw Error(
-      "Component hierarchy is damaged, component does not have parent component!"
-    );
+    throw Error(t("errorHierarchyDamaged", { componentId: componentId }));
   }
   const [parentComponentId, parentMountingPointId] = parentInfo;
 
@@ -71,7 +72,7 @@ export const EditComponentControls = ({
         onClick={() => setChangeModalOpen(true)}
       >
         <PencilIcon className="size-4" />
-        <span className="ml-2">Change</span>
+        <span className="ml-2">{t("change")}</span>
       </button>
       <HoldButton
         className="other-button destructive-button-on-hold flex w-full items-center justify-center"
@@ -81,7 +82,7 @@ export const EditComponentControls = ({
         popoverOffset={6}
       >
         <TrashIcon className="size-4" />
-        <span className="ml-2">Remove</span>
+        <span className="ml-2">{t("remove")}</span>
       </HoldButton>
       <Modal
         isOpen={isChangeModalOpen}

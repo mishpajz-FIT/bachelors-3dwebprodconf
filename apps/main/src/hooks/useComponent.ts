@@ -2,13 +2,16 @@ import { useSnapshot } from "valtio";
 
 import { useComponentSpec } from "./useComponentSpec.ts";
 import { UserCreationStore } from "../stores/UserCreationStore.ts";
+import { useTranslation } from "react-i18next";
 
 export function useComponent(componentId: string) {
+  const { t } = useTranslation();
+
   const userCreationSnap = useSnapshot(UserCreationStore);
 
   const component = userCreationSnap.value.components[componentId];
   if (!component) {
-    throw new Error(`Component ${componentId} not found`);
+    throw new Error(t("errorMissingComponent", { componentId: componentId }));
   }
 
   const componentSpecId = component.componentSpec;

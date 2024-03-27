@@ -10,6 +10,7 @@ import { ConfiguratorValuesStore } from "../../../../stores/ConfiguratorValuesSt
 import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
 import { errorToast } from "../../../../toasts/errorToast.ts";
 import { submitProduct } from "../../../../utilities/Requesting.ts";
+import { useTranslation } from "react-i18next";
 
 interface ProductConfirmationContactFormProps {
   onClose: () => void;
@@ -19,6 +20,7 @@ export const ProductConfirmationContactForm = ({
   onClose,
 }: ProductConfirmationContactFormProps) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const submissionOption = useMemo(
     () =>
@@ -50,7 +52,7 @@ export const ProductConfirmationContactForm = ({
       navigate("/");
     }
 
-    successToast("Sent.");
+    successToast(t("submittedContactForm"));
   };
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -70,17 +72,21 @@ export const ProductConfirmationContactForm = ({
     if (note) contactInfo.note = note as string;
 
     handleSubmit(submissionOption, contactInfo).catch(() => {
-      errorToast("Unknown error has occurred when sending contact info.");
+      errorToast(t("problemDuringContactFormSubmission"));
     });
   };
 
   return (
     <div className="flex min-w-96 flex-col">
-      <ContainerHeader title={"Inquiry"} onClose={onClose} subheader={true} />
+      <ContainerHeader
+        title={t("inquiry")}
+        onClose={onClose}
+        subheader={true}
+      />
       <form onSubmit={onSubmit}>
         <div className="m-4 grid grid-cols-1 gap-4">
           <label>
-            <span className="label">Name</span>
+            <span className="label">{t("name")}</span>
             <input
               type="text"
               id="name"
@@ -91,7 +97,7 @@ export const ProductConfirmationContactForm = ({
             />
           </label>
           <label>
-            <span className="label">Email</span>
+            <span className="label">{t("email")}</span>
             <input
               type="email"
               id="email"
@@ -102,7 +108,7 @@ export const ProductConfirmationContactForm = ({
             />
           </label>
           <label>
-            <span className="label">Phone number</span>
+            <span className="label">{t("phoneNumber")}</span>
             <input
               type="tel"
               id="phone"
@@ -112,11 +118,11 @@ export const ProductConfirmationContactForm = ({
             />
           </label>
           <label>
-            <span className="label">Note</span>
+            <span className="label">{t("note")}</span>
             <textarea name="note" className="field" placeholder="Note" />
           </label>
           <button type="submit" className="primary-button" tabIndex={0}>
-            Confirm
+            {t("confirm")}
           </button>
         </div>
       </form>

@@ -11,6 +11,7 @@ import { UserCreationActions } from "../../../stores/actions/UserCreationActions
 import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
+import { useTranslation } from "react-i18next";
 
 const ProductEditorCanvas = lazy(
   () => import("../../3d/ProductEditorCanvas.tsx")
@@ -18,6 +19,7 @@ const ProductEditorCanvas = lazy(
 
 const ProductEditor = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const userCreationSnap = useSnapshot(UserCreationStore);
   const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
@@ -71,10 +73,10 @@ const ProductEditor = () => {
               ConfiguratorValuesStore.selectedComponentId = undefined;
             }}
           >
-            Back
+            {t("back")}
           </button>
           <button className="primary-button" onClick={onDone}>
-            Done
+            {t("done")}
           </button>
         </div>
 
@@ -90,7 +92,7 @@ const ProductEditor = () => {
         onClose={() => setMissingPopupOpen(false)}
       >
         <p className="m-4 rounded-lg bg-[var(--error-light)] p-2 text-sm text-white dark:bg-[var(--error-dark)]">
-          Missing required components needed to complete configuration.
+          {t("missingRequiredComponents")}
         </p>
       </Popup>
     </div>

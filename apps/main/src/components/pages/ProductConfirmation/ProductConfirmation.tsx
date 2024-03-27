@@ -18,8 +18,11 @@ import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 import { errorToast } from "../../../toasts/errorToast.ts";
 import { submitProduct } from "../../../utilities/Requesting.ts";
+import { useTranslation } from "react-i18next";
 
 export const ProductConfirmation = () => {
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
 
   const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
@@ -53,7 +56,7 @@ export const ProductConfirmation = () => {
       navigate("/");
     }
 
-    successToast("Submitted.");
+    successToast(t("submitted"));
   };
 
   const onConfirm = () => {
@@ -62,21 +65,24 @@ export const ProductConfirmation = () => {
     switch (submissionOption.type) {
       case SubmissionTypeSchema.Enum.POST:
         handleSubmit(submissionOption).catch(() => {
-          errorToast("Error has occurred during submission.");
+          errorToast(t("problemDuringSubmission"));
         });
         break;
       case SubmissionTypeSchema.Enum.CONTACT_FORM:
         setContactFormPopupOpen(true);
         break;
       default:
-        throw new Error("Unsupported submission type.");
+        throw new Error(t("wrongSubmissionType"));
     }
   };
 
   return (
     <div className="content-background flex min-h-fit shrink grow select-none flex-col items-center justify-start overflow-y-scroll p-4 print:w-screen print:overflow-y-visible print:bg-transparent">
       <div className="content-width no-print">
-        <ContainerHeader title={"Confirm configuration"} onClose={undefined} />
+        <ContainerHeader
+          title={t("confirmConfiguration")}
+          onClose={undefined}
+        />
       </div>
 
       <div className="flex w-full grow flex-row justify-center">
@@ -101,7 +107,7 @@ export const ProductConfirmation = () => {
             {globalConfig.config.capabilities.savePdfButton && (
               <div className="flex flex-row items-center justify-end gap-1">
                 <button className="other-button" onClick={() => window.print()}>
-                  Save as PDF
+                  {t("saveAsPdf")}
                 </button>
               </div>
             )}
@@ -112,11 +118,11 @@ export const ProductConfirmation = () => {
                   navigate("/editor/" + configuratorValuesSnap.currentProductId)
                 }
               >
-                Back
+                {t("back")}
               </button>
               {submissionOption && (
                 <button className="primary-button" onClick={onConfirm}>
-                  Confirm
+                  {t("confirm")}
                 </button>
               )}
             </div>
@@ -137,12 +143,12 @@ export const ProductConfirmation = () => {
           <div className="flex flex-row items-center justify-end gap-1">
             {globalConfig.config.capabilities.savePdfButton && (
               <button className="other-button" onClick={() => window.print()}>
-                Save as PDF
+                {t("saveAsPdf")}
               </button>
             )}
             {submissionOption && (
               <button className="primary-button" onClick={onConfirm}>
-                Confirm
+                {t("confirm")}
               </button>
             )}
           </div>

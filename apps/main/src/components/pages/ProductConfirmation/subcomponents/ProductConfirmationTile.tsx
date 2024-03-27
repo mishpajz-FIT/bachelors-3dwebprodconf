@@ -1,6 +1,7 @@
 import { SkeletonImage } from "@3dwebprodconf/shared/src/components/SkeletonImage.tsx";
 
 import { useComponent } from "../../../../hooks/useComponent.ts";
+import { useTranslation } from "react-i18next";
 
 interface ProductConfirmationTileProps {
   componentId: string;
@@ -9,6 +10,8 @@ interface ProductConfirmationTileProps {
 export const ProductConfirmationTile = ({
   componentId,
 }: ProductConfirmationTileProps) => {
+  const { t } = useTranslation();
+
   const { component, componentSpec } = useComponent(componentId);
 
   return (
@@ -32,12 +35,14 @@ export const ProductConfirmationTile = ({
           ([materialId, colorSpecId]) => {
             const material = componentSpec.materialSpecs[materialId];
             if (!material) {
-              throw new Error(`Material ${materialId} not found`);
+              throw new Error(
+                t("errorMissingMaterial", { materialId: materialId })
+              );
             }
 
             const colorSpec = material.colorVariationsSpecs[colorSpecId];
             if (!colorSpec) {
-              throw new Error(`Color ${colorSpecId} not found`);
+              throw new Error(t("errorMissingColor", { colorId: colorSpecId }));
             }
 
             return (

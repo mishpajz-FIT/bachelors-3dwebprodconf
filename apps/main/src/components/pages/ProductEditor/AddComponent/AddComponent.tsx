@@ -6,6 +6,7 @@ import {
   useState,
   WheelEventHandler,
 } from "react";
+import { useTranslation } from "react-i18next";
 
 import { AddComponentTile } from "./subcomponents/AddComponentTile.tsx";
 
@@ -20,6 +21,8 @@ export const AddComponent = ({
   onClose,
   onAdd,
 }: AddComponentProps) => {
+  const { t } = useTranslation();
+
   const containerRef = useRef<HTMLDivElement>(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
 
@@ -49,7 +52,7 @@ export const AddComponent = ({
   return (
     <>
       <ContainerHeader
-        title={"Add component"}
+        title={t("addComponent")}
         onClose={onClose}
         subheader={true}
       />

@@ -14,6 +14,7 @@ import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../../utilities/BoundsManipulation.ts";
 import { willComponentCollide } from "../../../utilities/CollisionDetection.ts";
 import { AddComponent } from "../../pages/ProductEditor/AddComponent/AddComponent.tsx";
+import { useTranslation } from "react-i18next";
 
 interface MountingPointButtonProps {
   componentId: string;
@@ -24,11 +25,13 @@ export const MountingPointButton = ({
   componentId,
   mountingPointSpecId,
 }: MountingPointButtonProps) => {
+  const { t } = useTranslation();
+
   const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
 
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const { component, componentSpec } = useComponent(componentId);
+  const { componentSpec, componentSpecId } = useComponent(componentId);
 
   const groupRef = useRef<THREE.Group>(null);
   const recalculateCollisionsFlag = useRef(true);
@@ -47,7 +50,10 @@ export const MountingPointButton = ({
     componentSpec.mountingPointsSpecs[mountingPointSpecId];
   if (!mountingPointSpec) {
     throw new Error(
-      `Mounting point spec not found ${mountingPointSpecId} on component spec ${component.componentSpec}.`
+      t("errorMissingMountingPointOnComponentSpec", {
+        mountingPointSpecId: mountingPointSpecId,
+        componentSpecId: componentSpecId,
+      })
     );
   }
 

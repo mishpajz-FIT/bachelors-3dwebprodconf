@@ -1,5 +1,6 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
 import { useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 
@@ -15,6 +16,7 @@ interface SelectBaseProps {
 
 export const SelectBase = ({ onClose }: SelectBaseProps) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const userCreationSnap = useSnapshot(UserCreationStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
@@ -41,7 +43,7 @@ export const SelectBase = ({ onClose }: SelectBaseProps) => {
     <div className="content-background flex size-full select-none flex-col items-center justify-start px-4 pt-4">
       <div className="content-width">
         <ContainerHeader
-          title={"Select base"}
+          title={t("selectBase")}
           onClose={userCreationSnap.value.isBaseSet ? onClose : undefined}
         />
       </div>
@@ -57,7 +59,7 @@ export const SelectBase = ({ onClose }: SelectBaseProps) => {
       </div>
       <div className="fixed bottom-2 left-2 flex w-full flex-row justify-start">
         <button className="other-button" onClick={() => navigate("/")}>
-          Change product
+          {t("changeProduct")}
         </button>
       </div>
     </div>

@@ -6,12 +6,15 @@ import { EditComponentControls } from "./subcomponents/EditComponentControls.tsx
 import { ConfiguratorValuesStore } from "../../../../stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
+import { useTranslation } from "react-i18next";
 
 interface EditComponentProps {
   onClose: () => void;
 }
 
 export const EditComponent = ({ onClose }: EditComponentProps) => {
+  const { t } = useTranslation();
+
   const userCreationSnap = useSnapshot(UserCreationStore);
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
   const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
@@ -29,7 +32,7 @@ export const EditComponent = ({ onClose }: EditComponentProps) => {
   return (
     <div className="flex w-full select-none flex-col">
       <ContainerHeader
-        title={"Edit component"}
+        title={t("editComponent")}
         onClose={onClose}
         subheader={true}
       />
@@ -47,7 +50,7 @@ export const EditComponent = ({ onClose }: EditComponentProps) => {
 
           {Object.keys(componentSpec.materialSpecs).length !== 0 && (
             <div className="pt-8">
-              <h4 className="section-heading">Materials</h4>
+              <h4 className="section-heading">{t("materials")}</h4>
               <EditComponentColors componentId={componentId} />
             </div>
           )}
