@@ -1,3 +1,5 @@
+import { t } from "i18next";
+
 export class GenericActions {
   protected static get<T>(
     id: string,
@@ -6,7 +8,7 @@ export class GenericActions {
   ): T {
     const element = from[id];
     if (!element) {
-      throw new Error(`${name} ${id} does not exist.`);
+      throw new Error(t("errorDoesNotExist", { what: name, id: id }));
     }
     return element;
   }

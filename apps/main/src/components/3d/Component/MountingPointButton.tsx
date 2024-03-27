@@ -3,6 +3,7 @@ import { PlusIcon } from "@heroicons/react/20/solid";
 import { Html } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import * as THREE from "three";
 import { useSnapshot } from "valtio";
 
@@ -24,11 +25,13 @@ export const MountingPointButton = ({
   componentId,
   mountingPointSpecId,
 }: MountingPointButtonProps) => {
+  const { t } = useTranslation();
+
   const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
 
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const { component, componentSpec } = useComponent(componentId);
+  const { componentSpec, componentSpecId } = useComponent(componentId);
 
   const groupRef = useRef<THREE.Group>(null);
   const recalculateCollisionsFlag = useRef(true);
@@ -47,7 +50,10 @@ export const MountingPointButton = ({
     componentSpec.mountingPointsSpecs[mountingPointSpecId];
   if (!mountingPointSpec) {
     throw new Error(
-      `Mounting point spec not found ${mountingPointSpecId} on component spec ${component.componentSpec}.`
+      t("errorMissingMountingPointOnComponentSpec", {
+        mountingPointSpecId: mountingPointSpecId,
+        componentSpecId: componentSpecId,
+      })
     );
   }
 

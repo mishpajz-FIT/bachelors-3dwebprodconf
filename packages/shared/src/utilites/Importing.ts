@@ -1,3 +1,5 @@
+import { t } from "i18next";
+
 export function readParsedJsonFromFile<T>(
   file: File,
   parser: (data: unknown) => T
@@ -11,7 +13,7 @@ export function readParsedJsonFromFile<T>(
         if (text) {
           resolve(parser(JSON.parse(text as string)));
         } else {
-          reject(new Error("No text found in file."));
+          reject(new Error(t("errorMissingText")));
         }
       } catch (error) {
         reject(error);

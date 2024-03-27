@@ -2,6 +2,7 @@ import { CanvasLoading } from "@3dwebprodconf/shared/src/components/CanvasLoadin
 import { Popup } from "@3dwebprodconf/shared/src/components/containers/Popup.tsx";
 import { Side } from "@3dwebprodconf/shared/src/components/containers/Side.tsx";
 import { lazy, Suspense, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 
@@ -18,6 +19,7 @@ const ProductEditorCanvas = lazy(
 
 const ProductEditor = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const userCreationSnap = useSnapshot(UserCreationStore);
   const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
@@ -71,10 +73,10 @@ const ProductEditor = () => {
               ConfiguratorValuesStore.selectedComponentId = undefined;
             }}
           >
-            Back
+            {t("back")}
           </button>
           <button className="primary-button" onClick={onDone}>
-            Done
+            {t("done")}
           </button>
         </div>
 
@@ -90,7 +92,7 @@ const ProductEditor = () => {
         onClose={() => setMissingPopupOpen(false)}
       >
         <p className="m-4 rounded-lg bg-[var(--error-light)] p-2 text-sm text-white dark:bg-[var(--error-dark)]">
-          Missing required components needed to complete configuration.
+          {t("missingRequiredComponents")}
         </p>
       </Popup>
     </div>

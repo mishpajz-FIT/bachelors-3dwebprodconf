@@ -1,5 +1,6 @@
 import { autoUpdate, offset, useFloating } from "@floating-ui/react";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { TextInput } from "./TextInput.tsx";
 
@@ -18,6 +19,8 @@ export const ImageURLInput = ({
   currentValue,
   inputId,
 }: ImageURLInputProps) => {
+  const { t } = useTranslation();
+
   const [isPreviewed, setIsPreviewed] = useState(false);
 
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -59,7 +62,7 @@ export const ImageURLInput = ({
           <div className="tooltip p-2">
             {imageError ? (
               <span className="px-2 text-xs text-gray-900 dark:text-gray-400">
-                Image could not be loaded
+                {t("imageCouldntBeLoaded")}
               </span>
             ) : (
               <>

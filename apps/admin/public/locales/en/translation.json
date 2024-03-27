@@ -1,0 +1,16 @@
+{
+  "reset": "Reset",
+
+  "holdToConfirm": "Hold to confirm",
+  "imageCouldntBeLoaded": "Image could not be loaded",
+  "missingComponentsInMountingPoints": "Missing components in mounting points: ",
+  "missingColorsInMaterials": "Missing colors in materials: ",
+  "oops": "Oops!",
+  "unexpectedError": "An unexpected error has occurred.",
+
+  "errorDoesNotExist": "{{what}} with id {{id}} does not exist.",
+  "errorNetwork": "Network error, status: {{status}}.",
+  "errorMissingText": "No text found in file.",
+  "errorMissingComponentSpec": "Component specification {{componentSpecId}} not found.",
+  "errorWhileParsing": "Error while parsing: "
+}

@@ -1,3 +1,5 @@
+import { t } from "i18next";
+
 export async function fetchParsedJson<T>(
   url: string,
   parser: (data: unknown) => T
@@ -5,7 +7,7 @@ export async function fetchParsedJson<T>(
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error(`Network error! Status: ${response.status}`);
+    throw new Error(t("errorNetwork", { status: response.status }));
   }
 
   return parser(await response.json());

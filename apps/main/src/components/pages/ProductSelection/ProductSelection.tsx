@@ -1,5 +1,6 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
 import { Suspense } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 
@@ -10,11 +11,14 @@ import { CatalogueStore } from "../../../stores/CatalogueStore.ts";
 export const ProductSelection = () => {
   const navigate = useNavigate();
 
+  const { t } = useTranslation();
+
   const catalogueSnap = useSnapshot(CatalogueStore);
+
   return (
     <div className="content-background flex min-h-fit shrink grow select-none flex-col items-center justify-start overflow-y-scroll p-4">
       <div className="content-width">
-        <ContainerHeader title={"Select product"} onClose={undefined} />
+        <ContainerHeader title={t("selectProduct")} onClose={undefined} />
         <Suspense fallback={<ProductSelectionSkeleton />}>
           <div className="flex flex-wrap justify-start">
             {catalogueSnap.catalogue &&

@@ -1,4 +1,5 @@
 import { SkeletonImage } from "@3dwebprodconf/shared/src/components/SkeletonImage.tsx";
+import { useTranslation } from "react-i18next";
 import { useSnapshot } from "valtio";
 
 import { CatalogueStore } from "../../../../stores/CatalogueStore.ts";
@@ -10,14 +11,16 @@ interface ProductSelectionTileProps {
 export const ProductSelectionTile = ({
   productId,
 }: ProductSelectionTileProps) => {
+  const { t } = useTranslation();
+
   const catalogueSnap = useSnapshot(CatalogueStore);
   if (!catalogueSnap.catalogue) {
-    throw new Error(`No catalogue found.`);
+    throw new Error(t("errorNoCatalogue"));
   }
 
   const product = catalogueSnap.catalogue.products[productId];
   if (!product) {
-    throw new Error(`Product with id ${productId} not found in catalogue.`);
+    throw new Error(t("errorNoProductInCatalogue", { productId: productId }));
   }
 
   return (

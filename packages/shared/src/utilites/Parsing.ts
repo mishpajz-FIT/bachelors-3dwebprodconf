@@ -1,3 +1,5 @@
+import { t } from "i18next";
+
 import {
   ProductSpecification,
   ProductSpecificationSchema,
@@ -10,7 +12,9 @@ export function parseProductSpecification(from: unknown): ProductSpecification {
   const componentSpecKeys = new Set(Object.keys(productSpec.componentSpecs));
   Object.values(productSpec.baseSpecs).forEach((baseSpec) => {
     if (!componentSpecKeys.has(baseSpec.component)) {
-      throw new Error(`Component ${baseSpec.component} does not exist.`);
+      throw new Error(
+        t("errorMissingComponentSpec", { componentSpecId: baseSpec.component })
+      );
     }
   });
 
@@ -19,7 +23,7 @@ export function parseProductSpecification(from: unknown): ProductSpecification {
       productSpec.componentSpecs
     );
   if (Object.keys(missingMountingPoints).length !== 0) {
-    let message = "Missing components in mounting points: ";
+    let message = t("missingComponentsInMountingPoints");
     const componentsAndMountingPoints = Object.entries(
       missingMountingPoints
     ).map(([component, mountingPoints]) => {
@@ -34,7 +38,7 @@ export function parseProductSpecification(from: unknown): ProductSpecification {
     productSpec.componentSpecs
   );
   if (Object.keys(missingColors).length !== 0) {
-    let message = "Missing colors in materials: ";
+    let message = t("missingColorsInMaterials");
     const componentsAndMaterials = Object.entries(missingColors).map(
       ([component, materials]) => {
         return `${component}: ${materials.join(", ")}`;
