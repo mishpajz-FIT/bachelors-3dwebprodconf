@@ -1,5 +1,6 @@
 import { SubmissionOption } from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
 import { SubmissionResponseSchema } from "@3dwebprodconf/shared/src/schemas/network/SubmissionResponse.ts";
+import { t } from "i18next";
 
 export async function submitProduct(
   submissionOption: SubmissionOption,
@@ -15,9 +16,7 @@ export async function submitProduct(
   const response = await fetch(url, fetchOptions);
 
   if (!response.ok) {
-    throw new Error(
-      `Endpoint responded with error, status: ${response.status}`
-    );
+    throw new Error(t("errorNetwork", { status: response.status }));
   }
 
   let responseData;

@@ -1,8 +1,8 @@
+import { useTranslation } from "react-i18next";
 import { useSnapshot } from "valtio";
 
 import { useComponentSpec } from "./useComponentSpec.ts";
 import { UserCreationStore } from "../stores/UserCreationStore.ts";
-import { useTranslation } from "react-i18next";
 
 export function useComponent(componentId: string) {
   const { t } = useTranslation();

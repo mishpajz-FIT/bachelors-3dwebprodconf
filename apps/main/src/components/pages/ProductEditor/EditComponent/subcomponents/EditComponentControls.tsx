@@ -2,6 +2,7 @@ import { Modal } from "@3dwebprodconf/shared/src/components/containers/Modal.tsx
 import { HoldButton } from "@3dwebprodconf/shared/src/components/HoldButton.tsx";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSnapshot } from "valtio";
 
 import { useComponent } from "../../../../../hooks/useComponent.ts";
@@ -11,7 +12,6 @@ import { ProductSpecificationStore } from "../../../../../stores/ProductSpecific
 import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../../../../utilities/BoundsManipulation.ts";
 import { AddComponent } from "../../AddComponent/AddComponent.tsx";
-import { useTranslation } from "react-i18next";
 
 interface EditComponentControlsProps {
   componentId: string;

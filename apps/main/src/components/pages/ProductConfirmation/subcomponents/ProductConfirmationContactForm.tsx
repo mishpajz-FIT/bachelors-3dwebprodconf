@@ -3,6 +3,7 @@ import { SubmissionOption } from "@3dwebprodconf/shared/src/schemas/Catalogue.ts
 import { ContactInfo } from "@3dwebprodconf/shared/src/schemas/network/ContactInfo.ts";
 import { successToast } from "@3dwebprodconf/shared/src/toasts/successToast.ts";
 import { FormEvent, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import { CatalogueStore } from "../../../../stores/CatalogueStore.ts";
@@ -10,7 +11,6 @@ import { ConfiguratorValuesStore } from "../../../../stores/ConfiguratorValuesSt
 import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
 import { errorToast } from "../../../../toasts/errorToast.ts";
 import { submitProduct } from "../../../../utilities/Requesting.ts";
-import { useTranslation } from "react-i18next";
 
 interface ProductConfirmationContactFormProps {
   onClose: () => void;

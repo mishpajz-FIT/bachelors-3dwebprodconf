@@ -2,6 +2,7 @@ import { CanvasLoading } from "@3dwebprodconf/shared/src/components/CanvasLoadin
 import { Popup } from "@3dwebprodconf/shared/src/components/containers/Popup.tsx";
 import { Side } from "@3dwebprodconf/shared/src/components/containers/Side.tsx";
 import { lazy, Suspense, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 
@@ -11,7 +12,6 @@ import { UserCreationActions } from "../../../stores/actions/UserCreationActions
 import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
-import { useTranslation } from "react-i18next";
 
 const ProductEditorCanvas = lazy(
   () => import("../../3d/ProductEditorCanvas.tsx")

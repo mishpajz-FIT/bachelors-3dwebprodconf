@@ -1,3 +1,4 @@
+import { t } from "i18next";
 import { v4 as uuid } from "uuid";
 
 import { ProductSpecificationActions } from "./ProductSpecificationActions.ts";
@@ -8,7 +9,7 @@ export class UserCreationActions {
   static getComponent(componentId: string, store: typeof UserCreationStore) {
     const component = store.value.components[componentId];
     if (!component) {
-      throw new Error(`User created component ${componentId} does not exist.`);
+      throw new Error(t("errorMissingComponent", { componentId: componentId }));
     }
     return component;
   }
@@ -133,7 +134,7 @@ export class UserCreationActions {
         userCreationStore
       )
     ) {
-      throw new Error("Component mounting cycle detected.");
+      throw new Error(t("errorComponentMountingCycle"));
     }
 
     const targetComponent = this.getComponent(
@@ -207,7 +208,10 @@ export class UserCreationActions {
         );
       if (!colorSpecId) {
         throw Error(
-          `Material ${materialSpecId} on ${componentId} does not have a color variation.`
+          t("errorNoColorVariationOnMaterial", {
+            materialSpecId: materialSpecId,
+            componentId: componentId,
+          })
         );
       }
     }

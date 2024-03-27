@@ -14,6 +14,7 @@
   "back": "Back",
   "done": "Done",
   "changeProduct": "Change product",
+  "reset": "Reset",
 
   "name": "Name",
   "email": "Email",
@@ -26,13 +27,26 @@
   "submitted": "Submitted.",
   "problemDuringContactFormSubmission": "Unknown error has occurred when sending contact info.",
   "submittedContactForm": "Sent contact info.",
+  "holdToConfirm": "Hold to confirm",
+  "imageCouldntBeLoaded": "Image could not be loaded",
+  "missingComponentsInMountingPoints": "Missing components in mounting points: ",
+  "missingColorsInMaterials": "Missing colors in materials: ",
+  "oops": "Oops!",
+  "unexpectedError": "An unexpected error has occurred.",
 
   "errorNoCatalogue": "No catalogue found.",
+  "errorNoProduct": "No product found.",
   "errorNoProductInCatalogue": "Product with id {{productId}} not found in catalogue.",
   "errorHierarchyDamaged": "Component hierarchy is damaged, component with id {{componentId}} does not have parent component.",
   "errorMissingMaterial": "Material with id {{materialId}} not found.",
   "errorMissingColor": "Color with id {{colorSpecId}} not found.",
   "errorMissingMountingPointOnComponentSpec": "Mounting point {{mountingPointSpecId}} not found on component specification {{componentSpecId}}.",
+  "errorNoColorVariationOnMaterial": "Material {{materialSpecId}} on component {{componentId}} does not have a color variation.",
+  "errorDoesNotExist": "{{what}} with id {{id}} does not exist.",
+  "errorNetwork": "Network error, status: {{status}}.",
+  "errorMissingText": "No text found in file.",
+  "errorMissingComponentSpec": "Component specification {{componentSpecId}} not found.",
   "errorMissingComponent": "Component with id {{componentId}} not found.",
-  "errorMissingComponentSpec": "Component specification {{componentSpecId}} not found."
+  "errorWhileParsing": "Error while parsing: ",
+  "errorComponentMountingCycle": "Component mounting cycle detected."
 }

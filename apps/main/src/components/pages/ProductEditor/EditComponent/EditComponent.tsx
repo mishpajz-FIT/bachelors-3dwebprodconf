@@ -1,4 +1,5 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
+import { useTranslation } from "react-i18next";
 import { useSnapshot } from "valtio";
 
 import { EditComponentColors } from "./subcomponents/EditComponentColors.tsx";
@@ -6,7 +7,6 @@ import { EditComponentControls } from "./subcomponents/EditComponentControls.tsx
 import { ConfiguratorValuesStore } from "../../../../stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
-import { useTranslation } from "react-i18next";
 
 interface EditComponentProps {
   onClose: () => void;

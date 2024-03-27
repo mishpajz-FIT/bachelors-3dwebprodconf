@@ -1,5 +1,6 @@
 import { ErrorPage } from "@3dwebprodconf/shared/src/components/ErrorPage.tsx";
 import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
+import { t } from "i18next";
 import { lazy, Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 import {
@@ -30,7 +31,7 @@ async function loadCatalogueWithValidProduct(productId?: string) {
   );
   const products = catalogue?.products;
   if (productId && !products[productId]) {
-    throw Error("Product not found in catalogue.");
+    throw Error(t("errorNoProductInCatalogue", { productId: productId }));
   }
   return products;
 }
@@ -54,7 +55,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     loader: async ({ params }) => {
       if (!params.productId) {
-        throw Error("Missing product.");
+        throw Error(t("errorNoProduct"));
       }
 
       const products = await loadCatalogueWithValidProduct(params.productId);
@@ -77,7 +78,7 @@ const router = createBrowserRouter([
     element: <ProductConfirmation />,
     loader: ({ params }) => {
       if (!params.productId) {
-        throw Error("Missing product.");
+        throw Error(t("errorNoProduct"));
       }
 
       if (!UserCreationStore.value.isBaseSet) {

@@ -3,6 +3,7 @@ import { PlusIcon } from "@heroicons/react/20/solid";
 import { Html } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import * as THREE from "three";
 import { useSnapshot } from "valtio";
 
@@ -14,7 +15,6 @@ import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../../utilities/BoundsManipulation.ts";
 import { willComponentCollide } from "../../../utilities/CollisionDetection.ts";
 import { AddComponent } from "../../pages/ProductEditor/AddComponent/AddComponent.tsx";
-import { useTranslation } from "react-i18next";
 
 interface MountingPointButtonProps {
   componentId: string;

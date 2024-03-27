@@ -1,7 +1,7 @@
 import { SkeletonImage } from "@3dwebprodconf/shared/src/components/SkeletonImage.tsx";
+import { useTranslation } from "react-i18next";
 
 import { useComponent } from "../../../../hooks/useComponent.ts";
-import { useTranslation } from "react-i18next";
 
 interface ProductConfirmationTileProps {
   componentId: string;

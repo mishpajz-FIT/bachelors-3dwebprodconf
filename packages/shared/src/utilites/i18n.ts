@@ -9,13 +9,12 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    lng: "en",
     fallbackLng: "en",
     interpolation: {
       escapeValue: false,
     },
     detection: {
-      order: ["queryString", "cookie", "localStorage", "path", "subdomain"],
+      order: ["querystring", "cookie", "localStorage", "path", "subdomain"],
       caches: ["cookie"],
     },
   })

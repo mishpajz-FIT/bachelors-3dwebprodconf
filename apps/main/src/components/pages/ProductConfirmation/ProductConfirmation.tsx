@@ -7,6 +7,7 @@ import {
 import { UserCreation } from "@3dwebprodconf/shared/src/schemas/UserCreation.ts";
 import { successToast } from "@3dwebprodconf/shared/src/toasts/successToast.ts";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 
@@ -18,7 +19,6 @@ import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 import { errorToast } from "../../../toasts/errorToast.ts";
 import { submitProduct } from "../../../utilities/Requesting.ts";
-import { useTranslation } from "react-i18next";
 
 export const ProductConfirmation = () => {
   const { t } = useTranslation();

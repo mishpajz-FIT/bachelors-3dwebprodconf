@@ -1,5 +1,6 @@
 import { autoUpdate, offset, Placement, useFloating } from "@floating-ui/react";
 import { KeyboardEvent, ReactNode, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface HoldButtonProps {
   onSubmit: () => void;
@@ -18,6 +19,8 @@ export const HoldButton = ({
   popoverOffset = 10,
   duration = 750,
 }: HoldButtonProps) => {
+  const { t } = useTranslation();
+
   const [progress, setProgress] = useState(0);
   const interval = useRef<NodeJS.Timeout | null>(null);
 
@@ -102,7 +105,7 @@ export const HoldButton = ({
       {isPopoverOpen && (
         <div ref={refs.setFloating} style={floatingStyles}>
           <button className="tooltip" onClick={() => setIsPopoverOpen(false)}>
-            Hold to confirm
+            {t("holdToConfirm")}
           </button>
         </div>
       )}

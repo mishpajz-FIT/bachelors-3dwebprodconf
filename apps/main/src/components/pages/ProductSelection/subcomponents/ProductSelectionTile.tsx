@@ -1,8 +1,8 @@
 import { SkeletonImage } from "@3dwebprodconf/shared/src/components/SkeletonImage.tsx";
+import { useTranslation } from "react-i18next";
 import { useSnapshot } from "valtio";
 
 import { CatalogueStore } from "../../../../stores/CatalogueStore.ts";
-import { useTranslation } from "react-i18next";
 
 interface ProductSelectionTileProps {
   productId: string;
