@@ -9,8 +9,6 @@ import { ProductSpecificationActions } from "../stores/actions/ProductSpecificat
 import { ProductSpecificationStore } from "../stores/ProductSpecificationStore.ts";
 import "three-mesh-bvh/src/index";
 
-const COLLISION_TOLERANCE = 5;
-
 function checkForCollision(
   newMesh: THREE.Mesh,
   scene: THREE.Scene,
@@ -94,7 +92,9 @@ export async function willComponentCollide(
 
   outerGroup.add(innerGroup);
 
-  outerGroup.scale.multiplyScalar((100 - COLLISION_TOLERANCE) / 100);
+  outerGroup.scale.multiplyScalar(
+    (componentSpec.collisionSensitivity ?? 99) / 100
+  );
   outerGroup.updateMatrixWorld(true);
 
   let collisionDetected = false;

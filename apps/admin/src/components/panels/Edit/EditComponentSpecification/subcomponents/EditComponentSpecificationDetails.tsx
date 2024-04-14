@@ -1,4 +1,5 @@
 import { ImageURLInput } from "@3dwebprodconf/shared/src/components/inputs/ImageURLInput.tsx";
+import { NumericalInput } from "@3dwebprodconf/shared/src/components/inputs/NumericalInput.tsx";
 import { TextInput } from "@3dwebprodconf/shared/src/components/inputs/TextInput.tsx";
 import { ChangeEvent } from "react";
 
@@ -33,8 +34,8 @@ export const EditComponentSpecificationDetails = () => {
           <label>
             <span className="label-aligned">Description</span>
             <textarea
-              name="description"
-              className="field"
+              name={"description"}
+              className={"field"}
               placeholder="Description"
               value={componentSpec.description}
               onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -80,8 +81,8 @@ export const EditComponentSpecificationDetails = () => {
           <label htmlFor={"ignore-collisions-checkbox"}>
             <span className="label-aligned">Ignore collisions</span>
             <input
-              id="ignore-collisions-checkbox"
-              type="checkbox"
+              id={"ignore-collisions-checkbox"}
+              type={"checkbox"}
               checked={componentSpec.ignoreCollisions}
               className="field size-4"
               onChange={() => {
@@ -93,6 +94,25 @@ export const EditComponentSpecificationDetails = () => {
                 editableComponent.ignoreCollisions =
                   !editableComponent.ignoreCollisions;
               }}
+            />
+          </label>
+          <label htmlFor={"collision-sensitivity"}>
+            <span className="label-aligned">
+              Collision detection sensitivity
+            </span>
+            <NumericalInput
+              inputId={"collision-sensitivity"}
+              submitValue={(value: number) => {
+                ProductActions.getComponentSpec(
+                  componentSpecId,
+                  ProductStore
+                ).collisionSensitivity = value;
+              }}
+              currentValue={componentSpec.collisionSensitivity}
+              placeholder={99}
+              maximum={100}
+              minimum={50}
+              allowEmpty={true}
             />
           </label>
         </div>

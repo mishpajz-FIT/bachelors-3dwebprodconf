@@ -30,6 +30,7 @@ export const ComponentSpecificationSchema = z.object({
   rotationOffset: z.tuple([z.number(), z.number(), z.number()]).optional(),
   scaleOffset: z.tuple([z.number(), z.number(), z.number()]).optional(),
   ignoreCollisions: z.boolean().optional(),
+  collisionSensitivity: z.number().min(50).max(100).optional(),
 });
 
 export const BaseSpecificationSchema = z.object({

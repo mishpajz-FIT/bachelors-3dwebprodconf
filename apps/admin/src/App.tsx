@@ -20,4 +20,4 @@ function App() {
 export default App;
 
 // TODO: Refactor add's in code
-// TODO: Changeable collision sensitivity
+// TODO: Minify bundle size
