@@ -1,12 +1,12 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
-import { SubmissionOption } from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
+import { SubmissionOption } from "@3dwebprodconf/shared/src/schemas/Catalog.ts";
 import { ContactInfo } from "@3dwebprodconf/shared/src/schemas/network/ContactInfo.ts";
 import { successToast } from "@3dwebprodconf/shared/src/toasts/successToast.ts";
 import { FormEvent, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-import { CatalogueStore } from "../../../../stores/CatalogueStore.ts";
+import { CatalogStore } from "../../../../stores/CatalogStore.ts";
 import { ConfiguratorValuesStore } from "../../../../stores/ConfiguratorValuesStore.ts";
 import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
 import { errorToast } from "../../../../toasts/errorToast.ts";
@@ -25,9 +25,8 @@ export const ProductConfirmationContactForm = ({
   const submissionOption = useMemo(
     () =>
       ConfiguratorValuesStore.currentProductId &&
-      CatalogueStore.catalogue?.products[
-        ConfiguratorValuesStore.currentProductId
-      ]?.submission,
+      CatalogStore.catalog?.products[ConfiguratorValuesStore.currentProductId]
+        ?.submission,
     []
   );
 

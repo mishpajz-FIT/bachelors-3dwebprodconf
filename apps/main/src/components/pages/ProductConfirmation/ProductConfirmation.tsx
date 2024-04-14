@@ -3,7 +3,7 @@ import { Popup } from "@3dwebprodconf/shared/src/components/containers/Popup.tsx
 import {
   SubmissionOption,
   SubmissionTypeSchema,
-} from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
+} from "@3dwebprodconf/shared/src/schemas/Catalog.ts";
 import { UserCreation } from "@3dwebprodconf/shared/src/schemas/UserCreation.ts";
 import { successToast } from "@3dwebprodconf/shared/src/toasts/successToast.ts";
 import { useMemo, useState } from "react";
@@ -14,7 +14,7 @@ import { useSnapshot } from "valtio";
 import { ProductConfirmationContactForm } from "./subcomponents/ProductConfirmationContactForm.tsx";
 import { ProductConfirmationTile } from "./subcomponents/ProductConfirmationTile.tsx";
 import { globalConfig } from "../../../configurations/Config.ts";
-import { CatalogueStore } from "../../../stores/CatalogueStore.ts";
+import { CatalogStore } from "../../../stores/CatalogStore.ts";
 import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore.ts";
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 import { errorToast } from "../../../toasts/errorToast.ts";
@@ -33,9 +33,8 @@ export const ProductConfirmation = () => {
   const submissionOption = useMemo(
     () =>
       ConfiguratorValuesStore.currentProductId &&
-      CatalogueStore.catalogue?.products[
-        ConfiguratorValuesStore.currentProductId
-      ]?.submission,
+      CatalogStore.catalog?.products[ConfiguratorValuesStore.currentProductId]
+        ?.submission,
     []
   );
 

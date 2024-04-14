@@ -7,18 +7,18 @@ export const SubmissionOptionSchema = z.object({
   endpointUrl: z.string().url(),
 });
 
-export const CatalogueProductSchema = z.object({
+export const CatalogProductSchema = z.object({
   name: z.string().max(100),
   productSpecificationUrl: z.string(),
   imageUrl: z.string(),
   submission: SubmissionOptionSchema.optional(),
 });
 
-export const CatalogueSchema = z.object({
-  products: z.record(CatalogueProductSchema),
+export const CatalogSchema = z.object({
+  products: z.record(CatalogProductSchema),
 });
 
 export type SubmissionType = z.infer<typeof SubmissionTypeSchema>;
 export type SubmissionOption = z.infer<typeof SubmissionOptionSchema>;
-export type CatalogueProduct = z.infer<typeof CatalogueProductSchema>;
-export type Catalogue = z.infer<typeof CatalogueSchema>;
+export type CatalogProduct = z.infer<typeof CatalogProductSchema>;
+export type Catalog = z.infer<typeof CatalogSchema>;

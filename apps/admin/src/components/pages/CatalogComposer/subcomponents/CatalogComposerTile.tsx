@@ -2,18 +2,18 @@ import { ImageURLInput } from "@3dwebprodconf/shared/src/components/inputs/Image
 import { TextInput } from "@3dwebprodconf/shared/src/components/inputs/TextInput.tsx";
 import { TrashIcon } from "@heroicons/react/24/solid";
 
-import { CatalogueComposerTileSubmission } from "./CatalogueComposerTileSubmission.tsx";
+import { CatalogComposerTileSubmission } from "./CatalogComposerTileSubmission.tsx";
 import { useProduct } from "../../../../hooks/useProduct.ts";
-import { CatalogueActions } from "../../../../stores/actions/CatalogueActions.ts";
-import { CatalogueStore } from "../../../../stores/CatalogueStore.ts";
+import { CatalogActions } from "../../../../stores/actions/CatalogActions.ts";
+import { CatalogStore } from "../../../../stores/CatalogStore.ts";
 
-interface CatalogueComposerTileProps {
+interface CatalogComposerTileProps {
   productId: string;
 }
 
-export const CatalogueComposerTile = ({
+export const CatalogComposerTile = ({
   productId,
-}: CatalogueComposerTileProps) => {
+}: CatalogComposerTileProps) => {
   const product = useProduct(productId);
 
   return (
@@ -34,10 +34,8 @@ export const CatalogueComposerTile = ({
                   placeholder={"Car"}
                   currentValue={product.name}
                   submitValue={(value: string) => {
-                    CatalogueActions.getProduct(
-                      productId,
-                      CatalogueStore
-                    ).name = value;
+                    CatalogActions.getProduct(productId, CatalogStore).name =
+                      value;
                   }}
                 />
               </label>
@@ -51,9 +49,9 @@ export const CatalogueComposerTile = ({
                     placeholder={"https://cdn.url/my-product-image.jpg"}
                     currentValue={product.imageUrl}
                     submitValue={(value: string) => {
-                      CatalogueActions.getProduct(
+                      CatalogActions.getProduct(
                         productId,
-                        CatalogueStore
+                        CatalogStore
                       ).imageUrl = value;
                     }}
                   />
@@ -67,23 +65,23 @@ export const CatalogueComposerTile = ({
                     placeholder={"/productspecification.json"}
                     currentValue={product.productSpecificationUrl}
                     submitValue={(value: string) => {
-                      CatalogueActions.getProduct(
+                      CatalogActions.getProduct(
                         productId,
-                        CatalogueStore
+                        CatalogStore
                       ).productSpecificationUrl = value;
                     }}
                   />
                 </label>
               </div>
             </div>
-            <CatalogueComposerTileSubmission productId={productId} />
+            <CatalogComposerTileSubmission productId={productId} />
           </div>
 
           <div className="flex w-full flex-row items-center justify-end">
             <button
               className="other-button p-1"
               onClick={() => {
-                CatalogueActions.removeProduct(productId, CatalogueStore);
+                CatalogActions.removeProduct(productId, CatalogStore);
               }}
             >
               <TrashIcon className="size-4" />

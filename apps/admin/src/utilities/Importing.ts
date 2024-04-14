@@ -1,14 +1,14 @@
 import {
-  Catalogue,
-  CatalogueSchema,
-} from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
+  Catalog,
+  CatalogSchema,
+} from "@3dwebprodconf/shared/src/schemas/Catalog.ts";
 import { ProductSpecification } from "@3dwebprodconf/shared/src/schemas/ProductSpecification.ts";
 import { readParsedJsonFromFile } from "@3dwebprodconf/shared/src/utilites/Importing.ts";
 import { parseProductSpecification } from "@3dwebprodconf/shared/src/utilites/Parsing.ts";
 
-export function readCatalogueFromFile(file: File): Promise<Catalogue> {
+export function readCatalogFromFile(file: File): Promise<Catalog> {
   return readParsedJsonFromFile(file, (data: unknown) =>
-    CatalogueSchema.parse(data)
+    CatalogSchema.parse(data)
   );
 }
 

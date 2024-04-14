@@ -15,12 +15,12 @@ export const TopBar = ({ children }: TopBarProps) => {
     <>
       <div className="other-background z-10 flex h-12 flex-row items-center justify-center gap-10 border-b border-gray-200 p-2 shadow-sm dark:border-zinc-700">
         <NavLink
-          to="/cataloguecomposer"
+          to="/catalogcomposer"
           className={({ isActive }) => {
             return `${isActive ? activeButtonStyle : "text-gray-400 hover:no-underline dark:text-gray-400"} ${baseButtonStyle}`;
           }}
         >
-          Catalogue Composer
+          Catalog Composer
         </NavLink>
         <NavLink
           to="/productcomposer"

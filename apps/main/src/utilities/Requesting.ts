@@ -1,4 +1,4 @@
-import { SubmissionOption } from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
+import { SubmissionOption } from "@3dwebprodconf/shared/src/schemas/Catalog.ts";
 import { SubmissionResponseSchema } from "@3dwebprodconf/shared/src/schemas/network/SubmissionResponse.ts";
 import { t } from "i18next";
 

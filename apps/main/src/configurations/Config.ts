@@ -30,7 +30,7 @@ const defaultConfig: AppConfig = {
     },
   },
   sources: {
-    catalogueUrl: "/products/catalogue.json",
+    catalogUrl: "/products/catalogue.json",
     homepageUrl: "https://google.com",
   },
   capabilities: {

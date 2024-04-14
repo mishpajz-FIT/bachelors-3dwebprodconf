@@ -7,7 +7,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { CatalogueComposer } from "./components/pages/CatalogueComposer/CatalogueComposer.tsx";
+import { CatalogComposer } from "./components/pages/CatalogComposer/CatalogComposer.tsx";
 import { TopBar } from "./TopBar.tsx";
 
 const ProductComposer = lazy(
@@ -30,10 +30,10 @@ const router = createBrowserRouter([
     },
   },
   {
-    path: "/cataloguecomposer",
+    path: "/catalogcomposer",
     element: (
       <TopBar>
-        <CatalogueComposer />
+        <CatalogComposer />
       </TopBar>
     ),
     errorElement: <ErrorElement />,

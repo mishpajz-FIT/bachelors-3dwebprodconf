@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 
-import { CatalogueActions } from "../../../../stores/actions/CatalogueActions.ts";
-import { CatalogueStore } from "../../../../stores/CatalogueStore.ts";
+import { CatalogActions } from "../../../../stores/actions/CatalogActions.ts";
+import { CatalogStore } from "../../../../stores/CatalogStore.ts";
 import { refreshBounds } from "../../../../utilities/BoundsManipulation.ts";
 import { AddContent } from "../AddContent.tsx";
 
@@ -19,7 +19,7 @@ export const AddProduct = ({ onClose }: AddProductProps) => {
     const data = new FormData(event.currentTarget);
     const id = data.get("id") as string;
 
-    if (CatalogueActions.productExists(id, CatalogueStore)) {
+    if (CatalogActions.productExists(id, CatalogStore)) {
       setShowingError(true);
       return;
     }
@@ -30,7 +30,7 @@ export const AddProduct = ({ onClose }: AddProductProps) => {
       productSpecificationUrl: data.get("specificationUrl") as string,
     };
 
-    CatalogueActions.addProduct(id, newProduct, CatalogueStore);
+    CatalogActions.addProduct(id, newProduct, CatalogStore);
 
     onClose();
     refreshBounds();

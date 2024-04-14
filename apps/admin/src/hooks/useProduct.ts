@@ -1,12 +1,12 @@
-import { CatalogueProduct } from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
+import { CatalogProduct } from "@3dwebprodconf/shared/src/schemas/Catalog.ts";
 import { useSnapshot } from "valtio";
 
-import { CatalogueStore } from "../stores/CatalogueStore.ts";
+import { CatalogStore } from "../stores/CatalogStore.ts";
 
-export function useProduct(productId: string): CatalogueProduct {
-  const catalogueSnap = useSnapshot(CatalogueStore);
+export function useProduct(productId: string): CatalogProduct {
+  const catalogSnap = useSnapshot(CatalogStore);
 
-  const product = catalogueSnap.products[productId];
+  const product = catalogSnap.products[productId];
   if (!product) {
     throw new Error(`Product ${productId} does not exist.`);
   }

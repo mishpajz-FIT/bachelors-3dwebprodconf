@@ -12,9 +12,9 @@ import {
 import { ProductConfirmation } from "./components/pages/ProductConfirmation/ProductConfirmation.tsx";
 import { ProductSelection } from "./components/pages/ProductSelection/ProductSelection.tsx";
 import { globalConfig } from "./configurations/Config.ts";
-import { CatalogueActions } from "./stores/actions/CatalogueActions.ts";
+import { CatalogActions } from "./stores/actions/CatalogActions.ts";
 import { ProductSpecificationActions } from "./stores/actions/ProductSpecificationActions.ts";
-import { CatalogueStore } from "./stores/CatalogueStore.ts";
+import { CatalogStore } from "./stores/CatalogStore.ts";
 import { ConfiguratorValuesStore } from "./stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "./stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "./stores/UserCreationStore.ts";
@@ -24,14 +24,14 @@ const ProductEditor = lazy(
   () => import("./components/pages/ProductEditor/ProductEditor.tsx")
 );
 
-async function loadCatalogueWithValidProduct(productId?: string) {
-  const catalogue = await CatalogueActions.getCatalogue(
-    globalConfig.config.sources.catalogueUrl,
-    CatalogueStore
+async function loadCatalogWithValidProduct(productId?: string) {
+  const catalog = await CatalogActions.getCatalog(
+    globalConfig.config.sources.catalogUrl,
+    CatalogStore
   );
-  const products = catalogue?.products;
+  const products = catalog?.products;
   if (productId && !products[productId]) {
-    throw Error(t("errorNoProductInCatalogue", { productId: productId }));
+    throw Error(t("errorNoProductInCatalog", { productId: productId }));
   }
   return products;
 }
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     element: <ProductSelection />,
     loader: async () => {
-      return await loadCatalogueWithValidProduct();
+      return await loadCatalogWithValidProduct();
     },
   },
   {
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
         throw Error(t("errorNoProduct"));
       }
 
-      const products = await loadCatalogueWithValidProduct(params.productId);
+      const products = await loadCatalogWithValidProduct(params.productId);
       const productSpecification = await fetchProductSpecification(
         products[params.productId].productSpecificationUrl
       );
@@ -91,7 +91,7 @@ const router = createBrowserRouter([
 ]);
 
 export const AppContent = () => {
-  const darkmode = useDarkMode();
+  const isDarkmode = useDarkMode();
 
   return (
     <div className="app flex h-dvh flex-col">
@@ -102,7 +102,7 @@ export const AppContent = () => {
         >
           <img
             src={
-              darkmode
+              isDarkmode
                 ? globalConfig.config.images.logo.dark
                 : globalConfig.config.images.logo.light
             }

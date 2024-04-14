@@ -2,19 +2,19 @@ import { TextInput } from "@3dwebprodconf/shared/src/components/inputs/TextInput
 import {
   SubmissionType,
   SubmissionTypeSchema,
-} from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
+} from "@3dwebprodconf/shared/src/schemas/Catalog.ts";
 
 import { useProduct } from "../../../../hooks/useProduct.ts";
-import { CatalogueActions } from "../../../../stores/actions/CatalogueActions.ts";
-import { CatalogueStore } from "../../../../stores/CatalogueStore.ts";
+import { CatalogActions } from "../../../../stores/actions/CatalogActions.ts";
+import { CatalogStore } from "../../../../stores/CatalogStore.ts";
 
-interface CatalogueComposerTileSubmissionProps {
+interface CatalogComposerTileSubmissionProps {
   productId: string;
 }
 
-export const CatalogueComposerTileSubmission = ({
+export const CatalogComposerTileSubmission = ({
   productId,
-}: CatalogueComposerTileSubmissionProps) => {
+}: CatalogComposerTileSubmissionProps) => {
   const product = useProduct(productId);
 
   const noneType = "NONE";
@@ -27,9 +27,9 @@ export const CatalogueComposerTileSubmission = ({
           id="endpointType"
           value={product.submission ? product.submission.type : noneType}
           onChange={(e) => {
-            const editableProduct = CatalogueActions.getProduct(
+            const editableProduct = CatalogActions.getProduct(
               productId,
-              CatalogueStore
+              CatalogStore
             );
             if (e.target.value === noneType) {
               delete editableProduct.submission;
@@ -72,9 +72,9 @@ export const CatalogueComposerTileSubmission = ({
             placeholder={"https://eshop.com/api/order/submit"}
             currentValue={product.submission.endpointUrl}
             submitValue={(value: string) => {
-              const editableSubmission = CatalogueActions.getProduct(
+              const editableSubmission = CatalogActions.getProduct(
                 productId,
-                CatalogueStore
+                CatalogStore
               ).submission;
               if (!editableSubmission) {
                 return;

@@ -34,9 +34,9 @@
   "oops": "Oops!",
   "unexpectedError": "An unexpected error has occurred.",
 
-  "errorNoCatalogue": "No catalogue found.",
+  "errorNoCatalog": "No catalog found.",
   "errorNoProduct": "No product found.",
-  "errorNoProductInCatalogue": "Product with id {{productId}} not found in catalogue.",
+  "errorNoProductInCatalog": "Product with id {{productId}} not found in catalog.",
   "errorHierarchyDamaged": "Component hierarchy is damaged, component with id {{componentId}} does not have parent component.",
   "errorMissingMaterial": "Material with id {{materialId}} not found.",
   "errorMissingColor": "Color with id {{colorSpecId}} not found.",

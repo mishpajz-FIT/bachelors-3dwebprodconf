@@ -1,16 +1,16 @@
-import { CatalogueSchema } from "@3dwebprodconf/shared/src/schemas/Catalogue.ts";
+import { CatalogSchema } from "@3dwebprodconf/shared/src/schemas/Catalog.ts";
 import { warningToast } from "@3dwebprodconf/shared/src/toasts/warningToast.ts";
 import { downloadableJson } from "@3dwebprodconf/shared/src/utilites/Exporting.ts";
 import { formatZodError } from "@3dwebprodconf/shared/src/utilites/Formatting.ts";
 import { ChangeEvent } from "react";
 import { ZodError } from "zod";
 
-import { CatalogueActions } from "../../../../stores/actions/CatalogueActions.ts";
-import { CatalogueStore } from "../../../../stores/CatalogueStore.ts";
+import { CatalogActions } from "../../../../stores/actions/CatalogActions.ts";
+import { CatalogStore } from "../../../../stores/CatalogStore.ts";
 import { errorToast } from "../../../../toasts/errorToast.ts";
-import { readCatalogueFromFile } from "../../../../utilities/Importing.ts";
+import { readCatalogFromFile } from "../../../../utilities/Importing.ts";
 
-export const CatalogueComposerButtons = () => {
+export const CatalogComposerButtons = () => {
   const handleFileSelection = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) {
@@ -18,12 +18,12 @@ export const CatalogueComposerButtons = () => {
       return;
     }
 
-    readCatalogueFromFile(file)
-      .then((catalogue) => {
-        CatalogueActions.storeCatalogue(catalogue, CatalogueStore);
+    readCatalogFromFile(file)
+      .then((catalog) => {
+        CatalogActions.storeCatalog(catalog, CatalogStore);
       })
       .catch((error) => {
-        let message = "Catalogue couldn't be imported.";
+        let message = "Catalog couldn't be imported.";
 
         if (error instanceof ZodError) {
           message = formatZodError(error);
@@ -37,16 +37,16 @@ export const CatalogueComposerButtons = () => {
 
   const onExport = () => {
     try {
-      const validationResult = CatalogueSchema.safeParse(CatalogueStore);
+      const validationResult = CatalogSchema.safeParse(CatalogStore);
       if (!validationResult.success) {
         warningToast(
-          `This catalogue has incorrect values: ${formatZodError(validationResult.error)}`
+          `This catalog has incorrect values: ${formatZodError(validationResult.error)}`
         );
       }
 
-      downloadableJson(JSON.stringify(CatalogueStore), "catalogue");
+      downloadableJson(JSON.stringify(CatalogStore), "catalog");
     } catch (error) {
-      let message = "Catalogue couldn't be exported.";
+      let message = "Catalog couldn't be exported.";
 
       if (error instanceof Error) {
         message = error.message;

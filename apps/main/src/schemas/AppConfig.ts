@@ -30,7 +30,7 @@ export const AppConfigSchema = z.object({
     }),
   }),
   sources: z.object({
-    catalogueUrl: z.string(),
+    catalogUrl: z.string(),
     homepageUrl: z.string(),
   }),
   capabilities: z.object({
