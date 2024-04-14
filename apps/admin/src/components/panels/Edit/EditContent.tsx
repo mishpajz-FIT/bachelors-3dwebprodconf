@@ -10,6 +10,7 @@ interface EditContentProps {
   onClose: () => void;
   onRemove: () => void;
   children: ReactNode;
+  otherButtons?: ReactNode;
 }
 
 export const EditContent = ({
@@ -19,6 +20,7 @@ export const EditContent = ({
   onClose,
   onRemove,
   children,
+  otherButtons,
 }: EditContentProps) => {
   return (
     <div className="flex w-full select-text flex-col overflow-x-clip overflow-y-scroll">
@@ -28,17 +30,20 @@ export const EditContent = ({
       </h2>
       {children}
 
-      <div className="mt-auto flex items-center justify-center gap-2 p-4">
-        <HoldButton
-          className="other-button destructive-button-on-hold mt-8 flex w-full items-center justify-center"
-          onSubmit={onRemove}
-          duration={650}
-          popoverPosition={"top-end"}
-          popoverOffset={6}
-        >
-          <TrashIcon className="size-4" />
-          <span className="ml-2">{removeButton}</span>
-        </HoldButton>
+      <div className="mt-auto flex w-full items-center justify-center p-4">
+        <div className="mt-7 w-full flex-col items-center justify-center">
+          {otherButtons}
+          <HoldButton
+            className="other-button destructive-button-on-hold mt-2 flex w-full items-center justify-center"
+            onSubmit={onRemove}
+            duration={650}
+            popoverPosition={"top-end"}
+            popoverOffset={6}
+          >
+            <TrashIcon className="size-4" />
+            <span className="ml-2">{removeButton}</span>
+          </HoldButton>
+        </div>
       </div>
     </div>
   );

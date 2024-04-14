@@ -92,6 +92,7 @@ export const EditComponentSpecificationMountingPoints = () => {
         <EditMountingPointSpecification
           onClose={() => {
             EditorValuesStore.selectedMountingPoint = undefined;
+            EditorValuesStore.previewedMountedComponent = undefined;
           }}
         />
       </Side>

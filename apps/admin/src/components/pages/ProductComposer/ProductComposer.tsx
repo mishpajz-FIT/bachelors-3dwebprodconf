@@ -35,6 +35,7 @@ const ProductComposer = () => {
               EditorValuesStore.selectedComponentSpec = undefined;
               EditorValuesStore.selectedMountingPoint = undefined;
               EditorValuesStore.selectedMaterial = undefined;
+              EditorValuesStore.previewedMountedComponent = undefined;
             }}
           />
         </Side>
