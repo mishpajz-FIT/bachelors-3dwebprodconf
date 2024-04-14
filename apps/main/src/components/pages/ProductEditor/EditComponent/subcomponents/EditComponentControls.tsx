@@ -11,6 +11,10 @@ import { ConfiguratorValuesStore } from "../../../../../stores/ConfiguratorValue
 import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../../../../utilities/BoundsManipulation.ts";
+import {
+  canvasChangedEvent,
+  emitter,
+} from "../../../../../utilities/Emitters.ts";
 import { AddComponent } from "../../AddComponent/AddComponent.tsx";
 
 interface EditComponentControlsProps {
@@ -42,6 +46,7 @@ export const EditComponentControls = ({
     });
 
     onClose?.();
+    emitter.emit(canvasChangedEvent);
   };
 
   const handleChange = (newComponentSpecId: string) => {
@@ -63,6 +68,7 @@ export const EditComponentControls = ({
     };
 
     refreshBounds(action);
+    emitter.emit(canvasChangedEvent);
   };
 
   return (

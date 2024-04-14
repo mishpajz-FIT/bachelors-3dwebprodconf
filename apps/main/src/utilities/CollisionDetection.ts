@@ -9,7 +9,7 @@ import { ProductSpecificationActions } from "../stores/actions/ProductSpecificat
 import { ProductSpecificationStore } from "../stores/ProductSpecificationStore.ts";
 import "three-mesh-bvh/src/index";
 
-const COLLISION_TOLERANCE = 2;
+const COLLISION_TOLERANCE = 5;
 
 function checkForCollision(
   newMesh: THREE.Mesh,
@@ -68,7 +68,6 @@ export async function willComponentCollide(
     componentSpecId,
     ProductSpecificationStore
   );
-
   const loader = new GLTFLoader();
 
   const gltf = await loader.loadAsync(componentSpec.modelUrl);
@@ -89,15 +88,13 @@ export async function willComponentCollide(
     new THREE.Vector3().fromArray(componentSpec.scaleOffset ?? [1, 1, 1])
   );
 
-  const modelGroup = new THREE.Group();
   traverseMeshes(model, (modelMesh) => {
-    modelGroup.add(modelMesh);
+    innerGroup.add(modelMesh);
   });
 
-  innerGroup.add(modelGroup);
   outerGroup.add(innerGroup);
 
-  modelGroup.scale.multiplyScalar((100 - COLLISION_TOLERANCE) / 100);
+  outerGroup.scale.multiplyScalar((100 - COLLISION_TOLERANCE) / 100);
   outerGroup.updateMatrixWorld(true);
 
   let collisionDetected = false;

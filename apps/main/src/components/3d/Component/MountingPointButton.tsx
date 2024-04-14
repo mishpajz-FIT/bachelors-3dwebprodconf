@@ -1,8 +1,8 @@
 import { Modal } from "@3dwebprodconf/shared/src/components/containers/Modal.tsx";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import { Html } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useThree } from "@react-three/fiber";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import * as THREE from "three";
 import { useSnapshot } from "valtio";
@@ -14,6 +14,7 @@ import { ProductSpecificationStore } from "../../../stores/ProductSpecificationS
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../../utilities/BoundsManipulation.ts";
 import { willComponentCollide } from "../../../utilities/CollisionDetection.ts";
+import { canvasChangedEvent, emitter } from "../../../utilities/Emitters.ts";
 import { AddComponent } from "../../pages/ProductEditor/AddComponent/AddComponent.tsx";
 
 interface MountingPointButtonProps {
@@ -34,17 +35,7 @@ export const MountingPointButton = ({
   const { componentSpec, componentSpecId } = useComponent(componentId);
 
   const groupRef = useRef<THREE.Group>(null);
-  const recalculateCollisionsFlag = useRef(true);
-  const frameDelayRef = useRef(0);
   const { scene } = useThree();
-
-  const { worldPosition, worldQuaternion, worldRotation } = useMemo(() => {
-    const worldPosition = new THREE.Vector3();
-    const worldQuaternion = new THREE.Quaternion();
-    const worldRotation = new THREE.Euler();
-
-    return { worldPosition, worldQuaternion, worldRotation };
-  }, []);
 
   const mountingPointSpec =
     componentSpec.mountingPointsSpecs[mountingPointSpecId];
@@ -62,26 +53,15 @@ export const MountingPointButton = ({
   );
 
   useEffect(() => {
-    if (groupRef.current) {
-      groupRef.current.getWorldPosition(worldPosition);
-      groupRef.current.getWorldQuaternion(worldQuaternion);
-      worldRotation.setFromQuaternion(worldQuaternion, "XYZ");
-    }
-    recalculateCollisionsFlag.current = true;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    groupRef.current,
-    worldPosition,
-    worldRotation,
-    worldQuaternion,
-    UserCreationStore.value.components,
-  ]);
+    const calculateCollisions = () => {
+      const worldPosition = new THREE.Vector3();
+      const worldQuaternion = new THREE.Quaternion();
+      const worldRotation = new THREE.Euler();
 
-  useFrame(() => {
-    if (recalculateCollisionsFlag.current) {
-      if (frameDelayRef.current > 0) {
-        frameDelayRef.current -= 1;
-        return;
+      if (groupRef.current) {
+        groupRef.current.getWorldPosition(worldPosition);
+        groupRef.current.getWorldQuaternion(worldQuaternion);
+        worldRotation.setFromQuaternion(worldQuaternion, "XYZ");
       }
       const collisionChecks = mountingPointSpec.mountableComponents.map(
         async (mountableComponentSpec) => {
@@ -106,11 +86,20 @@ export const MountingPointButton = ({
         .catch((e) => {
           throw e;
         });
+    };
 
-      frameDelayRef.current = 3;
-      recalculateCollisionsFlag.current = false;
-    }
-  });
+    emitter.on(canvasChangedEvent, calculateCollisions);
+    calculateCollisions();
+    return () => {
+      emitter.off(canvasChangedEvent, calculateCollisions);
+    };
+  }, [
+    componentId,
+    componentSpecId,
+    mountingPointSpec.mountableComponents,
+    mountingPointSpecId,
+    scene,
+  ]);
 
   const onAdd = (newComponentSpecId: string) => {
     const action = () => {
@@ -129,6 +118,7 @@ export const MountingPointButton = ({
     };
 
     refreshBounds(action);
+    emitter.emit(canvasChangedEvent);
   };
 
   if (mountableComponents.length === 0) {

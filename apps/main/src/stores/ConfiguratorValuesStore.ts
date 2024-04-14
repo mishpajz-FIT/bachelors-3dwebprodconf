@@ -4,6 +4,7 @@ import { proxy } from "valtio";
 interface ConfiguratorValuesStore {
   currentProductId?: string;
   selectedComponentId?: string;
+  canvasChanged: boolean;
 }
 
 export const ConfiguratorValuesStore = proxy<
@@ -11,5 +12,6 @@ export const ConfiguratorValuesStore = proxy<
 >({
   currentProductId: undefined,
   selectedComponentId: undefined,
+  canvasChanged: false,
   bounds: undefined,
 });

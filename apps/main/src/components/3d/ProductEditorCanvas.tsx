@@ -23,6 +23,7 @@ import { ConfiguratorValuesStore } from "../../stores/ConfiguratorValuesStore.ts
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
+import { canvasChangedEvent, emitter } from "../../utilities/Emitters.ts";
 
 const ProductEditorCanvas = () => {
   const userCreationSnap = useSnapshot(UserCreationStore);
@@ -91,7 +92,10 @@ const ProductEditorCanvas = () => {
       <div className="absolute bottom-2 left-1/2 -translate-x-1/2">
         <div className="glass-panel flex items-center justify-center divide-x divide-gray-200 rounded-md dark:divide-zinc-700">
           <button
-            onClick={userCreationSnap.undo}
+            onClick={() => {
+              userCreationSnap.undo();
+              emitter.emit(canvasChangedEvent);
+            }}
             className={`p-3 sm:p-2 ${userCreationSnap.isUndoEnabled && "transition duration-150 ease-in-out active:scale-95"}`}
             disabled={!userCreationSnap.isUndoEnabled}
           >
@@ -100,7 +104,10 @@ const ProductEditorCanvas = () => {
             />
           </button>
           <button
-            onClick={userCreationSnap.redo}
+            onClick={() => {
+              userCreationSnap.redo();
+              emitter.emit(canvasChangedEvent);
+            }}
             className={`p-3 sm:p-2 ${userCreationSnap.isRedoEnabled && "transition duration-150 ease-in-out active:scale-95"}`}
             disabled={!userCreationSnap.isRedoEnabled}
           >
