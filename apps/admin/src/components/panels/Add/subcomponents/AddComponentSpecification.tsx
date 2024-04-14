@@ -37,10 +37,6 @@ export const AddComponentSpecification = ({
       ignoreCollisions: false,
     };
 
-    if (data.has("price")) {
-      newComponentSpec.price = parseFloat(data.get("price") as string);
-    }
-
     ProductActions.addComponentSpec(id, newComponentSpec, ProductStore);
 
     onClose();

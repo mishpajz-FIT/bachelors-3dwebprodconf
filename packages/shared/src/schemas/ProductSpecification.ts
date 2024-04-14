@@ -4,7 +4,6 @@ export const ColorSpecificationSchema = z.object({
   name: z.string().max(100),
   value: z.string().length(7).regex(/^#/),
   sortIndex: z.number(),
-  price: z.number().optional(),
 });
 
 export const MaterialSpecificationSchema = z.object({
@@ -23,7 +22,6 @@ export const MountingPointSpecificationSchema = z.object({
 export const ComponentSpecificationSchema = z.object({
   name: z.string().max(100),
   description: z.string(),
-  price: z.number().optional(),
   imageUrl: z.string(),
   modelUrl: z.string(),
   materialSpecs: z.record(MaterialSpecificationSchema),

@@ -46,7 +46,6 @@ export const AddComponentTile = ({
           </p>
         </div>
         <div className="mt-1 flex shrink-0 flex-row items-center justify-between">
-          <span className="text-sm font-light">{componentSpec.price}</span>
           {/*<button
             className="other-button"
             onClick={(e) => e.stopPropagation()}
