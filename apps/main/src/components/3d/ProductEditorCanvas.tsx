@@ -44,6 +44,9 @@ const ProductEditorCanvas = () => {
         shadows={true}
         orthographic={globalConfig.config.camera.isOrthogonal}
         camera={{ position: [0, 1.7, 3] }}
+        onPointerMissed={() => {
+          ConfiguratorValuesStore.selectedComponentId = undefined;
+        }}
       >
         <OrbitControls makeDefault={true} regress={true} />
         <Environment preset="city" />

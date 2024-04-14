@@ -46,8 +46,8 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
     {}
   );
 
-  const onSelect = (event: ThreeEvent<MouseEvent>) => {
-    event.stopPropagation();
+  const onSelect = (e: ThreeEvent<MouseEvent>) => {
+    e.stopPropagation();
 
     if (ConfiguratorValuesStore.selectedComponentId === componentId) {
       ConfiguratorValuesStore.selectedComponentId = undefined;
