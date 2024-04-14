@@ -99,8 +99,21 @@ export const PreviewMountingPoint = ({
       position={mountingPoint.position}
       rotation={new Euler(...mountingPoint.rotation)}
     >
-      <Html zIndexRange={[50, 0]} occlude={true}>
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+      <Html zIndexRange={[50, 99]}>
+        <div
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-40"
+          onClick={() => {
+            EditorValuesStore.selectedMountingPoint = mountingPointId;
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              EditorValuesStore.selectedMountingPoint = mountingPointId;
+            }
+          }}
+          role={"button"}
+          tabIndex={0}
+          style={{ cursor: "pointer" }}
+        >
           <div className="simple-panel pointer-events-none select-none p-2 font-mono text-sm">
             {mountingPointId}
           </div>

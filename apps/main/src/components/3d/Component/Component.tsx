@@ -15,19 +15,10 @@ export const Component = ({ componentId }: ComponentProps) => {
   const { component, componentSpec } = useComponent(componentId);
 
   return (
-    <group
-      position={componentSpec.positionOffset}
-      rotation={
-        componentSpec.rotationOffset
-          ? new Euler(...componentSpec.rotationOffset)
-          : undefined
-      }
-    >
-      <group scale={componentSpec.scaleOffset}>
-        <Bvh>
-          <ComponentModel componentId={componentId} />
-        </Bvh>
-      </group>
+    <group>
+      <Bvh>
+        <ComponentModel componentId={componentId} />
+      </Bvh>
 
       {Object.entries(componentSpec.mountingPointsSpecs).map(
         ([mountingPointSpecId, mountingPoint]) => {
@@ -36,30 +27,17 @@ export const Component = ({ componentId }: ComponentProps) => {
           return (
             <group
               key={mountingPointSpecId}
-              rotation={
-                componentSpec.rotationOffset
-                  ? new Euler(
-                      -componentSpec.rotationOffset[0],
-                      -componentSpec.rotationOffset[1],
-                      -componentSpec.rotationOffset[2]
-                    )
-                  : undefined
-              }
+              position={mountingPoint.position}
+              rotation={new Euler(...mountingPoint.rotation)}
             >
-              <group
-                key={mountingPointSpecId}
-                position={mountingPoint.position}
-                rotation={new Euler(...mountingPoint.rotation)}
-              >
-                {mountedComponentId ? (
-                  <Component componentId={mountedComponentId} />
-                ) : (
-                  <MountingPointButton
-                    componentId={componentId}
-                    mountingPointSpecId={mountingPointSpecId}
-                  />
-                )}
-              </group>
+              {mountedComponentId ? (
+                <Component componentId={mountedComponentId} />
+              ) : (
+                <MountingPointButton
+                  componentId={componentId}
+                  mountingPointSpecId={mountingPointSpecId}
+                />
+              )}
             </group>
           );
         }

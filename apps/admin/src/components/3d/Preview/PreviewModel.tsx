@@ -118,37 +118,15 @@ export const PreviewModel = () => {
             }
             return null;
           })}
-          {Object.keys(componentSpec.mountingPointsSpecs).map(
-            (mountingPointId) => {
-              return (
-                <group
-                  scale={
-                    componentSpec.scaleOffset
-                      ? (componentSpec.scaleOffset.map((s) => 1 / s) as [
-                          number,
-                          number,
-                          number,
-                        ])
-                      : [1, 1, 1]
-                  }
-                  rotation={
-                    componentSpec.rotationOffset
-                      ? new Euler(
-                          -componentSpec.rotationOffset[0],
-                          -componentSpec.rotationOffset[1],
-                          -componentSpec.rotationOffset[2]
-                        )
-                      : undefined
-                  }
-                  key={mountingPointId}
-                >
-                  <PreviewMountingPoint mountingPointId={mountingPointId} />
-                </group>
-              );
-            }
-          )}
         </group>
       </PlacementControls>
+      {Object.keys(componentSpec.mountingPointsSpecs).map((mountingPointId) => {
+        return (
+          <group key={mountingPointId}>
+            <PreviewMountingPoint mountingPointId={mountingPointId} />
+          </group>
+        );
+      })}
     </>
   );
 };

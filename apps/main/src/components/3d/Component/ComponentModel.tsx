@@ -1,7 +1,7 @@
 import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
 import { Edges, useGLTF } from "@react-three/drei";
 import { ThreeEvent } from "@react-three/fiber";
-import { Color, Mesh, MeshStandardMaterial } from "three";
+import { Color, Euler, Mesh, MeshStandardMaterial } from "three";
 import { useSnapshot } from "valtio";
 
 import { globalConfig } from "../../../configurations/Config.ts";
@@ -58,7 +58,16 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
   };
 
   return (
-    <group onClick={onSelect}>
+    <group
+      onClick={onSelect}
+      position={componentSpec.positionOffset}
+      rotation={
+        componentSpec.rotationOffset
+          ? new Euler(...componentSpec.rotationOffset)
+          : undefined
+      }
+      scale={componentSpec.scaleOffset}
+    >
       {Object.entries(nodes).map(([name, node]) => {
         if (node.type === "Mesh") {
           const mesh = node as Mesh;

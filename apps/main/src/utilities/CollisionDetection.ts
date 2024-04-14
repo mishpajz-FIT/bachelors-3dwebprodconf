@@ -85,12 +85,11 @@ export async function willComponentCollide(
   innerGroup.rotation.copy(
     new THREE.Euler().fromArray(componentSpec.rotationOffset ?? [0, 0, 0])
   );
-
-  const modelGroup = new THREE.Group();
-  modelGroup.scale.copy(
+  innerGroup.scale.copy(
     new THREE.Vector3().fromArray(componentSpec.scaleOffset ?? [1, 1, 1])
   );
 
+  const modelGroup = new THREE.Group();
   traverseMeshes(model, (modelMesh) => {
     modelGroup.add(modelMesh);
   });
