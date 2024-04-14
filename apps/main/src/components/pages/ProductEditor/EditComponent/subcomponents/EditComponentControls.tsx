@@ -1,8 +1,9 @@
 import { Modal } from "@3dwebprodconf/shared/src/components/containers/Modal.tsx";
 import { HoldButton } from "@3dwebprodconf/shared/src/components/HoldButton.tsx";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import * as THREE from "three";
 import { useSnapshot } from "valtio";
 
 import { useComponent } from "../../../../../hooks/useComponent.ts";
@@ -11,6 +12,7 @@ import { ConfiguratorValuesStore } from "../../../../../stores/ConfiguratorValue
 import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../../../../utilities/BoundsManipulation.ts";
+import { willComponentCollide } from "../../../../../utilities/CollisionDetection.ts";
 import {
   canvasChangedEvent,
   emitter,
@@ -39,6 +41,68 @@ export const EditComponentControls = ({
 
   const { componentSpec: parentComponentSpec } =
     useComponent(parentComponentId);
+
+  const [mountableComponents, setMountableComponents] = useState(
+    parentComponentSpec.mountingPointsSpecs[parentMountingPointId]
+      .mountableComponents
+  );
+
+  useEffect(() => {
+    const calculateCollisions = () => {
+      const worldPosition = new THREE.Vector3();
+      const worldQuaternion = new THREE.Quaternion();
+      const worldRotation = new THREE.Euler();
+
+      const scene = ConfiguratorValuesStore.scene;
+      if (!scene) {
+        return;
+      }
+
+      const mesh = scene.getObjectByName(componentId);
+      if (mesh) {
+        mesh.getWorldPosition(worldPosition);
+        mesh.getWorldQuaternion(worldQuaternion);
+        worldRotation.setFromQuaternion(worldQuaternion, "XYZ");
+      } else {
+        return;
+      }
+
+      const collisionChecks = parentComponentSpec.mountingPointsSpecs[
+        parentMountingPointId
+      ].mountableComponents.map(async (mountableComponentSpec) => {
+        const collision = await willComponentCollide(
+          mountableComponentSpec,
+          scene,
+          worldPosition,
+          worldRotation,
+          [componentId, parentComponentId]
+        );
+        return collision ? null : mountableComponentSpec;
+      });
+
+      Promise.all(collisionChecks)
+        .then((results) => {
+          const filteredComponents = results.filter(
+            (result): result is string => result !== null
+          );
+          setMountableComponents(filteredComponents);
+        })
+        .catch((e) => {
+          throw e;
+        });
+    };
+
+    emitter.on(canvasChangedEvent, calculateCollisions);
+    calculateCollisions();
+    return () => {
+      emitter.off(canvasChangedEvent, calculateCollisions);
+    };
+  }, [
+    componentId,
+    parentComponentId,
+    parentComponentSpec.mountingPointsSpecs,
+    parentMountingPointId,
+  ]);
 
   const handleRemove = () => {
     refreshBounds(() => {
@@ -95,10 +159,7 @@ export const EditComponentControls = ({
         onClose={() => setChangeModalOpen(false)}
       >
         <AddComponent
-          mountableComponentsSpecs={
-            parentComponentSpec.mountingPointsSpecs[parentMountingPointId]
-              .mountableComponents
-          }
+          mountableComponentsSpecs={mountableComponents}
           onClose={() => setChangeModalOpen(false)}
           onAdd={handleChange}
         />

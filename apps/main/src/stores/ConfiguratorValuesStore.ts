@@ -1,10 +1,11 @@
 import { BoundsStorage } from "@3dwebprodconf/shared/src/interfaces/BoundsStorage.ts";
+import { Scene } from "three";
 import { proxy } from "valtio";
 
 interface ConfiguratorValuesStore {
   currentProductId?: string;
   selectedComponentId?: string;
-  canvasChanged: boolean;
+  scene: Scene | undefined;
 }
 
 export const ConfiguratorValuesStore = proxy<
@@ -12,6 +13,6 @@ export const ConfiguratorValuesStore = proxy<
 >({
   currentProductId: undefined,
   selectedComponentId: undefined,
-  canvasChanged: false,
+  scene: undefined,
   bounds: undefined,
 });

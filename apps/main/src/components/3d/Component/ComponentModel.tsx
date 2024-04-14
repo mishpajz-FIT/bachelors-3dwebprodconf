@@ -19,7 +19,7 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
 
   const { componentSpec } = useComponent(componentId);
 
-  const darkMode = useDarkMode();
+  const isDarkMode = useDarkMode();
 
   const { nodes, materials } = useGLTF(componentSpec.modelUrl);
 
@@ -97,7 +97,7 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
                 <meshBasicMaterial
                   transparent={true}
                   color={
-                    darkMode
+                    isDarkMode
                       ? globalConfig.config.spatialUi.selectionColors.outline
                           .dark
                       : globalConfig.config.spatialUi.selectionColors.outline

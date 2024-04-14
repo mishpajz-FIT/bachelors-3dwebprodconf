@@ -15,7 +15,7 @@ export const Component = ({ componentId }: ComponentProps) => {
   const { component, componentSpec } = useComponent(componentId);
 
   return (
-    <group>
+    <group name={componentId}>
       <Bvh>
         <ComponentModel componentId={componentId} />
       </Bvh>

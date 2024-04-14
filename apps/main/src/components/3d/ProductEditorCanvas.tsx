@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import { useSnapshot } from "valtio";
 
 import { Component } from "./Component/Component.tsx";
+import { SceneStorer } from "./SceneStorer.tsx";
 import { globalConfig } from "../../configurations/Config.ts";
 import { ConfiguratorValuesStore } from "../../stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
@@ -49,6 +50,7 @@ const ProductEditorCanvas = () => {
           ConfiguratorValuesStore.selectedComponentId = undefined;
         }}
       >
+        <SceneStorer />
         <OrbitControls makeDefault={true} regress={true} />
         <Environment preset="city" />
         <AdaptiveDpr />
