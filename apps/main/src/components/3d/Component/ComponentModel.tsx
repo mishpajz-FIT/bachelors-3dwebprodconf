@@ -93,19 +93,14 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
                   componentId === configuratorValuesSnap.selectedComponentId
                 }
                 scale={1}
-              >
-                <meshBasicMaterial
-                  transparent={true}
-                  color={
-                    isDarkMode
-                      ? globalConfig.config.spatialUi.selectionColors.outline
-                          .dark
-                      : globalConfig.config.spatialUi.selectionColors.outline
-                          .light
-                  }
-                  depthTest={false}
-                />
-              </Edges>
+                color={
+                  isDarkMode
+                    ? globalConfig.config.spatialUi.selectionColors.outline.dark
+                    : globalConfig.config.spatialUi.selectionColors.outline
+                        .light
+                }
+                linewidth={5}
+              />
             </mesh>
           );
         }
