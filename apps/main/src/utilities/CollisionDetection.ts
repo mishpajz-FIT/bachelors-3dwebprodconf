@@ -66,6 +66,11 @@ export async function willComponentCollide(
     componentSpecId,
     ProductSpecificationStore
   );
+
+  if (componentSpec.ignoreCollisions) {
+    return false;
+  }
+
   const loader = new GLTFLoader();
 
   const gltf = await loader.loadAsync(componentSpec.modelUrl);
@@ -100,10 +105,11 @@ export async function willComponentCollide(
   let collisionDetected = false;
 
   traverseMeshes(outerGroup, (modelMesh) => {
-    if (!collisionDetected) {
-      if (checkForCollision(modelMesh, scene, ignoredComponents)) {
-        collisionDetected = true;
-      }
+    if (collisionDetected) {
+      return;
+    }
+    if (checkForCollision(modelMesh, scene, ignoredComponents)) {
+      collisionDetected = true;
     }
   });
 

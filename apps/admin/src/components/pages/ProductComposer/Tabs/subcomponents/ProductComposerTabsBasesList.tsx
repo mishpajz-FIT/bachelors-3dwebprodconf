@@ -7,6 +7,7 @@ import {
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
+import { ProductActions } from "../../../../../stores/actions/ProductActions.ts";
 import { ProductStore } from "../../../../../stores/ProductStore.ts";
 import { AddBase } from "../../../../panels/Add/subcomponents/AddBase.tsx";
 
@@ -73,13 +74,13 @@ export const ProductComposerTabsBasesList = () => {
                     {baseId}
                   </span>
                   <span className="w-full text-wrap font-mono text-xs font-thin">
-                    {productSnap.baseSpecs[baseId].component}
+                    {productSnap.baseSpecs[baseId]}
                   </span>
                   <div className="flex w-full flex-row items-center justify-end">
                     <button
                       className="other-button p-1"
                       onClick={() => {
-                        delete ProductStore.baseSpecs[baseId];
+                        ProductActions.removeBaseSpec(baseId, ProductStore);
                       }}
                     >
                       <TrashIcon className="size-4" />

@@ -6,7 +6,7 @@ import {
 } from "@3dwebprodconf/shared/src/schemas/Catalog.ts";
 import { UserCreation } from "@3dwebprodconf/shared/src/schemas/UserCreation.ts";
 import { successToast } from "@3dwebprodconf/shared/src/toasts/successToast.ts";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
@@ -15,7 +15,6 @@ import { ProductConfirmationContactForm } from "./subcomponents/ProductConfirmat
 import { ProductConfirmationTile } from "./subcomponents/ProductConfirmationTile.tsx";
 import { globalConfig } from "../../../configurations/Config.ts";
 import { CatalogStore } from "../../../stores/CatalogStore.ts";
-import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore.ts";
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 import { errorToast } from "../../../toasts/errorToast.ts";
 import { submitProduct } from "../../../utilities/Requesting.ts";
@@ -25,21 +24,16 @@ export const ProductConfirmation = () => {
 
   const navigate = useNavigate();
 
-  const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
   const userCreationSnap = useSnapshot(UserCreationStore);
 
   const [isContactFormPopupOpen, setContactFormPopupOpen] = useState(false);
 
-  const submissionOption = useMemo(
-    () =>
-      ConfiguratorValuesStore.currentProductId &&
-      CatalogStore.catalog?.products[ConfiguratorValuesStore.currentProductId]
-        ?.submission,
-    []
-  );
+  const submissionOption =
+    CatalogStore.catalog?.products[UserCreationStore.value.product]?.submission;
 
   const handleSubmit = async (submission: SubmissionOption) => {
     const userCreation: UserCreation = {
+      product: UserCreationStore.value.product,
       base: UserCreationStore.value.base,
       components: UserCreationStore.value.components,
     };
@@ -114,7 +108,7 @@ export const ProductConfirmation = () => {
               <button
                 className="other-button"
                 onClick={() =>
-                  navigate("/editor/" + configuratorValuesSnap.currentProductId)
+                  navigate("/editor/" + userCreationSnap.value.product)
                 }
               >
                 {t("back")}
@@ -134,7 +128,7 @@ export const ProductConfirmation = () => {
           <button
             className="other-button"
             onClick={() =>
-              navigate("/editor/" + configuratorValuesSnap.currentProductId)
+              navigate("/editor/" + userCreationSnap.value.product)
             }
           >
             Back

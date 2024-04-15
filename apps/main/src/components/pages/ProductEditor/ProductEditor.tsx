@@ -39,7 +39,7 @@ const ProductEditor = () => {
       return;
     }
 
-    navigate("/confirm/" + ConfiguratorValuesStore.currentProductId);
+    navigate("/confirm/" + UserCreationStore.value.product);
   };
 
   return (

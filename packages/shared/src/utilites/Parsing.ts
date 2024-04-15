@@ -10,10 +10,10 @@ export function parseProductSpecification(from: unknown): ProductSpecification {
   const productSpec = ProductSpecificationSchema.parse(from);
 
   const componentSpecKeys = new Set(Object.keys(productSpec.componentSpecs));
-  Object.values(productSpec.baseSpecs).forEach((baseSpec) => {
-    if (!componentSpecKeys.has(baseSpec.component)) {
+  Object.values(productSpec.baseSpecs).forEach((componentSpecId) => {
+    if (!componentSpecKeys.has(componentSpecId)) {
       throw new Error(
-        t("errorMissingComponentSpec", { componentSpecId: baseSpec.component })
+        t("errorMissingComponentSpec", { componentSpecId: componentSpecId })
       );
     }
   });

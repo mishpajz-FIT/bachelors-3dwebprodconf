@@ -15,7 +15,6 @@ import { globalConfig } from "./configurations/Config.ts";
 import { CatalogActions } from "./stores/actions/CatalogActions.ts";
 import { ProductSpecificationActions } from "./stores/actions/ProductSpecificationActions.ts";
 import { CatalogStore } from "./stores/CatalogStore.ts";
-import { ConfiguratorValuesStore } from "./stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "./stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "./stores/UserCreationStore.ts";
 import { fetchProductSpecification } from "./utilities/Fetching.ts";
@@ -67,7 +66,7 @@ const router = createBrowserRouter([
         ProductSpecificationStore
       );
 
-      ConfiguratorValuesStore.currentProductId = params.productId;
+      UserCreationStore.value.product = params.productId;
 
       return productSpecification;
     },
@@ -81,7 +80,10 @@ const router = createBrowserRouter([
         throw Error(t("errorNoProduct"));
       }
 
-      if (!UserCreationStore.value.isBaseSet) {
+      if (
+        !UserCreationStore.value.isBaseSet ||
+        UserCreationStore.value.product !== params.productId
+      ) {
         return redirect("/editor/" + params.productId);
       }
 

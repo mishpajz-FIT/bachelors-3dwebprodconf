@@ -2,12 +2,11 @@ import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerH
 import { SubmissionOption } from "@3dwebprodconf/shared/src/schemas/Catalog.ts";
 import { ContactInfo } from "@3dwebprodconf/shared/src/schemas/network/ContactInfo.ts";
 import { successToast } from "@3dwebprodconf/shared/src/toasts/successToast.ts";
-import { FormEvent, useMemo } from "react";
+import { FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import { CatalogStore } from "../../../../stores/CatalogStore.ts";
-import { ConfiguratorValuesStore } from "../../../../stores/ConfiguratorValuesStore.ts";
 import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
 import { errorToast } from "../../../../toasts/errorToast.ts";
 import { submitProduct } from "../../../../utilities/Requesting.ts";
@@ -22,19 +21,15 @@ export const ProductConfirmationContactForm = ({
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const submissionOption = useMemo(
-    () =>
-      ConfiguratorValuesStore.currentProductId &&
-      CatalogStore.catalog?.products[ConfiguratorValuesStore.currentProductId]
-        ?.submission,
-    []
-  );
+  const submissionOption =
+    CatalogStore.catalog?.products[UserCreationStore.value.product]?.submission;
 
   const handleSubmit = async (
     submission: SubmissionOption,
     contactInfo: ContactInfo
   ) => {
     const userCreationWithContact = {
+      product: UserCreationStore.value.product,
       base: UserCreationStore.value.base,
       components: UserCreationStore.value.components,
       contact: contactInfo,

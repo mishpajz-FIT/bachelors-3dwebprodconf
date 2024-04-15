@@ -1,4 +1,3 @@
-import { BaseSpecification } from "@3dwebprodconf/shared/src/schemas/ProductSpecification.ts";
 import { Combobox, Transition } from "@headlessui/react";
 import { ChevronUpDownIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { FormEvent, Fragment, useState } from "react";
@@ -44,11 +43,7 @@ export const AddBase = ({ onClose }: AddBaseProps) => {
       return;
     }
 
-    const newBaseSpec: BaseSpecification = {
-      component: selectedComponent,
-    };
-
-    ProductActions.addBaseSpec(id, newBaseSpec, ProductStore);
+    ProductActions.addBaseSpec(id, selectedComponent, ProductStore);
 
     onClose();
   };

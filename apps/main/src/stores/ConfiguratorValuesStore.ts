@@ -3,7 +3,6 @@ import { Scene } from "three";
 import { proxy } from "valtio";
 
 interface ConfiguratorValuesStore {
-  currentProductId?: string;
   selectedComponentId?: string;
   scene: Scene | undefined;
 }
@@ -11,7 +10,6 @@ interface ConfiguratorValuesStore {
 export const ConfiguratorValuesStore = proxy<
   ConfiguratorValuesStore & BoundsStorage
 >({
-  currentProductId: undefined,
   selectedComponentId: undefined,
   scene: undefined,
   bounds: undefined,

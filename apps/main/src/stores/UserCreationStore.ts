@@ -9,6 +9,7 @@ interface UserCreationAdditionalInfo {
 export const UserCreationStore = proxyWithHistory<
   UserCreation & UserCreationAdditionalInfo
 >({
+  product: "",
   base: "",
   components: {},
   childToParentMap: {},

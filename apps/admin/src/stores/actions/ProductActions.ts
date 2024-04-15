@@ -1,5 +1,4 @@
 import {
-  BaseSpecification,
   ColorSpecification,
   ComponentSpecification,
   MaterialSpecification,
@@ -22,13 +21,17 @@ export class ProductActions extends GenericProductSpecificationActions {
     );
   }
 
+  static removeBaseSpec(baseSpecId: string, store: typeof ProductStore) {
+    delete store.baseSpecs[baseSpecId];
+  }
+
   static removeComponentSpec(
     componentSpecId: string,
     store: typeof ProductStore
   ) {
     Object.keys(store.baseSpecs).forEach((baseSpecId) => {
-      if (store.baseSpecs[baseSpecId].component === componentSpecId) {
-        delete store.baseSpecs[baseSpecId];
+      if (store.baseSpecs[baseSpecId] === componentSpecId) {
+        this.removeBaseSpec(baseSpecId, store);
       }
     });
 
@@ -45,10 +48,10 @@ export class ProductActions extends GenericProductSpecificationActions {
 
   static addBaseSpec(
     baseSpecId: string,
-    baseSpec: BaseSpecification,
+    componentSpecId: string,
     store: typeof ProductStore
   ) {
-    store.baseSpecs[baseSpecId] = baseSpec;
+    store.baseSpecs[baseSpecId] = componentSpecId;
   }
 
   static addComponentSpec(

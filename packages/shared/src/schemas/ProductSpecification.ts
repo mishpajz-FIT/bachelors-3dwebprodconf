@@ -33,12 +33,8 @@ export const ComponentSpecificationSchema = z.object({
   collisionSensitivity: z.number().min(50).max(100).optional(),
 });
 
-export const BaseSpecificationSchema = z.object({
-  component: z.string(),
-});
-
 export const ProductSpecificationSchema = z.object({
-  baseSpecs: z.record(BaseSpecificationSchema),
+  baseSpecs: z.record(z.string()),
   componentSpecs: z.record(ComponentSpecificationSchema),
 });
 
@@ -50,5 +46,4 @@ export type MountingPointSpecification = z.infer<
 export type ComponentSpecification = z.infer<
   typeof ComponentSpecificationSchema
 >;
-export type BaseSpecification = z.infer<typeof BaseSpecificationSchema>;
 export type ProductSpecification = z.infer<typeof ProductSpecificationSchema>;

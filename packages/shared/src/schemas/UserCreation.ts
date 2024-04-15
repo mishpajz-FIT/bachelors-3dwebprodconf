@@ -7,6 +7,7 @@ export const UserComponentSchema = z.object({
 });
 
 export const UserCreationSchema = z.object({
+  product: z.string(),
   base: z.string(),
   components: z.record(UserComponentSchema),
 });
