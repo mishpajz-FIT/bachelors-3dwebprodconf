@@ -5,8 +5,8 @@
       "name": "Modular bench",
       "productSpecificationUrl": "/products/specs/productspecification.json",
       "submission": {
-        "endpointUrl": "https://test-url",
-        "type": "CONTACT_FORM"
+        "endpointUrl": "http://localhost:3000/submit",
+        "type": "POST"
       }
     }
   }

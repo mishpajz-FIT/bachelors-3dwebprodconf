@@ -1,5 +1,8 @@
 import { SubmissionOption } from "@3dwebprodconf/shared/src/schemas/Catalog.ts";
-import { SubmissionResponseSchema } from "@3dwebprodconf/shared/src/schemas/network/SubmissionResponse.ts";
+import {
+  SubmissionResponse,
+  SubmissionResponseSchema,
+} from "@3dwebprodconf/shared/src/schemas/network/SubmissionResponse.ts";
 import { t } from "i18next";
 
 export async function submitProduct(
@@ -19,10 +22,10 @@ export async function submitProduct(
     throw new Error(t("errorNetwork", { status: response.status }));
   }
 
-  let responseData;
+  let responseData: SubmissionResponse = {};
   try {
     responseData = SubmissionResponseSchema.parse(await response.json());
-  } catch {
+  } catch (err) {
     responseData = {};
   }
 

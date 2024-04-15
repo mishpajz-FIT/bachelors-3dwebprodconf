@@ -1,6 +1,10 @@
 import { z } from "zod";
 
-export const SubmissionTypeSchema = z.enum(["POST", "CONTACT_FORM"]);
+export const SubmissionTypeSchema = z.enum([
+  "POST",
+  "CONTACT_FORM",
+  "REDIRECT",
+]);
 
 export const SubmissionOptionSchema = z.object({
   type: SubmissionTypeSchema,

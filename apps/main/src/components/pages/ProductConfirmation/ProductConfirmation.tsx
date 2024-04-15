@@ -43,19 +43,22 @@ export const ProductConfirmation = () => {
       JSON.stringify(userCreation)
     );
 
+    successToast(t("submitted"));
+
     if (redirectUrl) {
       window.location.href = redirectUrl;
     } else {
       navigate("/");
     }
-
-    successToast(t("submitted"));
   };
 
   const onConfirm = () => {
     if (!submissionOption) return;
 
     switch (submissionOption.type) {
+      case SubmissionTypeSchema.Enum.REDIRECT:
+        window.location.href = submissionOption.endpointUrl;
+        break;
       case SubmissionTypeSchema.Enum.POST:
         handleSubmit(submissionOption).catch(() => {
           errorToast(t("problemDuringSubmission"));

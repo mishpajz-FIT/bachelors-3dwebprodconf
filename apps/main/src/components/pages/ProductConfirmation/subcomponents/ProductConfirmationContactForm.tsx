@@ -40,13 +40,13 @@ export const ProductConfirmationContactForm = ({
       JSON.stringify(userCreationWithContact)
     );
 
+    successToast(t("submittedContactForm"));
+
     if (redirectUrl) {
       window.location.href = redirectUrl;
     } else {
       navigate("/");
     }
-
-    successToast(t("submittedContactForm"));
   };
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -109,11 +109,17 @@ export const ProductConfirmationContactForm = ({
               name="phone"
               className="field"
               placeholder="+00"
+              maxLength={20}
             />
           </label>
           <label>
             <span className="label">{t("note")}</span>
-            <textarea name="note" className="field" placeholder="Note" />
+            <textarea
+              name="note"
+              className="field"
+              placeholder="Note"
+              maxLength={10000}
+            />
           </label>
           <button type="submit" className="primary-button" tabIndex={0}>
             {t("confirm")}

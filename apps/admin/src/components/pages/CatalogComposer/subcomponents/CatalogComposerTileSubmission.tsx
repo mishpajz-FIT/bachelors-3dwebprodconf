@@ -49,6 +49,12 @@ export const CatalogComposerTileSubmission = ({
             Preview only
           </option>
           <option
+            key={SubmissionTypeSchema.Enum.REDIRECT}
+            value={SubmissionTypeSchema.Enum.REDIRECT}
+          >
+            Redirect
+          </option>
+          <option
             key={SubmissionTypeSchema.Enum.POST}
             value={SubmissionTypeSchema.Enum.POST}
           >
@@ -58,7 +64,7 @@ export const CatalogComposerTileSubmission = ({
             key={SubmissionTypeSchema.Enum.CONTACT_FORM}
             value={SubmissionTypeSchema.Enum.CONTACT_FORM}
           >
-            Contact form
+            Contact form with POST request
           </option>
         </select>
       </label>
