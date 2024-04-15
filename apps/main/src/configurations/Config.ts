@@ -16,6 +16,7 @@ const defaultConfig: AppConfig = {
     },
   },
   ui: {
+    defaultLanguage: "en",
     colors: {
       primary: {
         light: "#3377ff",
