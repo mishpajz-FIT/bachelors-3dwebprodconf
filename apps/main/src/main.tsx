@@ -29,11 +29,9 @@ fetch(globalConfigUrl)
   .catch((error) => {
     console.error(error);
 
-    return ReactDOM.createRoot(document.getElementById("root")!).render(
-      <React.StrictMode>
-        <p className="text-red-600">
-          Fatal error: couldn&apos;t initialize appconfig.
-        </p>
-      </React.StrictMode>
+    ReactDOM.createRoot(document.getElementById("root")!).render(
+      <p className="text-red-600">
+        Fatal error: couldn&apos;t initialize appconfig.
+      </p>
     );
   });
