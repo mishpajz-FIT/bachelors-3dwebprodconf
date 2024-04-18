@@ -66,7 +66,10 @@ const router = createBrowserRouter([
         ProductSpecificationStore
       );
 
-      UserCreationStore.value.product = params.productId;
+      if (UserCreationStore.value.product != params.productId) {
+        UserCreationStore.goTo(0);
+        UserCreationStore.value.product = params.productId;
+      }
 
       return productSpecification;
     },
@@ -109,7 +112,7 @@ export const AppContent = () => {
                 : globalConfig.config.images.logo.light
             }
             alt={"logo"}
-            className="max-h-12"
+            className="max-h-8"
           />
         </a>
       </div>
