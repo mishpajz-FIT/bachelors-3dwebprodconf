@@ -8,6 +8,9 @@ import { globalConfig, globalConfigUrl } from "./configurations/Config.ts";
 import { AppConfigSchema } from "./schemas/AppConfig.ts";
 import { configureI18n } from "./utilities/i18n.ts";
 
+const container = document.getElementById("root")!;
+const root = ReactDOM.createRoot(container);
+
 fetch(globalConfigUrl)
   .then((response) => {
     return response.json();
@@ -18,7 +21,7 @@ fetch(globalConfigUrl)
   .then(() => {
     const i18n = configureI18n();
 
-    ReactDOM.createRoot(document.getElementById("root")!).render(
+    root.render(
       <React.StrictMode>
         <I18nextProvider i18n={i18n}>
           <App />
@@ -29,11 +32,9 @@ fetch(globalConfigUrl)
   .catch((error) => {
     console.error(error);
 
-    return ReactDOM.createRoot(document.getElementById("root")!).render(
-      <React.StrictMode>
-        <p className="text-red-600">
-          Fatal error: couldn&apos;t initialize appconfig.
-        </p>
-      </React.StrictMode>
+    root.render(
+      <p className="text-red-600">
+        Fatal error: couldn&apos;t initialize appconfig.
+      </p>
     );
   });

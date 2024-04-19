@@ -12,13 +12,18 @@ export function configureI18n() {
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
-      fallbackLng: globalConfig.config.ui.defaultLanguage,
+      fallbackLng: globalConfig.config.ui.languages.default,
+      supportedLngs: globalConfig.config.ui.languages.all,
+      load: "all",
       interpolation: {
         escapeValue: false,
       },
       detection: {
         order: ["querystring", "path", "navigator", "htmlTag", "cookie"],
         caches: ["cookie"],
+      },
+      react: {
+        useSuspense: false,
       },
     })
     .catch((error) => console.error("i18n error: ", error));
