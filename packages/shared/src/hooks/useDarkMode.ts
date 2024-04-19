@@ -2,19 +2,30 @@ import { useEffect, useState } from "react";
 
 export function useDarkMode() {
   const [isDarkMode, setIsDarkMode] = useState(
-    window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
+    localStorage.getItem("theme") === "dark" ||
+      ((localStorage.getItem("theme") ?? "system") === "system" &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
   );
 
   useEffect(() => {
-    const darkThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-    const themeListener = (e: MediaQueryListEvent) => {
-      setIsDarkMode(e.matches);
+    const handleThemeChange = () => {
+      const theme = localStorage.getItem("theme") ?? "system";
+      const newIsDarkMode =
+        theme === "dark" ||
+        (theme === "system" &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches);
+      setIsDarkMode(newIsDarkMode);
     };
 
-    darkThemeQuery.addEventListener("change", themeListener);
-    return () => darkThemeQuery.removeEventListener("change", themeListener);
+    const darkThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    darkThemeQuery.addEventListener("change", handleThemeChange);
+
+    window.addEventListener("themeChange", handleThemeChange);
+
+    return () => {
+      darkThemeQuery.removeEventListener("change", handleThemeChange);
+      window.removeEventListener("themeChange", handleThemeChange);
+    };
   }, []);
 
   return isDarkMode;

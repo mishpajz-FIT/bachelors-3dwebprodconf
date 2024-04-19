@@ -19,8 +19,8 @@ export function configureI18n() {
         escapeValue: false,
       },
       detection: {
-        order: ["querystring", "path", "navigator", "htmlTag", "cookie"],
-        caches: ["cookie"],
+        order: ["querystring", "path", "localStorage", "navigator", "htmlTag"],
+        caches: ["localStorage"],
       },
       react: {
         useSuspense: false,

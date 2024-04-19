@@ -1,5 +1,4 @@
 import { ErrorPage } from "@3dwebprodconf/shared/src/components/ErrorPage.tsx";
-import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
 import { t } from "i18next";
 import { lazy, Suspense } from "react";
 import { Toaster } from "react-hot-toast";
@@ -11,6 +10,7 @@ import {
 
 import { ProductConfirmation } from "./components/pages/ProductConfirmation/ProductConfirmation.tsx";
 import { ProductSelection } from "./components/pages/ProductSelection/ProductSelection.tsx";
+import { TopBar } from "./components/TopBar.tsx";
 import { globalConfig } from "./configurations/Config.ts";
 import { CatalogActions } from "./stores/actions/CatalogActions.ts";
 import { ProductSpecificationActions } from "./stores/actions/ProductSpecificationActions.ts";
@@ -96,28 +96,10 @@ const router = createBrowserRouter([
 ]);
 
 export const AppContent = () => {
-  const isDarkmode = useDarkMode();
-
   return (
-    <div className="app flex h-dvh flex-col">
-      <div className="other-background z-[90] block border-b border-gray-200 p-2 shadow-sm dark:border-zinc-700">
-        <a
-          href={globalConfig.config.sources.homepageUrl}
-          className="ml-2 inline-flex h-full items-center"
-        >
-          <img
-            src={
-              isDarkmode
-                ? globalConfig.config.images.logo.dark
-                : globalConfig.config.images.logo.light
-            }
-            alt={"logo"}
-            className="max-h-8"
-          />
-        </a>
-      </div>
+    <TopBar>
       <Toaster position="top-right" reverseOrder={true} />
       <RouterProvider router={router} />
-    </div>
+    </TopBar>
   );
 };

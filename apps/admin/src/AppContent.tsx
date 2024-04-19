@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 
 import { CatalogComposer } from "./components/pages/CatalogComposer/CatalogComposer.tsx";
-import { TopBar } from "./TopBar.tsx";
+import { TopBar } from "./components/TopBar.tsx";
 
 const ProductComposer = lazy(
   () => import("./components/pages/ProductComposer/ProductComposer.tsx")

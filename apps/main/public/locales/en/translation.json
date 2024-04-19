@@ -15,6 +15,12 @@
   "done": "Done",
   "changeProduct": "Change product",
   "reset": "Reset",
+  "settings": "Settings",
+  "theme": "Theme",
+  "language": "Language",
+  "systemTheme": "System",
+  "lightTheme": "Light",
+  "darkTheme": "Dark",
 
   "name": "Name",
   "email": "Email",
