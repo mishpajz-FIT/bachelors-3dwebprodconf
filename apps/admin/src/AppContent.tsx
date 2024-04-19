@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     element: <></>,
     errorElement: <ErrorElement />,
     loader: () => {
-      return redirect("/productcomposer");
+      return redirect("/catalogcomposer");
     },
   },
   {

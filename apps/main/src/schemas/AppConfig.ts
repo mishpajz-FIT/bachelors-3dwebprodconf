@@ -16,7 +16,10 @@ export const AppConfigSchema = z.object({
     }),
   }),
   ui: z.object({
-    defaultLanguage: z.string().length(2),
+    languages: z.object({
+      default: z.string().length(2),
+      all: z.array(z.string().length(2)),
+    }),
     colors: z.object({
       primary: z.object({
         light: z.string().length(7).regex(/^#/),
