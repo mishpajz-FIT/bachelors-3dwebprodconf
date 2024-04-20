@@ -32,7 +32,7 @@
     }
   },
   "sources": {
-    "catalogUrl": "/products/catalogue.json",
+    "catalogUrl": "/products/catalog.json",
     "homepageUrl": "https://google.com"
   },
   "capabilities": {

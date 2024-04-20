@@ -1,10 +1,14 @@
 import React from "react";
 import "./index.css";
 import ReactDOM from "react-dom/client";
+import { Toaster } from "react-hot-toast";
 import { I18nextProvider } from "react-i18next";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import App from "./App.tsx";
+import { AppContent } from "./AppContent.tsx";
+import { TopBar } from "./components/TopBar.tsx";
 import { globalConfig, globalConfigUrl } from "./configurations/Config.ts";
+import { routes } from "./Routes.tsx";
 import { AppConfigSchema } from "./schemas/AppConfig.ts";
 import { configureI18n } from "./utilities/i18n.ts";
 
@@ -20,11 +24,16 @@ fetch(globalConfigUrl)
   })
   .then(() => {
     const i18n = configureI18n();
+    const router = createBrowserRouter(routes);
 
     root.render(
       <React.StrictMode>
         <I18nextProvider i18n={i18n}>
-          <App />
+          <AppContent />
+          <TopBar>
+            <Toaster position="top-right" reverseOrder={true} />
+            <RouterProvider router={router} />
+          </TopBar>
         </I18nextProvider>
       </React.StrictMode>
     );
