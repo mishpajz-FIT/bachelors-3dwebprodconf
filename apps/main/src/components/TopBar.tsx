@@ -33,7 +33,7 @@ export const TopBar = ({ children }: TopBarProps) => {
                   : globalConfig.config.images.logo.light
               }
               alt={"logo"}
-              className="max-h-8"
+              className="pointer-events-none max-h-8 cursor-pointer select-none"
             />
           </a>
 

@@ -149,12 +149,16 @@ export class ProductActions extends GenericProductSpecificationActions {
     );
   }
 
+  static clearProductSpecification(store: typeof ProductStore) {
+    store.componentSpecs = {};
+    store.baseSpecs = {};
+  }
+
   static storeProductSpecification(
     productSpec: ProductSpecification,
     store: typeof ProductStore
   ) {
-    store.componentSpecs = {};
-    store.baseSpecs = {};
+    ProductActions.clearProductSpecification(store);
     Object.assign(store, productSpec);
   }
 }

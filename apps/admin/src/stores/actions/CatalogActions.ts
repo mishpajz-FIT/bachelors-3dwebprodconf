@@ -6,8 +6,11 @@ import {
 import { CatalogStore } from "../CatalogStore.ts";
 
 export class CatalogActions {
-  static storeCatalog(catalog: Catalog, store: typeof CatalogStore) {
+  static clearCatalog(store: typeof CatalogStore) {
     store.products = {};
+  }
+  static storeCatalog(catalog: Catalog, store: typeof CatalogStore) {
+    CatalogActions.clearCatalog(store);
     Object.assign(store, catalog);
   }
 

@@ -1,9 +1,13 @@
+import { HoldButton } from "@3dwebprodconf/shared/src/components/HoldButton.tsx";
 import { Tab } from "@headlessui/react";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
 import { ProductComposerTabsBasesList } from "./subcomponents/ProductComposerTabsBasesList.tsx";
 import { ProductComposerTabsComponentsList } from "./subcomponents/ProductComposerTabsComponentsList.tsx";
 import { ProductComposerTabsExportButton } from "./subcomponents/ProductComposerTabsExportButton.tsx";
 import { ProductComposerTabsImportButton } from "./subcomponents/ProductComposerTabsImportButton.tsx";
+import { ProductActions } from "../../../../stores/actions/ProductActions.ts";
+import { ProductStore } from "../../../../stores/ProductStore.ts";
 
 export const ProductComposerTabs = () => {
   const tabClassName = (selected: boolean) => {
@@ -40,9 +44,23 @@ export const ProductComposerTabs = () => {
         </Tab.Group>
       </div>
 
-      <div className="mt-auto flex flex-row justify-end gap-1 p-2">
-        <ProductComposerTabsImportButton />
-        <ProductComposerTabsExportButton />
+      <div className="mt-auto flex flex-row justify-between gap-1 p-2">
+        <HoldButton
+          className="other-button destructive-button-on-hold flex items-center justify-center"
+          onSubmit={() => {
+            ProductActions.clearProductSpecification(ProductStore);
+          }}
+          duration={500}
+          popoverPosition={"top-start"}
+          popoverOffset={6}
+        >
+          <TrashIcon className="size-4" />
+          <span className="ml-2">Clear</span>
+        </HoldButton>
+        <div className="flex flex-row gap-1">
+          <ProductComposerTabsImportButton />
+          <ProductComposerTabsExportButton />
+        </div>
       </div>
     </div>
   );
