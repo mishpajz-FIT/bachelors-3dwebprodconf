@@ -147,7 +147,7 @@ export const EditMaterialSpecificationModels = () => {
                 leaveTo="opacity-0"
                 afterLeave={() => setAddTerm("")}
               >
-                <Combobox.Options className="field absolute mt-1 max-h-60 w-72 overflow-auto">
+                <Combobox.Options className="field absolute z-20 mt-1 max-h-60 w-72 overflow-auto">
                   {filteredAddModelMaterial.length === 0 && addTerm !== "" ? (
                     <div className="relative cursor-default select-none px-4 py-2 text-center text-sm text-gray-900 dark:text-gray-400">
                       Nothing found.

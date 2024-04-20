@@ -91,9 +91,7 @@ export async function willComponentCollide(
     new THREE.Vector3().fromArray(componentSpec.scaleOffset ?? [1, 1, 1])
   );
 
-  traverseMeshes(model, (modelMesh) => {
-    innerGroup.add(modelMesh);
-  });
+  innerGroup.add(model);
 
   outerGroup.add(innerGroup);
 

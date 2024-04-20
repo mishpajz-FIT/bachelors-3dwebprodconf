@@ -1,7 +1,8 @@
+import { Render } from "@3dwebprodconf/shared/src/components/3d/Render.tsx";
 import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
 import { Edges, useGLTF } from "@react-three/drei";
 import { ThreeEvent } from "@react-three/fiber";
-import { Color, Euler, Mesh, MeshStandardMaterial } from "three";
+import { Color, Euler, MeshStandardMaterial } from "three";
 import { useSnapshot } from "valtio";
 
 import { globalConfig } from "../../../configurations/Config.ts";
@@ -21,7 +22,7 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
 
   const isDarkMode = useDarkMode();
 
-  const { nodes, materials } = useGLTF(componentSpec.modelUrl);
+  const { scene, materials } = useGLTF(componentSpec.modelUrl);
 
   const customMaterials = Object.entries(
     userCreationSnap.value.components[componentId].materials
@@ -68,44 +69,25 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
       }
       scale={componentSpec.scaleOffset}
     >
-      {Object.entries(nodes).map(([name, node]) => {
-        if (node.type === "Mesh") {
-          const mesh = node as Mesh;
-
-          const materialName = Array.isArray(mesh.material)
-            ? mesh.material[0].name
-            : mesh.material.name;
-          const material =
-            customMaterials[materialName] || materials[materialName];
-
-          return (
-            <mesh
-              key={name}
-              userData={{
-                componentId: componentId,
-                ignoreCollisions: componentSpec.ignoreCollisions,
-              }}
-              geometry={mesh.geometry}
-              material={material}
-            >
-              <Edges
-                visible={
-                  componentId === configuratorValuesSnap.selectedComponentId
-                }
-                scale={1}
-                color={
-                  isDarkMode
-                    ? globalConfig.config.spatialUi.selectionColors.outline.dark
-                    : globalConfig.config.spatialUi.selectionColors.outline
-                        .light
-                }
-                linewidth={5}
-              />
-            </mesh>
-          );
-        }
-        return null;
-      })}
+      <Render
+        object={scene}
+        materialOverrides={customMaterials}
+        userData={{
+          componentId: componentId,
+          ignoreCollisions: componentSpec.ignoreCollisions,
+        }}
+      >
+        <Edges
+          visible={componentId === configuratorValuesSnap.selectedComponentId}
+          scale={1}
+          color={
+            isDarkMode
+              ? globalConfig.config.spatialUi.selectionColors.outline.dark
+              : globalConfig.config.spatialUi.selectionColors.outline.light
+          }
+          linewidth={5}
+        />
+      </Render>
     </group>
   );
 };

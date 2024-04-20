@@ -1,8 +1,9 @@
 import { PlacementControls } from "@3dwebprodconf/shared/src/components/3d/PlacementControls.tsx";
+import { Render } from "@3dwebprodconf/shared/src/components/3d/Render.tsx";
 import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
 import { useGLTF } from "@react-three/drei";
-import { useEffect, useRef } from "react";
-import { Box3, Euler, Mesh, MeshBasicMaterial, Vector3 } from "three";
+import { useEffect, useMemo, useRef } from "react";
+import { Box3, Euler, Material, MeshBasicMaterial, Vector3 } from "three";
 import { useSnapshot } from "valtio";
 
 import { PreviewMountingPoint } from "./PreviewMountingPoint.tsx";
@@ -15,7 +16,7 @@ export const PreviewModel = () => {
   const { componentSpecId, componentSpec } = useSelectedComponentSpec();
   const editorValuesSnap = useSnapshot(EditorValuesStore);
 
-  const { scene, nodes, materials } = useGLTF(componentSpec.modelUrl);
+  const { scene } = useGLTF(componentSpec.modelUrl);
 
   const groupRef = useRef(null);
 
@@ -31,12 +32,6 @@ export const PreviewModel = () => {
         defaultAdminConfig.spatialUi.gizmoColors.g.light,
         defaultAdminConfig.spatialUi.gizmoColors.b.light,
       ];
-
-  const selectedMaterial = new MeshBasicMaterial({
-    color: darkMode
-      ? defaultAdminConfig.spatialUi.gridColors.primary.dark
-      : defaultAdminConfig.spatialUi.gridColors.primary.light,
-  });
 
   useEffect(() => {
     if (groupRef.current) {
@@ -54,6 +49,34 @@ export const PreviewModel = () => {
       EditorValuesStore.boundingBoxSize = undefined;
     };
   }, [scene, componentSpec.scaleOffset]);
+
+  const materialOverrides = useMemo(() => {
+    // eslint-disable-next-line valtio/state-snapshot-rule
+    if (!editorValuesSnap.selectedMaterial) {
+      return undefined;
+    }
+
+    const newMaterial = new MeshBasicMaterial({
+      color: darkMode
+        ? defaultAdminConfig.spatialUi.gridColors.primary.dark
+        : defaultAdminConfig.spatialUi.gridColors.primary.light,
+    });
+
+    return componentSpec.materialSpecs[
+      // eslint-disable-next-line valtio/state-snapshot-rule
+      editorValuesSnap.selectedMaterial
+    ].modelMaterials.reduce(
+      (acc, cur) => {
+        acc[cur] = newMaterial;
+        return acc;
+      },
+      {} as Record<string, Material>
+    );
+  }, [
+    componentSpec.materialSpecs,
+    darkMode,
+    editorValuesSnap.selectedMaterial,
+  ]);
 
   return (
     <>
@@ -94,30 +117,7 @@ export const PreviewModel = () => {
           scale={componentSpec.scaleOffset}
           ref={groupRef}
         >
-          {Object.entries(nodes).map(([name, node]) => {
-            if (node.type === "Mesh") {
-              const mesh = node as Mesh;
-              const materialName = Array.isArray(mesh.material)
-                ? mesh.material[0].name
-                : mesh.material.name;
-
-              let material = materials[materialName];
-              if (editorValuesSnap.selectedMaterial) {
-                const materialSpec =
-                  componentSpec.materialSpecs[
-                    editorValuesSnap.selectedMaterial
-                  ];
-                if (materialSpec.modelMaterials.includes(materialName)) {
-                  material = selectedMaterial;
-                }
-              }
-
-              return (
-                <mesh key={name} geometry={mesh.geometry} material={material} />
-              );
-            }
-            return null;
-          })}
+          <Render object={scene} materialOverrides={materialOverrides} />
         </group>
       </PlacementControls>
       {Object.keys(componentSpec.mountingPointsSpecs).map((mountingPointId) => {

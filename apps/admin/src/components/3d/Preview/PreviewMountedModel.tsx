@@ -1,6 +1,7 @@
+import { Render } from "@3dwebprodconf/shared/src/components/3d/Render.tsx";
 import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
 import { useGLTF } from "@react-three/drei";
-import { Euler, Mesh } from "three";
+import { Euler } from "three";
 import { useSnapshot } from "valtio";
 
 import { defaultAdminConfig } from "../../../configurations/Config.ts";
@@ -25,7 +26,7 @@ export const PreviewMountedModel = () => {
     );
   }
 
-  const { nodes } = useGLTF(previewedMountedComponent.modelUrl);
+  const { scene } = useGLTF(previewedMountedComponent.modelUrl);
 
   return (
     <group
@@ -37,26 +38,17 @@ export const PreviewMountedModel = () => {
       }
       scale={previewedMountedComponent.scaleOffset}
     >
-      {Object.entries(nodes).map(([name, node]) => {
-        if (node.type === "Mesh") {
-          const mesh = node as Mesh;
-
-          return (
-            <mesh key={name} geometry={mesh.geometry}>
-              <meshBasicMaterial
-                opacity={0.5}
-                transparent
-                color={
-                  darkMode
-                    ? defaultAdminConfig.spatialUi.gridColors.primary.dark
-                    : defaultAdminConfig.spatialUi.gridColors.primary.light
-                }
-              />
-            </mesh>
-          );
-        }
-        return null;
-      })}
+      <Render object={scene}>
+        <meshBasicMaterial
+          opacity={0.5}
+          transparent
+          color={
+            darkMode
+              ? defaultAdminConfig.spatialUi.gridColors.primary.dark
+              : defaultAdminConfig.spatialUi.gridColors.primary.light
+          }
+        />
+      </Render>
     </group>
   );
 };
