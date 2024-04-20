@@ -52,7 +52,7 @@ export const TopBar = ({ children }: TopBarProps) => {
               leaveTo="opacity-0 translate-y-1"
             >
               <Popover.Panel className="absolute z-[150] ml-10 mt-1 -translate-x-full px-2">
-                <div className="glass-panel">
+                <div className="simple-panel">
                   <div className="flex flex-col">
                     <ContainerHeader title={t("settings")} subheader={true} />
                     <div className="flex flex-col px-2 pb-2">

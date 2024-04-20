@@ -83,7 +83,18 @@ export const ProductComposerCanvas = () => {
               : defaultAdminConfig.spatialUi.gridColors.primary.light
           }
         />
-        <Bounds fit clip observe margin={4}>
+        <Box args={[0.1, 0.1, 0.1]} position={[0, 0, 0]}>
+          <meshBasicMaterial
+            opacity={0.5}
+            transparent
+            color={
+              darkMode
+                ? defaultAdminConfig.spatialUi.gridColors.primary.dark
+                : defaultAdminConfig.spatialUi.gridColors.primary.light
+            }
+          />
+        </Box>
+        <Bounds fit observe maxDuration={0.25}>
           <BoundsStorer
             key={editorValuesSnap.selectedComponentSpec}
             boundsStorage={EditorValuesStore}
@@ -91,16 +102,6 @@ export const ProductComposerCanvas = () => {
               refreshBounds();
             }}
           >
-            <Box
-              args={[0.1, 0.1, 0.1]}
-              position={[0, 0, 0]}
-              material-color={
-                darkMode
-                  ? defaultAdminConfig.spatialUi.gridColors.primary.dark
-                  : defaultAdminConfig.spatialUi.gridColors.primary.light
-              }
-            />
-
             <ErrorBoundary
               key={
                 "editedModel" +

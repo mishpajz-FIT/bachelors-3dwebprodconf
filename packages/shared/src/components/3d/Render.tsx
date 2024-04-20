@@ -4,7 +4,7 @@ import { Material, Mesh, Object3D } from "three";
 interface RenderProps {
   object: Object3D;
   materialOverrides?: Record<string, Material>;
-  userData: object;
+  userData?: object;
   children?: ReactNode;
 }
 

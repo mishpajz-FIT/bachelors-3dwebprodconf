@@ -20,7 +20,7 @@ export const Side = ({ isOpen, larger = false, children }: SideProps) => {
       leaveTo="translate-x-full"
     >
       <div
-        className={`absolute inset-y-0 right-0 z-[100] size-full p-4 ${larger ? "sm:w-96" : "sm:w-72"}`}
+        className={`absolute inset-y-0 right-0 z-[89] size-full p-4 ${larger ? "sm:w-96" : "sm:w-72"}`}
       >
         <div className="simple-panel flex size-full">{children}</div>
       </div>

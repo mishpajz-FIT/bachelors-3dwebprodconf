@@ -72,7 +72,7 @@ const ProductEditorCanvas = () => {
         </Bounds>
         {globalConfig.config.shadows.floorShadow && (
           <ContactShadows
-            position={[0, -0.5, 0]}
+            position={[0, 0, 0]}
             scale={10}
             blur={1.5}
             far={1}
