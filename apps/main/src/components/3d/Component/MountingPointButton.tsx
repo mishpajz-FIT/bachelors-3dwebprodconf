@@ -131,8 +131,9 @@ export const MountingPointButton = ({
         <div
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
           hidden={
-            configuratorValuesSnap.selectedComponentId !== undefined &&
-            configuratorValuesSnap.selectedComponentId !== componentId
+            !configuratorValuesSnap.showMountingPoints ||
+            (configuratorValuesSnap.selectedComponentId !== undefined &&
+              configuratorValuesSnap.selectedComponentId !== componentId)
           }
         >
           <button

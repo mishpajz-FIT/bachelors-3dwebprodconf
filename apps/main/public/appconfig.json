@@ -40,10 +40,10 @@
   },
   "images": {
     "logo": {
-      "light": "/logo.svg",
-      "dark": "/logo.svg"
+      "light": "/assets/logo.svg",
+      "dark": "/assets/logo-dark.svg"
     },
-    "favicon": "/logo.svg"
+    "favicon": "/assets/logo.svg"
   },
   "title": "Configurator - 3dwebprodconf"
 }

@@ -2,6 +2,8 @@ import { BoundsStorer } from "@3dwebprodconf/shared/src/components/BoundsStorer.
 import {
   ArrowUturnLeftIcon,
   ArrowUturnRightIcon,
+  EyeIcon,
+  EyeSlashIcon,
   VideoCameraIcon,
 } from "@heroicons/react/24/outline";
 import {
@@ -28,6 +30,7 @@ import { canvasChangedEvent, emitter } from "../../utilities/Emitters.ts";
 
 const ProductEditorCanvas = () => {
   const userCreationSnap = useSnapshot(UserCreationStore);
+  const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
 
   useEffect(() => {
     Object.values(ProductSpecificationStore.componentSpecs).forEach(
@@ -82,12 +85,25 @@ const ProductEditorCanvas = () => {
         <Preload all />
       </Canvas>
       <div className="absolute left-4 top-6">
-        <div className="glass-panel flex flex-col items-center justify-center rounded p-3 sm:p-2">
+        <div className="glass-panel flex flex-col items-center justify-center divide-y divide-gray-200 rounded dark:divide-zinc-700">
           <button
-            className="transition duration-150 ease-in-out active:scale-95"
+            className="p-3 transition duration-150 ease-in-out active:scale-95 sm:p-2"
             onClick={() => refreshBounds(() => undefined)}
           >
             <VideoCameraIcon className="size-4 stroke-2 hover:stroke-1" />
+          </button>
+          <button
+            className="p-3 transition duration-150 ease-in-out active:scale-95 sm:p-2"
+            onClick={() =>
+              (ConfiguratorValuesStore.showMountingPoints =
+                !ConfiguratorValuesStore.showMountingPoints)
+            }
+          >
+            {configuratorValuesSnap.showMountingPoints ? (
+              <EyeSlashIcon className="size-4 stroke-2 hover:stroke-1" />
+            ) : (
+              <EyeIcon className="size-4 stroke-2 hover:stroke-1" />
+            )}
           </button>
         </div>
       </div>

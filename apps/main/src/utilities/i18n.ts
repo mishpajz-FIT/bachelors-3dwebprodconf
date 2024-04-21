@@ -28,5 +28,7 @@ export function configureI18n() {
     })
     .catch((error) => console.error("i18n error: ", error));
 
+  i18n.on("languageChanged", (lng) => (document.documentElement.lang = lng));
+
   return i18n;
 }

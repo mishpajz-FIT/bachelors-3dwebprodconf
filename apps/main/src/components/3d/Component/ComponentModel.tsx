@@ -2,6 +2,7 @@ import { Render } from "@3dwebprodconf/shared/src/components/3d/Render.tsx";
 import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
 import { Edges, useGLTF } from "@react-three/drei";
 import { ThreeEvent } from "@react-three/fiber";
+import * as THREE from "three";
 import { Color, Euler, MeshStandardMaterial } from "three";
 import { useSnapshot } from "valtio";
 
@@ -9,6 +10,7 @@ import { globalConfig } from "../../../configurations/Config.ts";
 import { useComponent } from "../../../hooks/useComponent.ts";
 import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore.ts";
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
+import { useRef } from "react";
 
 interface ComponentModelProps {
   componentId: string;
@@ -23,6 +25,7 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
   const isDarkMode = useDarkMode();
 
   const { scene, materials } = useGLTF(componentSpec.modelUrl);
+  const groupRef = useRef<THREE.Group>(null);
 
   const customMaterials = Object.entries(
     userCreationSnap.value.components[componentId].materials
@@ -56,38 +59,45 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
     }
 
     ConfiguratorValuesStore.selectedComponentId = componentId;
+
+    if (groupRef.current) {
+      ConfiguratorValuesStore.selectedInGroup = groupRef.current;
+    }
   };
 
   return (
-    <group
-      onClick={onSelect}
-      position={componentSpec.positionOffset}
-      rotation={
-        componentSpec.rotationOffset
-          ? new Euler(...componentSpec.rotationOffset)
-          : undefined
-      }
-      scale={componentSpec.scaleOffset}
-    >
-      <Render
-        object={scene}
-        materialOverrides={customMaterials}
-        userData={{
-          componentId: componentId,
-          ignoreCollisions: componentSpec.ignoreCollisions,
-        }}
+    <group ref={groupRef}>
+      <group
+        onClick={onSelect}
+        position={componentSpec.positionOffset}
+        rotation={
+          componentSpec.rotationOffset
+            ? new Euler(...componentSpec.rotationOffset)
+            : undefined
+        }
+        scale={componentSpec.scaleOffset}
+        ref={groupRef}
       >
-        <Edges
-          visible={componentId === configuratorValuesSnap.selectedComponentId}
-          scale={1}
-          color={
-            isDarkMode
-              ? globalConfig.config.spatialUi.selectionColors.outline.dark
-              : globalConfig.config.spatialUi.selectionColors.outline.light
-          }
-          linewidth={5}
-        />
-      </Render>
+        <Render
+          object={scene}
+          materialOverrides={customMaterials}
+          userData={{
+            componentId: componentId,
+            ignoreCollisions: componentSpec.ignoreCollisions,
+          }}
+        >
+          <Edges
+            visible={componentId === configuratorValuesSnap.selectedComponentId}
+            scale={1}
+            color={
+              isDarkMode
+                ? globalConfig.config.spatialUi.selectionColors.outline.dark
+                : globalConfig.config.spatialUi.selectionColors.outline.light
+            }
+            linewidth={5}
+          />
+        </Render>
+      </group>
     </group>
   );
 };

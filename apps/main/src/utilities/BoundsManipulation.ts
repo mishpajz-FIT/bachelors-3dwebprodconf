@@ -9,10 +9,11 @@ export const refreshBounds = (action: () => void) => {
     return;
   }
 
-  bounds.refresh();
+  bounds.refresh(ConfiguratorValuesStore.selectedInGroup);
   if (globalConfig.config.camera.isOrthogonal) {
     bounds.reset();
   }
+
   bounds.clip();
   bounds.fit();
 };
