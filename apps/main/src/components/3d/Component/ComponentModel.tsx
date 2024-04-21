@@ -2,7 +2,7 @@ import { Render } from "@3dwebprodconf/shared/src/components/3d/Render.tsx";
 import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
 import { Edges, useGLTF } from "@react-three/drei";
 import { ThreeEvent } from "@react-three/fiber";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { Color, Euler, MeshStandardMaterial } from "three";
 import { useSnapshot } from "valtio";
@@ -53,6 +53,14 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
     {}
   );
 
+  useEffect(() => {
+    if (configuratorValuesSnap.selectedComponentId === componentId) {
+      if (groupRef.current) {
+        ConfiguratorValuesNonReactiveStore.currentGroup = groupRef.current;
+      }
+    }
+  }, [configuratorValuesSnap.selectedComponentId, componentId]);
+
   const onSelect = (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation();
 
@@ -62,10 +70,6 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
     }
 
     ConfiguratorValuesStore.selectedComponentId = componentId;
-
-    if (groupRef.current) {
-      ConfiguratorValuesNonReactiveStore.currentGroup = groupRef.current;
-    }
   };
 
   return (
