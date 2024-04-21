@@ -8,8 +8,8 @@
   "spatialUi": {
     "selectionColors": {
       "outline": {
-        "light": "#000000",
-        "dark": "#FFFFFF"
+        "light": "#3377ff",
+        "dark": "#0011ff"
       }
     }
   },

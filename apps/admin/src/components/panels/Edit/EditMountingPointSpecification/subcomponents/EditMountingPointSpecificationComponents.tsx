@@ -16,6 +16,7 @@ import { ProductStore } from "../../../../../stores/ProductStore.ts";
 
 export const EditMountingPointSpecificationComponents = () => {
   const productSnap = useSnapshot(ProductStore);
+  const editorValuesSnap = useSnapshot(EditorValuesStore);
   const { componentSpecId } = useSelectedComponentSpec();
   const { mountingPointSpecId, mountingPointSpec } =
     useSelectedMountingPointSpec();
@@ -79,13 +80,10 @@ export const EditMountingPointSpecificationComponents = () => {
             filteredComponents.map((mountableComponentId) => (
               <li
                 key={mountableComponentId}
-                className="tile-background underlined-selection m-1 w-full rounded-lg"
+                className={`tile-background underlined-selection m-1 w-full rounded-lg ${editorValuesSnap.previewedMountedComponent === mountableComponentId && "underline"}`}
                 onMouseEnter={() => {
                   EditorValuesStore.previewedMountedComponent =
                     mountableComponentId;
-                }}
-                onMouseLeave={() => {
-                  EditorValuesStore.previewedMountedComponent = undefined;
                 }}
               >
                 <div className="flex w-full flex-row items-center justify-between p-2">

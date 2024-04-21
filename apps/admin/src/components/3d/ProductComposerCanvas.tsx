@@ -19,7 +19,10 @@ import { useSnapshot } from "valtio";
 
 import { PreviewModel } from "./Preview/PreviewModel.tsx";
 import { defaultAdminConfig } from "../../configurations/Config.ts";
-import { EditorValuesStore } from "../../stores/EditorValuesStore.ts";
+import {
+  EditorValuesNonReactiveStore,
+  EditorValuesStore,
+} from "../../stores/EditorValuesStore.ts";
 import { ProductStore } from "../../stores/ProductStore.ts";
 import { errorToast } from "../../toasts/errorToast.ts";
 import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
@@ -97,7 +100,7 @@ export const ProductComposerCanvas = () => {
         <Bounds fit observe maxDuration={0.25}>
           <BoundsStorer
             key={editorValuesSnap.selectedComponentSpec}
-            boundsStorage={EditorValuesStore}
+            boundsStorage={EditorValuesNonReactiveStore}
             refresh={() => {
               refreshBounds();
             }}

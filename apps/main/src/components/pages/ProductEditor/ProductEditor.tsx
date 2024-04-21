@@ -1,4 +1,5 @@
 import { CanvasLoading } from "@3dwebprodconf/shared/src/components/CanvasLoading.tsx";
+import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
 import { Popup } from "@3dwebprodconf/shared/src/components/containers/Popup.tsx";
 import { Side } from "@3dwebprodconf/shared/src/components/containers/Side.tsx";
 import { lazy, Suspense, useState } from "react";
@@ -91,9 +92,16 @@ const ProductEditor = () => {
         isOpen={isMissingPopupOpen}
         onClose={() => setMissingPopupOpen(false)}
       >
-        <p className="m-4 rounded-lg bg-[var(--error-light)] p-2 text-sm text-white dark:bg-[var(--error-dark)]">
-          {t("missingRequiredComponents")}
-        </p>
+        <div className="flex flex-col">
+          <ContainerHeader
+            title={""}
+            subheader={true}
+            onClose={() => setMissingPopupOpen(false)}
+          />
+          <p className="m-4 rounded-lg bg-[var(--error-light)] p-2 text-sm text-white dark:bg-[var(--error-dark)]">
+            {t("missingRequiredComponents")}
+          </p>
+        </div>
       </Popup>
     </div>
   );

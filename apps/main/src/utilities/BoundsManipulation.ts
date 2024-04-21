@@ -1,15 +1,15 @@
 import { globalConfig } from "../configurations/Config.ts";
-import { ConfiguratorValuesStore } from "../stores/ConfiguratorValuesStore.ts";
+import { ConfiguratorValuesNonReactiveStore } from "../stores/ConfiguratorValuesStore.ts";
 
 export const refreshBounds = (action: () => void) => {
   action();
 
-  const bounds = ConfiguratorValuesStore.bounds;
+  const bounds = ConfiguratorValuesNonReactiveStore.bounds;
   if (!bounds) {
     return;
   }
 
-  bounds.refresh(ConfiguratorValuesStore.selectedInGroup);
+  bounds.refresh(ConfiguratorValuesNonReactiveStore.currentGroup);
   if (globalConfig.config.camera.isOrthogonal) {
     bounds.reset();
   }

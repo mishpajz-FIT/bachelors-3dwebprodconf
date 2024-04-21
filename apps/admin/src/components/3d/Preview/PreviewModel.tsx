@@ -9,7 +9,10 @@ import { useSnapshot } from "valtio";
 import { PreviewMountingPoint } from "./PreviewMountingPoint.tsx";
 import { defaultAdminConfig } from "../../../configurations/Config.ts";
 import { useSelectedComponentSpec } from "../../../hooks/useSelectedComponentSpec.ts";
-import { EditorValuesStore } from "../../../stores/EditorValuesStore.ts";
+import {
+  EditorValuesNonReactiveStore,
+  EditorValuesStore,
+} from "../../../stores/EditorValuesStore.ts";
 import { ProductStore } from "../../../stores/ProductStore.ts";
 
 export const PreviewModel = () => {
@@ -49,6 +52,16 @@ export const PreviewModel = () => {
       EditorValuesStore.boundingBoxSize = undefined;
     };
   }, [scene, componentSpec.scaleOffset]);
+
+  useEffect(() => {
+    if (groupRef.current) {
+      EditorValuesNonReactiveStore.currentGroup = groupRef.current;
+    }
+
+    return () => {
+      EditorValuesNonReactiveStore.currentGroup = undefined;
+    };
+  }, [groupRef]);
 
   const materialOverrides = useMemo(() => {
     // eslint-disable-next-line valtio/state-snapshot-rule

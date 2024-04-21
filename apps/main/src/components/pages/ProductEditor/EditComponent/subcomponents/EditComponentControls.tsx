@@ -8,7 +8,10 @@ import { useSnapshot } from "valtio";
 
 import { useComponent } from "../../../../../hooks/useComponent.ts";
 import { UserCreationActions } from "../../../../../stores/actions/UserCreationActions.ts";
-import { ConfiguratorValuesStore } from "../../../../../stores/ConfiguratorValuesStore.ts";
+import {
+  ConfiguratorValuesNonReactiveStore,
+  ConfiguratorValuesStore,
+} from "../../../../../stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "../../../../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../../../../utilities/BoundsManipulation.ts";
@@ -53,7 +56,7 @@ export const EditComponentControls = ({
       const worldQuaternion = new THREE.Quaternion();
       const worldRotation = new THREE.Euler();
 
-      const scene = ConfiguratorValuesStore.scene;
+      const scene = ConfiguratorValuesNonReactiveStore.scene;
       if (!scene) {
         return;
       }

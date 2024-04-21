@@ -104,10 +104,12 @@ export const PreviewMountingPoint = ({
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-40"
           onClick={() => {
             EditorValuesStore.selectedMountingPoint = mountingPointId;
+            EditorValuesStore.previewedMountedComponent = undefined;
           }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               EditorValuesStore.selectedMountingPoint = mountingPointId;
+              EditorValuesStore.previewedMountedComponent = undefined;
             }
           }}
           role={"button"}

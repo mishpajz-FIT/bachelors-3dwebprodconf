@@ -1,18 +1,1 @@
-{
-  "products": {
-    "bench": {
-      "name": "Modular bench",
-      "productSpecificationUrl": "/products/specs/productspecification.json",
-      "imageUrl": "https://www.nardinabytek.cz/data/images/tx770_1_tn1.jpg",
-      "submission": {
-        "type": "POST",
-        "endpointUrl": "http://localhost:3000/submit"
-      }
-    },
-    "stojan-s-s": {
-      "name": "Stojan úzký",
-      "imageUrl": "a",
-      "productSpecificationUrl": "/products/specs/stojan-uzky-maly.json"
-    }
-  }
-}
+{"products":{"pc-gaming":{"name":"Gaming PC","imageUrl":"https://www.punchtechnology.co.uk/wp-content/uploads/2020/07/vetro-scaled.jpg","productSpecificationUrl":"/products/specs/gamingpc.json"}}}

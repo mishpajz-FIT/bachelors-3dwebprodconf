@@ -2,15 +2,18 @@ import { Render } from "@3dwebprodconf/shared/src/components/3d/Render.tsx";
 import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
 import { Edges, useGLTF } from "@react-three/drei";
 import { ThreeEvent } from "@react-three/fiber";
+import { useRef } from "react";
 import * as THREE from "three";
 import { Color, Euler, MeshStandardMaterial } from "three";
 import { useSnapshot } from "valtio";
 
 import { globalConfig } from "../../../configurations/Config.ts";
 import { useComponent } from "../../../hooks/useComponent.ts";
-import { ConfiguratorValuesStore } from "../../../stores/ConfiguratorValuesStore.ts";
+import {
+  ConfiguratorValuesNonReactiveStore,
+  ConfiguratorValuesStore,
+} from "../../../stores/ConfiguratorValuesStore.ts";
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
-import { useRef } from "react";
 
 interface ComponentModelProps {
   componentId: string;
@@ -61,7 +64,7 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
     ConfiguratorValuesStore.selectedComponentId = componentId;
 
     if (groupRef.current) {
-      ConfiguratorValuesStore.selectedInGroup = groupRef.current;
+      ConfiguratorValuesNonReactiveStore.currentGroup = groupRef.current;
     }
   };
 

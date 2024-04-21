@@ -24,7 +24,7 @@ export const BoundsStorer = ({
     return () => {
       boundsStorage.bounds = undefined;
     };
-  }, [bounds, boundsStorage, refresh]);
+  }, [boundsStorage, bounds, refresh]);
 
   return children;
 };

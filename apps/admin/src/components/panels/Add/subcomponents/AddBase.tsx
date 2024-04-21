@@ -72,7 +72,7 @@ export const AddBase = ({ onClose }: AddBaseProps) => {
             />
           </label>
           <div>
-            <span className="label-aligned">Name</span>
+            <span className="label-aligned">Component</span>
             <div className="w-full px-1 pb-1 pt-2">
               <Combobox
                 value={selectedComponent}

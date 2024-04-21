@@ -4,23 +4,28 @@ import { proxy, subscribe } from "valtio";
 
 interface ConfiguratorValuesStore {
   selectedComponentId?: string;
-  scene: Scene | undefined;
   showMountingPoints: boolean;
-  selectedInGroup: Group | undefined;
 }
 
-export const ConfiguratorValuesStore = proxy<
-  ConfiguratorValuesStore & BoundsStorage
->({
+export const ConfiguratorValuesStore = proxy<ConfiguratorValuesStore>({
   selectedComponentId: undefined,
-  scene: undefined,
-  bounds: undefined,
   showMountingPoints: true,
-  selectedInGroup: undefined,
 });
 
 subscribe(ConfiguratorValuesStore, () => {
   if (ConfiguratorValuesStore.selectedComponentId === undefined) {
-    ConfiguratorValuesStore.selectedInGroup = undefined;
+    ConfiguratorValuesNonReactiveStore.currentGroup = undefined;
   }
 });
+
+interface ConfiguratorValuesNonReactiveStore {
+  scene: Scene | undefined;
+  currentGroup: Group | undefined;
+}
+
+export const ConfiguratorValuesNonReactiveStore: ConfiguratorValuesNonReactiveStore &
+  BoundsStorage = {
+  scene: undefined,
+  currentGroup: undefined,
+  bounds: undefined,
+};

@@ -1,12 +1,12 @@
-import { EditorValuesStore } from "../stores/EditorValuesStore.ts";
+import { EditorValuesNonReactiveStore } from "../stores/EditorValuesStore.ts";
 
 export const refreshBounds = () => {
-  const bounds = EditorValuesStore.bounds;
+  const bounds = EditorValuesNonReactiveStore.bounds;
   if (!bounds) {
     return;
   }
 
-  bounds.refresh();
+  bounds.refresh(EditorValuesNonReactiveStore.currentGroup);
   bounds.clip();
   bounds.fit();
 };
