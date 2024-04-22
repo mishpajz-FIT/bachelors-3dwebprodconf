@@ -45,7 +45,7 @@ export const EditComponentSpecificationPositioning = () => {
               {[0, 1, 2].map((index) => (
                 <NumericalInput
                   key={`dimension${index}`}
-                  submitValue={(value: number) => {
+                  submitValue={(value: number | undefined) => {
                     const editableProduct = ProductActions.getComponentSpec(
                       componentSpecId,
                       ProductStore
@@ -58,10 +58,10 @@ export const EditComponentSpecificationPositioning = () => {
                     }
 
                     const currentSize =
-                      editorValuesSnap.boundingBoxSize?.at(index) ?? 0;
+                      editorValuesSnap.boundingBoxSize?.at(index) ?? 1;
                     const originalSize = currentSize / (scales[index] ?? 1);
 
-                    scales[index] = value / originalSize;
+                    scales[index] = (value ?? 1) / originalSize;
                   }}
                   currentValue={
                     editorValuesSnap.boundingBoxSize?.at(index) ?? 0
@@ -79,7 +79,7 @@ export const EditComponentSpecificationPositioning = () => {
               {[0, 1, 2].map((index) => (
                 <NumericalInput
                   key={`position${index}`}
-                  submitValue={(value: number) => {
+                  submitValue={(value: number | undefined) => {
                     const values = ProductActions.getComponentSpec(
                       componentSpecId,
                       ProductStore
@@ -89,7 +89,7 @@ export const EditComponentSpecificationPositioning = () => {
                         `Missing position values on ${componentSpecId}!`
                       );
                     }
-                    values[index] = value;
+                    values[index] = value ?? 0;
                   }}
                   currentValue={componentSpec.positionOffset?.at(index)}
                   placeholder={0}
@@ -107,7 +107,7 @@ export const EditComponentSpecificationPositioning = () => {
               {[0, 1, 2].map((index) => (
                 <NumericalInput
                   key={`rotation${index}`}
-                  submitValue={(value: number) => {
+                  submitValue={(value: number | undefined) => {
                     const values = ProductActions.getComponentSpec(
                       componentSpecId,
                       ProductStore
@@ -117,7 +117,7 @@ export const EditComponentSpecificationPositioning = () => {
                         `Missing rotation values on ${componentSpecId}!`
                       );
                     }
-                    values[index] = MathUtils.degToRad(value);
+                    values[index] = MathUtils.degToRad(value ?? 0);
                   }}
                   currentValue={MathUtils.radToDeg(
                     componentSpec.rotationOffset?.at(index) ?? 0
@@ -138,7 +138,7 @@ export const EditComponentSpecificationPositioning = () => {
               {[0, 1, 2].map((index) => (
                 <NumericalInput
                   key={`scale${index}`}
-                  submitValue={(value: number) => {
+                  submitValue={(value: number | undefined) => {
                     const values = ProductActions.getComponentSpec(
                       componentSpecId,
                       ProductStore
@@ -148,7 +148,7 @@ export const EditComponentSpecificationPositioning = () => {
                         `Missing scale values on ${componentSpecId}!`
                       );
                     }
-                    values[index] = value;
+                    values[index] = value ?? 0;
                   }}
                   currentValue={componentSpec.scaleOffset?.at(index)}
                   placeholder={1}

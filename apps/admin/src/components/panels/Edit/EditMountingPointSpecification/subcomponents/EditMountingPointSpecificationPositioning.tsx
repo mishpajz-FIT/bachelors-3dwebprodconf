@@ -22,14 +22,14 @@ export const EditMountingPointSpecificationPositioning = () => {
               {[0, 1, 2].map((index) => (
                 <NumericalInput
                   key={`position${index}`}
-                  submitValue={(value: number) => {
+                  submitValue={(value: number | undefined) => {
                     ProductActions.getMountingPointSpec(
                       ProductActions.getComponentSpec(
                         componentSpecId,
                         ProductStore
                       ),
                       mountingPointSpecId
-                    ).position[index] = value;
+                    ).position[index] = value ?? 0;
                   }}
                   currentValue={mountingPointSpec.position.at(index)}
                   placeholder={0}
@@ -47,14 +47,14 @@ export const EditMountingPointSpecificationPositioning = () => {
               {[0, 1, 2].map((index) => (
                 <NumericalInput
                   key={`rotation${index}`}
-                  submitValue={(value: number) => {
+                  submitValue={(value: number | undefined) => {
                     ProductActions.getMountingPointSpec(
                       ProductActions.getComponentSpec(
                         componentSpecId,
                         ProductStore
                       ),
                       mountingPointSpecId
-                    ).rotation[index] = MathUtils.degToRad(value);
+                    ).rotation[index] = MathUtils.degToRad(value ?? 0);
                   }}
                   currentValue={MathUtils.radToDeg(
                     mountingPointSpec.rotation.at(index) ?? 0

@@ -2,6 +2,7 @@ import { formatZodError } from "@3dwebprodconf/shared/src/utilites/Formatting.ts
 import { ChangeEvent } from "react";
 import { ZodError } from "zod";
 
+import { EditorActions } from "../../../../../stores/actions/EditorActions.ts";
 import { ProductActions } from "../../../../../stores/actions/ProductActions.ts";
 import { EditorValuesStore } from "../../../../../stores/EditorValuesStore.ts";
 import { ProductStore } from "../../../../../stores/ProductStore.ts";
@@ -35,9 +36,7 @@ export const ProductComposerTabsImportButton = () => {
         errorToast(message);
       });
 
-    EditorValuesStore.selectedComponentSpec = undefined;
-    EditorValuesStore.selectedMaterial = undefined;
-    EditorValuesStore.selectedMountingPoint = undefined;
+    EditorActions.reset(EditorValuesStore);
   };
 
   return (

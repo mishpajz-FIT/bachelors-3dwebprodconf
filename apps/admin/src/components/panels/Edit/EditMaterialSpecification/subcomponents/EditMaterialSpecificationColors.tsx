@@ -116,7 +116,7 @@ export const EditMaterialSpecificationColors = () => {
                 <label htmlFor={"color-index"}>
                   <span className="label-aligned text-xs">Sort index</span>
                   <NumericalInput
-                    submitValue={(value: number) => {
+                    submitValue={(value: number | undefined) => {
                       ProductActions.getColorSpec(
                         ProductActions.getMaterialSpec(
                           ProductActions.getComponentSpec(
@@ -126,7 +126,7 @@ export const EditMaterialSpecificationColors = () => {
                           materialSpecId
                         ),
                         colorSpecId
-                      ).sortIndex = value;
+                      ).sortIndex = value ?? 0;
                     }}
                     currentValue={colorSpec.sortIndex}
                     placeholder={1}

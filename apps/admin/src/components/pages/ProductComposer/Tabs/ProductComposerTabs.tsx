@@ -6,7 +6,9 @@ import { ProductComposerTabsBasesList } from "./subcomponents/ProductComposerTab
 import { ProductComposerTabsComponentsList } from "./subcomponents/ProductComposerTabsComponentsList.tsx";
 import { ProductComposerTabsExportButton } from "./subcomponents/ProductComposerTabsExportButton.tsx";
 import { ProductComposerTabsImportButton } from "./subcomponents/ProductComposerTabsImportButton.tsx";
+import { EditorActions } from "../../../../stores/actions/EditorActions.ts";
 import { ProductActions } from "../../../../stores/actions/ProductActions.ts";
+import { EditorValuesStore } from "../../../../stores/EditorValuesStore.ts";
 import { ProductStore } from "../../../../stores/ProductStore.ts";
 
 export const ProductComposerTabs = () => {
@@ -49,6 +51,7 @@ export const ProductComposerTabs = () => {
           className="other-button destructive-button-on-hold flex items-center justify-center"
           onSubmit={() => {
             ProductActions.clearProductSpecification(ProductStore);
+            EditorActions.reset(EditorValuesStore);
           }}
           duration={500}
           popoverPosition={"top-start"}

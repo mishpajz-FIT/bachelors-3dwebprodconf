@@ -102,7 +102,9 @@ export const EditComponentSpecificationDetails = () => {
             </span>
             <NumericalInput
               inputId={"collision-sensitivity"}
-              submitValue={(value: number) => {
+              submitValue={(value: number | undefined) => {
+                console.log(value);
+
                 ProductActions.getComponentSpec(
                   componentSpecId,
                   ProductStore

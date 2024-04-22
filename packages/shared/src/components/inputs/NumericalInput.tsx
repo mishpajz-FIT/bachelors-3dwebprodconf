@@ -15,7 +15,7 @@ import {
 } from "react";
 
 interface NumericalInputProps {
-  submitValue: (newValue: number) => void;
+  submitValue: (newValue: number | undefined) => void;
   allowEmpty: boolean;
   minimum?: number;
   maximum?: number;
@@ -54,14 +54,7 @@ export const NumericalInput = ({
   }, [currentValue]);
 
   const validate = (value: string) => {
-    const isNumeric = /^-?[0-9]*[.,]?[0-9]*$/;
-
-    if (value === "" && !allowEmpty) {
-      setInnerValue(value);
-      setTooltipText(`Cannot be empty`);
-      setIsValid(false);
-      return false;
-    }
+    const isNumeric = /^-?[0-9]+[.,]?[0-9]*$/;
 
     if (isNumeric.test(value)) {
       const numericValue = parseFloat(value.replace(",", "."));
@@ -81,15 +74,24 @@ export const NumericalInput = ({
       }
 
       setInnerValue(value);
-    }
-
-    if (innerValue !== "") {
       setIsValid(true);
       return true;
     }
 
-    setIsValid(false);
-    return false;
+    const reducedWhiteSpace = value.trim();
+    if (reducedWhiteSpace === "") {
+      setInnerValue("");
+      if (allowEmpty) {
+        setIsValid(true);
+        return true;
+      } else {
+        setIsValid(false);
+        setTooltipText(`Cannot be empty`);
+        return false;
+      }
+    } else {
+      return false;
+    }
   };
 
   const onSubmit = (value: string) => {
@@ -99,8 +101,12 @@ export const NumericalInput = ({
       return;
     }
 
-    const parsedValue = parseFloat(value.replace(",", "."));
+    if (allowEmpty && value.trim() === "") {
+      submitValue(undefined);
+      return;
+    }
 
+    const parsedValue = parseFloat(value.replace(",", "."));
     submitValue(parsedValue);
   };
 
