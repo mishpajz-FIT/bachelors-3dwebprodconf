@@ -21,7 +21,7 @@ export const SkeletonImage = ({ src, alt, className }: SkeletonImageProps) => {
       <img
         src={src}
         alt={alt}
-        className={`${className} transition-all duration-300 ease-in-out ${imageLoaded ? "opacity-100" : "opacity-0"} object-cover`}
+        className={`${className} transition-all duration-300 ease-in-out ${imageLoaded ? "opacity-100" : "opacity-0"} bg-white object-contain`}
         onLoad={() => setImageLoaded(true)}
         onError={() => setImageError(true)}
         style={{

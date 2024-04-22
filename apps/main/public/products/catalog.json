@@ -1,1 +1,13 @@
-{"products":{"pc-gaming":{"name":"Gaming PC","imageUrl":"https://www.punchtechnology.co.uk/wp-content/uploads/2020/07/vetro-scaled.jpg","productSpecificationUrl":"/products/specs/gamingpc.json"}}}
+{
+  "products": {
+    "pc-gaming": {
+      "name": "Gaming PC",
+      "productSpecificationUrl": "/products/specs/gamingpc.json",
+      "imageUrl": "https://www.punchtechnology.co.uk/wp-content/uploads/2020/07/vetro-scaled.jpg",
+      "submission": {
+        "endpointUrl": "https://3dwebprodconf-formhook.captainmishan.workers.dev",
+        "type": "CONTACT_FORM"
+      }
+    }
+  }
+}

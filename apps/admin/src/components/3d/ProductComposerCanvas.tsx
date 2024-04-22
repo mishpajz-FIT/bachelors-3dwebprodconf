@@ -14,7 +14,7 @@ import {
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { ErrorBoundary } from "react-error-boundary";
-import { DoubleSide } from "three";
+import { DoubleSide, MOUSE } from "three";
 import { useSnapshot } from "valtio";
 
 import { PreviewModel } from "./Preview/PreviewModel.tsx";
@@ -54,7 +54,15 @@ export const ProductComposerCanvas = () => {
         shadows={true}
         camera={{ position: [0, 1.7, 3] }}
       >
-        <OrbitControls makeDefault={true} regress={true} />
+        <OrbitControls
+          makeDefault={true}
+          regress={true}
+          mouseButtons={{
+            LEFT: MOUSE.PAN,
+            MIDDLE: MOUSE.DOLLY,
+            RIGHT: MOUSE.ROTATE,
+          }}
+        />
         <Environment preset="city" />
         <AdaptiveDpr />
         <ambientLight intensity={0.3} />

@@ -1,11 +1,14 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
+import { Spinner } from "@3dwebprodconf/shared/src/components/Spinner.tsx";
+import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
 import { SubmissionOption } from "@3dwebprodconf/shared/src/schemas/Catalog.ts";
 import { ContactInfo } from "@3dwebprodconf/shared/src/schemas/network/ContactInfo.ts";
 import { successToast } from "@3dwebprodconf/shared/src/toasts/successToast.ts";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
+import { globalConfig } from "../../../../configurations/Config.ts";
 import { CatalogStore } from "../../../../stores/CatalogStore.ts";
 import { UserCreationStore } from "../../../../stores/UserCreationStore.ts";
 import { errorToast } from "../../../../toasts/errorToast.ts";
@@ -20,9 +23,12 @@ export const ProductConfirmationContactForm = ({
 }: ProductConfirmationContactFormProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const isDarkmode = useDarkMode();
 
   const submissionOption =
     CatalogStore.catalog?.products[UserCreationStore.value.product]?.submission;
+
+  const [isLoading, setLoading] = useState(false);
 
   const handleSubmit = async (
     submission: SubmissionOption,
@@ -41,6 +47,7 @@ export const ProductConfirmationContactForm = ({
     );
 
     successToast(t("submittedContactForm"));
+    setLoading(false);
 
     if (redirectUrl) {
       window.location.href = redirectUrl;
@@ -52,6 +59,10 @@ export const ProductConfirmationContactForm = ({
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!submissionOption) return;
+
+    if (isLoading) return;
+
+    setLoading(true);
 
     const formData = new FormData(event.currentTarget);
     const contactInfo: ContactInfo = {
@@ -67,6 +78,7 @@ export const ProductConfirmationContactForm = ({
 
     handleSubmit(submissionOption, contactInfo).catch(() => {
       errorToast(t("problemDuringContactFormSubmission"));
+      setLoading(false);
     });
   };
 
@@ -122,7 +134,19 @@ export const ProductConfirmationContactForm = ({
             />
           </label>
           <button type="submit" className="primary-button" tabIndex={0}>
-            {t("confirm")}
+            {!isLoading ? (
+              t("confirm")
+            ) : (
+              <Spinner
+                dark={
+                  (!isDarkmode &&
+                    !globalConfig.config.ui.colors.primary
+                      .overlayTextWhiteLight) ||
+                  (isDarkmode &&
+                    !globalConfig.config.ui.colors.primary.overlayTextWhiteDark)
+                }
+              />
+            )}
           </button>
         </div>
       </form>

@@ -16,3 +16,12 @@
     transform: rotateX(0) rotateY(180deg);
   }
 }
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

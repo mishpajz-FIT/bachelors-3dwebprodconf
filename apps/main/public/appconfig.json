@@ -11,6 +11,9 @@
         "light": "#3377ff",
         "dark": "#0011ff"
       }
+    },
+    "controls": {
+      "swapMouseButtons": false
     }
   },
   "ui": {
@@ -40,8 +43,8 @@
   },
   "images": {
     "logo": {
-      "light": "/assets/logo.svg",
-      "dark": "/assets/logo-dark.svg"
+      "light": "/images/logo.svg",
+      "dark": "/images/logo-dark.svg"
     },
     "favicon": "/assets/logo.svg"
   },

@@ -1,5 +1,7 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
 import { Popup } from "@3dwebprodconf/shared/src/components/containers/Popup.tsx";
+import { Spinner } from "@3dwebprodconf/shared/src/components/Spinner.tsx";
+import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
 import {
   SubmissionOption,
   SubmissionTypeSchema,
@@ -21,6 +23,9 @@ import { submitProduct } from "../../../utilities/Requesting.ts";
 
 export const ProductConfirmation = () => {
   const { t } = useTranslation();
+  const isDarkmode = useDarkMode();
+
+  const [isLoading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -44,6 +49,7 @@ export const ProductConfirmation = () => {
     );
 
     successToast(t("submitted"));
+    setLoading(false);
 
     if (redirectUrl) {
       window.location.href = redirectUrl;
@@ -60,8 +66,10 @@ export const ProductConfirmation = () => {
         window.location.href = submissionOption.endpointUrl;
         break;
       case SubmissionTypeSchema.Enum.POST:
+        setLoading(true);
         handleSubmit(submissionOption).catch(() => {
           errorToast(t("problemDuringSubmission"));
+          setLoading(false);
         });
         break;
       case SubmissionTypeSchema.Enum.CONTACT_FORM:
@@ -118,7 +126,20 @@ export const ProductConfirmation = () => {
               </button>
               {submissionOption && (
                 <button className="primary-button" onClick={onConfirm}>
-                  {t("confirm")}
+                  {!isLoading ? (
+                    t("confirm")
+                  ) : (
+                    <Spinner
+                      dark={
+                        (!isDarkmode &&
+                          !globalConfig.config.ui.colors.primary
+                            .overlayTextWhiteLight) ||
+                        (isDarkmode &&
+                          !globalConfig.config.ui.colors.primary
+                            .overlayTextWhiteDark)
+                      }
+                    />
+                  )}
                 </button>
               )}
             </div>
@@ -144,7 +165,20 @@ export const ProductConfirmation = () => {
             )}
             {submissionOption && (
               <button className="primary-button" onClick={onConfirm}>
-                {t("confirm")}
+                {!isLoading ? (
+                  t("confirm")
+                ) : (
+                  <Spinner
+                    dark={
+                      (!isDarkmode &&
+                        !globalConfig.config.ui.colors.primary
+                          .overlayTextWhiteLight) ||
+                      (isDarkmode &&
+                        !globalConfig.config.ui.colors.primary
+                          .overlayTextWhiteDark)
+                    }
+                  />
+                )}
               </button>
             )}
           </div>

@@ -14,6 +14,9 @@ const defaultConfig: AppConfig = {
         dark: "#FFFFFF",
       },
     },
+    controls: {
+      swapMouseButtons: false,
+    },
   },
   ui: {
     languages: {

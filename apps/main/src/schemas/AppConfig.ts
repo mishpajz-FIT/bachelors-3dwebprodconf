@@ -14,6 +14,9 @@ export const AppConfigSchema = z.object({
         dark: z.string().length(7).regex(/^#/),
       }),
     }),
+    controls: z.object({
+      swapMouseButtons: z.boolean(),
+    }),
   }),
   ui: z.object({
     languages: z.object({

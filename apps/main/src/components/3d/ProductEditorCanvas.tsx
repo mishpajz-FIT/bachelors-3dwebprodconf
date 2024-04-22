@@ -17,6 +17,7 @@ import {
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useEffect } from "react";
+import { MOUSE } from "three";
 import { useSnapshot } from "valtio";
 
 import { Component } from "./Component/Component.tsx";
@@ -57,7 +58,19 @@ const ProductEditorCanvas = () => {
         }}
       >
         <SceneStorer />
-        <OrbitControls makeDefault={true} regress={true} />
+        <OrbitControls
+          makeDefault={true}
+          regress={true}
+          mouseButtons={
+            globalConfig.config.spatialUi.controls.swapMouseButtons
+              ? {
+                  LEFT: MOUSE.PAN,
+                  MIDDLE: MOUSE.DOLLY,
+                  RIGHT: MOUSE.ROTATE,
+                }
+              : undefined
+          }
+        />
         <Environment preset="city" />
         <AdaptiveDpr />
         <ambientLight intensity={0.3} />
