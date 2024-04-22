@@ -31,6 +31,7 @@ export const ComponentSpecificationSchema = z.object({
   scaleOffset: z.tuple([z.number(), z.number(), z.number()]).optional(),
   ignoreCollisions: z.boolean().optional(),
   collisionSensitivity: z.number().min(50).max(100).optional(),
+  sortIndex: z.number().optional(),
 });
 
 export const ProductSpecificationSchema = z.object({

@@ -7,8 +7,10 @@ import {
   WheelEventHandler,
 } from "react";
 import { useTranslation } from "react-i18next";
+import { useSnapshot } from "valtio";
 
 import { AddComponentTile } from "./subcomponents/AddComponentTile.tsx";
+import { ProductSpecificationStore } from "../../../../stores/ProductSpecificationStore.ts";
 
 interface AddComponentProps {
   mountableComponentsSpecs: readonly string[];
@@ -22,6 +24,8 @@ export const AddComponent = ({
   onAdd,
 }: AddComponentProps) => {
   const { t } = useTranslation();
+
+  const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
@@ -49,6 +53,29 @@ export const AddComponent = ({
     }
   }, []);
 
+  const sortComponents = (
+    lhsComponentSpecId: string,
+    rhsComponentSpecId: string
+  ): number => {
+    const lhsComponentSpec =
+      // eslint-disable-next-line valtio/state-snapshot-rule
+      productSpecsSnap.componentSpecs[lhsComponentSpecId];
+    const rhsComponentSpec =
+      // eslint-disable-next-line valtio/state-snapshot-rule
+      productSpecsSnap.componentSpecs[rhsComponentSpecId];
+
+    if (
+      lhsComponentSpec.sortIndex !== undefined &&
+      rhsComponentSpec.sortIndex !== undefined
+    ) {
+      return lhsComponentSpec.sortIndex - rhsComponentSpec.sortIndex;
+    } else if (lhsComponentSpec.sortIndex === undefined) {
+      return 1;
+    } else {
+      return -1;
+    }
+  };
+
   return (
     <>
       <ContainerHeader
@@ -62,17 +89,19 @@ export const AddComponent = ({
         onWheel={onWheel}
         className="flex items-center space-x-2 overflow-x-scroll px-4 py-2"
       >
-        {[...mountableComponentsSpecs].sort().map((componentSpecId, index) => (
-          <div className="m-2 h-[150px] w-[360px] shrink-0" key={index}>
-            <AddComponentTile
-              componentSpecId={componentSpecId}
-              onAdd={() => {
-                onAdd(componentSpecId);
-                onClose();
-              }}
-            />
-          </div>
-        ))}
+        {[...mountableComponentsSpecs]
+          .sort(sortComponents)
+          .map((componentSpecId, index) => (
+            <div className="m-2 h-[150px] w-[360px] shrink-0" key={index}>
+              <AddComponentTile
+                componentSpecId={componentSpecId}
+                onAdd={() => {
+                  onAdd(componentSpecId);
+                  onClose();
+                }}
+              />
+            </div>
+          ))}
 
         {isOverflowing && (
           <div className="other-background-fade-right pointer-events-none absolute bottom-4 right-0 top-12 w-14" />

@@ -115,6 +115,21 @@ export const EditComponentSpecificationDetails = () => {
               allowEmpty={true}
             />
           </label>
+          <label htmlFor={"sort-index"}>
+            <span className="label-aligned">Sort index</span>
+            <NumericalInput
+              submitValue={(value: number | undefined) => {
+                ProductActions.getComponentSpec(
+                  componentSpecId,
+                  ProductStore
+                ).sortIndex = value;
+              }}
+              currentValue={componentSpec.sortIndex}
+              placeholder={10}
+              allowEmpty={true}
+              inputId={"sort-index"}
+            />
+          </label>
         </div>
       </form>
     </div>
