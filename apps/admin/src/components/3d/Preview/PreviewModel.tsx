@@ -104,6 +104,9 @@ export const PreviewModel = () => {
             ? [...componentSpec.rotationOffset]
             : [0, 0, 0]
         }
+        currentScale={
+          componentSpec.scaleOffset ? [...componentSpec.scaleOffset] : [1, 1, 1]
+        }
         updatePosition={(position) => {
           const editableComponent =
             ProductStore.componentSpecs[componentSpecId];
@@ -115,6 +118,12 @@ export const PreviewModel = () => {
             ProductStore.componentSpecs[componentSpecId];
 
           editableComponent.rotationOffset = rotation;
+        }}
+        updateScale={(scale) => {
+          const editableComponent =
+            ProductStore.componentSpecs[componentSpecId];
+
+          editableComponent.scaleOffset = scale;
         }}
         onManipulationEnd={() => undefined}
         axisColors={rgbColors}

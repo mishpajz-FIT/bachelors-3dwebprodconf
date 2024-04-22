@@ -43,12 +43,33 @@ export const EditComponentSpecificationPositioning = () => {
             </span>
             <div className="flex flex-row gap-1">
               {[0, 1, 2].map((index) => (
-                <span
+                <NumericalInput
                   key={`dimension${index}`}
-                  className="field bg-white dark:bg-zinc-900"
-                >
-                  {editorValuesSnap.boundingBoxSize?.at(index)?.toFixed(4)}
-                </span>
+                  submitValue={(value: number) => {
+                    const editableProduct = ProductActions.getComponentSpec(
+                      componentSpecId,
+                      ProductStore
+                    );
+                    const scales = editableProduct.scaleOffset;
+                    if (!scales) {
+                      throw new Error(
+                        `Missing scale values on ${componentSpecId}!`
+                      );
+                    }
+
+                    const currentSize =
+                      editorValuesSnap.boundingBoxSize?.at(index) ?? 0;
+                    const originalSize = currentSize / (scales[index] ?? 1);
+
+                    scales[index] = value / originalSize;
+                  }}
+                  currentValue={
+                    editorValuesSnap.boundingBoxSize?.at(index) ?? 0
+                  }
+                  placeholder={1}
+                  minimum={0}
+                  allowEmpty={false}
+                />
               ))}
             </div>
           </div>

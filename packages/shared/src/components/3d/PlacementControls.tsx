@@ -5,9 +5,11 @@ import { Euler, Quaternion, Vector3 } from "three";
 interface PlacementControlsProps {
   currentPosition: [number, number, number];
   currentRotation: [number, number, number];
+  currentScale?: [number, number, number];
   onManipulationEnd: () => void;
   updatePosition: (position: [number, number, number]) => void;
   updateRotation: (rotation: [number, number, number]) => void;
+  updateScale: (scale: [number, number, number]) => void;
   axisColors?: [string, string, string];
   hidden?: boolean;
   children?: ReactNode;
@@ -16,9 +18,11 @@ interface PlacementControlsProps {
 export const PlacementControls = ({
   currentPosition,
   currentRotation,
+  currentScale,
   onManipulationEnd,
   updatePosition,
   updateRotation,
+  updateScale,
   axisColors = ["#DC143C", "#00FF7F", "#1E90FF"],
   hidden,
   children,
@@ -27,6 +31,7 @@ export const PlacementControls = ({
     useState<[number, number, number]>(currentPosition);
   const [dragRotation, setDragRotation] =
     useState<[number, number, number]>(currentRotation);
+  const [dragScale, setDragScale] = useState(currentScale);
 
   if (hidden) return children;
 
@@ -42,7 +47,9 @@ export const PlacementControls = ({
       onDragStart={() => {
         setDragPosition(currentPosition);
         setDragRotation(currentRotation);
+        setDragScale(currentScale);
       }}
+      disableScaling={!currentScale || !setDragScale}
       onDrag={(w) => {
         const position = new Vector3();
         const scale = new Vector3();
@@ -63,8 +70,15 @@ export const PlacementControls = ({
           const rotation = new Euler().setFromQuaternion(
             quaternion.multiply(currentRotationQuaternion)
           );
-
           updateRotation([rotation.x, rotation.y, rotation.z]);
+        }
+
+        if (dragScale && updateScale !== undefined) {
+          updateScale([
+            dragScale[0] * scale.x,
+            dragScale[1] * scale.y,
+            dragScale[2] * scale.z,
+          ]);
         }
       }}
       onDragEnd={onManipulationEnd}
