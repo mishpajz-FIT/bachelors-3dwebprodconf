@@ -80,7 +80,7 @@ const ProductEditorCanvas = () => {
           intensity={0.5}
         />
         <directionalLight position={[2, 2, 5]} intensity={0.7} />
-        <Bounds fit clip observe margin={2}>
+        <Bounds fit clip observe margin={1.2}>
           <BoundsStorer
             key={userCreationSnap.value.base}
             boundsStorage={ConfiguratorValuesNonReactiveStore}
