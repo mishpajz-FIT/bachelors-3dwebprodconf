@@ -89,6 +89,11 @@ export const NumericalInput = ({
         setTooltipText(`Cannot be empty`);
         return false;
       }
+    } else if (reducedWhiteSpace === "-" && (!minimum || minimum < 0)) {
+      console.log(reducedWhiteSpace);
+      setIsValid(true);
+      setInnerValue("-");
+      return false;
     } else {
       return false;
     }

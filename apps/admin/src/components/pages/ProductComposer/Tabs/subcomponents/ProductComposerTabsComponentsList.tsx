@@ -3,6 +3,7 @@ import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
+import { EditorActions } from "../../../../../stores/actions/EditorActions.ts";
 import { EditorValuesStore } from "../../../../../stores/EditorValuesStore.ts";
 import { ProductStore } from "../../../../../stores/ProductStore.ts";
 import { AddComponentSpecification } from "../../../../panels/Add/subcomponents/AddComponentSpecification.tsx";
@@ -70,9 +71,8 @@ export const ProductComposerTabsComponentsList = () => {
             >
               <button
                 onClick={() => {
+                  EditorActions.reset(EditorValuesStore);
                   EditorValuesStore.selectedComponentSpec = componentId;
-                  EditorValuesStore.selectedMountingPoint = undefined;
-                  EditorValuesStore.selectedMaterial = undefined;
                 }}
                 className="flex w-full flex-row items-center justify-start gap-2 p-2"
               >
