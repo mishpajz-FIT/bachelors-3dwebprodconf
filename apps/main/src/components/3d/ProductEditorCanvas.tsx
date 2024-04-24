@@ -49,7 +49,7 @@ const ProductEditorCanvas = () => {
       <Canvas
         className="shrink grow touch-none bg-[#fefefe] dark:bg-[#141414]"
         frameloop="demand"
-        performance={{ min: 0.5, max: 1 }}
+        performance={{ min: 0.65, max: 1 }}
         shadows={true}
         orthographic={globalConfig.config.camera.isOrthogonal}
         camera={{ position: [0, 1.7, 3] }}
