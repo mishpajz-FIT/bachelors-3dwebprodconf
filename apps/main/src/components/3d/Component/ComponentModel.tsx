@@ -2,7 +2,7 @@ import { Render } from "@3dwebprodconf/shared/src/components/3d/Render.tsx";
 import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
 import { Edges, useGLTF } from "@react-three/drei";
 import { ThreeEvent } from "@react-three/fiber";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { Color, Euler, MeshStandardMaterial } from "three";
 import { useSnapshot } from "valtio";
@@ -30,27 +30,37 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
   const { scene, materials } = useGLTF(componentSpec.modelUrl);
   const groupRef = useRef<THREE.Group>(null);
 
-  const customMaterials = Object.entries(
-    userCreationSnap.value.components[componentId].materials
-  ).reduce<Record<string, MeshStandardMaterial>>(
-    (acc, [materialSpecId, colorSpecId]) => {
-      const materialSpec = componentSpec.materialSpecs[materialSpecId];
-      if (!materialSpec) return acc;
+  const customMaterials = useMemo(
+    () =>
+      Object.entries(
+        // eslint-disable-next-line valtio/state-snapshot-rule
+        userCreationSnap.value.components[componentId].materials
+      ).reduce<Record<string, MeshStandardMaterial>>(
+        (acc, [materialSpecId, colorSpecId]) => {
+          const materialSpec = componentSpec.materialSpecs[materialSpecId];
+          if (!materialSpec) return acc;
 
-      const colorSpec = materialSpec.colorVariationsSpecs[colorSpecId];
-      if (!colorSpec) return acc;
+          const colorSpec = materialSpec.colorVariationsSpecs[colorSpecId];
+          if (!colorSpec) return acc;
 
-      materialSpec.modelMaterials.forEach((modelMaterialName) => {
-        const originalMaterial = materials[modelMaterialName];
-        if (originalMaterial instanceof MeshStandardMaterial) {
-          acc[modelMaterialName] = originalMaterial.clone();
-          acc[modelMaterialName].color = new Color(colorSpec.value);
-        }
-      });
+          materialSpec.modelMaterials.forEach((modelMaterialName) => {
+            const originalMaterial = materials[modelMaterialName];
+            if (originalMaterial instanceof MeshStandardMaterial) {
+              acc[modelMaterialName] = originalMaterial.clone();
+              acc[modelMaterialName].color = new Color(colorSpec.value);
+            }
+          });
 
-      return acc;
-    },
-    {}
+          return acc;
+        },
+        {}
+      ),
+    [
+      componentId,
+      componentSpec.materialSpecs,
+      materials,
+      userCreationSnap.value.components,
+    ]
   );
 
   useEffect(() => {
@@ -83,7 +93,6 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
             : undefined
         }
         scale={componentSpec.scaleOffset}
-        ref={groupRef}
       >
         <Render
           object={scene}

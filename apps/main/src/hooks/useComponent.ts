@@ -7,9 +7,10 @@ import { UserCreationStore } from "../stores/UserCreationStore.ts";
 export function useComponent(componentId: string) {
   const { t } = useTranslation();
 
-  const userCreationSnap = useSnapshot(UserCreationStore);
+  const component = useSnapshot(
+    UserCreationStore.value.components[componentId]
+  );
 
-  const component = userCreationSnap.value.components[componentId];
   if (!component) {
     throw new Error(t("errorMissingComponent", { componentId: componentId }));
   }

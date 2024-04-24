@@ -3,10 +3,11 @@ import {
   traverseMeshes,
 } from "@3dwebprodconf/shared/src/utilites/ThreeExtensions.ts";
 import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { GLTFLoader, DRACOLoader, MeshoptDecoder } from "three-stdlib";
 
 import { ProductSpecificationActions } from "../stores/actions/ProductSpecificationActions.ts";
 import { ProductSpecificationStore } from "../stores/ProductSpecificationStore.ts";
+
 import "three-mesh-bvh/src/index";
 
 function checkForCollision(
@@ -22,7 +23,11 @@ function checkForCollision(
     }
 
     const componentId = sceneMesh.userData.componentId as string | undefined;
-    if (componentId && ignoredComponents?.includes(componentId)) {
+    if (!componentId) {
+      return;
+    }
+
+    if (ignoredComponents?.includes(componentId)) {
       return;
     }
 
@@ -55,6 +60,8 @@ function checkForCollision(
   return collisionDetected;
 }
 
+const dracoLoader = new DRACOLoader();
+
 export async function willComponentCollide(
   componentSpecId: string,
   scene: THREE.Scene,
@@ -71,7 +78,15 @@ export async function willComponentCollide(
     return false;
   }
 
+  dracoLoader.setDecoderPath(
+    "https://www.gstatic.com/draco/versioned/decoders/1.5.5/"
+  );
+
   const loader = new GLTFLoader();
+  loader.setDRACOLoader(dracoLoader);
+  loader.setMeshoptDecoder(
+    typeof MeshoptDecoder === "function" ? MeshoptDecoder() : MeshoptDecoder
+  );
 
   const gltf = await loader.loadAsync(componentSpec.modelUrl);
   const model = gltf.scene;

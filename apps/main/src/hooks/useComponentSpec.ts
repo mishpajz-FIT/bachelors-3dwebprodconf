@@ -6,9 +6,10 @@ import { ProductSpecificationStore } from "../stores/ProductSpecificationStore.t
 export function useComponentSpec(componentSpecId: string) {
   const { t } = useTranslation();
 
-  const productSpecsSnap = useSnapshot(ProductSpecificationStore);
+  const componentSpec = useSnapshot(
+    ProductSpecificationStore.componentSpecs[componentSpecId]
+  );
 
-  const componentSpec = productSpecsSnap.componentSpecs[componentSpecId];
   if (!componentSpec) {
     throw new Error(
       t("errorMissingComponentSpec", { componentSpecId: componentSpecId })

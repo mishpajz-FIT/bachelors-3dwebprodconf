@@ -61,10 +61,10 @@ export const EditComponentControls = ({
         return;
       }
 
-      const mesh = scene.getObjectByName(componentId);
-      if (mesh) {
-        mesh.getWorldPosition(worldPosition);
-        mesh.getWorldQuaternion(worldQuaternion);
+      const group = ConfiguratorValuesNonReactiveStore.currentGroup;
+      if (group) {
+        group.getWorldPosition(worldPosition);
+        group.getWorldQuaternion(worldQuaternion);
         worldRotation.setFromQuaternion(worldQuaternion, "XYZ");
       } else {
         return;
@@ -130,8 +130,7 @@ export const EditComponentControls = ({
         UserCreationStore,
         ProductSpecificationStore
       );
-
-      ConfiguratorValuesStore.selectedComponentId = newComponentId;
+      ConfiguratorValuesStore.selectedComponentId = undefined;
     };
 
     refreshBounds(action);

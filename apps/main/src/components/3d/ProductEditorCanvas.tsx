@@ -49,7 +49,7 @@ const ProductEditorCanvas = () => {
       <Canvas
         className="shrink grow touch-none bg-[#fefefe] dark:bg-[#141414]"
         frameloop="demand"
-        performance={{ min: 0.85 }}
+        performance={{ min: 0.5, max: 1 }}
         shadows={true}
         orthographic={globalConfig.config.camera.isOrthogonal}
         camera={{ position: [0, 1.7, 3] }}
@@ -57,6 +57,7 @@ const ProductEditorCanvas = () => {
           ConfiguratorValuesStore.selectedComponentId = undefined;
         }}
       >
+        <AdaptiveDpr pixelated />
         <SceneStorer />
         <OrbitControls
           makeDefault={true}
