@@ -13,17 +13,15 @@ import {
   ConfiguratorValuesNonReactiveStore,
   ConfiguratorValuesStore,
 } from "../../../stores/ConfiguratorValuesStore.ts";
-import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 
 interface ComponentModelProps {
   componentId: string;
 }
 
 const ComponentModel = ({ componentId }: ComponentModelProps) => {
-  const userCreationSnap = useSnapshot(UserCreationStore);
   const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
 
-  const { componentSpec } = useComponent(componentId);
+  const { component, componentSpec } = useComponent(componentId);
 
   const isDarkMode = useDarkMode();
 
@@ -34,7 +32,7 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
     () =>
       Object.entries(
         // eslint-disable-next-line valtio/state-snapshot-rule
-        userCreationSnap.value.components[componentId].materials
+        component.materials
       ).reduce<Record<string, MeshStandardMaterial>>(
         (acc, [materialSpecId, colorSpecId]) => {
           const materialSpec = componentSpec.materialSpecs[materialSpecId];
@@ -55,12 +53,7 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
         },
         {}
       ),
-    [
-      componentId,
-      componentSpec.materialSpecs,
-      materials,
-      userCreationSnap.value.components,
-    ]
+    [componentSpec.materialSpecs, materials, component.materials]
   );
 
   useEffect(() => {

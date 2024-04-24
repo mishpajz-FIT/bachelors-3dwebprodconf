@@ -20,7 +20,7 @@ export const Component = ({ componentId }: ComponentProps) => {
 
   return (
     <group name={componentId}>
-      <Bvh>
+      <Bvh indirect={true} firstHitOnly={true}>
         <ComponentModel componentId={componentId} />
       </Bvh>
 

@@ -57,7 +57,6 @@ const ProductEditorCanvas = () => {
           ConfiguratorValuesStore.selectedComponentId = undefined;
         }}
       >
-        <AdaptiveDpr pixelated />
         <SceneStorer />
         <OrbitControls
           makeDefault={true}
@@ -128,7 +127,8 @@ const ProductEditorCanvas = () => {
         <div className="glass-panel flex items-center justify-center divide-x divide-gray-200 rounded-md dark:divide-zinc-700">
           <button
             onClick={() => {
-              userCreationSnap.undo();
+              UserCreationStore.undo();
+              ConfiguratorValuesStore.selectedComponentId = undefined;
               emitter.emit(canvasChangedEvent);
             }}
             className={`p-3 sm:p-2 ${userCreationSnap.isUndoEnabled && "transition duration-150 ease-in-out active:scale-95"}`}
@@ -140,7 +140,9 @@ const ProductEditorCanvas = () => {
           </button>
           <button
             onClick={() => {
-              userCreationSnap.redo();
+              UserCreationStore.redo();
+              ConfiguratorValuesStore.selectedComponentId = undefined;
+
               emitter.emit(canvasChangedEvent);
             }}
             className={`p-3 sm:p-2 ${userCreationSnap.isRedoEnabled && "transition duration-150 ease-in-out active:scale-95"}`}
