@@ -21,7 +21,7 @@ export const ProductComposerTabsComponentsList = () => {
   );
 
   return (
-    <div>
+    <>
       <div className="mt-6 flex flex-row gap-2">
         <form
           className="w-full"
@@ -55,7 +55,7 @@ export const ProductComposerTabsComponentsList = () => {
           <PlusIcon className="size-4" />
         </button>
       </div>
-      <ul className="mt-4">
+      <ul className="mt-4 flex h-full flex-col gap-1 overflow-y-auto">
         {filteredComponents.length === 0 ? (
           <li className="pointer-events-none select-none p-4 text-center text-sm text-gray-900 dark:text-gray-400">
             No components
@@ -64,7 +64,7 @@ export const ProductComposerTabsComponentsList = () => {
           filteredComponents.map((componentId) => (
             <li
               key={componentId}
-              className={`tile m-2 rounded-lg border-2 
+              className={`tile mx-2 my-1 rounded-lg border-2 
             ${editorValuesSnap.selectedComponentSpec === componentId ? "underlined-selection border-[var(--primary-light)] underline dark:border-[var(--primary-dark)]" : "border-transparent"}
             `}
             >
@@ -88,6 +88,6 @@ export const ProductComposerTabsComponentsList = () => {
       <Popup isOpen={isOpenAdd} onClose={() => setOpenAdd(false)}>
         <AddComponentSpecification onClose={() => setOpenAdd(false)} />
       </Popup>
-    </div>
+    </>
   );
 };

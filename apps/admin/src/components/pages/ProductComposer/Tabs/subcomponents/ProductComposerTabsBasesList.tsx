@@ -23,7 +23,7 @@ export const ProductComposerTabsBasesList = () => {
   );
 
   return (
-    <div>
+    <>
       <div className="mt-6 flex flex-row gap-2">
         <form
           className="w-full"
@@ -57,16 +57,16 @@ export const ProductComposerTabsBasesList = () => {
           <PlusIcon className="size-4" />
         </button>
       </div>
-      <ul className="mt-4">
+      <ul className="mt-4 flex h-full flex-col gap-1 overflow-y-auto">
         {filteredBases.length === 0 ? (
-          <li className="pointer-events-none select-none  p-4 text-center text-sm text-gray-900 dark:text-gray-400">
+          <li className="pointer-events-none select-none p-4 text-center text-sm text-gray-900 dark:text-gray-400">
             No bases
           </li>
         ) : (
           filteredBases.map((baseId) => (
             <li
               key={baseId}
-              className="tile-background m-2 rounded-lg border-2 border-transparent"
+              className="tile-background mx-2 my-1 rounded-lg border-2 border-transparent"
             >
               <div>
                 <div className="flex flex-col items-center justify-start gap-2 p-2 slashed-zero tabular-nums tracking-tight text-black dark:text-gray-200">
@@ -96,6 +96,6 @@ export const ProductComposerTabsBasesList = () => {
       <Popup isOpen={isOpenAdd} onClose={() => setOpenAdd(false)}>
         <AddBase onClose={() => setOpenAdd(false)} />
       </Popup>
-    </div>
+    </>
   );
 };

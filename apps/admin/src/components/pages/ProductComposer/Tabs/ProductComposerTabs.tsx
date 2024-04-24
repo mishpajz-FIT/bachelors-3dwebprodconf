@@ -1,6 +1,7 @@
 import { HoldButton } from "@3dwebprodconf/shared/src/components/HoldButton.tsx";
 import { Tab } from "@headlessui/react";
 import { TrashIcon } from "@heroicons/react/24/outline";
+import { Fragment } from "react";
 
 import { ProductComposerTabsBasesList } from "./subcomponents/ProductComposerTabsBasesList.tsx";
 import { ProductComposerTabsComponentsList } from "./subcomponents/ProductComposerTabsComponentsList.tsx";
@@ -23,32 +24,27 @@ export const ProductComposerTabs = () => {
 
   return (
     <div className="simple-panel z-10 flex h-full w-1/2 flex-col rounded-none p-2 lg:w-1/4 xl:w-1/5">
-      <div className="w-full">
-        <Tab.Group>
-          <Tab.List className="mt-2 flex space-x-1 rounded-md bg-gray-100 p-1 dark:bg-zinc-800">
-            {["Components", "Bases"].map((tab) => (
-              <Tab
-                key={tab}
-                className={({ selected }) => tabClassName(selected)}
-              >
-                {tab}
-              </Tab>
-            ))}
-          </Tab.List>
-          <Tab.Panels className="mt-4">
-            <Tab.Panel>
-              <ProductComposerTabsComponentsList />
-            </Tab.Panel>
-            <Tab.Panel>
-              <ProductComposerTabsBasesList />
-            </Tab.Panel>
-          </Tab.Panels>
-        </Tab.Group>
-      </div>
+      <Tab.Group>
+        <Tab.List className="mt-2 flex space-x-1 rounded-md bg-gray-100 p-1 dark:bg-zinc-800">
+          {["Components", "Bases"].map((tab) => (
+            <Tab key={tab} className={({ selected }) => tabClassName(selected)}>
+              {tab}
+            </Tab>
+          ))}
+        </Tab.List>
+        <Tab.Panels as={Fragment}>
+          <Tab.Panel as={Fragment}>
+            <ProductComposerTabsComponentsList />
+          </Tab.Panel>
+          <Tab.Panel as={Fragment}>
+            <ProductComposerTabsBasesList />
+          </Tab.Panel>
+        </Tab.Panels>
+      </Tab.Group>
 
       <div className="mt-auto flex flex-row justify-between gap-1 p-2">
         <HoldButton
-          className="other-button destructive-button-on-hold flex items-center justify-center"
+          className="other-button destructive-button-on-hold flex select-none items-center justify-center"
           onSubmit={() => {
             ProductActions.clearProductSpecification(ProductStore);
             EditorActions.reset(EditorValuesStore);
