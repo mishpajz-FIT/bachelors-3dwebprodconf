@@ -34,7 +34,10 @@ export const CatalogComposerButtons = () => {
         }
 
         errorToast(message);
+        event.target.value = "";
       });
+
+    event.target.value = "";
   };
 
   const onExport = () => {

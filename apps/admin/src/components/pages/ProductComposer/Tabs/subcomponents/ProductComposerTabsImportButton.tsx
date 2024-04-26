@@ -37,6 +37,7 @@ export const ProductComposerTabsImportButton = () => {
       });
 
     EditorActions.reset(EditorValuesStore);
+    event.target.value = "";
   };
 
   return (
