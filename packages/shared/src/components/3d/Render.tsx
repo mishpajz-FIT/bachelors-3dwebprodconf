@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { memo, ReactNode } from "react";
 import { Material, Mesh, Object3D } from "three";
 
 interface RenderProps {
@@ -26,45 +26,44 @@ const getMaterial = (
   return material;
 };
 
-export const Render = ({
-  object,
-  materialOverrides,
-  userData,
-  children,
-}: RenderProps) => {
-  if (object.type === "Group" || object.type === "Object3D") {
-    return (
-      <group
-        position={object.position}
-        rotation={object.rotation}
-        scale={object.scale}
-      >
-        {object.children.map((child) => (
-          <Render
-            key={child.uuid}
-            object={child}
-            materialOverrides={materialOverrides}
-            userData={userData}
-          >
-            {children}
-          </Render>
-        ))}
-      </group>
-    );
-  } else if (object.type === "Mesh") {
-    const mesh = object as Mesh;
-    return (
-      <mesh
-        key={mesh.uuid}
-        geometry={mesh.geometry}
-        position={mesh.position}
-        rotation={mesh.rotation}
-        scale={mesh.scale}
-        material={getMaterial(mesh.material, materialOverrides)}
-        userData={userData}
-      >
-        {children}
-      </mesh>
-    );
+export const Render = memo(
+  ({ object, materialOverrides, userData, children }: RenderProps) => {
+    if (object.type === "Group" || object.type === "Object3D") {
+      return (
+        <group
+          position={object.position}
+          rotation={object.rotation}
+          scale={object.scale}
+        >
+          {object.children.map((child) => (
+            <Render
+              key={child.uuid}
+              object={child}
+              materialOverrides={materialOverrides}
+              userData={userData}
+            >
+              {children}
+            </Render>
+          ))}
+        </group>
+      );
+    } else if (object.type === "Mesh") {
+      const mesh = object as Mesh;
+      return (
+        <mesh
+          key={mesh.uuid}
+          geometry={mesh.geometry}
+          position={mesh.position}
+          rotation={mesh.rotation}
+          scale={mesh.scale}
+          material={getMaterial(mesh.material, materialOverrides)}
+          userData={userData}
+        >
+          {children}
+        </mesh>
+      );
+    }
   }
-};
+);
+
+Render.displayName = "Render";

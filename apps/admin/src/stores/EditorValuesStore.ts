@@ -2,7 +2,7 @@ import { BoundsStorage } from "@3dwebprodconf/shared/src/interfaces/BoundsStorag
 import { Group } from "three";
 import { proxy } from "valtio";
 
-interface EditorValuesStore {
+export interface EditorValuesStore {
   selectedComponentSpec?: string;
   selectedMountingPoint?: string;
   selectedMaterial?: string;
@@ -18,12 +18,14 @@ export const EditorValuesStore = proxy<EditorValuesStore>({
   boundingBoxSize: undefined,
 });
 
-interface EditorValuesNonReactiveStore {
+interface EditorValuesNonReactive {
   currentGroup: Group | undefined;
 }
 
-export const EditorValuesNonReactiveStore: EditorValuesNonReactiveStore &
-  BoundsStorage = {
+export type EditorValuesNonReactiveStore = EditorValuesNonReactive &
+  BoundsStorage;
+
+export const EditorValuesNonReactiveStore: EditorValuesNonReactiveStore = {
   currentGroup: undefined,
   bounds: undefined,
 };

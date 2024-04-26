@@ -7,17 +7,6 @@ import { GenericProductSpecificationActions } from "@3dwebprodconf/shared/src/st
 import { ProductSpecificationStore } from "../ProductSpecificationStore.ts";
 
 export class ProductSpecificationActions extends GenericProductSpecificationActions {
-  static getComponentSpec(
-    componentSpecId: string,
-    store: typeof ProductSpecificationStore
-  ) {
-    return this.get(
-      componentSpecId,
-      store.componentSpecs,
-      "Component specification"
-    );
-  }
-
   static colorSpecificationWithLowestSortIndex(
     materialSpec: MaterialSpecification
   ) {
@@ -34,7 +23,7 @@ export class ProductSpecificationActions extends GenericProductSpecificationActi
 
   static storeProductSpecification(
     productSpec: ProductSpecification,
-    store: typeof ProductSpecificationStore
+    store: ProductSpecificationStore
   ) {
     store.componentSpecs = {};
     store.baseSpecs = {};

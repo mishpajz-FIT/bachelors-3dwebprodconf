@@ -2,9 +2,21 @@ import { GenericActions } from "./GenericActions.ts";
 import {
   ComponentSpecification,
   MaterialSpecification,
+  ProductSpecification,
 } from "../../schemas/ProductSpecification.ts";
 
 export class GenericProductSpecificationActions extends GenericActions {
+  static getComponentSpec(
+    componentSpecId: string,
+    store: ProductSpecification
+  ) {
+    return this.get(
+      componentSpecId,
+      store.componentSpecs,
+      "Component specification"
+    );
+  }
+
   static getMountingPointSpec(
     componentSpec: ComponentSpecification,
     mountingPointSpecId: string
@@ -38,6 +50,31 @@ export class GenericProductSpecificationActions extends GenericActions {
     );
   }
 
+  static removeBaseSpec(baseSpecId: string, store: ProductSpecification) {
+    delete store.baseSpecs[baseSpecId];
+  }
+
+  static removeComponentSpec(
+    componentSpecId: string,
+    store: ProductSpecification
+  ) {
+    Object.keys(store.baseSpecs).forEach((baseSpecId) => {
+      if (store.baseSpecs[baseSpecId] === componentSpecId) {
+        this.removeBaseSpec(baseSpecId, store);
+      }
+    });
+
+    Object.values(store.componentSpecs).forEach((componentSpec) => {
+      Object.values(componentSpec.mountingPointsSpecs).forEach((mountPoint) => {
+        mountPoint.mountableComponents = mountPoint.mountableComponents.filter(
+          (component) => component !== componentSpecId
+        );
+      });
+    });
+
+    delete store.componentSpecs[componentSpecId];
+  }
+
   static removeMountingPointSpec(
     componentSpec: ComponentSpecification,
     mountingPointSpecId: string
@@ -57,6 +94,53 @@ export class GenericProductSpecificationActions extends GenericActions {
     colorSpecId: string
   ) {
     delete materialSpec.colorVariationsSpecs[colorSpecId];
+  }
+
+  static baseSpecExists(
+    baseSpecId: string,
+    store: ProductSpecification
+  ): boolean {
+    return Object.prototype.hasOwnProperty.call(store.baseSpecs, baseSpecId);
+  }
+
+  static componentSpecExists(
+    componentSpecId: string,
+    store: ProductSpecification
+  ): boolean {
+    return Object.prototype.hasOwnProperty.call(
+      store.componentSpecs,
+      componentSpecId
+    );
+  }
+
+  static mountingPointSpecExists(
+    componentSpec: ComponentSpecification,
+    mountingPointSpecId: string
+  ): boolean {
+    return Object.prototype.hasOwnProperty.call(
+      componentSpec.mountingPointsSpecs,
+      mountingPointSpecId
+    );
+  }
+
+  static materialSpecExists(
+    componentSpec: ComponentSpecification,
+    materialSpecId: string
+  ): boolean {
+    return Object.prototype.hasOwnProperty.call(
+      componentSpec.materialSpecs,
+      materialSpecId
+    );
+  }
+
+  static colorSpecExists(
+    materialSpec: MaterialSpecification,
+    colorSpecId: string
+  ): boolean {
+    return Object.prototype.hasOwnProperty.call(
+      materialSpec.colorVariationsSpecs,
+      colorSpecId
+    );
   }
 
   static validateMountingPoints(
@@ -102,5 +186,18 @@ export class GenericProductSpecificationActions extends GenericActions {
       },
       {} as Record<string, string[]>
     );
+  }
+
+  static clearProductSpecification(store: ProductSpecification) {
+    store.componentSpecs = {};
+    store.baseSpecs = {};
+  }
+
+  static storeProductSpecification(
+    productSpec: ProductSpecification,
+    store: ProductSpecification
+  ) {
+    this.clearProductSpecification(store);
+    Object.assign(store, productSpec);
   }
 }

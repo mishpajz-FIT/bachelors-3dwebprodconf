@@ -6,9 +6,9 @@ interface UserCreationAdditionalInfo {
   isBaseSet: boolean;
 }
 
-export const UserCreationStore = proxyWithHistory<
-  UserCreation & UserCreationAdditionalInfo
->({
+export type UserCreationStore = UserCreation & UserCreationAdditionalInfo;
+
+export const UserCreationStore = proxyWithHistory<UserCreationStore>({
   product: "",
   base: "",
   components: {},
