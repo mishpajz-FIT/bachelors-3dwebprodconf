@@ -188,7 +188,7 @@ export class UserCreationActions {
     materialSpecId: string,
     colorSpecId: string | undefined,
     userCreationStore: UserCreationStore,
-    productSpecificationStore: typeof ProductSpecificationStore
+    productSpecificationStore: ProductSpecificationStore
   ) {
     const component = this.getComponent(componentId, userCreationStore);
     const componentSpec = ProductSpecificationActions.getComponentSpec(
@@ -221,7 +221,7 @@ export class UserCreationActions {
 
   static detectMissingRequired(
     userCreationStore: UserCreationStore,
-    productSpecificationStore: typeof ProductSpecificationStore
+    productSpecificationStore: ProductSpecificationStore
   ) {
     return Object.entries(userCreationStore.components).reduce(
       (missingComponents, [componentId, component]) => {
@@ -229,6 +229,8 @@ export class UserCreationActions {
           component.componentSpec,
           productSpecificationStore
         );
+
+        console.log(componentSpec);
 
         const isMissing = Object.entries(
           componentSpec.mountingPointsSpecs

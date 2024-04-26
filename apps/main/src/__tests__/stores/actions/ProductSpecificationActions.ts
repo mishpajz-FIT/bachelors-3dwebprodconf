@@ -1,12 +1,13 @@
-import { ProductSpecificationStore } from "../../../stores/ProductSpecificationStore.ts";
-import { generateMock } from "@anatine/zod-mock";
 import {
   ColorSpecificationSchema,
   ComponentSpecificationSchema,
   MaterialSpecificationSchema,
   ProductSpecificationSchema,
 } from "@3dwebprodconf/shared/src/schemas/ProductSpecification.ts";
+import { generateMock } from "@anatine/zod-mock";
+
 import { ProductSpecificationActions } from "../../../stores/actions/ProductSpecificationActions.ts";
+import { ProductSpecificationStore } from "../../../stores/ProductSpecificationStore.ts";
 
 let storeMock: ProductSpecificationStore;
 

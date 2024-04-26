@@ -1,4 +1,17 @@
+import {
+  ColorSpecificationSchema,
+  ComponentSpecificationSchema,
+  MaterialSpecificationSchema,
+  MountingPointSpecificationSchema,
+} from "@3dwebprodconf/shared/src/schemas/ProductSpecification.ts";
+import { UserComponentSchema } from "@3dwebprodconf/shared/src/schemas/UserCreation.ts";
 import { generateMock } from "@anatine/zod-mock";
+import { v4 } from "uuid";
+
+import { ProductSpecificationActions } from "../../../stores/actions/ProductSpecificationActions";
+import { UserCreationActions } from "../../../stores/actions/UserCreationActions.ts";
+import { ProductSpecificationStore } from "../../../stores/ProductSpecificationStore.ts";
+import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 
 jest.mock("i18next", () => ({
   t: jest.fn().mockImplementation((key, params) => {
@@ -10,21 +23,6 @@ jest.mock("i18next", () => ({
 jest.mock("uuid", () => ({ v4: jest.fn() }));
 jest.mock("../../../stores/actions/ProductSpecificationActions");
 
-import { v4 } from "uuid";
-
-import { ProductSpecificationActions } from "../../../stores/actions/ProductSpecificationActions";
-import { UserCreationActions } from "../../../stores/actions/UserCreationActions.ts";
-import { ProductSpecificationStore } from "../../../stores/ProductSpecificationStore.ts";
-import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
-
-import { UserComponentSchema } from "@3dwebprodconf/shared/src/schemas/UserCreation.ts";
-import {
-  ColorSpecificationSchema,
-  ComponentSpecificationSchema,
-  MaterialSpecificationSchema,
-  MountingPointSpecificationSchema,
-} from "@3dwebprodconf/shared/src/schemas/ProductSpecification.ts";
-
 let storeMock: UserCreationStore;
 let productSpecificationStoreMock: ProductSpecificationStore;
 
@@ -34,6 +32,9 @@ const getComponentSpec =
 const getMaterialSpec =
   // eslint-disable-next-line @typescript-eslint/unbound-method
   ProductSpecificationActions.getMaterialSpec as jest.Mock;
+const getColorSpec =
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  ProductSpecificationActions.getColorSpec as jest.Mock;
 const colorSpecificationWithLowestSortIndex =
   // eslint-disable-next-line @typescript-eslint/unbound-method
   ProductSpecificationActions.colorSpecificationWithLowestSortIndex as jest.Mock;
@@ -318,8 +319,8 @@ describe("UserCreationActions.mountComponent", () => {
       productSpecificationStoreMock
     );
 
-    expect(storeMock.components["cm1"].mounted["mp1"]).toBe("cm2");
-    expect(storeMock.childToParentMap["cm2"]).toEqual(["cm1", "mp1"]);
+    expect(storeMock.components.cm1.mounted.mp1).toBe("cm2");
+    expect(storeMock.childToParentMap.cm2).toEqual(["cm1", "mp1"]);
   });
 
   it("removes mounted components and mounts component", () => {
@@ -361,8 +362,8 @@ describe("UserCreationActions.mountComponent", () => {
       productSpecificationStoreMock
     );
 
-    expect(storeMock.components["cm1"].mounted["mp1"]).toBe("cm4");
-    expect(storeMock.childToParentMap["cm4"]).toEqual(["cm1", "mp1"]);
+    expect(storeMock.components.cm1.mounted.mp1).toBe("cm4");
+    expect(storeMock.childToParentMap.cm4).toEqual(["cm1", "mp1"]);
 
     expect(Object.keys(storeMock.components)).toHaveLength(2);
     expect(Object.keys(storeMock.childToParentMap)).toHaveLength(1);
@@ -434,7 +435,6 @@ describe("UserCreationActions.removeAllNonbaseComponents", () => {
 
     storeMock.base = "";
     storeMock.isBaseSet = false;
-
     storeMock.components.cm1 = componentMock1;
     storeMock.components.cm2 = componentMock2;
     storeMock.components.cm3 = componentMock3;
@@ -455,17 +455,189 @@ describe("UserCreationActions.setBase", () => {
     );
   });
 
-  it("sets the base component", () => {
+  it("sets the base component and removes others", () => {
     const componentMock1 = generateMock(UserComponentSchema);
-    storeMock.components.cm1 = componentMock1;
+    const componentMock2 = generateMock(UserComponentSchema);
+    const componentMock3 = generateMock(UserComponentSchema);
+    componentMock3.mounted = {};
+    componentMock2.mounted = {
+      mp1: "cm3",
+    };
+    componentMock1.mounted = {
+      mp1: "cm2",
+    };
     storeMock.base = "";
     storeMock.isBaseSet = false;
+    storeMock.components.cm1 = componentMock1;
+    storeMock.components.cm2 = componentMock2;
+    storeMock.components.cm3 = componentMock3;
+    storeMock.childToParentMap.cm2 = ["cm1", "mp1"];
+    storeMock.childToParentMap.cm3 = ["cm2", "mp1"];
 
     UserCreationActions.setBase("cm1", storeMock);
 
     expect(storeMock.childToParentMap).toEqual({});
-    expect(storeMock.components).toEqual({ cm1: componentMock1 });
+    expect(storeMock.components).toEqual({
+      cm1: { ...componentMock1, mounted: {} },
+    });
     expect(storeMock.isBaseSet).toBe(true);
     expect(storeMock.base).toBe("cm1");
+  });
+});
+
+describe("UserCreationActions.changeMaterialColor", () => {
+  it("should change color of material", () => {
+    const componentMock = generateMock(UserComponentSchema);
+    componentMock.materials = { mat1: "col2" };
+    storeMock.components.cm1 = componentMock;
+    const materialSpecMock = generateMock(MaterialSpecificationSchema);
+    const colorSpecMock = generateMock(ColorSpecificationSchema);
+    materialSpecMock.colorVariationsSpecs = {
+      col1: colorSpecMock,
+      col2: colorSpecMock,
+    };
+    const componentSpecMock = generateMock(ComponentSpecificationSchema);
+    componentSpecMock.materialSpecs = { mat1: materialSpecMock };
+    productSpecificationStoreMock.componentSpecs.comp1 = componentSpecMock;
+    getComponentSpec.mockReturnValue(componentSpecMock);
+    getMaterialSpec.mockReturnValue(materialSpecMock);
+    getColorSpec.mockReturnValue(colorSpecMock);
+
+    UserCreationActions.changeMaterialColor(
+      "cm1",
+      "mat1",
+      "col1",
+      storeMock,
+      productSpecificationStoreMock
+    );
+
+    expect(storeMock.components.cm1.materials.mat1).toBe("col1");
+    expect(colorSpecificationWithLowestSortIndex).not.toHaveBeenCalled();
+  });
+
+  it("should change color of material to default one if no material provided", () => {
+    const componentMock = generateMock(UserComponentSchema);
+    componentMock.materials = { mat1: "col2" };
+    storeMock.components.cm1 = componentMock;
+    const materialSpecMock = generateMock(MaterialSpecificationSchema);
+    const colorSpecMock = generateMock(ColorSpecificationSchema);
+    materialSpecMock.colorVariationsSpecs = {
+      col1: colorSpecMock,
+      col2: colorSpecMock,
+    };
+    const componentSpecMock = generateMock(ComponentSpecificationSchema);
+    componentSpecMock.materialSpecs = { mat1: materialSpecMock };
+    productSpecificationStoreMock.componentSpecs.comp1 = componentSpecMock;
+    getComponentSpec.mockReturnValue(componentSpecMock);
+    getMaterialSpec.mockReturnValue(materialSpecMock);
+    colorSpecificationWithLowestSortIndex.mockReturnValue("col1");
+    getColorSpec.mockReturnValue(colorSpecMock);
+
+    UserCreationActions.changeMaterialColor(
+      "cm1",
+      "mat1",
+      undefined,
+      storeMock,
+      productSpecificationStoreMock
+    );
+
+    expect(storeMock.components.cm1.materials.mat1).toBe("col1");
+    expect(colorSpecificationWithLowestSortIndex).toHaveBeenCalled();
+  });
+
+  it("should throw if default color does not exist", () => {
+    const componentMock = generateMock(UserComponentSchema);
+    componentMock.materials = { mat1: "col2" };
+    storeMock.components.cm1 = componentMock;
+    const materialSpecMock = generateMock(MaterialSpecificationSchema);
+    const colorSpecMock = generateMock(ColorSpecificationSchema);
+    materialSpecMock.colorVariationsSpecs = { col1: colorSpecMock };
+    const componentSpecMock = generateMock(ComponentSpecificationSchema);
+    componentSpecMock.materialSpecs = { mat1: materialSpecMock };
+    productSpecificationStoreMock.componentSpecs.comp1 = componentSpecMock;
+    getComponentSpec.mockReturnValue(componentSpecMock);
+    getMaterialSpec.mockReturnValue(materialSpecMock);
+    colorSpecificationWithLowestSortIndex.mockReturnValue(undefined);
+
+    expect(() => {
+      UserCreationActions.changeMaterialColor(
+        "cm1",
+        "mat1",
+        undefined,
+        storeMock,
+        productSpecificationStoreMock
+      );
+    }).toThrow(
+      'errorNoColorVariationOnMaterial with params {"materialSpecId":"mat1","componentId":"cm1"}'
+    );
+  });
+});
+
+describe("UserCreationActions.detectMissingRequired", () => {
+  it("should return an empty array when no required mounting points are missing", () => {
+    const componentMock1 = generateMock(UserComponentSchema);
+    const componentSpecMock = generateMock(ComponentSpecificationSchema);
+    const mountingPointSpecMock = generateMock(
+      MountingPointSpecificationSchema
+    );
+    mountingPointSpecMock.isRequired = false;
+    componentMock1.mounted = {};
+    componentSpecMock.mountingPointsSpecs = { mp1: mountingPointSpecMock };
+    productSpecificationStoreMock.componentSpecs = { comp1: componentSpecMock };
+    storeMock.components = { cm1: componentMock1 };
+    componentMock1.componentSpec = "comp1";
+
+    expect(
+      UserCreationActions.detectMissingRequired(
+        storeMock,
+        productSpecificationStoreMock
+      )
+    ).toEqual([]);
+  });
+
+  it("should return an array of components where required mounting points are missing", () => {
+    const componentMock1 = generateMock(UserComponentSchema);
+    const componentMock2 = generateMock(UserComponentSchema);
+    const componentMock3 = generateMock(UserComponentSchema);
+    const componentSpecMock1 = generateMock(ComponentSpecificationSchema);
+    const componentSpecMock2 = generateMock(ComponentSpecificationSchema);
+    const mountingPointSpecMock1 = generateMock(
+      MountingPointSpecificationSchema
+    );
+    mountingPointSpecMock1.isRequired = true;
+    const mountingPointSpecMock2 = generateMock(
+      MountingPointSpecificationSchema
+    );
+    mountingPointSpecMock2.isRequired = false;
+    componentMock1.mounted = {};
+    componentMock2.mounted = {};
+    componentMock3.mounted = {};
+    componentSpecMock1.mountingPointsSpecs = {
+      mp1: mountingPointSpecMock1,
+      mp2: mountingPointSpecMock2,
+    };
+    componentSpecMock2.mountingPointsSpecs = { mp3: mountingPointSpecMock2 };
+    productSpecificationStoreMock.componentSpecs = {
+      comp1: componentSpecMock1,
+      comp2: componentSpecMock2,
+    };
+    componentMock1.componentSpec = "comp1";
+    componentMock2.componentSpec = "comp2";
+    componentMock3.componentSpec = "comp1";
+    storeMock.components = {
+      cm1: componentMock1,
+      cm2: componentMock2,
+      cm3: componentMock3,
+    };
+    getComponentSpec.mockImplementation(
+      (id: string, store: ProductSpecificationStore) => store.componentSpecs[id]
+    );
+
+    expect(
+      UserCreationActions.detectMissingRequired(
+        storeMock,
+        productSpecificationStoreMock
+      )
+    ).toEqual(["cm1", "cm3"]);
   });
 });

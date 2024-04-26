@@ -1,10 +1,11 @@
 jest.mock("../../../utilities/Fetching");
 
-import { generateMock } from "@anatine/zod-mock";
 import {
   Catalog,
   CatalogSchema,
 } from "@3dwebprodconf/shared/src/schemas/Catalog";
+import { generateMock } from "@anatine/zod-mock";
+
 import { CatalogActions } from "../../../stores/actions/CatalogActions";
 import { CatalogStore } from "../../../stores/CatalogStore";
 import * as FetchingModule from "../../../utilities/Fetching";
