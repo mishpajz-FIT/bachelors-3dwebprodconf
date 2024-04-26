@@ -27,6 +27,8 @@
     "last 2 versions"
   ],
   "dependencies": {
+    "@anatine/zod-mock": "^3.13.4",
+    "@faker-js/faker": "^8.4.1",
     "@floating-ui/react": "^0.26.9",
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
