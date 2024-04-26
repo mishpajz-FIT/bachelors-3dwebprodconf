@@ -9,7 +9,7 @@ import { ProductSpecificationStore } from "../ProductSpecificationStore.ts";
 export class ProductSpecificationActions extends GenericProductSpecificationActions {
   static getComponentSpec(
     componentSpecId: string,
-    store: typeof ProductSpecificationStore
+    store: ProductSpecificationStore
   ) {
     return this.get(
       componentSpecId,
@@ -34,7 +34,7 @@ export class ProductSpecificationActions extends GenericProductSpecificationActi
 
   static storeProductSpecification(
     productSpec: ProductSpecification,
-    store: typeof ProductSpecificationStore
+    store: ProductSpecificationStore
   ) {
     store.componentSpecs = {};
     store.baseSpecs = {};

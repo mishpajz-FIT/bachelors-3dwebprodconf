@@ -12,7 +12,7 @@ import { ProductStore } from "../ProductStore.ts";
 export class ProductActions extends GenericProductSpecificationActions {
   static getComponentSpec(
     componentSpecId: string,
-    store: typeof ProductStore
+    store: ProductStore
   ): ComponentSpecification {
     return this.get(
       componentSpecId,
@@ -21,14 +21,11 @@ export class ProductActions extends GenericProductSpecificationActions {
     );
   }
 
-  static removeBaseSpec(baseSpecId: string, store: typeof ProductStore) {
+  static removeBaseSpec(baseSpecId: string, store: ProductStore) {
     delete store.baseSpecs[baseSpecId];
   }
 
-  static removeComponentSpec(
-    componentSpecId: string,
-    store: typeof ProductStore
-  ) {
+  static removeComponentSpec(componentSpecId: string, store: ProductStore) {
     Object.keys(store.baseSpecs).forEach((baseSpecId) => {
       if (store.baseSpecs[baseSpecId] === componentSpecId) {
         this.removeBaseSpec(baseSpecId, store);
@@ -49,7 +46,7 @@ export class ProductActions extends GenericProductSpecificationActions {
   static addBaseSpec(
     baseSpecId: string,
     componentSpecId: string,
-    store: typeof ProductStore
+    store: ProductStore
   ) {
     store.baseSpecs[baseSpecId] = componentSpecId;
   }
@@ -57,7 +54,7 @@ export class ProductActions extends GenericProductSpecificationActions {
   static addComponentSpec(
     componentSpecId: string,
     componentSpec: ComponentSpecification,
-    store: typeof ProductStore
+    store: ProductStore
   ) {
     store.componentSpecs[componentSpecId] = componentSpec;
   }
@@ -86,16 +83,13 @@ export class ProductActions extends GenericProductSpecificationActions {
     materialSpec.colorVariationsSpecs[colorSpecId] = colorSpec;
   }
 
-  static baseSpecExists(
-    baseSpecId: string,
-    store: typeof ProductStore
-  ): boolean {
+  static baseSpecExists(baseSpecId: string, store: ProductStore): boolean {
     return Object.prototype.hasOwnProperty.call(store.baseSpecs, baseSpecId);
   }
 
   static componentSpecExists(
     componentSpecId: string,
-    store: typeof ProductStore
+    store: ProductStore
   ): boolean {
     return Object.prototype.hasOwnProperty.call(
       store.componentSpecs,
@@ -134,7 +128,7 @@ export class ProductActions extends GenericProductSpecificationActions {
   }
 
   static missingComponentsInMountingPoints(
-    store: typeof ProductStore
+    store: ProductStore
   ): Record<string, string[]> {
     return GenericProductSpecificationActions.validateMountingPoints(
       store.componentSpecs
@@ -142,21 +136,21 @@ export class ProductActions extends GenericProductSpecificationActions {
   }
 
   static missingColorsInMaterials(
-    store: typeof ProductStore
+    store: ProductStore
   ): Record<string, string[]> {
     return GenericProductSpecificationActions.validateMaterials(
       store.componentSpecs
     );
   }
 
-  static clearProductSpecification(store: typeof ProductStore) {
+  static clearProductSpecification(store: ProductStore) {
     store.componentSpecs = {};
     store.baseSpecs = {};
   }
 
   static storeProductSpecification(
     productSpec: ProductSpecification,
-    store: typeof ProductStore
+    store: ProductStore
   ) {
     ProductActions.clearProductSpecification(store);
     Object.assign(store, productSpec);

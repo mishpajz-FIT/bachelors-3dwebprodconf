@@ -109,7 +109,7 @@ export const EditComponentControls = ({
 
   const handleRemove = () => {
     refreshBounds(() => {
-      UserCreationActions.removeComponent(componentId, UserCreationStore);
+      UserCreationActions.removeComponent(componentId, UserCreationStore.value);
     });
 
     onClose?.();
@@ -120,14 +120,14 @@ export const EditComponentControls = ({
     const action = () => {
       const newComponentId = UserCreationActions.createComponent(
         newComponentSpecId,
-        UserCreationStore,
+        UserCreationStore.value,
         ProductSpecificationStore
       );
       UserCreationActions.mountComponent(
         parentComponentId,
         parentMountingPointId,
         newComponentId,
-        UserCreationStore,
+        UserCreationStore.value,
         ProductSpecificationStore
       );
       ConfiguratorValuesStore.selectedComponentId = undefined;

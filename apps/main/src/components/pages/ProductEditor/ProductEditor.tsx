@@ -32,7 +32,7 @@ const ProductEditor = () => {
 
   const onDone = () => {
     const missingRequired = UserCreationActions.detectMissingRequired(
-      UserCreationStore,
+      UserCreationStore.value,
       ProductSpecificationStore
     );
     if (missingRequired.length !== 0) {

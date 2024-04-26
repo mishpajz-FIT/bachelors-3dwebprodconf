@@ -2,7 +2,7 @@ import { BoundsStorage } from "@3dwebprodconf/shared/src/interfaces/BoundsStorag
 import { Group, Scene } from "three";
 import { proxy, subscribe } from "valtio";
 
-interface ConfiguratorValuesStore {
+export interface ConfiguratorValuesStore {
   selectedComponentId?: string;
   showMountingPoints: boolean;
 }
@@ -18,14 +18,17 @@ subscribe(ConfiguratorValuesStore, () => {
   }
 });
 
-interface ConfiguratorValuesNonReactiveStore {
+interface ConfiguratorValuesNonReactive {
   scene: Scene | undefined;
   currentGroup: Group | undefined;
 }
 
-export const ConfiguratorValuesNonReactiveStore: ConfiguratorValuesNonReactiveStore &
-  BoundsStorage = {
-  scene: undefined,
-  currentGroup: undefined,
-  bounds: undefined,
-};
+export type ConfiguratorValuesNonReactiveStore = ConfiguratorValuesNonReactive &
+  BoundsStorage;
+
+export const ConfiguratorValuesNonReactiveStore: ConfiguratorValuesNonReactiveStore =
+  {
+    scene: undefined,
+    currentGroup: undefined,
+    bounds: undefined,
+  };

@@ -6,8 +6,8 @@ import { ProductSpecificationStore } from "../ProductSpecificationStore.ts";
 import { UserCreationStore } from "../UserCreationStore.ts";
 
 export class UserCreationActions {
-  static getComponent(componentId: string, store: typeof UserCreationStore) {
-    const component = store.value.components[componentId];
+  static getComponent(componentId: string, store: UserCreationStore) {
+    const component = store.components[componentId];
     if (!component) {
       throw new Error(t("errorMissingComponent", { componentId: componentId }));
     }
@@ -16,7 +16,7 @@ export class UserCreationActions {
 
   private static recursiveRemoveComponent(
     componentId: string,
-    store: typeof UserCreationStore
+    store: UserCreationStore
   ) {
     const component = this.getComponent(componentId, store);
 
@@ -24,14 +24,14 @@ export class UserCreationActions {
       this.recursiveRemoveComponent(componentId, store)
     );
 
-    delete store.value.childToParentMap[componentId];
-    delete store.value.components[componentId];
+    delete store.childToParentMap[componentId];
+    delete store.components[componentId];
   }
 
   private static detectComponentCycle(
     sourceComponentId: string,
     targetComponentId: string,
-    store: typeof UserCreationStore
+    store: UserCreationStore
   ): boolean {
     if (sourceComponentId === targetComponentId) {
       return true;
@@ -48,7 +48,7 @@ export class UserCreationActions {
         return true;
       }
 
-      const currentComponent = store.value.components[top];
+      const currentComponent = store.components[top];
       Object.values(currentComponent.mounted).forEach((neighbor) => {
         if (visited.has(neighbor)) {
           return true;
@@ -62,8 +62,8 @@ export class UserCreationActions {
 
   static createComponent(
     componentSpecId: string,
-    userCreationStore: typeof UserCreationStore,
-    productSpecificationStore: typeof ProductSpecificationStore
+    userCreationStore: UserCreationStore,
+    productSpecificationStore: ProductSpecificationStore
   ): string {
     const newComponentId = uuid();
 
@@ -87,7 +87,7 @@ export class UserCreationActions {
       }
     });
 
-    userCreationStore.value.components[newComponentId] = {
+    userCreationStore.components[newComponentId] = {
       componentSpec: componentSpecId,
       materials: materials,
       mounted: {},
@@ -99,19 +99,19 @@ export class UserCreationActions {
   static unmountComponent(
     componentId: string,
     mountingPointSpecId: string,
-    store: typeof UserCreationStore
+    store: UserCreationStore
   ) {
     const component = this.getComponent(componentId, store);
     const mountedComponentId = component.mounted[mountingPointSpecId];
 
     if (mountedComponentId) {
-      delete store.value.childToParentMap[mountedComponentId];
+      delete store.childToParentMap[mountedComponentId];
       delete component.mounted[mountingPointSpecId];
     }
   }
 
-  static removeComponent(componentId: string, store: typeof UserCreationStore) {
-    const parentInfo = store.value.childToParentMap[componentId];
+  static removeComponent(componentId: string, store: UserCreationStore) {
+    const parentInfo = store.childToParentMap[componentId];
     if (parentInfo) {
       const [parentId, mountingPointSpecId] = parentInfo;
       this.unmountComponent(parentId, mountingPointSpecId, store);
@@ -124,8 +124,8 @@ export class UserCreationActions {
     targetComponentId: string,
     mountingPointSpecId: string,
     mountComponentId: string,
-    userCreationStore: typeof UserCreationStore,
-    productSpecificationStore: typeof ProductSpecificationStore
+    userCreationStore: UserCreationStore,
+    productSpecificationStore: ProductSpecificationStore
   ) {
     if (
       this.detectComponentCycle(
@@ -158,29 +158,29 @@ export class UserCreationActions {
     }
 
     targetComponent.mounted[mountingPointSpecId] = mountComponentId;
-    userCreationStore.value.childToParentMap[mountComponentId] = [
+    userCreationStore.childToParentMap[mountComponentId] = [
       targetComponentId,
       mountingPointSpecId,
     ];
   }
 
-  static removeAllNonbaseComponents(store: typeof UserCreationStore) {
-    if (store.value.isBaseSet && store.value.base) {
-      const baseComponent = this.getComponent(store.value.base, store);
-      store.value.components = {
-        [store.value.base]: { ...baseComponent, mounted: {} },
+  static removeAllNonbaseComponents(store: UserCreationStore) {
+    if (store.isBaseSet && store.base) {
+      const baseComponent = this.getComponent(store.base, store);
+      store.components = {
+        [store.base]: { ...baseComponent, mounted: {} },
       };
     } else {
-      store.value.components = {};
+      store.components = {};
     }
 
-    store.value.childToParentMap = {};
+    store.childToParentMap = {};
   }
 
-  static setBase(componentId: string, store: typeof UserCreationStore) {
+  static setBase(componentId: string, store: UserCreationStore) {
     this.getComponent(componentId, store);
-    store.value.base = componentId;
-    store.value.isBaseSet = true;
+    store.base = componentId;
+    store.isBaseSet = true;
     this.removeAllNonbaseComponents(store);
   }
 
@@ -188,7 +188,7 @@ export class UserCreationActions {
     componentId: string,
     materialSpecId: string,
     colorSpecId: string | undefined,
-    userCreationStore: typeof UserCreationStore,
+    userCreationStore: UserCreationStore,
     productSpecificationStore: typeof ProductSpecificationStore
   ) {
     const component = this.getComponent(componentId, userCreationStore);
@@ -221,10 +221,10 @@ export class UserCreationActions {
   }
 
   static detectMissingRequired(
-    userCreationStore: typeof UserCreationStore,
+    userCreationStore: UserCreationStore,
     productSpecificationStore: typeof ProductSpecificationStore
   ) {
-    return Object.entries(userCreationStore.value.components).reduce(
+    return Object.entries(userCreationStore.components).reduce(
       (missingComponents, [componentId, component]) => {
         const componentSpec = ProductSpecificationActions.getComponentSpec(
           component.componentSpec,

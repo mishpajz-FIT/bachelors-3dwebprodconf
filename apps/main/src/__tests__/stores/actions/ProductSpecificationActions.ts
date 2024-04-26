@@ -8,7 +8,7 @@ import {
 } from "@3dwebprodconf/shared/src/schemas/ProductSpecification.ts";
 import { ProductSpecificationActions } from "../../../stores/actions/ProductSpecificationActions.ts";
 
-let storeMock: typeof ProductSpecificationStore;
+let storeMock: ProductSpecificationStore;
 
 beforeEach(() => {
   jest.clearAllMocks();

@@ -11,7 +11,7 @@ import * as FetchingModule from "../../../utilities/Fetching";
 
 const fetchCatalog = FetchingModule.fetchCatalog as jest.Mock;
 
-let storeMock: typeof CatalogStore;
+let storeMock: CatalogStore;
 
 beforeEach(() => {
   jest.clearAllMocks();

@@ -48,7 +48,7 @@ export const EditComponentColorsColorTile = ({
                     componentId,
                     materialSpecId,
                     colorSpecId,
-                    UserCreationStore,
+                    UserCreationStore.value,
                     ProductSpecificationStore
                   );
                 }

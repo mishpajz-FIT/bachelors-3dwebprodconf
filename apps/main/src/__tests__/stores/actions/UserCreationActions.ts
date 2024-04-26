@@ -29,7 +29,6 @@ describe("UserCreationActions.getComponent", () => {
   it("should throw an error if the component does not exist", () => {
     const componentId = "nonExistentComponent";
     expect(() =>
-      // @ts-ignore
       UserCreationActions.getComponent(componentId, storeMock)
     ).toThrow(
       'errorMissingComponent with params {"componentId":"nonExistentComponent"}'
@@ -41,7 +40,6 @@ describe("UserCreationActions.getComponent", () => {
     const componentData = generateMock(UserComponentSchema);
     storeMock.value.components[componentId] = componentData;
 
-    // @ts-ignore
     expect(UserCreationActions.getComponent(componentId, storeMock)).toEqual(
       componentData
     );
