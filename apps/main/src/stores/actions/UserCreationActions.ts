@@ -43,18 +43,17 @@ export class UserCreationActions {
     while (queue.length) {
       const top = queue.shift()!;
       visited.add(top);
-
       if (top === targetComponentId) {
         return true;
       }
 
-      const currentComponent = store.components[top];
-      Object.values(currentComponent.mounted).forEach((neighbor) => {
+      const currentComponent = this.getComponent(top, store);
+      for (const neighbor of Object.values(currentComponent.mounted)) {
         if (visited.has(neighbor)) {
           return true;
         }
         queue.push(neighbor);
-      });
+      }
     }
 
     return false;
@@ -129,8 +128,8 @@ export class UserCreationActions {
   ) {
     if (
       this.detectComponentCycle(
-        targetComponentId,
         mountComponentId,
+        targetComponentId,
         userCreationStore
       )
     ) {

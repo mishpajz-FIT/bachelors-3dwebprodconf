@@ -23,7 +23,7 @@ beforeEach(() => {
 describe("CatalogActions.getCatalog", () => {
   const fallbackUrl = "http://example.com/catalog";
 
-  test("fetches the catalog if not present in the store", async () => {
+  test("fetches and returns the catalog if not present in the store", async () => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-assignment
     const expectedCatalog = generateMock(CatalogSchema);
     fetchCatalog.mockResolvedValue(expectedCatalog);
@@ -35,7 +35,6 @@ describe("CatalogActions.getCatalog", () => {
   });
 
   test("returns the existing catalog if already present in the store", async () => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-assignment
     const existingCatalog: Catalog = generateMock(CatalogSchema);
     storeMock.catalog = existingCatalog;
 

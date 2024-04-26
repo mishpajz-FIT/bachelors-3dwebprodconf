@@ -19,7 +19,7 @@ beforeEach(() => {
 });
 
 describe("ProductSpecificationActions.getComponentSpec", () => {
-  it("should return the component specification if it exists", () => {
+  it("returns the component specification if it exists", () => {
     const componentSpecId = "comp1";
     const componentSpecMock = generateMock(ComponentSpecificationSchema);
     storeMock.componentSpecs[componentSpecId] = componentSpecMock;
@@ -31,58 +31,58 @@ describe("ProductSpecificationActions.getComponentSpec", () => {
     expect(spec).toEqual(componentSpecMock);
   });
 
-  it("should throw an error if the component specification does not exist", () => {
+  it("throws an error if the component specification does not exist", () => {
     expect(() => {
       ProductSpecificationActions.getComponentSpec("nonExistentId", storeMock);
     }).toThrow();
   });
+});
 
-  describe("ProductSpecificationActions.colorSpecificationWithLowestSortIndex", () => {
-    it("should return the color id with the lowest sort index", () => {
-      const materialSpecMock = generateMock(MaterialSpecificationSchema);
-      const colorVariationSpec1 = generateMock(ColorSpecificationSchema);
-      const colorVariationSpec2 = generateMock(ColorSpecificationSchema);
-      colorVariationSpec1.sortIndex = 0;
-      colorVariationSpec2.sortIndex = 2;
+describe("ProductSpecificationActions.colorSpecificationWithLowestSortIndex", () => {
+  it("returns the color id with the lowest sort index", () => {
+    const materialSpecMock = generateMock(MaterialSpecificationSchema);
+    const colorVariationSpec1 = generateMock(ColorSpecificationSchema);
+    const colorVariationSpec2 = generateMock(ColorSpecificationSchema);
+    colorVariationSpec1.sortIndex = 0;
+    colorVariationSpec2.sortIndex = 2;
 
-      materialSpecMock.colorVariationsSpecs = {
-        red1: colorVariationSpec1,
-        blue2: colorVariationSpec2,
-      };
+    materialSpecMock.colorVariationsSpecs = {
+      red1: colorVariationSpec1,
+      blue2: colorVariationSpec2,
+    };
 
-      const lowestColor =
-        ProductSpecificationActions.colorSpecificationWithLowestSortIndex(
-          materialSpecMock
-        );
-      expect(lowestColor).toBe("red1");
-    });
-
-    it("should return undefined if there are no color variations", () => {
-      const materialSpecMock = generateMock(MaterialSpecificationSchema);
-      materialSpecMock.colorVariationsSpecs = {};
-      const result =
-        ProductSpecificationActions.colorSpecificationWithLowestSortIndex(
-          materialSpecMock
-        );
-      expect(result).toBeUndefined();
-    });
+    const lowestColor =
+      ProductSpecificationActions.colorSpecificationWithLowestSortIndex(
+        materialSpecMock
+      );
+    expect(lowestColor).toBe("red1");
   });
 
-  describe("ProductSpecificationActions.storeProductSpecification", () => {
-    it("should store product specifications into the store", () => {
-      const oldProductSpecMock = generateMock(ProductSpecificationSchema);
-      storeMock.componentSpecs = oldProductSpecMock.componentSpecs;
-      storeMock.baseSpecs = oldProductSpecMock.baseSpecs;
-
-      const productSpecMock = generateMock(ProductSpecificationSchema);
-
-      ProductSpecificationActions.storeProductSpecification(
-        productSpecMock,
-        storeMock
+  it("returns undefined if there are no color variations", () => {
+    const materialSpecMock = generateMock(MaterialSpecificationSchema);
+    materialSpecMock.colorVariationsSpecs = {};
+    const result =
+      ProductSpecificationActions.colorSpecificationWithLowestSortIndex(
+        materialSpecMock
       );
+    expect(result).toBeUndefined();
+  });
+});
 
-      expect(storeMock.componentSpecs).toEqual(productSpecMock.componentSpecs);
-      expect(storeMock.baseSpecs).toEqual(productSpecMock.baseSpecs);
-    });
+describe("ProductSpecificationActions.storeProductSpecification", () => {
+  it("stores product specifications into the store", () => {
+    const oldProductSpecMock = generateMock(ProductSpecificationSchema);
+    storeMock.componentSpecs = oldProductSpecMock.componentSpecs;
+    storeMock.baseSpecs = oldProductSpecMock.baseSpecs;
+
+    const productSpecMock = generateMock(ProductSpecificationSchema);
+
+    ProductSpecificationActions.storeProductSpecification(
+      productSpecMock,
+      storeMock
+    );
+
+    expect(storeMock.componentSpecs).toEqual(productSpecMock.componentSpecs);
+    expect(storeMock.baseSpecs).toEqual(productSpecMock.baseSpecs);
   });
 });
