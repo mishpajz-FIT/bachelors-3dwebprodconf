@@ -230,8 +230,6 @@ export class UserCreationActions {
           productSpecificationStore
         );
 
-        console.log(componentSpec);
-
         const isMissing = Object.entries(
           componentSpec.mountingPointsSpecs
         ).some(

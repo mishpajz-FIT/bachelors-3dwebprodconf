@@ -587,6 +587,12 @@ describe("UserCreationActions.detectMissingRequired", () => {
     storeMock.components = { cm1: componentMock1 };
     componentMock1.componentSpec = "comp1";
 
+    getComponentSpec.mockImplementation(
+      (id: string, store: ProductSpecificationStore) => {
+        return store.componentSpecs[id];
+      }
+    );
+
     expect(
       UserCreationActions.detectMissingRequired(
         storeMock,
