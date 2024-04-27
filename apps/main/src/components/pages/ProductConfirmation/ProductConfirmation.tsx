@@ -90,7 +90,7 @@ export const ProductConfirmation = () => {
       </div>
 
       <div className="flex w-full grow flex-row justify-center">
-        <div className="w-full md:w-4/5 lg:w-2/3 xl:w-1/2 print:w-full">
+        <div className="w-full md:w-4/5 lg:w-2/3 xl:w-1/2 print:block print:w-full">
           <ol className="simple-panel mb-20 mt-2 flex w-full flex-col justify-start rounded-xl shadow-none">
             {Object.keys(userCreationSnap.value.components).map(
               (componentId, index) => (
