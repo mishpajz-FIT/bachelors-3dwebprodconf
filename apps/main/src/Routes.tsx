@@ -64,6 +64,7 @@ export const routes: RouteObject[] = [
       if (UserCreationStore.value.product != params.productId) {
         UserCreationStore.goTo(0);
         UserCreationStore.value.product = params.productId;
+        UserCreationStore.saveHistory();
       }
 
       return productSpecification;

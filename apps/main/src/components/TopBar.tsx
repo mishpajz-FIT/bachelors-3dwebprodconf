@@ -38,7 +38,7 @@ export const TopBar = ({ children }: TopBarProps) => {
           </a>
 
           <Popover className="relative">
-            <Popover.Button className="other-button">
+            <Popover.Button className="other-button" aria-label={"Settings"}>
               <Cog6ToothIcon className="size-4" />
             </Popover.Button>
 
