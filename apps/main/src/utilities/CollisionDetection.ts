@@ -3,7 +3,7 @@ import {
   traverseMeshes,
 } from "@3dwebprodconf/shared/src/utilites/ThreeExtensions.ts";
 import * as THREE from "three";
-import { GLTFLoader, DRACOLoader, MeshoptDecoder } from "three-stdlib";
+import { DRACOLoader, GLTFLoader, MeshoptDecoder } from "three-stdlib";
 
 import { ProductSpecificationActions } from "../stores/actions/ProductSpecificationActions.ts";
 import { ProductSpecificationStore } from "../stores/ProductSpecificationStore.ts";
@@ -78,17 +78,19 @@ export async function willComponentCollide(
     return false;
   }
 
+  const loader = new GLTFLoader();
   dracoLoader.setDecoderPath(
     "https://www.gstatic.com/draco/versioned/decoders/1.5.5/"
   );
-
-  const loader = new GLTFLoader();
   loader.setDRACOLoader(dracoLoader);
   loader.setMeshoptDecoder(
     typeof MeshoptDecoder === "function" ? MeshoptDecoder() : MeshoptDecoder
   );
 
-  const gltf = await loader.loadAsync(componentSpec.modelUrl);
+  const gltf = await loader.parseAsync(
+    THREE.Cache.get(componentSpec.modelUrl) as ArrayBuffer,
+    componentSpec.modelUrl
+  );
   const model = gltf.scene;
 
   const outerGroup = new THREE.Group();

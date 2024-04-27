@@ -48,7 +48,8 @@ module.exports = {
           "depthTest",
           "geometry",
           "material",
-          "userData"
+          "userData",
+          "matrixAutoUpdate"
         ],
       },
     ],

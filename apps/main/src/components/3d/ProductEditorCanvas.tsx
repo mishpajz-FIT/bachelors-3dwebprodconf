@@ -17,7 +17,7 @@ import {
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useEffect } from "react";
-import { MOUSE } from "three";
+import { Cache as ThreeCache, MOUSE } from "three";
 import { useSnapshot } from "valtio";
 
 import { Component } from "./Component/Component.tsx";
@@ -37,6 +37,7 @@ const ProductEditorCanvas = () => {
   const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
 
   useEffect(() => {
+    ThreeCache.enabled = true;
     Object.values(ProductSpecificationStore.componentSpecs).forEach(
       (componentSpec) => {
         useGLTF.preload(componentSpec.modelUrl);
@@ -55,6 +56,9 @@ const ProductEditorCanvas = () => {
         camera={{ position: [0, 1.7, 3] }}
         onPointerMissed={() => {
           ConfiguratorValuesStore.selectedComponentId = undefined;
+        }}
+        gl={{
+          powerPreference: "high-performance",
         }}
       >
         <SceneStorer />

@@ -20,9 +20,13 @@ export const Component = ({ componentId }: ComponentProps) => {
 
   return (
     <group name={componentId}>
-      <Bvh indirect={true} firstHitOnly={true}>
+      {componentSpec.ignoreCollisions ? (
         <ComponentModel componentId={componentId} />
-      </Bvh>
+      ) : (
+        <Bvh indirect={true} firstHitOnly={true}>
+          <ComponentModel componentId={componentId} />
+        </Bvh>
+      )}
 
       {Object.entries(componentSpec.mountingPointsSpecs).map(
         ([mountingPointSpecId, mountingPoint]) => {

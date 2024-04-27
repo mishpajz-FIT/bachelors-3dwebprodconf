@@ -5,6 +5,7 @@ interface RenderProps {
   object: Object3D;
   materialOverrides?: Record<string, Material>;
   userData?: object;
+  dontMatrixAutoUpdate?: boolean;
   children?: ReactNode;
 }
 
@@ -27,13 +28,20 @@ const getMaterial = (
 };
 
 export const Render = memo(
-  ({ object, materialOverrides, userData, children }: RenderProps) => {
+  ({
+    object,
+    materialOverrides,
+    userData,
+    dontMatrixAutoUpdate,
+    children,
+  }: RenderProps) => {
     if (object.type === "Group" || object.type === "Object3D") {
       return (
         <group
           position={object.position}
           rotation={object.rotation}
           scale={object.scale}
+          matrixAutoUpdate={dontMatrixAutoUpdate !== true}
         >
           {object.children.map((child) => (
             <Render
@@ -58,6 +66,7 @@ export const Render = memo(
           scale={mesh.scale}
           material={getMaterial(mesh.material, materialOverrides)}
           userData={userData}
+          matrixAutoUpdate={dontMatrixAutoUpdate !== true}
         >
           {children}
         </mesh>

@@ -94,6 +94,7 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
             componentId: componentId,
             ignoreCollisions: componentSpec.ignoreCollisions,
           }}
+          dontMatrixAutoUpdate={true}
         >
           <Edges
             visible={componentId === configuratorValuesSnap.selectedComponentId}

@@ -1,17 +1,18 @@
 import { useThree } from "@react-three/fiber";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { Scene } from "three";
 
 import { ConfiguratorValuesNonReactiveStore } from "../../stores/ConfiguratorValuesStore.ts";
 
 export const SceneStorer = () => {
   const { scene } = useThree();
+  const storedSceneRef = useRef<Scene>();
 
   useEffect(() => {
-    ConfiguratorValuesNonReactiveStore.scene = scene;
-
-    return () => {
-      ConfiguratorValuesNonReactiveStore.scene = undefined;
-    };
+    if (storedSceneRef.current !== scene) {
+      storedSceneRef.current = scene;
+      ConfiguratorValuesNonReactiveStore.scene = scene;
+    }
   }, [scene]);
 
   return <></>;
