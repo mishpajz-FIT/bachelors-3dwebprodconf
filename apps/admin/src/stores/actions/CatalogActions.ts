@@ -6,18 +6,15 @@ import {
 import { CatalogStore } from "../CatalogStore.ts";
 
 export class CatalogActions {
-  static clearCatalog(store: typeof CatalogStore) {
+  static clearCatalog(store: CatalogStore) {
     store.products = {};
   }
-  static storeCatalog(catalog: Catalog, store: typeof CatalogStore) {
+  static storeCatalog(catalog: Catalog, store: CatalogStore) {
     CatalogActions.clearCatalog(store);
     Object.assign(store, catalog);
   }
 
-  static getProduct(
-    productId: string,
-    store: typeof CatalogStore
-  ): CatalogProduct {
+  static getProduct(productId: string, store: CatalogStore): CatalogProduct {
     const product = store.products[productId];
 
     if (!product) {
@@ -27,19 +24,19 @@ export class CatalogActions {
     return product;
   }
 
-  static removeProduct(productId: string, store: typeof CatalogStore) {
+  static removeProduct(productId: string, store: CatalogStore) {
     delete store.products[productId];
   }
 
   static addProduct(
     productId: string,
     product: CatalogProduct,
-    store: typeof CatalogStore
+    store: CatalogStore
   ) {
     store.products[productId] = product;
   }
 
-  static productExists(productId: string, store: typeof CatalogStore): boolean {
+  static productExists(productId: string, store: CatalogStore): boolean {
     return Object.prototype.hasOwnProperty.call(store.products, productId);
   }
 }

@@ -18,8 +18,9 @@ const validate = (): string[] => {
   }
 
   function missingComponentsInMountingPointsValidation() {
-    const missingComponents =
-      ProductActions.missingComponentsInMountingPoints(ProductStore);
+    const missingComponents = ProductActions.validateMountingPoints(
+      ProductStore.componentSpecs
+    );
 
     return Object.entries(missingComponents).reduce(
       (acc, [componentId, mountingPoints]) => {
@@ -35,7 +36,9 @@ const validate = (): string[] => {
   }
 
   function missingColorsInMaterialsValidation() {
-    const missingColors = ProductActions.missingColorsInMaterials(ProductStore);
+    const missingColors = ProductActions.validateMaterials(
+      ProductStore.componentSpecs
+    );
 
     return Object.entries(missingColors).reduce(
       (acc, [componentId, materials]) => {

@@ -6,7 +6,7 @@ import { CatalogStore } from "../CatalogStore.ts";
 export class CatalogActions {
   static async getCatalog(
     fallbackUrl: string,
-    store: typeof CatalogStore
+    store: CatalogStore
   ): Promise<Catalog> {
     if (!store.catalog) {
       store.catalog = await fetchCatalog(fallbackUrl);

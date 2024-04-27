@@ -105,14 +105,14 @@ export const MountingPointButton = ({
     const action = () => {
       const newComponentId = UserCreationActions.createComponent(
         newComponentSpecId,
-        UserCreationStore,
+        UserCreationStore.value,
         ProductSpecificationStore
       );
       UserCreationActions.mountComponent(
         componentId,
         mountingPointSpecId,
         newComponentId,
-        UserCreationStore,
+        UserCreationStore.value,
         ProductSpecificationStore
       );
     };

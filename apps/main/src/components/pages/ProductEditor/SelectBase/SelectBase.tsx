@@ -26,11 +26,11 @@ export const SelectBase = ({ onClose }: SelectBaseProps) => {
       const createAndSetBase = () => {
         const newComponentId = UserCreationActions.createComponent(
           newComponentSpecId,
-          UserCreationStore,
+          UserCreationStore.value,
           ProductSpecificationStore
         );
 
-        UserCreationActions.setBase(newComponentId, UserCreationStore);
+        UserCreationActions.setBase(newComponentId, UserCreationStore.value);
       };
 
       refreshBounds(createAndSetBase);
