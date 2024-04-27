@@ -36,6 +36,7 @@ export const routes: RouteObject[] = [
     errorElement: <ErrorPage />,
     element: <ProductSelection />,
     loader: async () => {
+      UserCreationStore.goTo(0);
       return await loadCatalogWithValidProduct();
     },
   },

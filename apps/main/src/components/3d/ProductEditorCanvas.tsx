@@ -1,4 +1,5 @@
 import { BoundsStorer } from "@3dwebprodconf/shared/src/components/BoundsStorer.tsx";
+import { CanvasLoading } from "@3dwebprodconf/shared/src/components/CanvasLoading.tsx";
 import {
   ArrowUturnLeftIcon,
   ArrowUturnRightIcon,
@@ -16,7 +17,7 @@ import {
   useGLTF,
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Cache as ThreeCache, MOUSE } from "three";
 import { useSnapshot } from "valtio";
 
@@ -36,6 +37,8 @@ const ProductEditorCanvas = () => {
   const userCreationSnap = useSnapshot(UserCreationStore);
   const configuratorValuesSnap = useSnapshot(ConfiguratorValuesStore);
 
+  const [loadingScene, setLoadingScene] = useState(true);
+
   useEffect(() => {
     ThreeCache.enabled = true;
     Object.values(ProductSpecificationStore.componentSpecs).forEach(
@@ -47,6 +50,12 @@ const ProductEditorCanvas = () => {
 
   return (
     <>
+      {loadingScene && (
+        <div className="other-background size-full">
+          {/* model loading indicator is done using fallback, this is for WebGL renderer */}
+          <CanvasLoading />
+        </div>
+      )}
       <Canvas
         className="shrink grow touch-none bg-[#fefefe] dark:bg-[#141414]"
         frameloop="demand"
@@ -61,7 +70,11 @@ const ProductEditorCanvas = () => {
           powerPreference: "high-performance",
         }}
       >
-        <SceneStorer />
+        <SceneStorer
+          setSceneLoaded={() => {
+            setLoadingScene(false);
+          }}
+        />
         <OrbitControls
           makeDefault={true}
           regress={true}
