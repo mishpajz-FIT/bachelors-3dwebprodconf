@@ -30,29 +30,25 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
 
   const customMaterials = useMemo(
     () =>
-      Object.entries(
-        // eslint-disable-next-line valtio/state-snapshot-rule
-        component.materials
-      ).reduce<Record<string, MeshStandardMaterial>>(
-        (acc, [materialSpecId, colorSpecId]) => {
-          const materialSpec = componentSpec.materialSpecs[materialSpecId];
-          if (!materialSpec) return acc;
+      Object.entries(component.materials).reduce<
+        Record<string, MeshStandardMaterial>
+      >((acc, [materialSpecId, colorSpecId]) => {
+        const materialSpec = componentSpec.materialSpecs[materialSpecId];
+        if (!materialSpec) return acc;
 
-          const colorSpec = materialSpec.colorVariationsSpecs[colorSpecId];
-          if (!colorSpec) return acc;
+        const colorSpec = materialSpec.colorVariationsSpecs[colorSpecId];
+        if (!colorSpec) return acc;
 
-          materialSpec.modelMaterials.forEach((modelMaterialName) => {
-            const originalMaterial = materials[modelMaterialName];
-            if (originalMaterial instanceof MeshStandardMaterial) {
-              acc[modelMaterialName] = originalMaterial.clone();
-              acc[modelMaterialName].color = new Color(colorSpec.value);
-            }
-          });
+        materialSpec.modelMaterials.forEach((modelMaterialName) => {
+          const originalMaterial = materials[modelMaterialName];
+          if (originalMaterial instanceof MeshStandardMaterial) {
+            acc[modelMaterialName] = originalMaterial.clone();
+            acc[modelMaterialName].color = new Color(colorSpec.value);
+          }
+        });
 
-          return acc;
-        },
-        {}
-      ),
+        return acc;
+      }, {}),
     [componentSpec.materialSpecs, materials, component.materials]
   );
 

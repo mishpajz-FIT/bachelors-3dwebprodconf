@@ -9,7 +9,7 @@ interface PlacementControlsProps {
   onManipulationEnd: () => void;
   updatePosition: (position: [number, number, number]) => void;
   updateRotation: (rotation: [number, number, number]) => void;
-  updateScale: (scale: [number, number, number]) => void;
+  updateScale?: (scale: [number, number, number]) => void;
   axisColors?: [string, string, string];
   hidden?: boolean;
   children?: ReactNode;

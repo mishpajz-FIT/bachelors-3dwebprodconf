@@ -24,7 +24,7 @@ export const SceneStorer = ({ setSceneLoaded }: SceneStorerProps) => {
   useFrame(() => {
     if (!isFirstFrameRendered) {
       setIsFirstFrameRendered(true);
-      setSceneLoaded(true);
+      setSceneLoaded();
     }
   });
 

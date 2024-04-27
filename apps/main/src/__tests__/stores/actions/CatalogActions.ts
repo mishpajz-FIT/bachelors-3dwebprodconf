@@ -25,7 +25,6 @@ describe("CatalogActions.getCatalog", () => {
   const fallbackUrl = "http://example.com/catalog";
 
   test("fetches and returns the catalog if not present in the store", async () => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-assignment
     const expectedCatalog = generateMock(CatalogSchema);
     fetchCatalog.mockResolvedValue(expectedCatalog);
     const catalog = await CatalogActions.getCatalog(fallbackUrl, storeMock);
