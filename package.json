@@ -24,7 +24,9 @@
   "browserslist": [
     "> 1%",
     "not dead",
-    "last 2 versions"
+    "last 2 versions",
+    "defaults and fully supports es6-module",
+    "maintained node versions"
   ],
   "dependencies": {
     "@anatine/zod-mock": "^3.13.4",

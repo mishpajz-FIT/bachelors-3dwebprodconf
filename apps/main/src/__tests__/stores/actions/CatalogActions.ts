@@ -1,9 +1,6 @@
 jest.mock("../../../utilities/Fetching");
 
-import {
-  Catalog,
-  CatalogSchema,
-} from "@3dwebprodconf/shared/src/schemas/Catalog";
+import { CatalogSchema } from "@3dwebprodconf/shared/src/schemas/Catalog";
 import { generateMock } from "@anatine/zod-mock";
 
 import { CatalogActions } from "../../../stores/actions/CatalogActions";
@@ -35,7 +32,7 @@ describe("CatalogActions.getCatalog", () => {
   });
 
   test("returns the existing catalog if already present in the store", async () => {
-    const existingCatalog: Catalog = generateMock(CatalogSchema);
+    const existingCatalog = generateMock(CatalogSchema);
     storeMock.catalog = existingCatalog;
 
     const catalog = await CatalogActions.getCatalog(fallbackUrl, storeMock);
