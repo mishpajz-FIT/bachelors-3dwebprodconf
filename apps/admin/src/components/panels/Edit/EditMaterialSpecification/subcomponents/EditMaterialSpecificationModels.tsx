@@ -33,7 +33,7 @@ export const EditMaterialSpecificationModels = () => {
       const isIncluded = objectMaterial
         .toLowerCase()
         .includes(addTerm.toLowerCase());
-      const isAdded = materialSpec.modelMaterials.includes(componentSpecId);
+      const isAdded = materialSpec.modelMaterials.includes(objectMaterial);
 
       return isIncluded && !isAdded;
     }

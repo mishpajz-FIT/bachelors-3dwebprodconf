@@ -18,7 +18,3 @@ function App() {
 }
 
 export default App;
-
-// TODO: Refactor add's in code
-// TODO: Minify bundle size
-// TODO: add CAPTCHA
