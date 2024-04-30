@@ -1,0 +1,1604 @@
+{
+  "componentSpecs": {
+    "drawers": {
+      "name": "Šuplíky",
+      "description": "4 šuplíky\n\n60 cm x 90 cm x 80 cm",
+      "imageUrl": "/images/products/drawer.png",
+      "modelUrl": "/models/Drawers.glb",
+      "materialSpecs": {
+        "wood": {
+          "name": "Dřevo",
+          "modelMaterials": [
+            "WOOD"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Buk",
+              "value": "#ffd877",
+              "sortIndex": 0
+            },
+            "medium": {
+              "name": "Třešeň",
+              "value": "#5a1c00",
+              "sortIndex": 1
+            },
+            "dark": {
+              "name": "Ořech",
+              "value": "#412700",
+              "sortIndex": 2
+            }
+          }
+        },
+        "marble": {
+          "name": "Mramor",
+          "modelMaterials": [
+            "MARBLE"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Světlý",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "dark": {
+              "name": "Tmavý",
+              "value": "#606060",
+              "sortIndex": 1
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "left": {
+          "position": [
+            -0.4558784543913069,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "drawers-l",
+            "leftcupboard-l",
+            "rightcupboard-l",
+            "sink-l",
+            "corner-l"
+          ]
+        },
+        "right": {
+          "position": [
+            0.45058851091318836,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "drawers-r",
+            "leftcupboard-r",
+            "rightcupboard-r",
+            "corner-r",
+            "sink-r",
+            "ending-r"
+          ]
+        }
+      },
+      "positionOffset": [
+        0,
+        0,
+        0
+      ],
+      "rotationOffset": [
+        0,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        20,
+        20,
+        20
+      ],
+      "ignoreCollisions": false,
+      "sortIndex": 0,
+      "collisionSensitivity": 95
+    },
+    "drawers-l": {
+      "name": "Šuplíky",
+      "description": "4 šuplíky\n\n60 cm x 90 cm x 80 cm",
+      "imageUrl": "/images/products/drawer.png",
+      "modelUrl": "/models/Drawers.glb",
+      "materialSpecs": {
+        "wood": {
+          "name": "Dřevo",
+          "modelMaterials": [
+            "WOOD"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Buk",
+              "value": "#ffd877",
+              "sortIndex": 0
+            },
+            "medium": {
+              "name": "Třešeň",
+              "value": "#5a1c00",
+              "sortIndex": 1
+            },
+            "dark": {
+              "name": "Ořech",
+              "value": "#412700",
+              "sortIndex": 2
+            }
+          }
+        },
+        "marble": {
+          "name": "Mramor",
+          "modelMaterials": [
+            "MARBLE"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Světlý",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "dark": {
+              "name": "Tmavý",
+              "value": "#606060",
+              "sortIndex": 1
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "left": {
+          "position": [
+            -0.8082248831531867,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "drawers-l",
+            "leftcupboard-l",
+            "rightcupboard-l",
+            "corner-l",
+            "sink-l",
+            "ending-l"
+          ]
+        }
+      },
+      "positionOffset": [
+        -0.35427852628802914,
+        0,
+        0
+      ],
+      "rotationOffset": [
+        0,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        20,
+        20,
+        20
+      ],
+      "ignoreCollisions": false,
+      "sortIndex": 1,
+      "collisionSensitivity": 95
+    },
+    "drawers-r": {
+      "name": "Šuplíky",
+      "description": "4 šuplíky\n\n60 cm x 90 cm x 80 cm",
+      "imageUrl": "/images/products/drawer.png",
+      "modelUrl": "/models/Drawers.glb",
+      "materialSpecs": {
+        "wood": {
+          "name": "Dřevo",
+          "modelMaterials": [
+            "WOOD"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Buk",
+              "value": "#ffd877",
+              "sortIndex": 0
+            },
+            "medium": {
+              "name": "Třešeň",
+              "value": "#5a1c00",
+              "sortIndex": 1
+            },
+            "dark": {
+              "name": "Ořech",
+              "value": "#412700",
+              "sortIndex": 2
+            }
+          }
+        },
+        "marble": {
+          "name": "Mramor",
+          "modelMaterials": [
+            "MARBLE"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Světlý",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "dark": {
+              "name": "Tmavý",
+              "value": "#606060",
+              "sortIndex": 1
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "right": {
+          "position": [
+            0.8052858170165604,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "drawers-r",
+            "leftcupboard-r",
+            "rightcupboard-r",
+            "corner-r",
+            "ending-r",
+            "sink-r"
+          ]
+        }
+      },
+      "positionOffset": [
+        0.3562868315883665,
+        0,
+        0
+      ],
+      "rotationOffset": [
+        0,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        20,
+        20,
+        20
+      ],
+      "ignoreCollisions": false,
+      "sortIndex": 1,
+      "collisionSensitivity": 95
+    },
+    "leftcupboard": {
+      "name": "Levá skříňka",
+      "description": "Rozdělena na 2 police\n\n60 cm x 90 cm x 80 cm",
+      "imageUrl": "/images/products/leftcupboard.png",
+      "modelUrl": "/models/CupboardLeft.glb",
+      "materialSpecs": {
+        "wood": {
+          "name": "Dřevo",
+          "modelMaterials": [
+            "WOOD"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Buk",
+              "value": "#ffd877",
+              "sortIndex": 0
+            },
+            "medium": {
+              "name": "Třešeň",
+              "value": "#5a1c00",
+              "sortIndex": 1
+            },
+            "dark": {
+              "name": "Ořech",
+              "value": "#412700",
+              "sortIndex": 2
+            }
+          }
+        },
+        "marble": {
+          "name": "Mramor",
+          "modelMaterials": [
+            "MARBLE"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Světlý",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "dark": {
+              "name": "Tmavý",
+              "value": "#606060",
+              "sortIndex": 1
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "left": {
+          "position": [
+            -0.4558784543913069,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "drawers-l",
+            "leftcupboard-l",
+            "rightcupboard-l",
+            "corner-l",
+            "sink-l"
+          ]
+        },
+        "right": {
+          "position": [
+            0.45058851091318836,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "drawers-r",
+            "leftcupboard-r",
+            "rightcupboard-r",
+            "corner-r",
+            "sink-r"
+          ]
+        }
+      },
+      "positionOffset": [
+        0,
+        0,
+        0
+      ],
+      "rotationOffset": [
+        0,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        20,
+        20,
+        20
+      ],
+      "ignoreCollisions": false,
+      "sortIndex": 3,
+      "collisionSensitivity": 95
+    },
+    "leftcupboard-l": {
+      "name": "Levá skříňka",
+      "description": "Rozdělena na 2 police\n\n60 cm x 90 cm x 80 cm",
+      "imageUrl": "/images/products/leftcupboard.png",
+      "modelUrl": "/models/CupboardLeft.glb",
+      "materialSpecs": {
+        "wood": {
+          "name": "Dřevo",
+          "modelMaterials": [
+            "WOOD"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Buk",
+              "value": "#ffd877",
+              "sortIndex": 0
+            },
+            "medium": {
+              "name": "Třešeň",
+              "value": "#5a1c00",
+              "sortIndex": 1
+            },
+            "dark": {
+              "name": "Ořech",
+              "value": "#412700",
+              "sortIndex": 2
+            }
+          }
+        },
+        "marble": {
+          "name": "Mramor",
+          "modelMaterials": [
+            "MARBLE"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Světlý",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "dark": {
+              "name": "Tmavý",
+              "value": "#606060",
+              "sortIndex": 1
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "left": {
+          "position": [
+            -0.8082248831531867,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "drawers-l",
+            "leftcupboard-l",
+            "rightcupboard-l",
+            "corner-l",
+            "sink-l",
+            "ending-l"
+          ]
+        }
+      },
+      "positionOffset": [
+        -0.35427852628802914,
+        0,
+        0
+      ],
+      "rotationOffset": [
+        0,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        20,
+        20,
+        20
+      ],
+      "ignoreCollisions": false,
+      "sortIndex": 3,
+      "collisionSensitivity": 95
+    },
+    "leftcupboard-r": {
+      "name": "Levá skříňka",
+      "description": "Rozdělena na 2 police\n\n60 cm x 90 cm x 80 cm",
+      "imageUrl": "/images/products/leftcupboard.png",
+      "modelUrl": "/models/CupboardLeft.glb",
+      "materialSpecs": {
+        "wood": {
+          "name": "Dřevo",
+          "modelMaterials": [
+            "WOOD"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Buk",
+              "value": "#ffd877",
+              "sortIndex": 0
+            },
+            "medium": {
+              "name": "Třešeň",
+              "value": "#5a1c00",
+              "sortIndex": 1
+            },
+            "dark": {
+              "name": "Ořech",
+              "value": "#412700",
+              "sortIndex": 2
+            }
+          }
+        },
+        "marble": {
+          "name": "Mramor",
+          "modelMaterials": [
+            "MARBLE"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Světlý",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "dark": {
+              "name": "Tmavý",
+              "value": "#606060",
+              "sortIndex": 1
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "right": {
+          "position": [
+            0.8052858170165604,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "drawers-r",
+            "leftcupboard-r",
+            "rightcupboard-r",
+            "corner-r",
+            "sink-r",
+            "ending-r"
+          ]
+        }
+      },
+      "positionOffset": [
+        0.3562868315883665,
+        0,
+        0
+      ],
+      "rotationOffset": [
+        0,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        20,
+        20,
+        20
+      ],
+      "ignoreCollisions": false,
+      "sortIndex": 3,
+      "collisionSensitivity": 95
+    },
+    "rightcupboard": {
+      "name": "Pravá skříňka",
+      "description": "Rozdělena na 2 police\n\n60 cm x 90 cm x 80 cm",
+      "imageUrl": "/images/products/rightcupboard.png",
+      "modelUrl": "/models/CupboardRight.glb",
+      "materialSpecs": {
+        "wood": {
+          "name": "Dřevo",
+          "modelMaterials": [
+            "WOOD"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Buk",
+              "value": "#ffd877",
+              "sortIndex": 0
+            },
+            "medium": {
+              "name": "Třešeň",
+              "value": "#5a1c00",
+              "sortIndex": 1
+            },
+            "dark": {
+              "name": "Ořech",
+              "value": "#412700",
+              "sortIndex": 2
+            }
+          }
+        },
+        "marble": {
+          "name": "Mramor",
+          "modelMaterials": [
+            "MARBLE"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Světlý",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "dark": {
+              "name": "Tmavý",
+              "value": "#606060",
+              "sortIndex": 1
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "left": {
+          "position": [
+            -0.4558784543913069,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "drawers-l",
+            "leftcupboard-l",
+            "rightcupboard-l",
+            "sink-l",
+            "corner-l"
+          ]
+        },
+        "right": {
+          "position": [
+            0.45058851091318836,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "drawers-r",
+            "sink-r",
+            "rightcupboard-r",
+            "leftcupboard-r",
+            "corner-r"
+          ]
+        }
+      },
+      "positionOffset": [
+        0,
+        0,
+        0
+      ],
+      "rotationOffset": [
+        0,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        20,
+        20,
+        20
+      ],
+      "ignoreCollisions": false,
+      "sortIndex": 4,
+      "collisionSensitivity": 95
+    },
+    "rightcupboard-l": {
+      "name": "Pravá skříňka",
+      "description": "Rozdělena na 2 police\n\n60 cm x 90 cm x 80 cm",
+      "imageUrl": "/images/products/rightcupboard.png",
+      "modelUrl": "/models/CupboardRight.glb",
+      "materialSpecs": {
+        "wood": {
+          "name": "Dřevo",
+          "modelMaterials": [
+            "WOOD"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Buk",
+              "value": "#ffd877",
+              "sortIndex": 0
+            },
+            "medium": {
+              "name": "Třešeň",
+              "value": "#5a1c00",
+              "sortIndex": 1
+            },
+            "dark": {
+              "name": "Ořech",
+              "value": "#412700",
+              "sortIndex": 2
+            }
+          }
+        },
+        "marble": {
+          "name": "Mramor",
+          "modelMaterials": [
+            "MARBLE"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Světlý",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "dark": {
+              "name": "Tmavý",
+              "value": "#606060",
+              "sortIndex": 1
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "left": {
+          "position": [
+            -0.8082248831531867,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "drawers-l",
+            "leftcupboard-l",
+            "rightcupboard-l",
+            "sink-l",
+            "corner-l",
+            "ending-l"
+          ]
+        }
+      },
+      "positionOffset": [
+        -0.35427852628802914,
+        0,
+        0
+      ],
+      "rotationOffset": [
+        0,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        20,
+        20,
+        20
+      ],
+      "ignoreCollisions": false,
+      "sortIndex": 4,
+      "collisionSensitivity": 95
+    },
+    "rightcupboard-r": {
+      "name": "Pravá skříňka",
+      "description": "Rozdělena na 2 police\n\n60 cm x 90 cm x 80 cm",
+      "imageUrl": "/images/products/rightcupboard.png",
+      "modelUrl": "/models/CupboardRight.glb",
+      "materialSpecs": {
+        "wood": {
+          "name": "Dřevo",
+          "modelMaterials": [
+            "WOOD"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Buk",
+              "value": "#ffd877",
+              "sortIndex": 0
+            },
+            "medium": {
+              "name": "Třešeň",
+              "value": "#5a1c00",
+              "sortIndex": 1
+            },
+            "dark": {
+              "name": "Ořech",
+              "value": "#412700",
+              "sortIndex": 2
+            }
+          }
+        },
+        "marble": {
+          "name": "Mramor",
+          "modelMaterials": [
+            "MARBLE"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Světlý",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "dark": {
+              "name": "Tmavý",
+              "value": "#606060",
+              "sortIndex": 1
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "right": {
+          "position": [
+            0.8052858170165604,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "drawers-r",
+            "leftcupboard-r",
+            "rightcupboard-r",
+            "sink-r",
+            "corner-r",
+            "ending-r"
+          ]
+        }
+      },
+      "positionOffset": [
+        0.3562868315883665,
+        0,
+        0
+      ],
+      "rotationOffset": [
+        0,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        20,
+        20,
+        20
+      ],
+      "ignoreCollisions": false,
+      "sortIndex": 4,
+      "collisionSensitivity": 95
+    },
+    "sink": {
+      "name": "Dřez",
+      "description": "Vestavý dřez s odtokem včetně baterie\n\nHloubka 35 cm",
+      "imageUrl": "/images/products/sink.png",
+      "modelUrl": "/models/Sink.glb",
+      "materialSpecs": {
+        "wood": {
+          "name": "Dřevo",
+          "modelMaterials": [
+            "WOOD"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Buk",
+              "value": "#ffd877",
+              "sortIndex": 0
+            },
+            "medium": {
+              "name": "Třešeň",
+              "value": "#5a1c00",
+              "sortIndex": 1
+            },
+            "dark": {
+              "name": "Ořech",
+              "value": "#412700",
+              "sortIndex": 2
+            }
+          }
+        },
+        "marble": {
+          "name": "Mramor",
+          "modelMaterials": [
+            "MARBLE"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Světlý",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "dark": {
+              "name": "Tmavý",
+              "value": "#606060",
+              "sortIndex": 1
+            }
+          }
+        },
+        "sink": {
+          "name": "Dřez",
+          "modelMaterials": [
+            "SINK.001"
+          ],
+          "colorVariationsSpecs": {
+            "normal": {
+              "name": "Nerez",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "better": {
+              "name": "Meď",
+              "value": "#b87334",
+              "sortIndex": 1
+            }
+          }
+        },
+        "accesories": {
+          "name": "Baterie",
+          "modelMaterials": [
+            "ACCESORY"
+          ],
+          "colorVariationsSpecs": {
+            "default": {
+              "name": "Nerez",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "gold": {
+              "name": "Zlato",
+              "value": "#d4af36",
+              "sortIndex": 1
+            },
+            "black": {
+              "name": "Carbon",
+              "value": "#232323",
+              "sortIndex": 2
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "left": {
+          "position": [
+            -0.8567192812764838,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "drawers-l",
+            "rightcupboard-l",
+            "leftcupboard-l",
+            "sink-l",
+            "corner-l"
+          ]
+        },
+        "right": {
+          "position": [
+            0.8529113663284409,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "drawers-r",
+            "leftcupboard-r",
+            "rightcupboard-r",
+            "corner-r",
+            "sink-r"
+          ]
+        }
+      },
+      "positionOffset": [
+        0,
+        0.02970845649126592,
+        -0.011274011302681835
+      ],
+      "rotationOffset": [
+        0,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        20,
+        20,
+        20
+      ],
+      "ignoreCollisions": false,
+      "sortIndex": 2,
+      "collisionSensitivity": 95
+    },
+    "sink-l": {
+      "name": "Dřez",
+      "description": "Vestavý dřez s odtokem včetně baterie\n\nHloubka 35 cm",
+      "imageUrl": "/images/products/sink.png",
+      "modelUrl": "/models/Sink.glb",
+      "materialSpecs": {
+        "wood": {
+          "name": "Dřevo",
+          "modelMaterials": [
+            "WOOD"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Buk",
+              "value": "#ffd877",
+              "sortIndex": 0
+            },
+            "medium": {
+              "name": "Třešeň",
+              "value": "#5a1c00",
+              "sortIndex": 1
+            },
+            "dark": {
+              "name": "Ořech",
+              "value": "#412700",
+              "sortIndex": 2
+            }
+          }
+        },
+        "marble": {
+          "name": "Mramor",
+          "modelMaterials": [
+            "MARBLE"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Světlý",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "dark": {
+              "name": "Tmavý",
+              "value": "#606060",
+              "sortIndex": 1
+            }
+          }
+        },
+        "sink": {
+          "name": "Dřez",
+          "modelMaterials": [
+            "SINK.001"
+          ],
+          "colorVariationsSpecs": {
+            "normal": {
+              "name": "Nerez",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "better": {
+              "name": "Meď",
+              "value": "#b87334",
+              "sortIndex": 1
+            }
+          }
+        },
+        "accesories": {
+          "name": "Baterie",
+          "modelMaterials": [
+            "ACCESORY"
+          ],
+          "colorVariationsSpecs": {
+            "default": {
+              "name": "Nerez",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "gold": {
+              "name": "Zlato",
+              "value": "#d4af36",
+              "sortIndex": 1
+            },
+            "black": {
+              "name": "Carbon",
+              "value": "#232323",
+              "sortIndex": 2
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "left": {
+          "position": [
+            -1.620888253092335,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "drawers-l",
+            "rightcupboard-l",
+            "leftcupboard-l",
+            "sink-l",
+            "corner-l",
+            "ending-l"
+          ]
+        }
+      },
+      "positionOffset": [
+        -0.7580276653001732,
+        0.02970845649126592,
+        -0.011274011302681835
+      ],
+      "rotationOffset": [
+        0,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        20,
+        20,
+        20
+      ],
+      "ignoreCollisions": false,
+      "sortIndex": 2,
+      "collisionSensitivity": 95
+    },
+    "sink-r": {
+      "name": "Dřez",
+      "description": "Vestavý dřez s odtokem včetně baterie\n\nHloubka 35 cm",
+      "imageUrl": "/images/products/sink.png",
+      "modelUrl": "/models/Sink.glb",
+      "materialSpecs": {
+        "wood": {
+          "name": "Dřevo",
+          "modelMaterials": [
+            "WOOD"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Buk",
+              "value": "#ffd877",
+              "sortIndex": 0
+            },
+            "medium": {
+              "name": "Třešeň",
+              "value": "#5a1c00",
+              "sortIndex": 1
+            },
+            "dark": {
+              "name": "Ořech",
+              "value": "#412700",
+              "sortIndex": 2
+            }
+          }
+        },
+        "marble": {
+          "name": "Mramor",
+          "modelMaterials": [
+            "MARBLE"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Světlý",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "dark": {
+              "name": "Tmavý",
+              "value": "#606060",
+              "sortIndex": 1
+            }
+          }
+        },
+        "sink": {
+          "name": "Dřez",
+          "modelMaterials": [
+            "SINK.001"
+          ],
+          "colorVariationsSpecs": {
+            "normal": {
+              "name": "Nerez",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "better": {
+              "name": "Meď",
+              "value": "#b87334",
+              "sortIndex": 1
+            }
+          }
+        },
+        "accesories": {
+          "name": "Baterie",
+          "modelMaterials": [
+            "ACCESORY"
+          ],
+          "colorVariationsSpecs": {
+            "default": {
+              "name": "Nerez",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "gold": {
+              "name": "Zlato",
+              "value": "#d4af36",
+              "sortIndex": 1
+            },
+            "black": {
+              "name": "Carbon",
+              "value": "#232323",
+              "sortIndex": 2
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "right": {
+          "position": [
+            1.6199441941715145,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "drawers-r",
+            "leftcupboard-r",
+            "rightcupboard-r",
+            "sink-r",
+            "corner-r",
+            "ending-r"
+          ]
+        }
+      },
+      "positionOffset": [
+        0.761163416179288,
+        0.02970845649126592,
+        -0.011274011302681835
+      ],
+      "rotationOffset": [
+        0,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        20,
+        20,
+        20
+      ],
+      "ignoreCollisions": false,
+      "sortIndex": 2,
+      "collisionSensitivity": 95
+    },
+    "corner-l": {
+      "name": "Roh",
+      "description": "Levý roh\n\n80 cm x 90 cm x 80 cm",
+      "imageUrl": "/images/products/corner.png",
+      "modelUrl": "/models/CornerLeft.glb",
+      "materialSpecs": {
+        "wood": {
+          "name": "Dřevo",
+          "modelMaterials": [
+            "WOOD"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Buk",
+              "value": "#ffd877",
+              "sortIndex": 0
+            },
+            "medium": {
+              "name": "Třešeň",
+              "value": "#5a1c00",
+              "sortIndex": 1
+            },
+            "dark": {
+              "name": "Ořech",
+              "value": "#412700",
+              "sortIndex": 2
+            }
+          }
+        },
+        "marble": {
+          "name": "Mramor",
+          "modelMaterials": [
+            "MARBLE"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Světlý",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "dark": {
+              "name": "Tmavý",
+              "value": "#606060",
+              "sortIndex": 1
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "left": {
+          "position": [
+            -0.40201576600914735,
+            -1.2372024655505803e-16,
+            0.5051262398317496
+          ],
+          "rotation": [
+            -3.141592653589793,
+            1.5707963267948966,
+            -3.141592653589793
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "drawers-l",
+            "leftcupboard-l",
+            "rightcupboard-l",
+            "sink-l",
+            "ending-l"
+          ]
+        }
+      },
+      "positionOffset": [
+        -0.40883675919680335,
+        0.050108317628697184,
+        0
+      ],
+      "rotationOffset": [
+        0,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        20,
+        20,
+        20
+      ],
+      "ignoreCollisions": false,
+      "sortIndex": 5,
+      "collisionSensitivity": 95
+    },
+    "corner-r": {
+      "name": "Roh",
+      "description": "Pravý roh\n\n80 cm x 90 cm x 80 cm",
+      "imageUrl": "/images/products/corner.png",
+      "modelUrl": "/models/CornerRight.glb",
+      "materialSpecs": {
+        "wood": {
+          "name": "Dřevo",
+          "modelMaterials": [
+            "WOOD"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Buk",
+              "value": "#ffd877",
+              "sortIndex": 0
+            },
+            "medium": {
+              "name": "Třešeň",
+              "value": "#5a1c00",
+              "sortIndex": 1
+            },
+            "dark": {
+              "name": "Ořech",
+              "value": "#412700",
+              "sortIndex": 2
+            }
+          }
+        },
+        "marble": {
+          "name": "Mramor",
+          "modelMaterials": [
+            "MARBLE"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Světlý",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "dark": {
+              "name": "Tmavý",
+              "value": "#606060",
+              "sortIndex": 1
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {
+        "right": {
+          "position": [
+            0.4002544545802176,
+            1.3954093451639943e-32,
+            0.4996347633212897
+          ],
+          "rotation": [
+            3.141592653589793,
+            -1.5707963267948966,
+            3.141592653589793
+          ],
+          "isRequired": false,
+          "mountableComponents": [
+            "drawers-r",
+            "leftcupboard-r",
+            "rightcupboard-r",
+            "sink-r",
+            "ending-r"
+          ]
+        }
+      },
+      "positionOffset": [
+        0.40278444576127875,
+        0.04645704341931321,
+        0
+      ],
+      "rotationOffset": [
+        0,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        20,
+        20,
+        20
+      ],
+      "ignoreCollisions": false,
+      "sortIndex": 5,
+      "collisionSensitivity": 95
+    },
+    "ending-l": {
+      "name": "Hladké zakončení",
+      "description": "Zakončení levé\n\nŠířka 5 cm",
+      "imageUrl": "/images/products/end.png",
+      "modelUrl": "/models/EndingLeft.glb",
+      "materialSpecs": {
+        "wood": {
+          "name": "Dřevo",
+          "modelMaterials": [
+            "WOOD"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Buk",
+              "value": "#ffd877",
+              "sortIndex": 0
+            },
+            "medium": {
+              "name": "Třešeň",
+              "value": "#5a1c00",
+              "sortIndex": 1
+            },
+            "dark": {
+              "name": "Ořech",
+              "value": "#412700",
+              "sortIndex": 2
+            }
+          }
+        },
+        "marble": {
+          "name": "Mramor",
+          "modelMaterials": [
+            "MARBLE"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Světlý",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "dark": {
+              "name": "Tmavý",
+              "value": "#606060",
+              "sortIndex": 1
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {},
+      "positionOffset": [
+        0.030264597650971503,
+        0.024765971673011804,
+        -0.011908962632198873
+      ],
+      "rotationOffset": [
+        0,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        20,
+        20,
+        20
+      ],
+      "ignoreCollisions": false,
+      "sortIndex": 6,
+      "collisionSensitivity": 95
+    },
+    "ending-r": {
+      "name": "Hladké zakončení",
+      "description": "Zakončení pravé\n\nŠířka 5 cm",
+      "imageUrl": "/images/products/end.png",
+      "modelUrl": "/models/EndingRight.glb",
+      "materialSpecs": {
+        "wood": {
+          "name": "Dřevo",
+          "modelMaterials": [
+            "WOOD"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Buk",
+              "value": "#ffd877",
+              "sortIndex": 0
+            },
+            "medium": {
+              "name": "Třešeň",
+              "value": "#5a1c00",
+              "sortIndex": 1
+            },
+            "dark": {
+              "name": "Ořech",
+              "value": "#412700",
+              "sortIndex": 2
+            }
+          }
+        },
+        "marble": {
+          "name": "Mramor",
+          "modelMaterials": [
+            "MARBLE"
+          ],
+          "colorVariationsSpecs": {
+            "light": {
+              "name": "Světlý",
+              "value": "#d6d6d6",
+              "sortIndex": 0
+            },
+            "dark": {
+              "name": "Tmavý",
+              "value": "#606060",
+              "sortIndex": 1
+            }
+          }
+        }
+      },
+      "mountingPointsSpecs": {},
+      "positionOffset": [
+        -0.030264597650971503,
+        0.024765971673011804,
+        -0.011908962632198873
+      ],
+      "rotationOffset": [
+        0,
+        0,
+        0
+      ],
+      "scaleOffset": [
+        20,
+        20,
+        20
+      ],
+      "ignoreCollisions": false,
+      "sortIndex": 6,
+      "collisionSensitivity": 95
+    }
+  },
+  "baseSpecs": {
+    "drawers": "drawers",
+    "leftcupboard": "leftcupboard",
+    "rightcupboard": "rightcupboard",
+    "sink": "sink"
+  }
+}

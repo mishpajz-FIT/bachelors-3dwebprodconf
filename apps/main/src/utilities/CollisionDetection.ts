@@ -9,6 +9,8 @@ import { ProductSpecificationActions } from "../stores/actions/ProductSpecificat
 import { ProductSpecificationStore } from "../stores/ProductSpecificationStore.ts";
 
 import "three-mesh-bvh/src/index";
+import { globalConfig } from "../configurations/Config.ts";
+import { MeshBVHHelper } from "three-mesh-bvh";
 
 function checkForCollision(
   newMesh: THREE.Mesh,
@@ -16,7 +18,9 @@ function checkForCollision(
   ignoredComponents?: string[]
 ) {
   let collisionDetected = false;
-
+  if (globalConfig.config.debug.collisionDetectionDisplay) {
+    scene.add(new THREE.BoxHelper(newMesh, 0xff0000));
+  }
   traverseMeshes(scene, (sceneMesh) => {
     if (collisionDetected) {
       return;
@@ -40,6 +44,10 @@ function checkForCollision(
 
     const sceneGeometry = sceneMesh.geometry as BVHBufferGeometry;
     if (sceneGeometry.boundsTree) {
+      if (globalConfig.config.debug.collisionDetectionDisplay) {
+        scene.add(new MeshBVHHelper(sceneMesh));
+      }
+
       // Calculate relative transformation
       const transformMatrix = new THREE.Matrix4()
         .copy(sceneMesh.matrixWorld)
@@ -111,10 +119,7 @@ export async function willComponentCollide(
   innerGroup.add(model);
 
   outerGroup.add(innerGroup);
-
-  outerGroup.scale.multiplyScalar(
-    (componentSpec.collisionSensitivity ?? 99) / 100
-  );
+  model.scale.multiplyScalar((componentSpec.collisionSensitivity ?? 99) / 100);
   outerGroup.updateMatrixWorld(true);
 
   let collisionDetected = false;

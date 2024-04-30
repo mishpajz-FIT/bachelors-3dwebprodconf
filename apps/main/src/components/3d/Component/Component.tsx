@@ -23,7 +23,7 @@ export const Component = ({ componentId }: ComponentProps) => {
       {componentSpec.ignoreCollisions ? (
         <ComponentModel componentId={componentId} />
       ) : (
-        <Bvh indirect={true} firstHitOnly={true}>
+        <Bvh indirect={true}>
           <ComponentModel componentId={componentId} />
         </Bvh>
       )}

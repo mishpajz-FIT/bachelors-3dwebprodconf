@@ -51,6 +51,9 @@ const defaultConfig: AppConfig = {
     favicon: "/logo.svg",
   },
   title: "3dwebrpodconf",
+  debug: {
+    collisionDetectionDisplay: false,
+  },
 };
 
 class GlobalConfig {

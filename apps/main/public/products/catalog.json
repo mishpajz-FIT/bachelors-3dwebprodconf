@@ -8,6 +8,11 @@
         "endpointUrl": "https://3dwebprodconf-formhook.captainmishan.workers.dev",
         "type": "CONTACT_FORM"
       }
+    },
+    "kitchen": {
+      "name": "Modulární kuchyň",
+      "imageUrl": "/images/products/kitchen.png",
+      "productSpecificationUrl": "/products/kitchen.json"
     }
   }
 }

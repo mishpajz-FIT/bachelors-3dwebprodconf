@@ -1,7 +1,7 @@
 import { ImageURLInput } from "@3dwebprodconf/shared/src/components/inputs/ImageURLInput.tsx";
 import { NumericalInput } from "@3dwebprodconf/shared/src/components/inputs/NumericalInput.tsx";
 import { TextInput } from "@3dwebprodconf/shared/src/components/inputs/TextInput.tsx";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 
 import { useSelectedComponentSpec } from "../../../../../hooks/useSelectedComponentSpec.ts";
 import { ProductActions } from "../../../../../stores/actions/ProductActions.ts";
@@ -9,6 +9,10 @@ import { ProductStore } from "../../../../../stores/ProductStore.ts";
 
 export const EditComponentSpecificationDetails = () => {
   const { componentSpecId, componentSpec } = useSelectedComponentSpec();
+
+  const [detailsCursorPos, setDetailsCursorPos] = useState<number | undefined>(
+    undefined
+  );
 
   return (
     <div>
@@ -39,10 +43,16 @@ export const EditComponentSpecificationDetails = () => {
               placeholder="Description"
               value={componentSpec.description}
               onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
+                setDetailsCursorPos(e.target.selectionStart);
                 ProductActions.getComponentSpec(
                   componentSpecId,
                   ProductStore
                 ).description = e.target.value;
+              }}
+              onFocus={(e) => {
+                if (detailsCursorPos) {
+                  e.target.selectionStart = detailsCursorPos;
+                }
               }}
             />
           </label>

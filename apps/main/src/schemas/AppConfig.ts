@@ -51,6 +51,9 @@ export const AppConfigSchema = z.object({
     favicon: z.string(),
   }),
   title: z.string(),
+  debug: z.object({
+    collisionDetectionDisplay: z.boolean(),
+  }),
 });
 
 export type AppConfig = z.infer<typeof AppConfigSchema>;

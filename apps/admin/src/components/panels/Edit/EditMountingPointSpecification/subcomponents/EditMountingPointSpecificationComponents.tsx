@@ -102,6 +102,8 @@ export const EditMountingPointSpecificationComponents = () => {
                           mountingPointSpecId
                         );
 
+                      EditorValuesStore.previewedMountedComponent = undefined;
+
                       const index =
                         editableMountingPoint.mountableComponents.indexOf(
                           mountableComponentId,

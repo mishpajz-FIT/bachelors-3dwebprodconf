@@ -48,5 +48,8 @@
     },
     "favicon": "/assets/logo.svg"
   },
-  "title": "Configurator - 3dwebprodconf"
+  "title": "Configurator - 3dwebprodconf",
+  "debug": {
+    "collisionDetectionDisplay": true
+  }
 }
