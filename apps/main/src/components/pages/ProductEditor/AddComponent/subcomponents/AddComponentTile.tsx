@@ -5,11 +5,13 @@ import { useComponentSpec } from "../../../../../hooks/useComponentSpec.ts";
 interface AddComponentTileProps {
   componentSpecId: string;
   onAdd: () => void;
+  disabled: boolean;
 }
 
 export const AddComponentTile = ({
   componentSpecId,
   onAdd,
+  disabled = false,
 }: AddComponentTileProps) => {
   //const [isButtonHovered, setIsButtonHovered] = useState(false);
   const isButtonHovered = false;
@@ -21,10 +23,15 @@ export const AddComponentTile = ({
       role={"button"}
       tabIndex={0}
       className={`tile-background flex size-full shrink-0 select-none flex-row justify-start overflow-hidden rounded-md p-4 text-left ${
-        !isButtonHovered ? "tile-pressable" : ""
-      }`}
-      onClick={onAdd}
+        !isButtonHovered && !disabled ? "tile-pressable" : ""
+      } ${disabled && "cursor-not-allowed opacity-30"}`}
+      onClick={disabled ? undefined : onAdd}
+      aria-disabled={disabled}
       onKeyDown={(e) => {
+        if (disabled) {
+          return;
+        }
+
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
           onAdd();

@@ -31,7 +31,6 @@ import {
 import { ProductSpecificationStore } from "../../stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../utilities/BoundsManipulation.ts";
-import { canvasChangedEvent, emitter } from "../../utilities/Emitters.ts";
 
 const ProductEditorCanvas = () => {
   const userCreationSnap = useSnapshot(UserCreationStore);
@@ -146,7 +145,6 @@ const ProductEditorCanvas = () => {
             onClick={() => {
               UserCreationStore.undo();
               ConfiguratorValuesStore.selectedComponentId = undefined;
-              emitter.emit(canvasChangedEvent);
             }}
             className={`p-3 sm:p-2 ${userCreationSnap.isUndoEnabled && "transition duration-150 ease-in-out active:scale-95"}`}
             disabled={!userCreationSnap.isUndoEnabled}
@@ -159,8 +157,6 @@ const ProductEditorCanvas = () => {
             onClick={() => {
               UserCreationStore.redo();
               ConfiguratorValuesStore.selectedComponentId = undefined;
-
-              emitter.emit(canvasChangedEvent);
             }}
             className={`p-3 sm:p-2 ${userCreationSnap.isRedoEnabled && "transition duration-150 ease-in-out active:scale-95"}`}
             disabled={!userCreationSnap.isRedoEnabled}

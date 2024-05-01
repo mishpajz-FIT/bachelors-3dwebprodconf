@@ -2,7 +2,7 @@ import { Modal } from "@3dwebprodconf/shared/src/components/containers/Modal.tsx
 import { PlusIcon } from "@heroicons/react/20/solid";
 import { Html } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import * as THREE from "three";
 import { useSnapshot } from "valtio";
@@ -14,7 +14,6 @@ import { ProductSpecificationStore } from "../../../stores/ProductSpecificationS
 import { UserCreationStore } from "../../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../../utilities/BoundsManipulation.ts";
 import { willComponentCollide } from "../../../utilities/CollisionDetection.ts";
-import { canvasChangedEvent, emitter } from "../../../utilities/Emitters.ts";
 import { AddComponent } from "../../pages/ProductEditor/AddComponent/AddComponent.tsx";
 
 interface MountingPointButtonProps {
@@ -48,58 +47,42 @@ export const MountingPointButton = ({
     );
   }
 
-  const [mountableComponents, setMountableComponents] = useState(
-    mountingPointSpec.mountableComponents
-  );
+  const [disabledComponents, setDisabledComponents] = useState<string[]>([]);
 
-  useEffect(() => {
-    const calculateCollisions = () => {
-      const worldPosition = new THREE.Vector3();
-      const worldQuaternion = new THREE.Quaternion();
-      const worldRotation = new THREE.Euler();
+  const calculateCollisions = useCallback(() => {
+    const worldPosition = new THREE.Vector3();
+    const worldQuaternion = new THREE.Quaternion();
+    const worldRotation = new THREE.Euler();
 
-      if (groupRef.current) {
-        groupRef.current.getWorldPosition(worldPosition);
-        groupRef.current.getWorldQuaternion(worldQuaternion);
-        worldRotation.setFromQuaternion(worldQuaternion, "XYZ");
+    if (groupRef.current) {
+      groupRef.current.getWorldPosition(worldPosition);
+      groupRef.current.getWorldQuaternion(worldQuaternion);
+      worldRotation.setFromQuaternion(worldQuaternion, "XYZ");
+    }
+    const collisionChecks = mountingPointSpec.mountableComponents.map(
+      async (mountableComponentSpec) => {
+        const collision = await willComponentCollide(
+          mountableComponentSpec,
+          scene,
+          worldPosition,
+          worldRotation,
+          [componentId]
+        );
+        return collision ? mountableComponentSpec : undefined;
       }
-      const collisionChecks = mountingPointSpec.mountableComponents.map(
-        async (mountableComponentSpec) => {
-          const collision = await willComponentCollide(
-            mountableComponentSpec,
-            scene,
-            worldPosition,
-            worldRotation,
-            [componentId]
-          );
-          return collision ? null : mountableComponentSpec;
-        }
-      );
+    );
 
-      Promise.all(collisionChecks)
-        .then((results) => {
-          const filteredComponents = results.filter(
-            (result): result is string => result !== null
-          );
-          setMountableComponents(filteredComponents);
-        })
-        .catch((e) => {
-          throw e;
-        });
-    };
-
-    emitter.on(canvasChangedEvent, calculateCollisions);
-    calculateCollisions();
-    return () => {
-      emitter.off(canvasChangedEvent, calculateCollisions);
-    };
-  }, [
-    componentId,
-    componentSpecId,
-    mountingPointSpec.mountableComponents,
-    mountingPointSpecId,
-    scene,
-  ]);
+    Promise.all(collisionChecks)
+      .then((results) => {
+        const filteredComponents = results.filter(
+          (result): result is string => result !== null
+        );
+        setDisabledComponents(filteredComponents);
+      })
+      .catch((e) => {
+        throw e;
+      });
+  }, [componentId, mountingPointSpec.mountableComponents, scene]);
 
   const onAdd = (newComponentSpecId: string) => {
     const action = () => {
@@ -118,12 +101,7 @@ export const MountingPointButton = ({
     };
 
     refreshBounds(action);
-    emitter.emit(canvasChangedEvent);
   };
-
-  if (mountableComponents.length === 0) {
-    return null;
-  }
 
   return (
     <group ref={groupRef}>
@@ -138,14 +116,18 @@ export const MountingPointButton = ({
         >
           <button
             className={`secondary-button ${mountingPointSpec.isRequired ? "outline outline-1 outline-offset-1 outline-red-400" : ""}`}
-            onClick={() => setModalOpen(true)}
+            onClick={() => {
+              calculateCollisions();
+              setModalOpen(true);
+            }}
           >
             <PlusIcon className="size-4" />
           </button>
         </div>
         <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
           <AddComponent
-            mountableComponentsSpecs={mountableComponents}
+            mountableComponentsSpecs={mountingPointSpec.mountableComponents}
+            disabledComponentSpecs={disabledComponents}
             onClose={() => setModalOpen(false)}
             onAdd={onAdd}
           />

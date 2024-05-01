@@ -3,14 +3,12 @@ import {
   traverseMeshes,
 } from "@3dwebprodconf/shared/src/utilites/ThreeExtensions.ts";
 import * as THREE from "three";
+import { MeshBVHHelper } from "three-mesh-bvh/src/index";
 import { DRACOLoader, GLTFLoader, MeshoptDecoder } from "three-stdlib";
 
+import { globalConfig } from "../configurations/Config.ts";
 import { ProductSpecificationActions } from "../stores/actions/ProductSpecificationActions.ts";
 import { ProductSpecificationStore } from "../stores/ProductSpecificationStore.ts";
-
-import "three-mesh-bvh/src/index";
-import { globalConfig } from "../configurations/Config.ts";
-import { MeshBVHHelper } from "three-mesh-bvh";
 
 function checkForCollision(
   newMesh: THREE.Mesh,

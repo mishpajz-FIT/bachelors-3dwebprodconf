@@ -14,12 +14,14 @@ import { ProductSpecificationStore } from "../../../../stores/ProductSpecificati
 
 interface AddComponentProps {
   mountableComponentsSpecs: readonly string[];
+  disabledComponentSpecs: string[];
   onClose: () => void;
   onAdd: (id: string) => void;
 }
 
 export const AddComponent = ({
   mountableComponentsSpecs,
+  disabledComponentSpecs,
   onClose,
   onAdd,
 }: AddComponentProps) => {
@@ -64,6 +66,15 @@ export const AddComponent = ({
       // eslint-disable-next-line valtio/state-snapshot-rule
       productSpecsSnap.componentSpecs[rhsComponentSpecId];
 
+    const lhsDisabled = disabledComponentSpecs.includes(lhsComponentSpecId);
+    const rhsDisabled = disabledComponentSpecs.includes(rhsComponentSpecId);
+
+    if (lhsDisabled && !rhsDisabled) {
+      return 1;
+    } else if (!lhsDisabled && rhsDisabled) {
+      return -1;
+    }
+
     if (
       lhsComponentSpec.sortIndex !== undefined &&
       rhsComponentSpec.sortIndex !== undefined
@@ -99,6 +110,7 @@ export const AddComponent = ({
                   onAdd(componentSpecId);
                   onClose();
                 }}
+                disabled={disabledComponentSpecs.includes(componentSpecId)}
               />
             </div>
           ))}

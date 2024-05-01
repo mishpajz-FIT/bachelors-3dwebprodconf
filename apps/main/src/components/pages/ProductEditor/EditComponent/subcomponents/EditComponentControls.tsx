@@ -1,7 +1,7 @@
 import { Modal } from "@3dwebprodconf/shared/src/components/containers/Modal.tsx";
 import { HoldButton } from "@3dwebprodconf/shared/src/components/HoldButton.tsx";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import * as THREE from "three";
 import { useSnapshot } from "valtio";
@@ -16,10 +16,6 @@ import { ProductSpecificationStore } from "../../../../../stores/ProductSpecific
 import { UserCreationStore } from "../../../../../stores/UserCreationStore.ts";
 import { refreshBounds } from "../../../../../utilities/BoundsManipulation.ts";
 import { willComponentCollide } from "../../../../../utilities/CollisionDetection.ts";
-import {
-  canvasChangedEvent,
-  emitter,
-} from "../../../../../utilities/Emitters.ts";
 import { AddComponent } from "../../AddComponent/AddComponent.tsx";
 
 interface EditComponentControlsProps {
@@ -45,62 +41,55 @@ export const EditComponentControls = ({
   const { componentSpec: parentComponentSpec } =
     useComponent(parentComponentId);
 
-  const [mountableComponents, setMountableComponents] = useState(
+  const mountableComponents =
     parentComponentSpec.mountingPointsSpecs[parentMountingPointId]
-      .mountableComponents
-  );
+      .mountableComponents;
 
-  useEffect(() => {
-    const calculateCollisions = () => {
-      const worldPosition = new THREE.Vector3();
-      const worldQuaternion = new THREE.Quaternion();
-      const worldRotation = new THREE.Euler();
+  const [disabledComponents, setDisabledComponents] = useState<string[]>([]);
 
-      const scene = ConfiguratorValuesNonReactiveStore.scene;
-      if (!scene) {
-        return;
-      }
+  const calculateCollisions = useCallback(() => {
+    const worldPosition = new THREE.Vector3();
+    const worldQuaternion = new THREE.Quaternion();
+    const worldRotation = new THREE.Euler();
 
-      const group = ConfiguratorValuesNonReactiveStore.currentGroup;
-      if (group) {
-        group.getWorldPosition(worldPosition);
-        group.getWorldQuaternion(worldQuaternion);
-        worldRotation.setFromQuaternion(worldQuaternion, "XYZ");
-      } else {
-        setMountableComponents([]);
-        return;
-      }
+    const scene = ConfiguratorValuesNonReactiveStore.scene;
+    if (!scene) {
+      return;
+    }
 
-      const collisionChecks = parentComponentSpec.mountingPointsSpecs[
-        parentMountingPointId
-      ].mountableComponents.map(async (mountableComponentSpec) => {
-        const collision = await willComponentCollide(
-          mountableComponentSpec,
-          scene,
-          worldPosition,
-          worldRotation,
-          [componentId, parentComponentId]
+    const group = ConfiguratorValuesNonReactiveStore.currentGroup;
+    if (group) {
+      group.getWorldPosition(worldPosition);
+      group.getWorldQuaternion(worldQuaternion);
+      worldRotation.setFromQuaternion(worldQuaternion, "XYZ");
+    } else {
+      setDisabledComponents([]);
+      return;
+    }
+
+    const collisionChecks = parentComponentSpec.mountingPointsSpecs[
+      parentMountingPointId
+    ].mountableComponents.map(async (mountableComponentSpec) => {
+      const collision = await willComponentCollide(
+        mountableComponentSpec,
+        scene,
+        worldPosition,
+        worldRotation,
+        [componentId, parentComponentId]
+      );
+      return collision ? mountableComponentSpec : undefined;
+    });
+
+    Promise.all(collisionChecks)
+      .then((results) => {
+        const filteredComponents = results.filter(
+          (result): result is string => result !== null
         );
-        return collision ? null : mountableComponentSpec;
+        setDisabledComponents(filteredComponents);
+      })
+      .catch((e) => {
+        throw e;
       });
-
-      Promise.all(collisionChecks)
-        .then((results) => {
-          const filteredComponents = results.filter(
-            (result): result is string => result !== null
-          );
-          setMountableComponents(filteredComponents);
-        })
-        .catch((e) => {
-          throw e;
-        });
-    };
-
-    emitter.on(canvasChangedEvent, calculateCollisions);
-    calculateCollisions();
-    return () => {
-      emitter.off(canvasChangedEvent, calculateCollisions);
-    };
   }, [
     componentId,
     parentComponentId,
@@ -114,7 +103,6 @@ export const EditComponentControls = ({
     });
 
     onClose?.();
-    emitter.emit(canvasChangedEvent);
   };
 
   const handleChange = (newComponentSpecId: string) => {
@@ -135,14 +123,16 @@ export const EditComponentControls = ({
     };
 
     refreshBounds(action);
-    emitter.emit(canvasChangedEvent);
   };
 
   return (
     <>
       <button
         className="other-button flex w-full items-center justify-center"
-        onClick={() => setChangeModalOpen(true)}
+        onClick={() => {
+          calculateCollisions();
+          setChangeModalOpen(true);
+        }}
       >
         <PencilIcon className="size-4" />
         <span className="ml-2">{t("change")}</span>
@@ -163,6 +153,7 @@ export const EditComponentControls = ({
       >
         <AddComponent
           mountableComponentsSpecs={mountableComponents}
+          disabledComponentSpecs={disabledComponents}
           onClose={() => setChangeModalOpen(false)}
           onAdd={handleChange}
         />
