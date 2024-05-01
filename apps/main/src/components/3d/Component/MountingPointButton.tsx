@@ -98,6 +98,8 @@ export const MountingPointButton = ({
         UserCreationStore.value,
         ProductSpecificationStore
       );
+
+      ConfiguratorValuesStore.selectedComponentId = newComponentId;
     };
 
     refreshBounds(action);

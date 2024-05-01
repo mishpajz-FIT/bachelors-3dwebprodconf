@@ -120,16 +120,20 @@ const ProductEditorCanvas = () => {
         <div className="glass-panel flex flex-col items-center justify-center divide-y divide-gray-200 rounded dark:divide-zinc-700">
           <button
             className="p-3 transition duration-150 ease-in-out active:scale-95 sm:p-2"
-            onClick={() => refreshBounds(() => undefined)}
+            onClick={(event) => {
+              event.stopPropagation();
+              refreshBounds(() => undefined);
+            }}
           >
             <VideoCameraIcon className="size-4 stroke-2 hover:stroke-1" />
           </button>
           <button
             className="p-3 transition duration-150 ease-in-out active:scale-95 sm:p-2"
-            onClick={() =>
-              (ConfiguratorValuesStore.showMountingPoints =
-                !ConfiguratorValuesStore.showMountingPoints)
-            }
+            onClick={(event) => {
+              event.stopPropagation();
+              ConfiguratorValuesStore.showMountingPoints =
+                !ConfiguratorValuesStore.showMountingPoints;
+            }}
           >
             {configuratorValuesSnap.showMountingPoints ? (
               <EyeSlashIcon className="size-4 stroke-2 hover:stroke-1" />

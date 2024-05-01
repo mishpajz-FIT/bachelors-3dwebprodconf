@@ -14,7 +14,7 @@ export function configureI18n() {
     .init({
       fallbackLng: globalConfig.config.ui.languages.default,
       supportedLngs: globalConfig.config.ui.languages.all,
-      load: "all",
+      load: "languageOnly",
       interpolation: {
         escapeValue: false,
       },

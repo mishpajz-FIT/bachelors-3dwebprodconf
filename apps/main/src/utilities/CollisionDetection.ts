@@ -3,7 +3,7 @@ import {
   traverseMeshes,
 } from "@3dwebprodconf/shared/src/utilites/ThreeExtensions.ts";
 import * as THREE from "three";
-import { MeshBVHHelper } from "three-mesh-bvh/src/index";
+import { MeshBVHHelper } from "three-mesh-bvh";
 import { DRACOLoader, GLTFLoader, MeshoptDecoder } from "three-stdlib";
 
 import { globalConfig } from "../configurations/Config.ts";

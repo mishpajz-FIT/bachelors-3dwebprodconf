@@ -68,7 +68,7 @@ export const SelectBase = ({ onClose }: SelectBaseProps) => {
           onClose={userCreationSnap.value.isBaseSet ? onClose : undefined}
         />
       </div>
-      <div className="content-width mb-10 flex flex-wrap justify-start">
+      <div className="content-width mb-14 flex flex-wrap justify-start overflow-y-auto">
         {Object.entries(productSpecsSnap.baseSpecs)
           .sort(sortBases)
           .map(([baseSpecId, componentSpecId]) => (
@@ -79,6 +79,7 @@ export const SelectBase = ({ onClose }: SelectBaseProps) => {
               <AddComponentTile
                 componentSpecId={componentSpecId}
                 onAdd={() => handleSelectBase(componentSpecId)}
+                disabled={false}
               />
             </div>
           ))}
