@@ -17,10 +17,19 @@ function checkForCollision(
   scene: THREE.Scene,
   ignoredComponents?: string[]
 ) {
-  let collisionDetected = false;
-  if (globalConfig.config.debug.collisionDetectionDisplay) {
-    scene.add(new THREE.BoxHelper(newMesh, 0xff0000));
+  if (!newMesh.geometry.boundingBox) {
+    newMesh.geometry.computeBoundingBox();
   }
+
+  if (globalConfig.config.debug.collisionDetectionDisplay) {
+    const copyBox = new THREE.Box3();
+    copyBox
+      .copy(newMesh.geometry.boundingBox!)
+      .applyMatrix4(newMesh.matrixWorld);
+    scene.add(new THREE.Box3Helper(copyBox, "#ff0000"));
+  }
+
+  let collisionDetected = false;
   traverseMeshes(scene, (sceneMesh) => {
     if (collisionDetected) {
       return;
@@ -54,8 +63,8 @@ function checkForCollision(
         .invert()
         .multiply(newMesh.matrixWorld);
 
-      const result = sceneGeometry.boundsTree.intersectsGeometry(
-        newMesh.geometry,
+      const result = sceneGeometry.boundsTree.intersectsBox(
+        newMesh.geometry.boundingBox!,
         transformMatrix
       );
 
@@ -117,13 +126,11 @@ export async function willComponentCollide(
   );
 
   innerGroup.add(model);
-
   outerGroup.add(innerGroup);
   model.scale.multiplyScalar((componentSpec.collisionSensitivity ?? 99) / 100);
   outerGroup.updateMatrixWorld(true);
 
   let collisionDetected = false;
-
   traverseMeshes(outerGroup, (modelMesh) => {
     if (collisionDetected) {
       return;

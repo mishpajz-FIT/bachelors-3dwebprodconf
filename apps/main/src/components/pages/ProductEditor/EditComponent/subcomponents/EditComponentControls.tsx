@@ -67,6 +67,7 @@ export const EditComponentControls = ({
         group.getWorldQuaternion(worldQuaternion);
         worldRotation.setFromQuaternion(worldQuaternion, "XYZ");
       } else {
+        setMountableComponents([]);
         return;
       }
 

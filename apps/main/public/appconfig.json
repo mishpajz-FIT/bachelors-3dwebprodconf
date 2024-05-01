@@ -50,6 +50,6 @@
   },
   "title": "Configurator - 3dwebprodconf",
   "debug": {
-    "collisionDetectionDisplay": true
+    "collisionDetectionDisplay": false
   }
 }
