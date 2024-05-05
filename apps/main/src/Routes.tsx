@@ -12,6 +12,10 @@ import { CatalogStore } from "./stores/CatalogStore.ts";
 import { ProductSpecificationStore } from "./stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "./stores/UserCreationStore.ts";
 import { fetchProductSpecification } from "./utilities/Fetching.ts";
+import {
+  ConfiguratorValuesNonReactiveStore,
+  ConfiguratorValuesStore,
+} from "./stores/ConfiguratorValuesStore.ts";
 
 // eslint-disable-next-line react-refresh/only-export-components
 const ProductEditor = lazy(
@@ -67,6 +71,11 @@ export const routes: RouteObject[] = [
         UserCreationStore.value.product = params.productId;
         UserCreationStore.saveHistory();
       }
+
+      ConfiguratorValuesStore.selectedComponentId = undefined;
+      ConfiguratorValuesNonReactiveStore.scene = undefined;
+      ConfiguratorValuesNonReactiveStore.bounds = undefined;
+      ConfiguratorValuesNonReactiveStore.currentGroup = undefined;
 
       return productSpecification;
     },
