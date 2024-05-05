@@ -9,13 +9,13 @@ import { globalConfig } from "./configurations/Config.ts";
 import { CatalogActions } from "./stores/actions/CatalogActions.ts";
 import { ProductSpecificationActions } from "./stores/actions/ProductSpecificationActions.ts";
 import { CatalogStore } from "./stores/CatalogStore.ts";
-import { ProductSpecificationStore } from "./stores/ProductSpecificationStore.ts";
-import { UserCreationStore } from "./stores/UserCreationStore.ts";
-import { fetchProductSpecification } from "./utilities/Fetching.ts";
 import {
   ConfiguratorValuesNonReactiveStore,
   ConfiguratorValuesStore,
 } from "./stores/ConfiguratorValuesStore.ts";
+import { ProductSpecificationStore } from "./stores/ProductSpecificationStore.ts";
+import { UserCreationStore } from "./stores/UserCreationStore.ts";
+import { fetchProductSpecification } from "./utilities/Fetching.ts";
 
 // eslint-disable-next-line react-refresh/only-export-components
 const ProductEditor = lazy(

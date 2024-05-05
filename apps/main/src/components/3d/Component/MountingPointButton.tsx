@@ -109,12 +109,12 @@ export const MountingPointButton = ({
     <group ref={groupRef}>
       <Html zIndexRange={[50, 0]}>
         <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-          hidden={
-            !configuratorValuesSnap.showMountingPoints ||
-            (configuratorValuesSnap.selectedComponentId !== undefined &&
-              configuratorValuesSnap.selectedComponentId !== componentId)
-          }
+          className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ${
+            configuratorValuesSnap.selectedComponentId !== undefined &&
+            configuratorValuesSnap.selectedComponentId !== componentId &&
+            "opacity-30"
+          }`}
+          hidden={!configuratorValuesSnap.showMountingPoints}
         >
           <button
             className={`secondary-button ${mountingPointSpec.isRequired ? "outline outline-1 outline-offset-1 outline-red-400" : ""}`}
