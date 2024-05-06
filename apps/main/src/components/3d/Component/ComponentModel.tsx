@@ -3,8 +3,7 @@ import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
 import { Edges, useGLTF } from "@react-three/drei";
 import { ThreeEvent } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
-import * as THREE from "three";
-import { Color, Euler, MeshStandardMaterial } from "three";
+import { Color, Euler, Group, MeshStandardMaterial } from "three";
 import { useSnapshot } from "valtio";
 
 import { globalConfig } from "../../../configurations/Config.ts";
@@ -26,7 +25,7 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
   const isDarkMode = useDarkMode();
 
   const { scene, materials } = useGLTF(componentSpec.modelUrl);
-  const groupRef = useRef<THREE.Group>(null);
+  const groupRef = useRef<Group>(null);
 
   const customMaterials = useMemo(
     () =>

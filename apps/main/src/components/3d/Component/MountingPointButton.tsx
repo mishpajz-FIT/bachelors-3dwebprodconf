@@ -85,24 +85,22 @@ export const MountingPointButton = ({
   }, [componentId, mountingPointSpec.mountableComponents, scene]);
 
   const onAdd = (newComponentSpecId: string) => {
-    const action = () => {
-      const newComponentId = UserCreationActions.createComponent(
-        newComponentSpecId,
-        UserCreationStore.value,
-        ProductSpecificationStore
-      );
-      UserCreationActions.mountComponent(
-        componentId,
-        mountingPointSpecId,
-        newComponentId,
-        UserCreationStore.value,
-        ProductSpecificationStore
-      );
+    const newComponentId = UserCreationActions.createComponent(
+      newComponentSpecId,
+      UserCreationStore.value,
+      ProductSpecificationStore
+    );
+    UserCreationActions.mountComponent(
+      componentId,
+      mountingPointSpecId,
+      newComponentId,
+      UserCreationStore.value,
+      ProductSpecificationStore
+    );
 
-      ConfiguratorValuesStore.selectedComponentId = newComponentId;
-    };
+    ConfiguratorValuesStore.selectedComponentId = newComponentId;
 
-    refreshBounds(action);
+    refreshBounds(true);
   };
 
   return (
