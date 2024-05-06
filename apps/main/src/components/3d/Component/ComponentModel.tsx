@@ -1,6 +1,6 @@
 import { Render } from "@3dwebprodconf/shared/src/components/3d/Render.tsx";
 import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
-import { Edges, useGLTF } from "@react-three/drei";
+import { Outlines, useGLTF } from "@react-three/drei";
 import { ThreeEvent } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
 import { Color, Euler, Group, Material } from "three";
@@ -93,15 +93,15 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
           }}
           dontMatrixAutoUpdate={true}
         >
-          <Edges
-            visible={componentId === configuratorValuesSnap.selectedComponentId}
-            scale={1}
+          <Outlines
+            thickness={4}
+            screenspace={true}
             color={
               isDarkMode
                 ? globalConfig.config.spatialUi.selectionColors.outline.dark
                 : globalConfig.config.spatialUi.selectionColors.outline.light
             }
-            linewidth={5}
+            visible={componentId === configuratorValuesSnap.selectedComponentId}
           />
         </Render>
       </group>
