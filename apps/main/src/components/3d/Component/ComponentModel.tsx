@@ -3,7 +3,7 @@ import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
 import { Edges, useGLTF } from "@react-three/drei";
 import { ThreeEvent } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
-import { Color, Euler, Group, MeshStandardMaterial } from "three";
+import { Color, Euler, Group, Material } from "three";
 import { useSnapshot } from "valtio";
 
 import { globalConfig } from "../../../configurations/Config.ts";
@@ -29,25 +29,27 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
 
   const customMaterials = useMemo(
     () =>
-      Object.entries(component.materials).reduce<
-        Record<string, MeshStandardMaterial>
-      >((acc, [materialSpecId, colorSpecId]) => {
-        const materialSpec = componentSpec.materialSpecs[materialSpecId];
-        if (!materialSpec) return acc;
+      Object.entries(component.materials).reduce<Record<string, Material>>(
+        (acc, [materialSpecId, colorSpecId]) => {
+          const materialSpec = componentSpec.materialSpecs[materialSpecId];
+          if (!materialSpec) return acc;
 
-        const colorSpec = materialSpec.colorVariationsSpecs[colorSpecId];
-        if (!colorSpec) return acc;
+          const colorSpec = materialSpec.colorVariationsSpecs[colorSpecId];
+          if (!colorSpec) return acc;
 
-        materialSpec.modelMaterials.forEach((modelMaterialName) => {
-          const originalMaterial = materials[modelMaterialName];
-          if (originalMaterial instanceof MeshStandardMaterial) {
-            acc[modelMaterialName] = originalMaterial.clone();
-            acc[modelMaterialName].color = new Color(colorSpec.value);
-          }
-        });
+          materialSpec.modelMaterials.forEach((modelMaterialName) => {
+            const originalMaterial = materials[modelMaterialName];
+            if ("color" in originalMaterial) {
+              const newMaterial = originalMaterial.clone();
+              newMaterial.color = new Color(colorSpec.value);
+              acc[modelMaterialName] = newMaterial;
+            }
+          });
 
-        return acc;
-      }, {}),
+          return acc;
+        },
+        {}
+      ),
     [componentSpec.materialSpecs, materials, component.materials]
   );
 
