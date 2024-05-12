@@ -28,6 +28,10 @@
 
 
 deployment_main:
+  rules:
+    - if: $PIPELINE_TYPE == "scheduled_test"
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   extends: .pre_deployment
   script:
     - wrangler pages deploy $MAIN_APP_DIST --project-name=3dwebprodconf --branch=main
@@ -36,6 +40,10 @@ deployment_main:
     url: $CLOUDFLARE_DEPLOY_MAIN_URL
 
 deployment_admin:
+  rules:
+    - if: $PIPELINE_TYPE == "scheduled_test"
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   extends: .pre_deployment
   script:
     - wrangler pages deploy $ADMIN_APP_DIST --project-name=3dwebprodconf-admin --branch=main

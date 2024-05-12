@@ -3,7 +3,7 @@ build:
   rules:
     - if: $PIPELINE_TYPE == "scheduled_test"
       when: never
-    - if: $CI_COMMIT_BRANCH == "usability-fixes"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   image: ${CI_REGISTRY}/ict/images/alpine/ci:3.18
   cache:
     paths:
@@ -16,7 +16,7 @@ build:
     - echo "\e[34m\e[Building...\e[24m\e[0m"
     - npm run build
   artifacts:
-    name: "builds-$CI_COMMIT_REF_SLUG"
+    name: "builds-$CI_COMMIT_SHORT_SHA"
     paths:
       - $MAIN_APP_DIST
       - $ADMIN_APP_DIST
