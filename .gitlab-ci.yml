@@ -4,9 +4,11 @@ include:
   - local: .gitlab/secret_detection.yml
   - local: .gitlab/dependency_scanning.yml
   - local: .gitlab/sast.yml
+  - local: .gitlab/build.yml
   - local: .gitlab/deployment.yml
 
 stages:
   - lint
   - test
+  - build
   - deploy
