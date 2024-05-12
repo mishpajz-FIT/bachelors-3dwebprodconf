@@ -30,7 +30,7 @@
 deployment_main:
   extends: .pre_deployment
   script:
-    - wrangler pages deploy $MAIN_APP_DIST --project-name=3dwebprodconf --branch=production
+    - wrangler pages deploy $MAIN_APP_DIST --project-name=3dwebprodconf --branch=main
   environment:
     name: staging_main
     url: $CLOUDFLARE_DEPLOY_MAIN_URL
@@ -38,7 +38,7 @@ deployment_main:
 deployment_admin:
   extends: .pre_deployment
   script:
-    - wrangler pages deploy $ADMIN_APP_DIST --project-name=3dwebprodconf-admin --branch=production
+    - wrangler pages deploy $ADMIN_APP_DIST --project-name=3dwebprodconf-admin --branch=main
   environment:
     name: staging_admin
     url: $CLOUDFLARE_DEPLOY_ADMIN_URL
