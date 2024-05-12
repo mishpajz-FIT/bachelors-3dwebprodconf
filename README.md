@@ -60,58 +60,58 @@ along with a shared library:
 The configurator application can be setup using the `appconfig.json` file located in the `apps/main/public` directory. The file contains the following properties:
 ```json
 {
-  camera: {
-    isOrthogonal: false, // whether the camera is orthogonal
+  "camera": {
+    "isOrthogonal": false, // whether the camera is orthogonal
   },
-  shadows: {
-    floorShadow: false, // whether the floor casts a shadow (performance expensive)
+  "shadows": {
+    "floorShadow": false, // whether the floor casts a shadow (performance expensive)
   },
-  spatialUi: {
-    selectionColors: {
-      outline: { // outline color for the 3D selection
-        light: "#000000",
-        dark: "#FFFFFF",
+  "spatialUi": {
+    "selectionColors": {
+      "outline": { // outline color for the 3D selection
+        "light": "#000000",
+        "dark": "#FFFFFF",
       },
     },
-    controls: { 
-      swapMouseButtons: false, // whether to swap the left and right mouse buttons
+    "controls": { 
+      "swapMouseButtons": false, // whether to swap the left and right mouse buttons
     },
   },
-  ui: {
-    languages: { 
-      default: "en", // fallback language
-      all: ["en"], // all available languages
+  "ui": {
+    "languages": { 
+      "default": "en", // fallback language
+      "all": ["en"], // all available languages
     },
-    colors: {
-      primary: { // primary color of interface
-        light: "#3377ff",
-        dark: "#0011ff",
-        overlayTextWhiteLight: true, // whether the overlay text should be white in lightmode (when overlaying the primary color)
-        overlayTextWhiteDark: true, // whether the overlay text should be white in darkmode (when overlaying the primary color)
+    "colors": {
+      "primary": { // primary color of interface
+        "light": "#3377ff",
+        "dark": "#0011ff",
+        "overlayTextWhiteLight": true, // whether the overlay text should be white in lightmode (when overlaying the primary color)
+        "overlayTextWhiteDark": true, // whether the overlay text should be white in darkmode (when overlaying the primary color)
       },
-      error: { // error color
-        dark: "#f43f5e",
-        light: "#f43f5e",
+      "error": { // error color
+        "dark": "#f43f5e",
+        "light": "#f43f5e",
       },
     },
   },
-  sources: {
-    catalogUrl: "/products/catalogue.json", // URL to the product catalog
-    homepageUrl: "/", // URL to the homepage
+  "sources": {
+    "catalogUrl": "/products/catalogue.json", // URL to the product catalog
+    "homepageUrl": "/", // URL to the homepage
   },
-  capabilities: {
-    savePdfButton: true, // whether the save PDF button is displayed
+  "capabilities": {
+    "savePdfButton": true, // whether the save PDF button is displayed
   },
-  images: {
-    logo: { // logo image
-      light: "/logo.svg",
-      dark: "/logo.svg",
+  "images": {
+    "logo": { // logo image
+      "light": "/logo.svg",
+      "dark": "/logo.svg",
     },
-    favicon: "/logo.svg", // favicon
+    "favicon": "/logo.svg", // favicon
   },
-  title: "3dwebprodconf", // title of the application
-  debug: {
-    collisionDetectionDisplay: false, // whether the collision detection debug is enabled (visually displays the collision boxes)
+  "title": "3dwebprodconf", // title of the application
+  "debug": {
+    "collisionDetectionDisplay": false, // whether the collision detection debug is enabled (visually displays the collision boxes)
   },
 }
 ```
