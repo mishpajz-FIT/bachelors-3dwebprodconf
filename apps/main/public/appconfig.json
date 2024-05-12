@@ -36,7 +36,7 @@
   },
   "sources": {
     "catalogUrl": "/products/catalog.json",
-    "homepageUrl": "https://google.com"
+    "homepageUrl": "/"
   },
   "capabilities": {
     "savePdfButton": true

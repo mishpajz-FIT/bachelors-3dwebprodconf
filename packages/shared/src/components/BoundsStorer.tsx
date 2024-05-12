@@ -5,21 +5,21 @@ import { BoundsStorage } from "../interfaces/BoundsStorage.ts";
 
 interface BoundsStorerProps {
   boundsStorage: BoundsStorage;
-  refresh: () => void;
   children: ReactNode;
+  refresh?: () => void;
 }
 
 export const BoundsStorer = ({
   boundsStorage,
-  refresh,
   children,
+  refresh,
 }: BoundsStorerProps) => {
   const bounds = useBounds();
 
   useEffect(() => {
     boundsStorage.bounds = bounds;
 
-    refresh();
+    refresh?.();
 
     return () => {
       boundsStorage.bounds = undefined;

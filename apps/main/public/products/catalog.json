@@ -1,18 +1,13 @@
 {
   "products": {
-    "pc-gaming": {
-      "name": "Gaming PC",
-      "productSpecificationUrl": "/products/specs/gamingpc.json",
-      "imageUrl": "https://www.punchtechnology.co.uk/wp-content/uploads/2020/07/vetro-scaled.jpg",
-      "submission": {
-        "endpointUrl": "https://3dwebprodconf-formhook.captainmishan.workers.dev",
-        "type": "CONTACT_FORM"
-      }
-    },
     "kitchen": {
-      "name": "Modulární kuchyň",
-      "imageUrl": "/images/products/kitchen.png",
-      "productSpecificationUrl": "/products/kitchen.json"
+      "name": "Modular kitchen",
+      "productSpecificationUrl": "/products/specs/kitchen.json",
+      "imageUrl": "https://3dwebprodconf-assets.pages.dev/images/products/kitchen.png",
+      "submission": {
+        "type": "CONTACT_FORM",
+        "endpointUrl": "https://example.com"
+      }
     }
   }
 }

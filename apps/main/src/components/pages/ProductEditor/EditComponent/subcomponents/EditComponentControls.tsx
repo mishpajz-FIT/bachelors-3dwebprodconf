@@ -18,10 +18,15 @@ import { refreshBounds } from "../../../../../utilities/BoundsManipulation.ts";
 import { willComponentCollide } from "../../../../../utilities/CollisionDetection.ts";
 import { AddComponent } from "../../AddComponent/AddComponent.tsx";
 
+const worldPosition = new THREE.Vector3();
+const worldQuaternion = new THREE.Quaternion();
+const worldRotation = new THREE.Euler();
+
 interface EditComponentControlsProps {
   componentId: string;
   onClose?: () => void;
 }
+
 export const EditComponentControls = ({
   componentId,
   onClose,
@@ -48,10 +53,6 @@ export const EditComponentControls = ({
   const [disabledComponents, setDisabledComponents] = useState<string[]>([]);
 
   const calculateCollisions = useCallback(() => {
-    const worldPosition = new THREE.Vector3();
-    const worldQuaternion = new THREE.Quaternion();
-    const worldRotation = new THREE.Euler();
-
     const scene = ConfiguratorValuesNonReactiveStore.scene;
     if (!scene) {
       return;
@@ -98,31 +99,28 @@ export const EditComponentControls = ({
   ]);
 
   const handleRemove = () => {
-    refreshBounds(() => {
-      UserCreationActions.removeComponent(componentId, UserCreationStore.value);
-    });
-
+    UserCreationActions.removeComponent(componentId, UserCreationStore.value);
     onClose?.();
+
+    refreshBounds(true);
   };
 
   const handleChange = (newComponentSpecId: string) => {
-    const action = () => {
-      const newComponentId = UserCreationActions.createComponent(
-        newComponentSpecId,
-        UserCreationStore.value,
-        ProductSpecificationStore
-      );
-      UserCreationActions.mountComponent(
-        parentComponentId,
-        parentMountingPointId,
-        newComponentId,
-        UserCreationStore.value,
-        ProductSpecificationStore
-      );
-      ConfiguratorValuesStore.selectedComponentId = undefined;
-    };
+    const newComponentId = UserCreationActions.createComponent(
+      newComponentSpecId,
+      UserCreationStore.value,
+      ProductSpecificationStore
+    );
+    UserCreationActions.mountComponent(
+      parentComponentId,
+      parentMountingPointId,
+      newComponentId,
+      UserCreationStore.value,
+      ProductSpecificationStore
+    );
+    ConfiguratorValuesStore.selectedComponentId = undefined;
 
-    refreshBounds(action);
+    refreshBounds(true);
   };
 
   return (

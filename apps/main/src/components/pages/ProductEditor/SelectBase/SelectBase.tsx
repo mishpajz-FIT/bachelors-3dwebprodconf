@@ -23,17 +23,15 @@ export const SelectBase = ({ onClose }: SelectBaseProps) => {
 
   const handleSelectBase = useCallback(
     (newComponentSpecId: string) => {
-      const createAndSetBase = () => {
-        const newComponentId = UserCreationActions.createComponent(
-          newComponentSpecId,
-          UserCreationStore.value,
-          ProductSpecificationStore
-        );
+      const newComponentId = UserCreationActions.createComponent(
+        newComponentSpecId,
+        UserCreationStore.value,
+        ProductSpecificationStore
+      );
 
-        UserCreationActions.setBase(newComponentId, UserCreationStore.value);
-      };
+      UserCreationActions.setBase(newComponentId, UserCreationStore.value);
 
-      refreshBounds(createAndSetBase);
+      refreshBounds(true);
       onClose();
     },
     [onClose]

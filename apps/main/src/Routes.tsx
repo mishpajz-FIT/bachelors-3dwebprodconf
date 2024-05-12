@@ -9,6 +9,10 @@ import { globalConfig } from "./configurations/Config.ts";
 import { CatalogActions } from "./stores/actions/CatalogActions.ts";
 import { ProductSpecificationActions } from "./stores/actions/ProductSpecificationActions.ts";
 import { CatalogStore } from "./stores/CatalogStore.ts";
+import {
+  ConfiguratorValuesNonReactiveStore,
+  ConfiguratorValuesStore,
+} from "./stores/ConfiguratorValuesStore.ts";
 import { ProductSpecificationStore } from "./stores/ProductSpecificationStore.ts";
 import { UserCreationStore } from "./stores/UserCreationStore.ts";
 import { fetchProductSpecification } from "./utilities/Fetching.ts";
@@ -67,6 +71,11 @@ export const routes: RouteObject[] = [
         UserCreationStore.value.product = params.productId;
         UserCreationStore.saveHistory();
       }
+
+      ConfiguratorValuesStore.selectedComponentId = undefined;
+      ConfiguratorValuesNonReactiveStore.scene = undefined;
+      ConfiguratorValuesNonReactiveStore.bounds = undefined;
+      ConfiguratorValuesNonReactiveStore.currentGroup = undefined;
 
       return productSpecification;
     },

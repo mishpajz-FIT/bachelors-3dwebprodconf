@@ -1,47 +1,47 @@
 {
   "componentSpecs": {
     "drawers": {
-      "name": "Šuplíky",
-      "description": "4 šuplíky\n\n60 cm x 90 cm x 80 cm",
-      "imageUrl": "/images/products/drawer.png",
-      "modelUrl": "/models/Drawers.glb",
+      "name": "Drawers",
+      "description": "4 drawers. 60cm-90cm-80cm",
+      "imageUrl": "https://3dwebprodconf-assets.pages.dev/images/products/drawer.png",
+      "modelUrl": "https://3dwebprodconf-assets.pages.dev/models/Drawers.glb",
       "materialSpecs": {
         "wood": {
-          "name": "Dřevo",
+          "name": "Wood",
           "modelMaterials": [
             "WOOD"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Buk",
+              "name": "Birch",
               "value": "#ffd877",
               "sortIndex": 0
             },
             "medium": {
-              "name": "Třešeň",
+              "name": "Cherry",
               "value": "#5a1c00",
               "sortIndex": 1
             },
             "dark": {
-              "name": "Ořech",
+              "name": "Walnut",
               "value": "#412700",
               "sortIndex": 2
             }
           }
         },
         "marble": {
-          "name": "Mramor",
+          "name": "Marble",
           "modelMaterials": [
             "MARBLE"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Světlý",
+              "name": "Light",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "dark": {
-              "name": "Tmavý",
+              "name": "Dark",
               "value": "#606060",
               "sortIndex": 1
             }
@@ -107,51 +107,51 @@
         20
       ],
       "ignoreCollisions": false,
-      "sortIndex": 0,
-      "collisionSensitivity": 95
+      "collisionSensitivity": 98,
+      "sortIndex": 0
     },
     "drawers-l": {
-      "name": "Šuplíky",
-      "description": "4 šuplíky\n\n60 cm x 90 cm x 80 cm",
-      "imageUrl": "/images/products/drawer.png",
-      "modelUrl": "/models/Drawers.glb",
+      "name": "Drawers",
+      "description": "4 drawers. 60cm-90cm-80cm",
+      "imageUrl": "https://3dwebprodconf-assets.pages.dev/images/products/drawer.png",
+      "modelUrl": "https://3dwebprodconf-assets.pages.dev/models/Drawers.glb",
       "materialSpecs": {
         "wood": {
-          "name": "Dřevo",
+          "name": "Wood",
           "modelMaterials": [
             "WOOD"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Buk",
+              "name": "Birch",
               "value": "#ffd877",
               "sortIndex": 0
             },
             "medium": {
-              "name": "Třešeň",
+              "name": "Cherry",
               "value": "#5a1c00",
               "sortIndex": 1
             },
             "dark": {
-              "name": "Ořech",
+              "name": "Walnut",
               "value": "#412700",
               "sortIndex": 2
             }
           }
         },
         "marble": {
-          "name": "Mramor",
+          "name": "Marble",
           "modelMaterials": [
             "MARBLE"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Světlý",
+              "name": "Light",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "dark": {
-              "name": "Tmavý",
+              "name": "Dark",
               "value": "#606060",
               "sortIndex": 1
             }
@@ -197,51 +197,51 @@
         20
       ],
       "ignoreCollisions": false,
-      "sortIndex": 1,
-      "collisionSensitivity": 95
+      "collisionSensitivity": 98,
+      "sortIndex": 1
     },
     "drawers-r": {
-      "name": "Šuplíky",
-      "description": "4 šuplíky\n\n60 cm x 90 cm x 80 cm",
-      "imageUrl": "/images/products/drawer.png",
-      "modelUrl": "/models/Drawers.glb",
+      "name": "Drawers",
+      "description": "4 drawers. 60cm-90cm-80cm",
+      "imageUrl": "https://3dwebprodconf-assets.pages.dev/images/products/drawer.png",
+      "modelUrl": "https://3dwebprodconf-assets.pages.dev/models/Drawers.glb",
       "materialSpecs": {
         "wood": {
-          "name": "Dřevo",
+          "name": "Wood",
           "modelMaterials": [
             "WOOD"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Buk",
+              "name": "Birch",
               "value": "#ffd877",
               "sortIndex": 0
             },
             "medium": {
-              "name": "Třešeň",
+              "name": "Cherry",
               "value": "#5a1c00",
               "sortIndex": 1
             },
             "dark": {
-              "name": "Ořech",
+              "name": "Walnut",
               "value": "#412700",
               "sortIndex": 2
             }
           }
         },
         "marble": {
-          "name": "Mramor",
+          "name": "Marble",
           "modelMaterials": [
             "MARBLE"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Světlý",
+              "name": "Light",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "dark": {
-              "name": "Tmavý",
+              "name": "Dark",
               "value": "#606060",
               "sortIndex": 1
             }
@@ -287,51 +287,51 @@
         20
       ],
       "ignoreCollisions": false,
-      "sortIndex": 1,
-      "collisionSensitivity": 95
+      "collisionSensitivity": 98,
+      "sortIndex": 1
     },
     "leftcupboard": {
-      "name": "Levá skříňka",
-      "description": "Rozdělena na 2 police\n\n60 cm x 90 cm x 80 cm",
-      "imageUrl": "/images/products/leftcupboard.png",
-      "modelUrl": "/models/CupboardLeft.glb",
+      "name": "Cupboard with left handle",
+      "description": "2 shelves. 60cm-90cm-80cm",
+      "imageUrl": "https://3dwebprodconf-assets.pages.dev/images/products/leftcupboard.png",
+      "modelUrl": "https://3dwebprodconf-assets.pages.dev/models/CupboardLeft.glb",
       "materialSpecs": {
         "wood": {
-          "name": "Dřevo",
+          "name": "Wood",
           "modelMaterials": [
             "WOOD"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Buk",
+              "name": "Birch",
               "value": "#ffd877",
               "sortIndex": 0
             },
             "medium": {
-              "name": "Třešeň",
+              "name": "Cherry",
               "value": "#5a1c00",
               "sortIndex": 1
             },
             "dark": {
-              "name": "Ořech",
+              "name": "Walnut",
               "value": "#412700",
               "sortIndex": 2
             }
           }
         },
         "marble": {
-          "name": "Mramor",
+          "name": "Marble",
           "modelMaterials": [
             "MARBLE"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Světlý",
+              "name": "Light",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "dark": {
-              "name": "Tmavý",
+              "name": "Dark",
               "value": "#606060",
               "sortIndex": 1
             }
@@ -396,51 +396,51 @@
         20
       ],
       "ignoreCollisions": false,
-      "sortIndex": 3,
-      "collisionSensitivity": 95
+      "collisionSensitivity": 98,
+      "sortIndex": 3
     },
     "leftcupboard-l": {
-      "name": "Levá skříňka",
-      "description": "Rozdělena na 2 police\n\n60 cm x 90 cm x 80 cm",
-      "imageUrl": "/images/products/leftcupboard.png",
-      "modelUrl": "/models/CupboardLeft.glb",
+      "name": "Cupboard with left handle",
+      "description": "2 shelves. 60cm-90cm-80cm",
+      "imageUrl": "https://3dwebprodconf-assets.pages.dev/images/products/leftcupboard.png",
+      "modelUrl": "https://3dwebprodconf-assets.pages.dev/models/CupboardLeft.glb",
       "materialSpecs": {
         "wood": {
-          "name": "Dřevo",
+          "name": "Wood",
           "modelMaterials": [
             "WOOD"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Buk",
+              "name": "Birch",
               "value": "#ffd877",
               "sortIndex": 0
             },
             "medium": {
-              "name": "Třešeň",
+              "name": "Cherry",
               "value": "#5a1c00",
               "sortIndex": 1
             },
             "dark": {
-              "name": "Ořech",
+              "name": "Walnut",
               "value": "#412700",
               "sortIndex": 2
             }
           }
         },
         "marble": {
-          "name": "Mramor",
+          "name": "Marble",
           "modelMaterials": [
             "MARBLE"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Světlý",
+              "name": "Light",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "dark": {
-              "name": "Tmavý",
+              "name": "Dark",
               "value": "#606060",
               "sortIndex": 1
             }
@@ -486,51 +486,51 @@
         20
       ],
       "ignoreCollisions": false,
-      "sortIndex": 3,
-      "collisionSensitivity": 95
+      "collisionSensitivity": 98,
+      "sortIndex": 3
     },
     "leftcupboard-r": {
-      "name": "Levá skříňka",
-      "description": "Rozdělena na 2 police\n\n60 cm x 90 cm x 80 cm",
-      "imageUrl": "/images/products/leftcupboard.png",
-      "modelUrl": "/models/CupboardLeft.glb",
+      "name": "Cupboard with left handle",
+      "description": "2 shelves. 60cm-90cm-80cm",
+      "imageUrl": "https://3dwebprodconf-assets.pages.dev/images/products/leftcupboard.png",
+      "modelUrl": "https://3dwebprodconf-assets.pages.dev/models/CupboardLeft.glb",
       "materialSpecs": {
         "wood": {
-          "name": "Dřevo",
+          "name": "Wood",
           "modelMaterials": [
             "WOOD"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Buk",
+              "name": "Birch",
               "value": "#ffd877",
               "sortIndex": 0
             },
             "medium": {
-              "name": "Třešeň",
+              "name": "Cherry",
               "value": "#5a1c00",
               "sortIndex": 1
             },
             "dark": {
-              "name": "Ořech",
+              "name": "Walnut",
               "value": "#412700",
               "sortIndex": 2
             }
           }
         },
         "marble": {
-          "name": "Mramor",
+          "name": "Marble",
           "modelMaterials": [
             "MARBLE"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Světlý",
+              "name": "Light",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "dark": {
-              "name": "Tmavý",
+              "name": "Dark",
               "value": "#606060",
               "sortIndex": 1
             }
@@ -576,51 +576,51 @@
         20
       ],
       "ignoreCollisions": false,
-      "sortIndex": 3,
-      "collisionSensitivity": 95
+      "collisionSensitivity": 98,
+      "sortIndex": 3
     },
     "rightcupboard": {
-      "name": "Pravá skříňka",
-      "description": "Rozdělena na 2 police\n\n60 cm x 90 cm x 80 cm",
-      "imageUrl": "/images/products/rightcupboard.png",
-      "modelUrl": "/models/CupboardRight.glb",
+      "name": "Cupboard with right handle",
+      "description": "2 shelves. 60cm-90cm-80cm",
+      "imageUrl": "https://3dwebprodconf-assets.pages.dev/images/products/rightcupboard.png",
+      "modelUrl": "https://3dwebprodconf-assets.pages.dev/models/CupboardRight.glb",
       "materialSpecs": {
         "wood": {
-          "name": "Dřevo",
+          "name": "Wood",
           "modelMaterials": [
             "WOOD"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Buk",
+              "name": "Birch",
               "value": "#ffd877",
               "sortIndex": 0
             },
             "medium": {
-              "name": "Třešeň",
+              "name": "Cherry",
               "value": "#5a1c00",
               "sortIndex": 1
             },
             "dark": {
-              "name": "Ořech",
+              "name": "Walnut",
               "value": "#412700",
               "sortIndex": 2
             }
           }
         },
         "marble": {
-          "name": "Mramor",
+          "name": "Marble",
           "modelMaterials": [
             "MARBLE"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Světlý",
+              "name": "Light",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "dark": {
-              "name": "Tmavý",
+              "name": "Dark",
               "value": "#606060",
               "sortIndex": 1
             }
@@ -685,51 +685,51 @@
         20
       ],
       "ignoreCollisions": false,
-      "sortIndex": 4,
-      "collisionSensitivity": 95
+      "collisionSensitivity": 98,
+      "sortIndex": 4
     },
     "rightcupboard-l": {
-      "name": "Pravá skříňka",
-      "description": "Rozdělena na 2 police\n\n60 cm x 90 cm x 80 cm",
-      "imageUrl": "/images/products/rightcupboard.png",
-      "modelUrl": "/models/CupboardRight.glb",
+      "name": "Cupboard with right handle",
+      "description": "2 shelves. 60cm-90cm-80cm",
+      "imageUrl": "https://3dwebprodconf-assets.pages.dev/images/products/rightcupboard.png",
+      "modelUrl": "https://3dwebprodconf-assets.pages.dev/models/CupboardRight.glb",
       "materialSpecs": {
         "wood": {
-          "name": "Dřevo",
+          "name": "Wood",
           "modelMaterials": [
             "WOOD"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Buk",
+              "name": "Birch",
               "value": "#ffd877",
               "sortIndex": 0
             },
             "medium": {
-              "name": "Třešeň",
+              "name": "Cherry",
               "value": "#5a1c00",
               "sortIndex": 1
             },
             "dark": {
-              "name": "Ořech",
+              "name": "Walnut",
               "value": "#412700",
               "sortIndex": 2
             }
           }
         },
         "marble": {
-          "name": "Mramor",
+          "name": "Marble",
           "modelMaterials": [
             "MARBLE"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Světlý",
+              "name": "Light",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "dark": {
-              "name": "Tmavý",
+              "name": "Dark",
               "value": "#606060",
               "sortIndex": 1
             }
@@ -775,51 +775,51 @@
         20
       ],
       "ignoreCollisions": false,
-      "sortIndex": 4,
-      "collisionSensitivity": 95
+      "collisionSensitivity": 98,
+      "sortIndex": 4
     },
     "rightcupboard-r": {
-      "name": "Pravá skříňka",
-      "description": "Rozdělena na 2 police\n\n60 cm x 90 cm x 80 cm",
-      "imageUrl": "/images/products/rightcupboard.png",
-      "modelUrl": "/models/CupboardRight.glb",
+      "name": "Cupboard with right handle",
+      "description": "2 shelves. 60cm-90cm-80cm",
+      "imageUrl": "https://3dwebprodconf-assets.pages.dev/images/products/rightcupboard.png",
+      "modelUrl": "https://3dwebprodconf-assets.pages.dev/models/CupboardRight.glb",
       "materialSpecs": {
         "wood": {
-          "name": "Dřevo",
+          "name": "Wood",
           "modelMaterials": [
             "WOOD"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Buk",
+              "name": "Birch",
               "value": "#ffd877",
               "sortIndex": 0
             },
             "medium": {
-              "name": "Třešeň",
+              "name": "Cherry",
               "value": "#5a1c00",
               "sortIndex": 1
             },
             "dark": {
-              "name": "Ořech",
+              "name": "Walnut",
               "value": "#412700",
               "sortIndex": 2
             }
           }
         },
         "marble": {
-          "name": "Mramor",
+          "name": "Marble",
           "modelMaterials": [
             "MARBLE"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Světlý",
+              "name": "Light",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "dark": {
-              "name": "Tmavý",
+              "name": "Dark",
               "value": "#606060",
               "sortIndex": 1
             }
@@ -865,87 +865,87 @@
         20
       ],
       "ignoreCollisions": false,
-      "sortIndex": 4,
-      "collisionSensitivity": 95
+      "collisionSensitivity": 98,
+      "sortIndex": 4
     },
     "sink": {
-      "name": "Dřez",
-      "description": "Vestavý dřez s odtokem včetně baterie\n\nHloubka 35 cm",
-      "imageUrl": "/images/products/sink.png",
-      "modelUrl": "/models/Sink.glb",
+      "name": "Sink",
+      "description": "Built-in sink with drain including faucet. Depth 35cm",
+      "imageUrl": "https://3dwebprodconf-assets.pages.dev/images/products/sink.png",
+      "modelUrl": "https://3dwebprodconf-assets.pages.dev/models/Sink.glb",
       "materialSpecs": {
         "wood": {
-          "name": "Dřevo",
+          "name": "Wood",
           "modelMaterials": [
             "WOOD"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Buk",
+              "name": "Birch",
               "value": "#ffd877",
               "sortIndex": 0
             },
             "medium": {
-              "name": "Třešeň",
+              "name": "Cherry",
               "value": "#5a1c00",
               "sortIndex": 1
             },
             "dark": {
-              "name": "Ořech",
+              "name": "Walnut",
               "value": "#412700",
               "sortIndex": 2
             }
           }
         },
         "marble": {
-          "name": "Mramor",
+          "name": "Marble",
           "modelMaterials": [
             "MARBLE"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Světlý",
+              "name": "Light",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "dark": {
-              "name": "Tmavý",
+              "name": "Dark",
               "value": "#606060",
               "sortIndex": 1
             }
           }
         },
         "sink": {
-          "name": "Dřez",
+          "name": "Sink",
           "modelMaterials": [
             "SINK.001"
           ],
           "colorVariationsSpecs": {
             "normal": {
-              "name": "Nerez",
+              "name": "Stainless steel",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "better": {
-              "name": "Meď",
+              "name": "Copper",
               "value": "#b87334",
               "sortIndex": 1
             }
           }
         },
         "accesories": {
-          "name": "Baterie",
+          "name": "Faucet",
           "modelMaterials": [
             "ACCESORY"
           ],
           "colorVariationsSpecs": {
             "default": {
-              "name": "Nerez",
+              "name": "Stainless steel",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "gold": {
-              "name": "Zlato",
+              "name": "Gold",
               "value": "#d4af36",
               "sortIndex": 1
             },
@@ -1015,87 +1015,87 @@
         20
       ],
       "ignoreCollisions": false,
-      "sortIndex": 2,
-      "collisionSensitivity": 95
+      "collisionSensitivity": 98,
+      "sortIndex": 2
     },
     "sink-l": {
-      "name": "Dřez",
-      "description": "Vestavý dřez s odtokem včetně baterie\n\nHloubka 35 cm",
-      "imageUrl": "/images/products/sink.png",
-      "modelUrl": "/models/Sink.glb",
+      "name": "Sink",
+      "description": "Built-in sink with drain including faucet. Depth 35cm",
+      "imageUrl": "https://3dwebprodconf-assets.pages.dev/images/products/sink.png",
+      "modelUrl": "https://3dwebprodconf-assets.pages.dev/models/Sink.glb",
       "materialSpecs": {
         "wood": {
-          "name": "Dřevo",
+          "name": "Wood",
           "modelMaterials": [
             "WOOD"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Buk",
+              "name": "Birch",
               "value": "#ffd877",
               "sortIndex": 0
             },
             "medium": {
-              "name": "Třešeň",
+              "name": "Cherry",
               "value": "#5a1c00",
               "sortIndex": 1
             },
             "dark": {
-              "name": "Ořech",
+              "name": "Walnut",
               "value": "#412700",
               "sortIndex": 2
             }
           }
         },
         "marble": {
-          "name": "Mramor",
+          "name": "Marble",
           "modelMaterials": [
             "MARBLE"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Světlý",
+              "name": "Light",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "dark": {
-              "name": "Tmavý",
+              "name": "Dark",
               "value": "#606060",
               "sortIndex": 1
             }
           }
         },
         "sink": {
-          "name": "Dřez",
+          "name": "Sink",
           "modelMaterials": [
             "SINK.001"
           ],
           "colorVariationsSpecs": {
             "normal": {
-              "name": "Nerez",
+              "name": "Stainless steel",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "better": {
-              "name": "Meď",
+              "name": "Copper",
               "value": "#b87334",
               "sortIndex": 1
             }
           }
         },
         "accesories": {
-          "name": "Baterie",
+          "name": "Faucet",
           "modelMaterials": [
             "ACCESORY"
           ],
           "colorVariationsSpecs": {
             "default": {
-              "name": "Nerez",
+              "name": "Stainless steel",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "gold": {
-              "name": "Zlato",
+              "name": "Gold",
               "value": "#d4af36",
               "sortIndex": 1
             },
@@ -1146,87 +1146,87 @@
         20
       ],
       "ignoreCollisions": false,
-      "sortIndex": 2,
-      "collisionSensitivity": 95
+      "collisionSensitivity": 98,
+      "sortIndex": 2
     },
     "sink-r": {
-      "name": "Dřez",
-      "description": "Vestavý dřez s odtokem včetně baterie\n\nHloubka 35 cm",
-      "imageUrl": "/images/products/sink.png",
-      "modelUrl": "/models/Sink.glb",
+      "name": "Sink",
+      "description": "Built-in sink with drain including faucet. Depth 35cm",
+      "imageUrl": "https://3dwebprodconf-assets.pages.dev/images/products/sink.png",
+      "modelUrl": "https://3dwebprodconf-assets.pages.dev/models/Sink.glb",
       "materialSpecs": {
         "wood": {
-          "name": "Dřevo",
+          "name": "Wood",
           "modelMaterials": [
             "WOOD"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Buk",
+              "name": "Birch",
               "value": "#ffd877",
               "sortIndex": 0
             },
             "medium": {
-              "name": "Třešeň",
+              "name": "Cherry",
               "value": "#5a1c00",
               "sortIndex": 1
             },
             "dark": {
-              "name": "Ořech",
+              "name": "Walnut",
               "value": "#412700",
               "sortIndex": 2
             }
           }
         },
         "marble": {
-          "name": "Mramor",
+          "name": "Marble",
           "modelMaterials": [
             "MARBLE"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Světlý",
+              "name": "Light",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "dark": {
-              "name": "Tmavý",
+              "name": "Dark",
               "value": "#606060",
               "sortIndex": 1
             }
           }
         },
         "sink": {
-          "name": "Dřez",
+          "name": "Sink",
           "modelMaterials": [
             "SINK.001"
           ],
           "colorVariationsSpecs": {
             "normal": {
-              "name": "Nerez",
+              "name": "Stainless steel",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "better": {
-              "name": "Meď",
+              "name": "Copper",
               "value": "#b87334",
               "sortIndex": 1
             }
           }
         },
         "accesories": {
-          "name": "Baterie",
+          "name": "Faucet",
           "modelMaterials": [
             "ACCESORY"
           ],
           "colorVariationsSpecs": {
             "default": {
-              "name": "Nerez",
+              "name": "Stainless steel",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "gold": {
-              "name": "Zlato",
+              "name": "Gold",
               "value": "#d4af36",
               "sortIndex": 1
             },
@@ -1277,51 +1277,51 @@
         20
       ],
       "ignoreCollisions": false,
-      "sortIndex": 2,
-      "collisionSensitivity": 95
+      "collisionSensitivity": 98,
+      "sortIndex": 2
     },
     "corner-l": {
-      "name": "Roh",
-      "description": "Levý roh\n\n80 cm x 90 cm x 80 cm",
-      "imageUrl": "/images/products/corner.png",
-      "modelUrl": "/models/CornerLeft.glb",
+      "name": "Corner",
+      "description": "Left corner. 80cm-90cm-80cm",
+      "imageUrl": "https://3dwebprodconf-assets.pages.dev/images/products/corner.png",
+      "modelUrl": "https://3dwebprodconf-assets.pages.dev/models/CornerLeft.glb",
       "materialSpecs": {
         "wood": {
-          "name": "Dřevo",
+          "name": "Wood",
           "modelMaterials": [
             "WOOD"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Buk",
+              "name": "Birch",
               "value": "#ffd877",
               "sortIndex": 0
             },
             "medium": {
-              "name": "Třešeň",
+              "name": "Cherry",
               "value": "#5a1c00",
               "sortIndex": 1
             },
             "dark": {
-              "name": "Ořech",
+              "name": "Walnut",
               "value": "#412700",
               "sortIndex": 2
             }
           }
         },
         "marble": {
-          "name": "Mramor",
+          "name": "Marble",
           "modelMaterials": [
             "MARBLE"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Světlý",
+              "name": "Light",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "dark": {
-              "name": "Tmavý",
+              "name": "Dark",
               "value": "#606060",
               "sortIndex": 1
             }
@@ -1366,51 +1366,51 @@
         20
       ],
       "ignoreCollisions": false,
-      "sortIndex": 5,
-      "collisionSensitivity": 95
+      "collisionSensitivity": 98,
+      "sortIndex": 5
     },
     "corner-r": {
-      "name": "Roh",
-      "description": "Pravý roh\n\n80 cm x 90 cm x 80 cm",
-      "imageUrl": "/images/products/corner.png",
-      "modelUrl": "/models/CornerRight.glb",
+      "name": "Corner",
+      "description": "Right corner. 80cm-90cm-80cm",
+      "imageUrl": "https://3dwebprodconf-assets.pages.dev/images/products/corner.png",
+      "modelUrl": "https://3dwebprodconf-assets.pages.dev/models/CornerRight.glb",
       "materialSpecs": {
         "wood": {
-          "name": "Dřevo",
+          "name": "Wood",
           "modelMaterials": [
             "WOOD"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Buk",
+              "name": "Birch",
               "value": "#ffd877",
               "sortIndex": 0
             },
             "medium": {
-              "name": "Třešeň",
+              "name": "Cherry",
               "value": "#5a1c00",
               "sortIndex": 1
             },
             "dark": {
-              "name": "Ořech",
+              "name": "Walnut",
               "value": "#412700",
               "sortIndex": 2
             }
           }
         },
         "marble": {
-          "name": "Mramor",
+          "name": "Marble",
           "modelMaterials": [
             "MARBLE"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Světlý",
+              "name": "Light",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "dark": {
-              "name": "Tmavý",
+              "name": "Dark",
               "value": "#606060",
               "sortIndex": 1
             }
@@ -1455,51 +1455,51 @@
         20
       ],
       "ignoreCollisions": false,
-      "sortIndex": 5,
-      "collisionSensitivity": 95
+      "collisionSensitivity": 98,
+      "sortIndex": 5
     },
     "ending-l": {
-      "name": "Hladké zakončení",
-      "description": "Zakončení levé\n\nŠířka 5 cm",
-      "imageUrl": "/images/products/end.png",
-      "modelUrl": "/models/EndingLeft.glb",
+      "name": "Smooth edge",
+      "description": "Left edge. Width 5cm",
+      "imageUrl": "https://3dwebprodconf-assets.pages.dev/images/products/end.png",
+      "modelUrl": "https://3dwebprodconf-assets.pages.dev/models/EndingLeft.glb",
       "materialSpecs": {
         "wood": {
-          "name": "Dřevo",
+          "name": "Wood",
           "modelMaterials": [
             "WOOD"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Buk",
+              "name": "Birch",
               "value": "#ffd877",
               "sortIndex": 0
             },
             "medium": {
-              "name": "Třešeň",
+              "name": "Cherry",
               "value": "#5a1c00",
               "sortIndex": 1
             },
             "dark": {
-              "name": "Ořech",
+              "name": "Walnut",
               "value": "#412700",
               "sortIndex": 2
             }
           }
         },
         "marble": {
-          "name": "Mramor",
+          "name": "Marble",
           "modelMaterials": [
             "MARBLE"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Světlý",
+              "name": "Light",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "dark": {
-              "name": "Tmavý",
+              "name": "Dark",
               "value": "#606060",
               "sortIndex": 1
             }
@@ -1523,51 +1523,51 @@
         20
       ],
       "ignoreCollisions": false,
-      "sortIndex": 6,
-      "collisionSensitivity": 95
+      "collisionSensitivity": 98,
+      "sortIndex": 6
     },
     "ending-r": {
-      "name": "Hladké zakončení",
-      "description": "Zakončení pravé\n\nŠířka 5 cm",
-      "imageUrl": "/images/products/end.png",
-      "modelUrl": "/models/EndingRight.glb",
+      "name": "Smooth edge",
+      "description": "Right edge. Width 5cm",
+      "imageUrl": "https://3dwebprodconf-assets.pages.dev/images/products/end.png",
+      "modelUrl": "https://3dwebprodconf-assets.pages.dev/models/EndingRight.glb",
       "materialSpecs": {
         "wood": {
-          "name": "Dřevo",
+          "name": "Wood",
           "modelMaterials": [
             "WOOD"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Buk",
+              "name": "Birch",
               "value": "#ffd877",
               "sortIndex": 0
             },
             "medium": {
-              "name": "Třešeň",
+              "name": "Cherry",
               "value": "#5a1c00",
               "sortIndex": 1
             },
             "dark": {
-              "name": "Ořech",
+              "name": "Walnut",
               "value": "#412700",
               "sortIndex": 2
             }
           }
         },
         "marble": {
-          "name": "Mramor",
+          "name": "Marble",
           "modelMaterials": [
             "MARBLE"
           ],
           "colorVariationsSpecs": {
             "light": {
-              "name": "Světlý",
+              "name": "Light",
               "value": "#d6d6d6",
               "sortIndex": 0
             },
             "dark": {
-              "name": "Tmavý",
+              "name": "Dark",
               "value": "#606060",
               "sortIndex": 1
             }
@@ -1591,8 +1591,8 @@
         20
       ],
       "ignoreCollisions": false,
-      "sortIndex": 6,
-      "collisionSensitivity": 95
+      "collisionSensitivity": 98,
+      "sortIndex": 6
     }
   },
   "baseSpecs": {

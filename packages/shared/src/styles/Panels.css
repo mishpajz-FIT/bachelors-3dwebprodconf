@@ -38,7 +38,14 @@
 
   .other-background-fade-right {
     @apply bg-gradient-to-r;
-    @apply from-white/0 to-white;
+    @apply from-white/0 to-white/100;
+
+    @apply dark:from-zinc-900/0 dark:to-zinc-900;
+  }
+
+  .other-background-fade-left {
+    @apply bg-gradient-to-l;
+    @apply from-white/0 to-white/100;
 
     @apply dark:from-zinc-900/0 dark:to-zinc-900;
   }

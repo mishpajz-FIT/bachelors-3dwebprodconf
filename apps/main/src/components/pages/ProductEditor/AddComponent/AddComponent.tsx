@@ -1,4 +1,5 @@
 import { ContainerHeader } from "@3dwebprodconf/shared/src/components/ContainerHeader.tsx";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import {
   useCallback,
   useEffect,
@@ -30,23 +31,34 @@ export const AddComponent = ({
   const productSpecsSnap = useSnapshot(ProductSpecificationStore);
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isOverflowing, setIsOverflowing] = useState(false);
-
-  const updateLayout = useCallback(() => {
-    if (!containerRef.current) return;
-    const currentOverflow =
-      containerRef.current.scrollWidth > containerRef.current.clientWidth;
-
-    setIsOverflowing(currentOverflow);
-    containerRef.current.classList.toggle("justify-center", !currentOverflow);
-    containerRef.current.classList.toggle("justify-start", currentOverflow);
-  }, []);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [isOverflowingRight, setIsOverflowingRight] = useState(false);
+  const [isOverflowingLeft, setIsOverflowingLeft] = useState(false);
 
   useEffect(() => {
-    updateLayout();
-    window.addEventListener("resize", updateLayout);
-    return () => window.removeEventListener("resize", updateLayout);
-  }, [updateLayout]);
+    const updateOverflows = () => {
+      if (!containerRef.current) return;
+      const { scrollWidth, clientWidth, scrollLeft } = containerRef.current;
+      const isScrollable = scrollWidth > clientWidth;
+      const isNotFullyScrolled = scrollLeft < scrollWidth - clientWidth - 1;
+
+      setIsOverflowingRight(isScrollable && isNotFullyScrolled);
+      setIsOverflowingLeft(scrollLeft !== 0);
+
+      containerRef.current.classList.toggle("justify-center", !isScrollable);
+      containerRef.current.classList.toggle("justify-start", isScrollable);
+    };
+
+    const container = containerRef.current;
+    if (!container) return;
+    updateOverflows();
+    container.addEventListener("scroll", updateOverflows);
+    window.addEventListener("resize", updateOverflows);
+    return () => {
+      container.removeEventListener("scroll", updateOverflows);
+      window.removeEventListener("resize", updateOverflows);
+    };
+  }, []);
 
   const onWheel = useCallback<WheelEventHandler<HTMLDivElement>>((e) => {
     if (containerRef.current) {
@@ -54,6 +66,52 @@ export const AddComponent = ({
       containerRef.current.scrollLeft += scrollAmount;
     }
   }, []);
+
+  const scrollRight = () => {
+    if (!containerRef.current) return;
+    const { scrollLeft, clientWidth } = containerRef.current;
+
+    let nextItemIndex = itemRefs.current.findIndex(
+      (item) =>
+        item && item.offsetLeft > scrollLeft + clientWidth - item.offsetWidth
+    );
+
+    if (nextItemIndex === -1) {
+      nextItemIndex = itemRefs.current.length - 1;
+    }
+
+    const nextItem = itemRefs.current[nextItemIndex];
+
+    if (nextItem) {
+      containerRef.current.scrollTo({
+        left: nextItem.offsetLeft - clientWidth + nextItem.offsetWidth + 50,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const scrollLeft = () => {
+    if (!containerRef.current) return;
+    const { scrollLeft } = containerRef.current;
+
+    let prevItemIndex = [...itemRefs.current]
+      .reverse()
+      .findIndex((item) => item && item.offsetLeft < scrollLeft);
+
+    if (prevItemIndex === -1) {
+      prevItemIndex = itemRefs.current.length - 1;
+    }
+
+    const prevItem =
+      itemRefs.current[itemRefs.current.length - 1 - prevItemIndex];
+
+    if (prevItem) {
+      containerRef.current.scrollTo({
+        left: prevItem.offsetLeft - 50,
+        behavior: "smooth",
+      });
+    }
+  };
 
   const sortComponents = (
     lhsComponentSpecId: string,
@@ -95,29 +153,61 @@ export const AddComponent = ({
         subheader={true}
       />
 
-      <div
-        ref={containerRef}
-        onWheel={onWheel}
-        className="flex items-center space-x-2 overflow-x-scroll px-4 py-2"
-      >
-        {[...mountableComponentsSpecs]
-          .sort(sortComponents)
-          .map((componentSpecId, index) => (
-            <div className="m-2 h-[150px] w-[360px] shrink-0" key={index}>
-              <AddComponentTile
-                componentSpecId={componentSpecId}
-                onAdd={() => {
-                  onAdd(componentSpecId);
-                  onClose();
-                }}
-                disabled={disabledComponentSpecs.includes(componentSpecId)}
-              />
-            </div>
-          ))}
+      <div>
+        <div
+          ref={containerRef}
+          onWheel={onWheel}
+          className="flex items-center space-x-2 overflow-x-scroll px-4 py-2"
+        >
+          {[...mountableComponentsSpecs]
+            .sort(sortComponents)
+            .map((componentSpecId, index) => (
+              <div
+                className="m-2 h-[150px] w-[360px] shrink-0"
+                key={index}
+                ref={(el) => (itemRefs.current[index] = el)}
+              >
+                <AddComponentTile
+                  componentSpecId={componentSpecId}
+                  onAdd={() => {
+                    onAdd(componentSpecId);
+                    onClose();
+                  }}
+                  disabled={disabledComponentSpecs.includes(componentSpecId)}
+                />
+              </div>
+            ))}
+        </div>
 
-        {isOverflowing && (
-          <div className="other-background-fade-right pointer-events-none absolute bottom-4 right-0 top-12 w-14" />
-        )}
+        <div
+          className="other-background-fade-left pointer-events-none absolute bottom-4 left-0 top-12 w-28"
+          hidden={!isOverflowingLeft}
+        >
+          <button
+            className="other-background-fade-left pointer-events-auto absolute inset-y-0 left-0 flex w-14 items-center justify-center"
+            onClick={(e) => {
+              e.stopPropagation();
+              scrollLeft();
+            }}
+          >
+            <ChevronLeftIcon className="other-background-fade-left size-8 stroke-gray-900/60 dark:stroke-white/60" />
+          </button>
+        </div>
+
+        <div
+          className="other-background-fade-right pointer-events-none absolute bottom-4 right-0 top-12 w-28"
+          hidden={!isOverflowingRight}
+        >
+          <button
+            className="other-background-fade-right pointer-events-auto absolute inset-y-0 right-0 flex w-14 items-center justify-center"
+            onClick={(e) => {
+              e.stopPropagation();
+              scrollRight();
+            }}
+          >
+            <ChevronRightIcon className="other-background-fade-right size-8 stroke-gray-900/60 dark:stroke-white/60" />
+          </button>
+        </div>
       </div>
     </>
   );

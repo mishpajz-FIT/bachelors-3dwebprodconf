@@ -1,0 +1,22 @@
+build:
+  stage: build
+  rules:
+    - if: $PIPELINE_TYPE == "scheduled_test"
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  image: ${CI_REGISTRY}/ict/images/alpine/ci:3.18
+  cache:
+    paths:
+      - node_modules/
+  before_script:
+    - apk add --no-cache nodejs npm
+  script:
+    - echo "\e[33mInstalling dependencies...\e[0m"
+    - npm ci
+    - echo "\e[34m\e[Building...\e[24m\e[0m"
+    - npm run build
+  artifacts:
+    name: "builds-$CI_COMMIT_SHORT_SHA"
+    paths:
+      - $MAIN_APP_DIST
+      - $ADMIN_APP_DIST

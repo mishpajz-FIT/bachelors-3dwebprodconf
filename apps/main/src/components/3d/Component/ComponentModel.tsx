@@ -1,12 +1,12 @@
 import { Render } from "@3dwebprodconf/shared/src/components/3d/Render.tsx";
 import { useDarkMode } from "@3dwebprodconf/shared/src/hooks/useDarkMode.ts";
-import { Edges, useGLTF } from "@react-three/drei";
+import { Outlines, useGLTF } from "@react-three/drei";
 import { ThreeEvent } from "@react-three/fiber";
-import { useEffect, useMemo, useRef } from "react";
-import * as THREE from "three";
-import { Color, Euler, MeshStandardMaterial } from "three";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Box3, Color, Euler, Group, Material, Matrix4, Vector3 } from "three";
 import { useSnapshot } from "valtio";
 
+import { SelectionButton } from "./SelectionButton.tsx";
 import { globalConfig } from "../../../configurations/Config.ts";
 import { useComponent } from "../../../hooks/useComponent.ts";
 import {
@@ -26,29 +26,35 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
   const isDarkMode = useDarkMode();
 
   const { scene, materials } = useGLTF(componentSpec.modelUrl);
-  const groupRef = useRef<THREE.Group>(null);
+  const groupRef = useRef<Group>(null);
+
+  const [centerPosition, setCenterPosition] = useState<Vector3 | undefined>(
+    undefined
+  );
 
   const customMaterials = useMemo(
     () =>
-      Object.entries(component.materials).reduce<
-        Record<string, MeshStandardMaterial>
-      >((acc, [materialSpecId, colorSpecId]) => {
-        const materialSpec = componentSpec.materialSpecs[materialSpecId];
-        if (!materialSpec) return acc;
+      Object.entries(component.materials).reduce<Record<string, Material>>(
+        (acc, [materialSpecId, colorSpecId]) => {
+          const materialSpec = componentSpec.materialSpecs[materialSpecId];
+          if (!materialSpec) return acc;
 
-        const colorSpec = materialSpec.colorVariationsSpecs[colorSpecId];
-        if (!colorSpec) return acc;
+          const colorSpec = materialSpec.colorVariationsSpecs[colorSpecId];
+          if (!colorSpec) return acc;
 
-        materialSpec.modelMaterials.forEach((modelMaterialName) => {
-          const originalMaterial = materials[modelMaterialName];
-          if (originalMaterial instanceof MeshStandardMaterial) {
-            acc[modelMaterialName] = originalMaterial.clone();
-            acc[modelMaterialName].color = new Color(colorSpec.value);
-          }
-        });
+          materialSpec.modelMaterials.forEach((modelMaterialName) => {
+            const originalMaterial = materials[modelMaterialName];
+            if ("color" in originalMaterial) {
+              const newMaterial = originalMaterial.clone();
+              newMaterial.color = new Color(colorSpec.value);
+              acc[modelMaterialName] = newMaterial;
+            }
+          });
 
-        return acc;
-      }, {}),
+          return acc;
+        },
+        {}
+      ),
     [componentSpec.materialSpecs, materials, component.materials]
   );
 
@@ -71,40 +77,62 @@ const ComponentModel = ({ componentId }: ComponentModelProps) => {
     ConfiguratorValuesStore.selectedComponentId = componentId;
   };
 
+  useEffect(() => {
+    if (!groupRef.current) return;
+    groupRef.current.updateMatrixWorld(true);
+    const boundingBox = new Box3().setFromObject(groupRef.current);
+    const center = new Vector3();
+    boundingBox.getCenter(center);
+    const inverseMatrix = new Matrix4()
+      .copy(groupRef.current.matrixWorld)
+      .invert();
+    setCenterPosition(center.applyMatrix4(inverseMatrix));
+  }, []);
+
   return (
-    <group ref={groupRef}>
-      <group
-        onClick={onSelect}
-        position={componentSpec.positionOffset}
-        rotation={
-          componentSpec.rotationOffset
-            ? new Euler(...componentSpec.rotationOffset)
-            : undefined
-        }
-        scale={componentSpec.scaleOffset}
-      >
-        <Render
-          object={scene}
-          materialOverrides={customMaterials}
-          userData={{
-            componentId: componentId,
-            ignoreCollisions: componentSpec.ignoreCollisions,
-          }}
-          dontMatrixAutoUpdate={true}
-        >
-          <Edges
-            visible={componentId === configuratorValuesSnap.selectedComponentId}
-            scale={1}
-            color={
-              isDarkMode
-                ? globalConfig.config.spatialUi.selectionColors.outline.dark
-                : globalConfig.config.spatialUi.selectionColors.outline.light
-            }
-            linewidth={5}
+    <>
+      <group ref={groupRef}>
+        {centerPosition && (
+          <SelectionButton
+            componentId={componentId}
+            position={centerPosition}
           />
-        </Render>
+        )}
+        <group
+          onClick={onSelect}
+          position={componentSpec.positionOffset}
+          rotation={
+            componentSpec.rotationOffset
+              ? new Euler(...componentSpec.rotationOffset)
+              : undefined
+          }
+          scale={componentSpec.scaleOffset}
+        >
+          <Render
+            object={scene}
+            materialOverrides={customMaterials}
+            userData={{
+              componentId: componentId,
+              ignoreCollisions: componentSpec.ignoreCollisions,
+            }}
+            dontMatrixAutoUpdate={true}
+          >
+            <Outlines
+              thickness={4}
+              screenspace={true}
+              color={
+                isDarkMode
+                  ? globalConfig.config.spatialUi.selectionColors.outline.dark
+                  : globalConfig.config.spatialUi.selectionColors.outline.light
+              }
+              visible={
+                componentId === configuratorValuesSnap.selectedComponentId
+              }
+            />
+          </Render>
+        </group>
       </group>
-    </group>
+    </>
   );
 };
 

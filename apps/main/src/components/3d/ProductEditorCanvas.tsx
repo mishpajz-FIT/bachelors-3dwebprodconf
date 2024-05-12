@@ -69,6 +69,7 @@ const ProductEditorCanvas = () => {
           powerPreference: "high-performance",
         }}
       >
+        {/* used for collision detection */}
         <SceneStorer
           setSceneLoaded={() => {
             setLoadingScene(false);
@@ -96,11 +97,17 @@ const ProductEditorCanvas = () => {
           intensity={0.5}
         />
         <directionalLight position={[2, 2, 5]} intensity={0.7} />
-        <Bounds fit clip observe margin={1.2}>
+        <Bounds
+          fit
+          clip
+          observe
+          margin={1.2}
+          maxDuration={0.8}
+          interpolateFunc={(t) => t * (2 - t)}
+        >
           <BoundsStorer
             key={userCreationSnap.value.base}
             boundsStorage={ConfiguratorValuesNonReactiveStore}
-            refresh={() => refreshBounds(() => undefined)}
           >
             <Component componentId={userCreationSnap.value.base} />
           </BoundsStorer>
@@ -122,7 +129,7 @@ const ProductEditorCanvas = () => {
             className="p-3 transition duration-150 ease-in-out active:scale-95 sm:p-2"
             onClick={(event) => {
               event.stopPropagation();
-              refreshBounds(() => undefined);
+              refreshBounds();
             }}
           >
             <VideoCameraIcon className="size-4 stroke-2 hover:stroke-1" />
