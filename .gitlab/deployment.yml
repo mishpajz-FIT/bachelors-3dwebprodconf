@@ -10,8 +10,8 @@
 
 .pre_deployment:
   variables:
-    CF_ACCOUNT_ID: $CF_ACCOUNT_ID
-    CF_API_TOKEN: $CF_API_TOKEN
+    CLOUDFLARE_ACCOUNT_ID: $CLOUDFLARE_ACCOUNT_ID
+    CLOUDFLARE_API_TOKEN: $CLOUDFLARE_API_TOKEN
   extends: .freezedeployment
   image: ${CI_REGISTRY}/ict/images/alpine/ci:3.18
   cache:
@@ -30,7 +30,7 @@
 deployment_main:
   extends: .pre_deployment
   script:
-    - wrangler pages deploy $MAIN_APP_DIST --project-name=3dwebprodconf
+    - wrangler pages deploy $MAIN_APP_DIST --project-name=3dwebprodconf --branch=production
   environment:
     name: staging_main
     url: $CLOUDFLARE_DEPLOY_MAIN_URL
@@ -38,7 +38,7 @@ deployment_main:
 deployment_admin:
   extends: .pre_deployment
   script:
-    - wrangler pages deploy $ADMIN_APP_DIST --project-name=3dwebprodconf-admin
+    - wrangler pages deploy $ADMIN_APP_DIST --project-name=3dwebprodconf-admin --branch=production
   environment:
     name: staging_admin
     url: $CLOUDFLARE_DEPLOY_ADMIN_URL
