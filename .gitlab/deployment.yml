@@ -8,27 +8,37 @@
       allow_failure: true
     - when: on_success
 
-deployment:
+.pre_deployment:
+  variables:
+    CF_ACCOUNT_ID: $CF_ACCOUNT_ID
+    CF_API_TOKEN: $CF_API_TOKEN
   extends: .freezedeployment
-  rules:
-    - if: $PIPELINE_TYPE == "scheduled_test"
-      when: never
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   image: ${CI_REGISTRY}/ict/images/alpine/ci:3.18
   cache:
     paths:
       - node_modules/
   before_script:
     - apk add --no-cache nodejs npm
-  script:
     - echo "\e[33mInstalling dependencies...\e[0m"
     - npm ci
-    - npm install --global vercel
+    - npm install --global wrangler --unsafe-perm=true
     - echo "\e[34m\e[4mDeploying...\e[24m\e[0m"
-    - cd apps/main
-    - vercel pull --yes --environment=production --token=$VERCEL_TOKEN
-    - vercel build --prod --token=$VERCEL_TOKEN
-    - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+  dependencies:
+    - build
+
+
+deployment_main:
+  extends: .pre_deployment
+  script:
+    - wrangler pages deploy $MAIN_APP_DIST --project-name=3dwebprodconf
   environment:
-    name: staging
-    url: $VERCEL_DEPLOY_URL
+    name: staging_main
+    url: $CLOUDFLARE_DEPLOY_MAIN_URL
+
+deployment_admin:
+  extends: .pre_deployment
+  script:
+    - wrangler pages deploy $ADMIN_APP_DIST --project-name=3dwebprodconf-admin
+  environment:
+    name: staging_admin
+    url: $CLOUDFLARE_DEPLOY_ADMIN_URL

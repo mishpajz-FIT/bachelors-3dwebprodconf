@@ -1,7 +1,3 @@
-variables:
-  MAIN_APP_DIST: apps/main/dist
-  ADMIN_APP_DIST: apps/admin/dist
-
 build:
   stage: build
   rules:
