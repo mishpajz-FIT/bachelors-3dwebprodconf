@@ -145,7 +145,7 @@ The product within the catalog can have the following confirmation actions:
 
 This repository provides an example configurable modular kitchen product. An example `catalog.json` file and a product specification file for kitchen configuration is provided. The files are located in the `apps/main/public/products` directory.
 
-<sub><sup>The assets for the example product are not included in the Work and are absent from the repository. The 3D models are adapted from [Sketchfab - Thiago Noguiera](https://sketchfab.com/3d-models/modular-kitchen-sink-game-ready-asset-031236e2ddde456da9b2e7eb0e74370d) and do not fall under the permissive license.</sup></sub>
+<sub><sup>The 3D assets for the example product are not included in the Work and are absent from the repository.</sup></sub>
 
 ## License
 
