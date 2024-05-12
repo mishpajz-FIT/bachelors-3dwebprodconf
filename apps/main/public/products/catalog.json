@@ -1,1 +1,13 @@
-{"products":{"kitchen":{"name":"Modular kitchen","productSpecificationUrl":"/products/specs/kitchen.json","imageUrl":"/images/products/kitchen.png","submission":{"type":"CONTACT_FORM","endpointUrl":"https://example.com"}}}}
+{
+  "products": {
+    "kitchen": {
+      "name": "Modular kitchen",
+      "productSpecificationUrl": "/products/specs/kitchen.json",
+      "imageUrl": "https://3dwebprodconf-assets.pages.dev/images/products/kitchen.png",
+      "submission": {
+        "type": "CONTACT_FORM",
+        "endpointUrl": "https://example.com"
+      }
+    }
+  }
+}
