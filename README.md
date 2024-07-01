@@ -1,6 +1,6 @@
 # 3dwebprodconf-fe
 
-Part of Michal Dobeš's bachelor's thesis at the Faculty of Information Technology, Czech Technical University.
+Part of [Michal Dobeš's bachelor's thesis at the Faculty of Information Technology, Czech Technical University.](https://github.com/mishpajz-FIT/bachelors-thesis)
 
 Implementation of a product-agnostic, front-end-only, customizable online 3D web configurator for modular products. The application is conceived for use by small businesses. The configurator provides a straightforward definition of configurable products and operates solely using a web server. The implementation leverages modern technologies, combining Three.js with React.
 
